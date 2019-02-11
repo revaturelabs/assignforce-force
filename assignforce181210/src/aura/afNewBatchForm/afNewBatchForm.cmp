@@ -1,0 +1,62 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes" access="global" >
+    <ltng:require styles="{!$Resource.RevatureStyles}"/>
+    <div class="slds-card">
+        <div class="slds-card__header">
+            <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                <div class="slds-media__body">
+                    <h2 class="slds-card__header-title">
+                        <span class="slds-text-heading_medium">Create a New Batch</span>
+                    </h2>
+                </div>
+                <div class="slds-no-flex">
+                    <lightning:buttonIcon class="headerBtn" onclick="{!}" iconName="utility:check" variant="bare" size="large" alternativeText="Submit"/>
+                </div>
+                <div class="slds-no-flex">
+                    <lightning:buttonIcon class="headerBtn" onclick="{!}" iconName="utility:close" variant="bare" size="large" alternativeText="Clear"/>
+                </div>
+            </header>
+        </div>
+        <div class="slds-card__body slds-card__body_inner">
+            <lightning:recordEditForm aura:id="newBatchForm" objectApiName="Training__c">
+                <div class="slds-grid slds-grid_align-spread">
+                    <div class="slds-col slds-size_1-of-2">
+                        <lightning:inputField fieldName="TrainingTrack__c"/>
+                    </div>
+                </div>
+                <div class="slds-grid slds-grid_align-spread">
+                    <div class="slds-col slds-size_1-of-4">
+                        <lightning:inputField fieldName="StartDate__c"/>
+                    </div>
+                    <div class="slds-col slds-size_1-of-6">
+                        <lightning:input type="number" label="Number of Weeks" step="1" value="10"/>
+                    </div>
+                    <div class="slds-col slds-size_1-of-4">
+                        <lightning:inputField fieldName="EndDate__c" disabled="true"/> 
+                    </div>
+                </div>
+                <div class="slds-grid slds-grid_align-spread">
+                    <div class="slds-col slds-size_1-of-4">
+                        <lightning:inputField fieldName="Trainer__c"/>
+                    </div>
+                    <div class="slds-col slds-size_1-of-4 slds-col_bump-left">
+                        <lightning:inputField fieldName="CoTrainer__c"/>
+                    </div>
+                    <div class="slds-col slds-size_1-of-6 slds-col_bump-left">
+                       <span> </span>
+                    </div>
+                </div>
+                <div class="slds-text-heading_medium boxLabel">Location:</div>
+                <div class="slds-box">
+                    <div class="slds-grid slds-grid_align-spread">
+                        <div class="slds-col slds-size_1-of-3">
+                            <lightning:inputField fieldName="TrainingLocation__c"/>
+                        </div>
+                        <div class="slds-col slds-size_1-of-3">
+                            <lightning:inputField fieldName="TrainingRoom__c"/>
+                        </div>
+                    </div>
+                </div>
+            </lightning:recordEditForm>
+        </div>
+    </div> 
+</aura:component>
