@@ -16,7 +16,7 @@
                     </li>
                 </ul>
                 <div id="trainers" class="slds-tabs_default__content slds-show">
-                    Item One Content
+                    <c:afTrainerAvailabilityListItem/>
                 </div>
                 <div id="rooms" class="slds-tabs_default__content slds-hide">
                     Item Two Content

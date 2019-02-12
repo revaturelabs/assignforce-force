@@ -1,0 +1,24 @@
+<aura:component >
+    <aura:attribute name="trainerId" type="ID"/>
+    <lightning:recordViewForm recordId="0051U0000021bKFQAY" objectApiName="User"><!--Hard coded id for now will change back to trainerID-->
+        <div class="slds-grid">
+            <div class="slds-col">
+                <div class="slds-align_absolute-center">
+                    <lightning:button variant="brand" label="Select" onclick="{!}"/>
+                </div>
+            </div>
+            <div class="slds-col">
+                <lightning:outputField fieldName="Name" variant="label-hidden"/>
+            </div>
+            <div class="slds-col">
+                <lightning:outputField  fieldName="Available__c" variant="label-hidden"/> <!--Change this to a checkbox if the -->
+            </div>
+            <div class="slds-col">
+                <lightning:outputField fieldName="CurrentLocation__c" variant="label-hidden"/><!--figure out how to set up the locations-->
+            </div>
+            <div class="slds-col">
+                <lightning:outputField fieldName="Training_Skills__c" variant="label-hidden"/><!-- change this to checkbox if the trainer has the skill selected in create batch-->
+            </div>
+        </div>
+    </lightning:recordViewForm>
+</aura:component>
