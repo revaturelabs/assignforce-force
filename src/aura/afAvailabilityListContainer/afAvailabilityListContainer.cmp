@@ -1,5 +1,7 @@
 <aura:component implements="force:appHostable,flexipage:availableForAllPageTypes" access="global" >
     <ltng:require styles="{!$Resource.RevatureStyles}"/>
+    <aura:attribute name="trainers" type="User[]"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
     <div class="slds-card">
         <div class="slds-card__body slds-card__body_inner">
             <div class="slds-tabs_default">
@@ -16,7 +18,17 @@
                     </li>
                 </ul>
                 <div id="trainers" class="slds-tabs_default__content slds-show">
+                    <div class="slds-grid">
+                    	<div class="slds-col slds-size_1-of-5 slds-align_absolute-center"></div>
+                        <div class="slds-col slds-size_1-of-5 slds-align_absolute-center"><h1>Name</h1></div>
+                        <div class="slds-col slds-size_1-of-5 slds-align_absolute-center"><h1>Available</h1></div>
+                        <div class="slds-col slds-size_1-of-5 slds-align_absolute-center"><h1>Current Location</h1></div>
+                        <div class="slds-col slds-size_1-of-5 slds-align_absolute-center"><h1>Experienced</h1></div>
+                    </div>
                     <c:afTrainerAvailabilityListItem/>
+                    <c:afTrainerAvailabilityListItem isAvailable="false"/>
+                    <c:afTrainerAvailabilityListItem hasSkill="true"/>
+                    <c:afTrainerAvailabilityListItem isAvailable="false" hasSkill="true"/>
                 </div>
                 <div id="rooms" class="slds-tabs_default__content slds-hide">
                     Item Two Content
