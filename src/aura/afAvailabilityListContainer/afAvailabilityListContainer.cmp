@@ -1,4 +1,5 @@
 <aura:component implements="force:appHostable,flexipage:availableForAllPageTypes" access="global" >
+    <aura:attribute name="rooms" type="Training_Room__c[]"/>
     <ltng:require styles="{!$Resource.RevatureStyles}"/>
     <div class="slds-card">
         <div class="slds-card__body slds-card__body_inner">
@@ -6,7 +7,7 @@
                 <ul class="slds-tabs_default__nav">
                     <li class="slds-tabs_default__item slds-is-active">
                         <span class=" slds-text-heading_medium" tabindex="0" id="trainersTab">
-                           	Available Trainers
+                            Available Trainers
                         </span>
                     </li>
                     <li class="slds-tabs_default__item">
@@ -15,11 +16,11 @@
                         </span>
                     </li>
                 </ul>
-                <div id="trainers" class="slds-tabs_default__content slds-show">
+                <div id="trainers" class="slds-tabs_default__content slds-hide">
                     Item One Content
                 </div>
-                <div id="rooms" class="slds-tabs_default__content slds-hide">
-                    Item Two Content
+                <div id="rooms" class="slds-tabs_default__content slds-show">
+                        <c:afRoomAvailabilityListItem/>    
                 </div>
                 
             </div>
