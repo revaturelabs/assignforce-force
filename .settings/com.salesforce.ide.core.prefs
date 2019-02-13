@@ -1,3 +1,19 @@
+ExecuteAnonymousApex_code=Debug
+ExecuteAnonymousApex_profiling=Info
+ExecuteAnonymousCallout=Info
+ExecuteAnonymousDb=Info
+ExecuteAnonymousSystem=Debug
+ExecuteAnonymousValidation=Info
+ExecuteAnonymousVisualforce=Info
+ExecuteAnonymousWorkflow=Info
+RunTestApex_code=Debug
+RunTestApex_profiling=Info
+RunTestCallout=Info
+RunTestDb=Info
+RunTestSystem=Debug
+RunTestValidation=Info
+RunTestVisualforce=Info
+RunTestWorkflow=Info
 eclipse.preferences.version=1
 endpointApiVersion=38.0
 endpointEnvironment=Production/Developer Edition
@@ -11,5 +27,5 @@ packageName=AssignForceObjects
 preferToolingDeployment=true
 projectIdentifier=IDE8227801477400381768
 readTimeout=400
-sessionId=
-username=jessica.colson@force.jes02
+sessionId
+username=wmac@assignforce.com
