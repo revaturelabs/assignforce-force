@@ -12,7 +12,7 @@
         <div class="slds-grid" style="padding-top: 10px;">
             <div class="slds-col slds-size_1-of-5">
                 <div class="slds-align_absolute-center">
-                    <lightning:button variant="brand" label="Select" onclick="{!c.selectIsClicked}"/>
+                    <lightning:button class="btnSelect" label="Select" onclick="{!c.selectIsClicked}"/>
                 </div>
             </div>
             <div class="slds-col slds-size_1-of-5 slds-align_absolute-center">

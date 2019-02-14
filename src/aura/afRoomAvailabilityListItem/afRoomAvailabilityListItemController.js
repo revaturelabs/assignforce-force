@@ -13,9 +13,8 @@
     
     selectedRoom : function(component, event, helper){
         var roomSelected = component.getEvent('roomSelected');
-        var roomId = component.get('v.room').Id;
-        roomSelected.setParam('roomId', roomId);
+        var room = component.get('v.room');
+        roomSelected.setParam('room', room);
         roomSelected.fire();
-        console.log(roomId);
     }
 })

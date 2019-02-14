@@ -9,8 +9,8 @@
 	},
     selectIsClicked : function(component, event, helper){
         var selectedEvt = component.getEvent('TrainerIsSelected');
-        var trainerId = component.get('v.trainer').Id;
-        selectedEvt.setParam('trainerId', trainerId);
+        var trainer = component.get('v.trainer');
+        selectedEvt.setParam('trainer', trainer);
         selectedEvt.fire();
     }
 })
