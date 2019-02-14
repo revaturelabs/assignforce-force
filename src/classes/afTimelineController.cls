@@ -1,29 +1,30 @@
 public class afTimelineController {
     
     @AuraEnabled
-    public static String getListOfTrainingJSON()
+    public static String getListOfTrainingJSON(String[] trainers)
     {
         List<Training__c> trainings = [SELECT Id, Trainer__r.Name, StartDate__c, EndDate__c FROM Training__c];
-        List<String> trainers = new List<String>();
         List<TrainingDataWrapper> trainerData = new List<TrainingDataWrapper>();
         Integer tIndex;
+        System.debug('This is trainers: ' + trainers);
         
         for(Training__c t : trainings)
         {
-            if(trainers.contains(t.Trainer__r.Name)){
-                tIndex = trainers.indexOf(t.Trainer__r.name);
+            for(Integer i = 0; i < trainers.size(); i++)
+            {
+                if(t.Trainer__r.Name == trainers[i])
+                {
+                    tIndex = i;
+                    TrainingDataWrapper tdw = new TrainingDataWrapper();
+                    tdw.y = tIndex;
+                    tdw.x = t.StartDate__c;
+                    tdw.x2 = t.EndDate__c;
+                    trainerData.add(tdw);
+                }
             }
-            else{
-                trainers.add(t.Trainer__r.Name);
-                tIndex = trainers.indexOf(t.Trainer__r.name);
-            }
-			TrainingDataWrapper tdw = new TrainingDataWrapper();
-            tdw.y = tIndex;
-            tdw.x = t.StartDate__c;
-            tdw.x2 = t.EndDate__c;
-            trainerData.add(tdw);
         }
         
+        system.debug(trainerData);
         return System.json.serialize(trainerData);
         
     }
@@ -31,11 +32,26 @@ public class afTimelineController {
     public class TrainingDataWrapper
     {
         @AuraEnabled
-		public Integer y;
+        public Integer y;
         @AuraEnabled
         public Date x;
         @AuraEnabled
         public Date x2;
     }
-
+    
+    @AuraEnabled
+    public static String[] getTrainers()
+    {
+        system.debug('Am i being called?');
+        List<User> trainers = [SELECT Name FROM User /*WHERE "This will be the trainer role" */];
+        String[] trainerNames = new String[]{};
+        for(User u : trainers)
+        {
+            System.debug('this is u'+ u);
+            trainerNames.add(u.Name);
+        }
+        system.debug('this is trainer name '+ trainerNames);
+        return trainerNames;
+    }
+    
 }
