@@ -1,43 +1,45 @@
-<aura:component controller="afAvailbilityListContainerController" implements="force:appHostable,flexipage:availableForAllPageTypes" access="global" >
-    <aura:attribute name="rooms" type="List" />
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes" access="global" >
+    <aura:attribute name="room" type="Training_Room__c" />
+    
+    <aura:attribute name="isYes" type="Boolean" default="false"/>
+    <aura:attribute name="isRequest" type="Boolean" default="false"/>
+    <aura:attribute name="isNo" type="Boolean" default="false"/>
+    
     <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
-    <!-- Use a data table from the Lightning Design System: https://www.lightningdesignsystem.com/components/data-tables/ 
-		Id, Name, TrainingLocationName__c, AVAvailability__c, RoomCapacity__c 
-	-->
-    <table class="slds-table slds-table_bordered slds-table_striped slds-table_cell-buffer slds-table_fixed-layout">
-        <thead>
-            <tr class="slds-text-heading_label">
-                <th scope="col"><div class="slds-truncate" title="ID">ID</div></th>
-                <th scope="col"><div class="slds-truncate" title="Name">Name</div></th>
-                <th scope="col"><div class="slds-truncate" title="Location">Location</div></th>
-                <th scope="col"><div class="slds-truncate" title="Availability">Availability</div></th>
-                <th scope="col"><div class="slds-truncate" title="Capacity">Capacity</div></th>
-            </tr>
-        </thead>
-        <tbody>
-            <!-- Use the Apex model and controller to fetch server side data -->
-            <aura:iteration items="{!v.rooms}" var="room">
-                <tr>
-                    <th scope="row"><div class="slds-truncate" title="{!room.Id}">{!room.Id}</div></th>
-                    <td><div class="slds-truncate" title="{!room.Name}">{!room.Name}</div></td>
-                    <td><div class="slds-truncate" title="{!room.TrainingLocationName__c}">{!room.TrainingLocationName__c}</div></td>
-                    <td><div class="slds-truncate" title="{!room.AVAvailability__c}">{!room.AVAvailability__c}</div></td>
-                    <td><div class="slds-truncate" title="{!room.RoomCapacity__c}">{!room.RoomCapacity__c}</div></td>
-                    <!--<td>
-                        <form class="account-form" onsubmit="{!c.deleteAccount}">
-                            <input type="hidden" value="{!room.Name}" class="room-name" />
-                            <! Use a Lightning Base Component To display an icon next to the label
-                            <lightning:button
-                                              label="Delete"
-                                              iconName="utility:delete"
-                                              iconPosition="left"
-                                              variant="destructive"
-                                              type="submit"
-                                              />
-                        </form>
-                    </td>-->
-                </tr>
-            </aura:iteration>
-        </tbody>
-    </table>
+    
+    <aura:registerEvent name="roomSelected" type="c:roomSelected"/>
+    
+    <lightning:recordViewForm recordId="{!v.room.Id}" objectApiName="Training_Room__c">
+        <div class="slds-grid" style="padding-top: 10px;">
+            <div class="slds-col slds-size_1-of-5">
+                <div class="slds-align_absolute-center">
+                    <lightning:button variant="neutral" label="Select" onclick="{!c.selectedRoom}"/>
+                </div>
+            </div>
+            <div class="slds-col slds-size_1-of-5 slds-align_absolute-center">
+                <lightning:outputField fieldName="Name" variant="label-hidden"/>
+            </div>
+            <div class="slds-col slds-size_1-of-5 slds-align_absolute-center">
+                <lightning:outputField fieldName="TrainingLocationName__c" variant="label-hidden"/>
+            </div>
+            <div class="slds-col slds-size_1-of-5 slds-align_absolute-center">
+                <aura:if isTrue="{!v.isYes}">
+                    <lightning:icon iconName="utility:check" alternativeText="Available" size="small"/>
+                    <aura:set attribute="else">
+                        <aura:if isTrue="{!v.isRequest}">
+                            <lightning:icon iconName="utility:dash" alternativeText="Available" size="small"/>
+                            <aura:set attribute="else">
+                                <lightning:icon iconName="utility:clear" alternativeText="Not Available" size="small" variant="error"/>
+                            </aura:set>
+                        </aura:if>                    
+                    </aura:set>
+                </aura:if>  
+                
+            </div>
+            <div class="slds-col slds-size_1-of-5 slds-align_absolute-center">
+                <lightning:outputField fieldName="RoomCapacity__c" variant="label-hidden"/>
+            </div>
+        </div>
+    </lightning:recordViewForm>
+    
 </aura:component>
