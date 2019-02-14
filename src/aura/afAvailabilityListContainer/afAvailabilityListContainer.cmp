@@ -35,9 +35,9 @@
                     <div class="slds-grid">
                         <div class="slds-col slds-size_1-of-5 slds-align_absolute-center"></div>
                         <div class="slds-col slds-size_1-of-5 slds-align_absolute-center"><h1>Name</h1></div>
+                        <div class="slds-col slds-size_1-of-5 slds-align_absolute-center"><h1>Location</h1></div>
                         <div class="slds-col slds-size_1-of-5 slds-align_absolute-center"><h1>Available</h1></div>
-                        <div class="slds-col slds-size_1-of-5 slds-align_absolute-center"><h1>Current Location</h1></div>
-                        <div class="slds-col slds-size_1-of-5 slds-align_absolute-center"><h1>Experienced</h1></div>
+                        <div class="slds-col slds-size_1-of-5 slds-align_absolute-center"><h1>Capacity</h1></div>
                     </div>
                     <aura:iteration items="{!v.rooms}" var="room">
                         <c:afRoomAvailabilityListItem room="{!room}"/>   
