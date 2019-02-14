@@ -319,4 +319,11 @@
     <pluralLabel>Trainings</pluralLabel>
     <searchLayouts/>
     <sharingModel>ReadWrite</sharingModel>
+    <validationRules>
+        <fullName>Start_Date_Weekday</fullName>
+        <active>true</active>
+        <errorConditionFormula>((WEEKDAY(StartDate__c) == 1) || (WEEKDAY(StartDate__c) == 7)) = TRUE</errorConditionFormula>
+        <errorDisplayField>StartDate__c</errorDisplayField>
+        <errorMessage>Start Date must be an appropriate Work day of the week.</errorMessage>
+    </validationRules>
 </CustomObject>

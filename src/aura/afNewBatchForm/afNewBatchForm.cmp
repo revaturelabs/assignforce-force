@@ -1,4 +1,15 @@
 <aura:component implements="force:appHostable,flexipage:availableForAllPageTypes" access="global" >
+    
+    <!-- Attributes -->
+    <aura:attribute name="track" type="Training_Track__C" />
+    <aura:attribute name="startDate" type="date" />
+    <aura:attribute name="numWeeks" type="Integer" default="10"/>
+    <aura:attribute name="endDate" type="date" />
+    <aura:attribute name="trainer" type="user" />
+    <aura:attribute name="cotrainer" type="user" />
+    <aura:attribute name="location" type="Training_Location__c" />
+    <aura:attribute name="room" type="Training_Room__c" />
+    
     <ltng:require styles="{!$Resource.RevatureStyles}"/>
     <div class="slds-card">
         <div class="slds-card__header">
@@ -17,7 +28,7 @@
             </header>
         </div>
         <div class="slds-card__body slds-card__body_inner">
-            <lightning:recordEditForm aura:id="newBatchForm" objectApiName="Training__c">
+            <lightning:recordEditForm aura:id="newBatchForm" objectApiName="Training__c" >
                 <div class="slds-grid slds-grid_align-spread">
                     <div class="slds-col slds-size_1-of-2">
                         <lightning:inputField fieldName="TrainingTrack__c"/>
@@ -25,13 +36,13 @@
                 </div>
                 <div class="slds-grid slds-grid_align-spread">
                     <div class="slds-col slds-size_1-of-4">
-                        <lightning:inputField fieldName="StartDate__c"/>
+                        <lightning:inputField aura:id="startDate" fieldName="StartDate__c" value="{!v.startDate}" onchange="{!c.changeEndDate}"/>
                     </div>
                     <div class="slds-col slds-size_1-of-6">
-                        <lightning:input type="number" label="Number of Weeks" step="1" value="10"/>
+                        <lightning:input aura:id="numWeeks" type="number" label="Number of Weeks" step="1" value="{!v.numWeeks}" onchange="{!c.changeEndDate}"/>
                     </div>
                     <div class="slds-col slds-size_1-of-4">
-                        <lightning:inputField fieldName="EndDate__c" disabled="true"/> 
+                        <lightning:inputField aura:id="endDate" fieldName="EndDate__c" disabled="true" value="{!v.endDate}"/>
                     </div>
                 </div>
                 <div class="slds-grid slds-grid_align-spread">
@@ -56,7 +67,9 @@
                         </div>
                     </div>
                 </div>
+                
             </lightning:recordEditForm>
         </div>
     </div> 
+    {!v.endDate}
 </aura:component>
