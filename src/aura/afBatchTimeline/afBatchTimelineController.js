@@ -2,9 +2,14 @@
     doInit : function(component, event, helper)
     {
         helper.getNames(component, event);
-        console.log('helper names: ' + component.get('v.yAxisNames'));
-        var action = component.get("c.getListOfTrainingJSON");
-        action.setParams({"trainers" : component.get('v.yAxisNames')});
+    },
+    
+    createJSON : function(component, event, helper)
+    {
+        console.log('Start of create JSON');
+        console.log('event '+ event);
+        console.log('event params ' + event.getParam('yAxisNames'));
+        var action = component.get("c.wrapTrainingToJSON");
         action.setCallback(this, function(response){
             var state = response.getState();
             if(component.isValid() && state === 'SUCCESS'){

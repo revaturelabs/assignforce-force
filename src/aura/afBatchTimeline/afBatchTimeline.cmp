@@ -1,9 +1,10 @@
 <aura:component implements="flexipage:availableForAllPageTypes" controller="afTimelineController">
     <aura:attribute name="chartTitle" type="String"/>
-    <aura:attribute name="yAxisNames" type="String[]" default="['Automated Process', 'Jeremiah Rodriguez', 'Integration User']" />
-    <aura:attribute name="trainings" type="List[]"/>
+    <aura:attribute name="trainers" type="List[]"/>
     <aura:attribute name="data" type="List"/>
-    <ltng:require scripts="{!join(',',$Resource.highchartsJS, $Resource.xrange, $Resource.exporting)}" afterScriptsLoaded="{!c.doInit}"/>    
+    <ltng:require scripts="{!join(',',$Resource.highchartsJS, $Resource.xrange, $Resource.exporting)}" afterScriptsLoaded="{!c.doInit}"/>
+	<aura:registerEvent name="CreateJSON" type="c:CreateListOfStringJSON"/>
+    <aura:handler name="CreateJSON" event="c:CreateListOfStringJSON" action="{!c.createJSON}"/>    
     <!-- <ltng:require scripts="$Resource.Highcharts/code/highcharts.js"/>
     <ltng:require scripts="$Resource.Highcharts/code/modules/xrange.js" />
     <ltng:require scripts="$Resource.Highcharts/code/modules/exporting.js"/>-->
