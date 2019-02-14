@@ -1,5 +1,6 @@
-<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes" access="global" controller="afAvailabilityListContainerController">
+<aura:component controller="afAvailabilityListContainerController" implements="force:appHostable,flexipage:availableForAllPageTypes" access="global" >
     <ltng:require styles="{!$Resource.RevatureStyles}"/>
+    <aura:attribute name="rooms" type="Training_Room__c[]"/>
     <aura:attribute name="trainers" type="User[]"/>
     <aura:attribute name="tab1Shown" type="Boolean" default='true'/>
     <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
@@ -31,7 +32,16 @@
                     </aura:iteration>
                 </div>
                 <div id="rooms" class="{!v.tab1Shown ? 'slds-tabs_default__content slds-hide' : 'slds-tabs_default__content slds-show'}">
-                    Item Two Content
+                    <div class="slds-grid">
+                        <div class="slds-col slds-size_1-of-5 slds-align_absolute-center"></div>
+                        <div class="slds-col slds-size_1-of-5 slds-align_absolute-center"><h1>Name</h1></div>
+                        <div class="slds-col slds-size_1-of-5 slds-align_absolute-center"><h1>Available</h1></div>
+                        <div class="slds-col slds-size_1-of-5 slds-align_absolute-center"><h1>Current Location</h1></div>
+                        <div class="slds-col slds-size_1-of-5 slds-align_absolute-center"><h1>Experienced</h1></div>
+                    </div>
+                    <aura:iteration items="{!v.rooms}" var="room">
+                        <c:afRoomAvailabilityListItem room="{!room}"/>   
+                    </aura:iteration>
                 </div>
             </div>
         </div>
