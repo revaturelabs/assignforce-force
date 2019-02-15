@@ -1,0 +1,7 @@
+<aura:component implements="flexipage:availableForAllPageTypes, force:hasRecordId" controller="afTrainingLocationListViewController" extends="force:slds">
+	
+	<aura:attribute name="string" type="{!Office_Name}" description="Revature office name" />
+	
+	<aura:handler name="init" type="{!this}" action="doInit" />
+	
+</aura:component>
