@@ -1,20 +1,17 @@
 ({
     getNames : function(component, event)
     {
-        console.log('I have entered get names');
         var action = component.get("c.getTrainers");
-        console.log('after action');
         action.setCallback(this, function(response){
             var state = response.getState();
             if(component.isValid() && state === 'SUCCESS')
             {
-                console.log('get names success');
                 var trainerNames = response.getReturnValue();              
                 this.fireEvent(component, event, trainerNames);
             }
             else if(state === 'ERROR')
             {
-                console.log('Name Callback has failed!');
+                alert('Name Callback has failed!');
             }
         });
         $A.enqueueAction(action);
@@ -27,7 +24,6 @@
         var newJSONstring = trainerNames.toString();
         var newArray = newJSONstring.split(",");
         component.set("v.trainers", newArray);
-        console.log('v.trainers: ' + component.get("v.trainers"));
         createJSON.setParam(
             "yAxisNames" , component.get("v.trainers")
         );
@@ -38,7 +34,6 @@
         var jsonData = component.get("v.data");
         var dataObj = JSON.parse(jsonData);
         var trainers = event.getParam("yAxisNames");
-        console.log('Trainers ' + trainers);
         var trainerAssignment = [];
 
         for(var i = 0; i < dataObj.length; i++)
@@ -46,12 +41,10 @@
             var year = dataObj[i].x.substring(0,4);
             var month = dataObj[i].x.substring(5,7) - 1;
             var day = dataObj[i].x.substring(8);
-            console.log('StartMonth ' + month);
             dataObj[i].x = Date.UTC(year,month,day);
             var year2 = dataObj[i].x2.substring(0,4);
             var month2 = dataObj[i].x2.substring(5,7) - 1;
             var day2 = dataObj[i].x2.substring(8);
-            console.log('EndMonth ' + month2);
             dataObj[i].x2 = Date.UTC(year2,month2,day2);
         }
         console.log('trainerAssignment: ' + trainerAssignment);

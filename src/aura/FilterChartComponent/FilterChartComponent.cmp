@@ -1,3 +1,33 @@
-<aura:component >
-	
+<aura:component controller="afTimelineController">
+    <aura:attribute name="selectedLocations" type="String[]"/>
+    <aura:attribute name="selectedYear" type="Integer" access="PRIVATE"/>
+    <aura:attribute name="selectedQuarter" type="Integer" access="PRIVATE"/>
+    <aura:attribute name="AllLocations" type="String[]"/>
+    
+    <aura:attribute name="yearOptions" type="List" access="PRIVATE"/>
+    <aura:attribute name="quarterOptions" type="List" access="PRIVATE"/>
+    <aura:attribute name="locationOptions" type="List" access="PRIVATE"/>
+    <aura:attribute name="value" type="List"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+
+    <lightning:select name="yearSelect" label="Filter by year:" aura:id="yearSelect" value="{!v.selectedYear}">
+        <aura:iteration items="{!v.yearOptions}" var="yearOption">
+            <option text="{!yearOption.label}" value="{!yearOption.id}" selected="{!yearOption.selected}"/>
+        </aura:iteration>
+    </lightning:select>
+    
+        <lightning:select name="quarterSelect" label="Filter by quarter:" aura:id="quarterSelect" value="{!v.selectedQuarter}">
+        <aura:iteration items="{!v.quarterOptions}" var="quarterOption">
+            <option text="{!quarterOption.label}" value="{!quarterOption.id}" selected="{!quarterOption.selected}"/>
+        </aura:iteration>
+    </lightning:select>
+    
+    <aura:registerEvent name="SetLocations" type="c:SetLocationsEvent"/>
+    <aura:handler name="SetLocations" event="c:SetLocationsEvent" action="{!c.setLocationInit}"/>
+
+	    <lightning:checkboxGroup name="Location"
+                             label="Location"
+                             options="{!v.locationOptions}"
+                             value="{!v.value}"
+                             onchange="{!c.handleChange}"/>    
 </aura:component>

@@ -6,7 +6,7 @@ public class afTimelineController {
             if(AllTrainings == null)
             {
                 AllTrainings = [SELECT Id, Name, TrainingLocation__c, Trainer__r.Name, StartDate__c, 
-                                EndDate__c,
+                                TrainingLocation__r.OfficeName__c, EndDate__c,
                                 CoTrainer__r.name, TrainingTrack__r.name,
                                 TrainingClass__c FROM Training__c ORDER BY Trainer__r.name];
             }
@@ -16,7 +16,6 @@ public class afTimelineController {
         set;
     }
     
-    @AuraEnabled
     public static List<Training__c> currentTrainings
     {
         get{
@@ -41,11 +40,23 @@ public class afTimelineController {
     } 
     
     @AuraEnabled
+    public static String[] getTrainingLocations()
+    {
+        String[] officeLocations = new String[]{};
+        for(Training__c t : AllTrainings)
+        {
+            officeLocations.add(t.TrainingLocation__r.OfficeName__c);
+        }
+        system.debug(officeLocations);
+        return officeLocations;
+    }
+    
+    @AuraEnabled
     public static String[] getTrainers()
     {
         String[]trainerNames;
         trainerNames = new String[]{};
-            for(User u : trainers)
+        for(User u : trainers)
         {
             trainerNames.add(u.Name);
         }
