@@ -10,6 +10,7 @@ public class afAvailabilityListContainerController {
         List<Training_Room__c> Requests = new List<Training_Room__c>();
         List<Training_Room__c> NOs = new List<Training_Room__c>();
         
+        //Loop through all of the rooms and separate them by their availablity status
         for(Training_Room__c room : allRooms){
             if(room.AVAvailability__c == 'Yes'){
                 yesFirst.add(room);
@@ -20,6 +21,7 @@ public class afAvailabilityListContainerController {
             }
         }
         
+        //Put all the rooms in one list: 'Yes's first, 'No's last
         yesFirst.addAll(Requests);
         yesFirst.addAll(NOs);
         
