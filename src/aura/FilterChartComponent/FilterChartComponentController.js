@@ -16,7 +16,15 @@
         {
             Index++;
             var stringL = {'label' : ListStrings[s], 'value' : ListStrings[s]};
+            console.log('submitted value: ' + JSON.stringify(stringL));
             Array.push(stringL);
         }
+        component.set('v.locationOptions', Array);
 	},
+    
+    handleChange : function(component, event, helper)
+    {
+        console.log('I have been called');
+		helper.filterByChange(component, event);
+    }
 })

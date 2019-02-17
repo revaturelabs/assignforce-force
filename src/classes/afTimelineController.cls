@@ -20,7 +20,9 @@ public class afTimelineController {
     {
         get{
             if(currentTrainings == null)
-            {
+            {  
+                system.debug('I have been reset');
+               	system.debug(AllTrainings);
                 currentTrainings = AllTrainings;
             }
             return currentTrainings;
@@ -43,7 +45,7 @@ public class afTimelineController {
     public static String[] getTrainingLocations()
     {
         String[] officeLocations = new String[]{};
-        for(Training__c t : AllTrainings)
+            for(Training__c t : AllTrainings)
         {
             officeLocations.add(t.TrainingLocation__r.OfficeName__c);
         }
@@ -56,7 +58,7 @@ public class afTimelineController {
     {
         String[]trainerNames;
         trainerNames = new String[]{};
-        for(User u : trainers)
+            for(User u : trainers)
         {
             trainerNames.add(u.Name);
         }
@@ -68,6 +70,7 @@ public class afTimelineController {
     {
         List<TrainingDataWrapper> trainerData = new List<TrainingDataWrapper>();
         System.debug('This is trainers: ' + trainers);
+        System.debug('currentTrainings: ' + currentTrainings);
         
         for(Training__c t : currentTrainings){
             for(Integer i = 0; i < getTrainers().size(); i++)
@@ -98,86 +101,259 @@ public class afTimelineController {
     }
     
     @AuraEnabled
-    public static void filterTrainings(String[] location, Integer year, Integer month)
+    public static String filterTrainingsByYearLocationQuarter(String[] location, Integer year, Integer quarter)
     {
         List<Training__c> NewTrainings = new List<Training__c>();
-        for(Training__c t : currentTrainings)
+        List<Integer> monthList = new List<Integer>();        
+        switch on(quarter)
         {
-            Integer trainingYear = t.StartDate__c.year();
-            Integer trainingMonth = t.StartDate__c.month();
-            for(String s : location)
+            when 2
             {
-                if(t.TrainingLocation__c == s && year == trainingYear && month == trainingMonth)
-                {
-                    NewTrainings.add(t);
-                }
+                monthList.add(01);
+                monthList.add(02);
+                monthList.add(03);
+            }
+            
+            when 3
+            {
+                monthList.add(04);
+                monthList.add(05);
+                monthList.add(06);
+            }
+            
+            when 4
+            {
+                monthList.add(07);
+                monthList.add(08);
+                monthList.add(09);
+            }
+            
+            when 5
+            {
+                monthList.add(10);
+                monthList.add(11);
+                monthList.add(12);
+            }
+            
+            when else
+            {
+                return null;
             }
         }
-        currentTrainings = NewTrainings;
-    }
-    
-    @AuraEnabled
-    public static void filterTrainings(String[] location, Integer yearOrMonth)
-    {
-        List<Training__c> NewTrainings = new List<Training__c>();
-        /*Integer year;
-Integer month;
-String yearOrMonthString = String.valueOf(yearOrMonth);
-if(yearOrMonthString.length() == 4)
-{
-year = yearOrMonth;
-}
-else if(yearOrMonthString.length() == 2)
-{
-month = yearOrMonth;
-}*/
-        for(Training__c t : currentTrainings)
+        Integer convertedYear = 0;
+        
+        switch on(year)
         {
-            Integer trainingYear = t.StartDate__c.year();
-            Integer trainingMonth = t.StartDate__c.month();
-            for(String s : Location)
+            when 1
             {
-                if(t.TrainingLocation__c == s && (yearOrMonth == trainingYear || yearOrMonth == trainingMonth))
-                {
-                    NewTrainings.add(t);
-                }
+                convertedYear = Date.today().year();
+            }
+            
+            when 2 
+            {
+                convertedYear = Date.today().year() - 1;
+            }
+            
+            when 3 
+            {
+                convertedYear = Date.today().year() - 2;
+            }
+            
+            when else
+            {
+                return null;
             }
         }
-        currentTrainings = NewTrainings;
-    }
-    
-    
-    @AuraEnabled
-    public static void filterTrainings(String[] Location)
-    {
-        List<Training__c> NewTrainings = new List<Training__c>();
-        for(Training__c t : currentTrainings)
-        {
-            for(String s : Location)
-            {
-                if(t.TrainingLocation__c == s)
-                {
-                    NewTrainings.add(t);
-                }
-            }
-        }
-        currentTrainings = NewTrainings;
-    }
-    
-    @AuraEnabled
-    public static void filterTrainings(Integer yearOrMonth)
-    {
-        List<Training__c> NewTrainings = new List<Training__c>();
         for(Training__c t : currentTrainings)
         {
             Integer trainingYear = t.StartDate__c.year();
             Integer trainingMonth = t.StartDate__c.month();
             
-            if((yearOrMonth == trainingYear || yearOrMonth == trainingMonth))
+            for(String s : location)
+            {
+                if(t.TrainingLocation__r.OfficeName__c == s && convertedYear == trainingYear && monthList.contains(trainingMonth))
+                {
+                    NewTrainings.add(t);
+                }
+            }
+        }
+        currentTrainings = NewTrainings;
+        String trainerData = wrapTrainingToJSON();
+        return trainerData;
+    }
+    
+    @AuraEnabled
+    public static String filterTrainingsByYearLocation(String[] location, Integer year)
+    {
+        List<Training__c> NewTrainings = new List<Training__c>();
+        Integer convertedYear = 0;
+        
+        switch on(year)
+        {
+            when 1
+            {
+                convertedYear = Date.today().year();
+            }
+            
+            when 2 
+            {
+                convertedYear = Date.today().year() - 1;
+            }
+            
+            when 3 
+            {
+                convertedYear = Date.today().year() - 2;
+            }
+            
+            when else
+            {
+                return null;
+            }
+        }
+        
+        for(Training__c t : currentTrainings)
+        {
+            Integer trainingYear = t.StartDate__c.year();
+            
+            for(String s : Location)
+            {
+                System.debug('TrainingLocation__r: ' + t.TrainingLocation__r.OfficeName__c);
+                System.debug('s: ' + s);
+                System.debug('Year: ' + convertedYear);
+                
+                if(t.TrainingLocation__r.OfficeName__c == s && convertedYear == trainingYear )
+                {
+                    NewTrainings.add(t);
+                }
+            }
+        }
+        currentTrainings = NewTrainings;
+        String trainerData = wrapTrainingToJSON();
+        return trainerData;
+    }
+    
+    
+    @AuraEnabled
+    public static String filterTrainingsByYearQuarter(Integer year, Integer quarter)
+    {
+        List<Integer> monthList = new List<Integer>(); 
+        List<Training__c> NewTrainings = new List<Training__c>();
+        Integer convertedYear = 0;
+        
+        switch on(year)
+        {
+            when 1
+            {
+                convertedYear = Date.today().year();
+            }
+            
+            when 2 
+            {
+                convertedYear = Date.today().year() - 1;
+            }
+            
+            when 3 
+            {
+                convertedYear = Date.today().year() - 2;
+            }
+            
+            when else
+            {
+                return null;
+            }
+        }
+        switch on(quarter)
+        {
+            when 2
+            {
+                monthList.add(01);
+                monthList.add(02);
+                monthList.add(03);
+            }
+            
+            when 3
+            {
+                monthList.add(04);
+                monthList.add(05);
+                monthList.add(06);
+            }
+            
+            when 4
+            {
+                monthList.add(07);
+                monthList.add(08);
+                monthList.add(09);
+            }
+            
+            when 5
+            {
+                monthList.add(10);
+                monthList.add(11);
+                monthList.add(12);
+            }
+            
+            when else
+            {
+                return null;
+            }
+        }
+        for(Training__c t : currentTrainings)
+        {
+            Integer trainingYear = t.StartDate__c.year();
+            Integer trainingMonth = t.StartDate__c.month();
+            
+            if(convertedYear == trainingYear && monthList.contains(trainingMonth))
+            {
+                NewTrainings.add(t);
+            }
+            
+        }
+        currentTrainings = NewTrainings;
+        String trainerData = wrapTrainingToJSON();
+        return trainerData;
+    }
+    
+    @AuraEnabled
+    public static String filterTrainingsByYear(Integer year)
+    {
+        List<Training__c> NewTrainings = new List<Training__c>();
+        Integer convertedYear = 0;
+        
+        switch on(year)
+        {
+            when 1
+            {
+                convertedYear = Date.today().year();
+            }
+            
+            when 2 
+            {
+                convertedYear = Date.today().year() - 1;
+            }
+            
+            when 3 
+            {
+                convertedYear = Date.today().year() - 2;
+            }
+            
+            when else
+            {
+                return null;
+            }
+        }
+        
+        for(Training__c t : currentTrainings)
+        {
+            Integer trainingYear = t.StartDate__c.year();
+            
+            if(convertedYear == trainingYear )
             {
                 NewTrainings.add(t);
             }
         }
         currentTrainings = NewTrainings;
-    }    
+        String trainerData = wrapTrainingToJSON();
+        return trainerData;
+    }
+    
 }

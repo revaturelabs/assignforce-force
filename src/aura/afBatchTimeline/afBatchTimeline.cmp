@@ -4,10 +4,9 @@
     <aura:attribute name="data" type="List"/>
     <ltng:require scripts="{!join(',',$Resource.highchartsJS, $Resource.xrange, $Resource.exporting)}" afterScriptsLoaded="{!c.doInit}"/>
 	<aura:registerEvent name="CreateJSON" type="c:CreateListOfStringJSON"/>
-    <aura:handler name="CreateJSON" event="c:CreateListOfStringJSON" action="{!c.createJSON}"/>    
-    <!-- <ltng:require scripts="$Resource.Highcharts/code/highcharts.js"/>
-    <ltng:require scripts="$Resource.Highcharts/code/modules/xrange.js" />
-    <ltng:require scripts="$Resource.Highcharts/code/modules/exporting.js"/>-->
+    <aura:handler name="CreateJSON" event="c:CreateListOfStringJSON" action="{!c.createJSON}"/>
+
+    <aura:handler event="c:UpdateChartEvent" action="{!c.updateChart}"/>    
     
     <div aura:id="container"></div>
     <aura:iteration items="{!v.yAxisNames}" var="name">

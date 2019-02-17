@@ -19,7 +19,6 @@
     
     fireEvent : function(component, event, trainerNames)
     {
-        console.log('Firing event');
         var createJSON = component.getEvent("CreateJSON");
         var newJSONstring = trainerNames.toString();
         var newArray = newJSONstring.split(",");
@@ -30,10 +29,17 @@
         console.log('event params fireEvent ' + createJSON.getParam('yAxisNames'));
         createJSON.fire();
 	},
-    createChart : function(component, event) {
+    createChart : function(component, event, names) {
         var jsonData = component.get("v.data");
+        console.log('dataHelper: ' + jsonData);
         var dataObj = JSON.parse(jsonData);
-        var trainers = event.getParam("yAxisNames");
+        if(names == null){
+        	var trainers = event.getParam("yAxisNames");
+        }
+        else{
+            var trainers = names;
+        }
+        console.log('trainers: ' + trainers);
         var trainerAssignment = [];
 
         for(var i = 0; i < dataObj.length; i++)
@@ -47,7 +53,6 @@
             var day2 = dataObj[i].x2.substring(8);
             dataObj[i].x2 = Date.UTC(year2,month2,day2);
         }
-        console.log('trainerAssignment: ' + trainerAssignment);
         
         var charts = new Highcharts.chart({
             chart: {

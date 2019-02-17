@@ -2,6 +2,7 @@
     <aura:attribute name="selectedLocations" type="String[]"/>
     <aura:attribute name="selectedYear" type="Integer" access="PRIVATE"/>
     <aura:attribute name="selectedQuarter" type="Integer" access="PRIVATE"/>
+    <aura:attribute name="dataTemp" type="String[]"/>
     <aura:attribute name="AllLocations" type="String[]"/>
     
     <aura:attribute name="yearOptions" type="List" access="PRIVATE"/>
@@ -9,14 +10,15 @@
     <aura:attribute name="locationOptions" type="List" access="PRIVATE"/>
     <aura:attribute name="value" type="List"/>
     <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    <aura:registerEvent name="UpdateChart" type="c:UpdateChartEvent"/>
 
-    <lightning:select name="yearSelect" label="Filter by year:" aura:id="yearSelect" value="{!v.selectedYear}">
+    <lightning:select name="yearSelect" label="Filter by year:" aura:id="yearSelect" value="{!v.selectedYear}" onchange="{!c.handleChange}">
         <aura:iteration items="{!v.yearOptions}" var="yearOption">
             <option text="{!yearOption.label}" value="{!yearOption.id}" selected="{!yearOption.selected}"/>
         </aura:iteration>
     </lightning:select>
     
-        <lightning:select name="quarterSelect" label="Filter by quarter:" aura:id="quarterSelect" value="{!v.selectedQuarter}">
+        <lightning:select name="quarterSelect" label="Filter by quarter:" aura:id="quarterSelect" value="{!v.selectedQuarter}" onchange="{!c.handleChange}">
         <aura:iteration items="{!v.quarterOptions}" var="quarterOption">
             <option text="{!quarterOption.label}" value="{!quarterOption.id}" selected="{!quarterOption.selected}"/>
         </aura:iteration>
