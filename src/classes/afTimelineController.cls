@@ -7,8 +7,8 @@ public class afTimelineController {
             {
                 AllTrainings = [SELECT Id, Name, TrainingLocation__c, Trainer__r.Name, StartDate__c, 
                                 TrainingLocation__r.OfficeName__c, EndDate__c,
-                                CoTrainer__r.name, TrainingTrack__r.name,
-                                TrainingClass__c FROM Training__c ORDER BY Trainer__r.name];
+                                CoTrainer__r.name, TrainingTrack__r.ShortName__c,
+                                TrainingClass__c FROM Training__c ORDER BY Trainer__r.name, StartDate__c];
             }
             
             return AllTrainings;
@@ -77,9 +77,10 @@ public class afTimelineController {
             { 
                 if(t.Trainer__r.name == getTrainers()[i]){
                     TrainingDataWrapper tdw = new TrainingDataWrapper();
-                    tdw.y = i;
                     tdw.x = t.StartDate__c;
                     tdw.x2 = t.EndDate__c;
+                    tdw.y = i;
+                    tdw.series = t.TrainingTrack__r.ShortName__c;
                     trainerData.add(tdw); 
                 }
             }
@@ -98,6 +99,8 @@ public class afTimelineController {
         public Date x;
         @AuraEnabled
         public Date x2;
+        @AuraEnabled
+        public String series;
     }
     
     @AuraEnabled
