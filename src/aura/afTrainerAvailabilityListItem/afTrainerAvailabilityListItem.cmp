@@ -1,12 +1,18 @@
 <aura:component >
-    <aura:attribute name="trainerId" type="ID"/>
+    <aura:attribute name="trainer" type="User"/>
     <aura:attribute name="isAvailable" type="Boolean" default="true"/>
-    <aura:attribute name="hasSkill" type="Boolean" default="false"/>
-    <lightning:recordViewForm recordId="0051U0000021bKFQAY" objectApiName="User"><!--Hard coded id for now will change back to trainerID-->
+    <aura:attribute name="hasSkill" type="Boolean" default="true"/>
+    <aura:attribute name="selectedSkill" type="String"/>
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    
+    <aura:registerEvent name="TrainerIsSelected" type="c:TrainerSelected"/>
+    
+    <lightning:recordViewForm recordId="{!v.trainer.Id}" objectApiName="User">
         <div class="slds-grid" style="padding-top: 10px;">
             <div class="slds-col slds-size_1-of-5">
                 <div class="slds-align_absolute-center">
-                    <lightning:button variant="brand" label="Select" onclick="{!}"/>
+                    <lightning:button class="btnSelect" label="Select" onclick="{!c.selectIsClicked}"/>
                 </div>
             </div>
             <div class="slds-col slds-size_1-of-5 slds-align_absolute-center">
