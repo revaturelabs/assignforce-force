@@ -1,8 +1,9 @@
 <aura:component >
-    <aura:attribute name="trainer" type="User"/>
+    <aura:attribute name="trainer" type="Object"/>
     <aura:attribute name="isAvailable" type="Boolean" default="true"/>
+    <aura:attribute name="allSkills" type="Skill__c[]"/>
     <aura:attribute name="hasSkill" type="Boolean" default="true"/>
-    <aura:attribute name="selectedSkill" type="String"/>
+    <aura:attribute name="selectedTrainingTrack" type="ID"/>
     
     <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
     
