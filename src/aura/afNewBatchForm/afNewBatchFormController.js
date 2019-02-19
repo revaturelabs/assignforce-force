@@ -61,6 +61,7 @@
     
     findRooms : function(component, event, helper) {
         var loc      = component.get("v.location");
+        var roomsForLocation = component.get("v.availRooms");
         var allRooms = component.get("v.roomList");
         var availRooms = [];
         
@@ -73,7 +74,8 @@
         
         var locEvent = $A.get("e.c:afNewBatchFormLocationEvent");
         locEvent.setParams({
-            "location" : loc
+            "location" : loc ,
+            "roomsForLocation" : roomsForLocation
         });
         console.log('locEvent');
         locEvent.fire();
@@ -118,12 +120,11 @@
     
     trainerChanged : function(component, event, helper) {
         var trainings   = component.get("v.openTrainings");
-        var trainer     = event.getParam("v.value");
+        var trainer     = event.getParam("value");
         var startDate   = component.get("v.startDate");
         var endDate     = component.get("v.endDate");
         console.log('testing');
         console.log('trainer: ' + trainer);
         helper.showTrainerToast(helper, event, trainings, trainer, startDate, endDate);
     },
-
 })
