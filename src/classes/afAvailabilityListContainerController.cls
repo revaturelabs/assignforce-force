@@ -3,7 +3,6 @@ public class afAvailabilityListContainerController {
     public static List<Training_Room__c> allRooms = [SELECT Id, name, TrainingLocationName__c, AVAvailability__c, RoomCapacity__c
                                                      FROM Training_Room__c
                                                      ORDER BY name];
-  
     public static List<User> Trainers = [SELECT Id, Name, Available__c, Training_Skills__c From User OrderByName /*WHERE Available__c!=null*/ /*UserRoleId=trainer role Id*/];
     
     @AuraEnabled
@@ -45,6 +44,10 @@ public class afAvailabilityListContainerController {
         availableList.addAll(unavailableList);
         system.debug(availableList);
         return availableList;
+    }
+    @AuraEnabled
+    public static List<Skill__c> getAllSkills(){
+        return [SELECT Training_Track__c, Trainer__c From Skill__c];
     }
 
 }

@@ -2,8 +2,11 @@
     <ltng:require styles="{!$Resource.RevatureStyles}"/>
     <aura:attribute name="rooms" type="Training_Room__c[]"/>
     <aura:attribute name="trainers" type="User[]"/>
+    <aura:attribute name="allSkills" type="Skill__c[]"/>
+    <aura:attribute name="selectedTrainingTrack" type='ID'/>
     <aura:attribute name="tab1Shown" type="Boolean" default='true'/>
     <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:handler event="c:afNewBatchFormTrackEvent" action="{!c.skillHasChanged}"/>
     <div class="slds-card">
         <div class="slds-card__body slds-card__body_inner">
             <div class="slds-tabs_default">
@@ -28,7 +31,7 @@
                         <div class="slds-col slds-size_1-of-5 slds-align_absolute-center"><h1>Experienced</h1></div>
                     </div>
                     <aura:iteration  items="{!v.trainers}" var="trainerVar">
-                       <c:afTrainerAvailabilityListItem trainer="{!trainerVar}"/>
+                       <c:afTrainerAvailabilityListItem trainer="{!trainerVar}" allSkills="{!v.allSkills}" selectedTrainingTrack="{!v.selectedTrainingTrack}"/>
                     </aura:iteration>
                 </div>
                 <div id="rooms" class="{!v.tab1Shown ? 'slds-tabs_default__content slds-hide' : 'slds-tabs_default__content slds-show'}">

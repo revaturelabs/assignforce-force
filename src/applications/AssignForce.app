@@ -12,6 +12,7 @@
     <tab>Trainers</tab>
     <tab>Profile</tab>
     <tab>Training_Track__c</tab>
+    <tab>Skill__c</tab>
     <uiType>Lightning</uiType>
     <utilityBar>AssignForce_UtilityBar</utilityBar>
 </CustomApplication>

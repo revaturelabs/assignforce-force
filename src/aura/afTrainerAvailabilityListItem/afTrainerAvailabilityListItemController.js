@@ -1,11 +1,14 @@
 ({
 	doInit : function(component, event, helper) {
-		var trainer = component.get('v.trainer');                     
+		console.log('Did you even run?');
+        var trainer = component.get('v.trainer');                     
         if(trainer.Available__c==="Available"){
             component.set('v.isAvailable', true);
         } else{
             component.set('v.isAvailable', false);
         }
+        console.log('Trainer= ' + trainer);
+        console.log('Skills= ' + JSON.stringify(component.get('v.allSkills')));
 	},
     selectIsClicked : function(component, event, helper){
         var selectedEvt = component.getEvent('TrainerIsSelected');
