@@ -305,11 +305,6 @@
         <unique>false</unique>
     </fields>
     <label>Training</label>
-    <listViews>
-        <fullName>All</fullName>
-        <filterScope>Everything</filterScope>
-        <label>All</label>
-    </listViews>
     <nameField>
         <displayFormat>TRNG-{00000000}</displayFormat>
         <label>Training ID</label>
