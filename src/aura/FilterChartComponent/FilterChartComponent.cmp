@@ -1,4 +1,4 @@
-<aura:component controller="afTimelineController">
+<aura:component controller="afTimelineController" implements="flexipage:availableForAllPageTypes">
     <aura:attribute name="selectedLocations" type="String[]"/>
     <aura:attribute name="selectedYear" type="Integer" access="PRIVATE"/>
     <aura:attribute name="selectedQuarter" type="Integer" access="PRIVATE"/>

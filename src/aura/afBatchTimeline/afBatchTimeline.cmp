@@ -2,17 +2,14 @@
     <aura:attribute name="chartTitle" type="String"/>
     <aura:attribute name="trainers" type="List[]"/>
     <aura:attribute name="data" type="List"/>
-    <ltng:require scripts="{!join(',',$Resource.highchartsJS, $Resource.xrange, $Resource.exporting)}" afterScriptsLoaded="{!c.doInit}"/>
-	<aura:registerEvent name="CreateJSON" type="c:CreateListOfStringJSON"/>
+    <ltng:require styles="{!$Resource.RevatureStyles}" scripts="{!join(',',$Resource.highchartsJS, $Resource.xrange, $Resource.exporting)}" afterScriptsLoaded="{!c.doInit}"/>
+    <aura:registerEvent name="CreateJSON" type="c:CreateListOfStringJSON"/>
     <aura:handler name="CreateJSON" event="c:CreateListOfStringJSON" action="{!c.createJSON}"/>
-
+    
     <aura:handler event="c:UpdateChartEvent" action="{!c.updateChart}"/>    
-    
+    <!--<div class="slds-grid">
+        <div class="slds-col slds-size_9-of-12" aura:id="container"></div>
+    </div>-->
     <div aura:id="container"></div>
-    <aura:iteration items="{!v.yAxisNames}" var="name">
-        {!name}
-    </aura:iteration>
-    Hello{!v.yAxisNames}
-    
     
 </aura:component>

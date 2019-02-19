@@ -6,11 +6,8 @@
     
     updateChart : function(component, event, helper)
     {
-       console.log('Ive been called');
        component.set('v.data', event.getParam('data'));
-        console.log('dataController: ' + event.getParam('data'));
        var names = component.get('v.trainers');
-        console.log('names in JS: ' + names);
        helper.createChart(component, event, names);
 		
     },

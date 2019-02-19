@@ -1,4 +1,3 @@
 <aura:application >
-    <c:FilterChartComponent/>
-    <c:afBatchTimeline/>
+    <c:FullChartLightningComponent/>
 </aura:application>

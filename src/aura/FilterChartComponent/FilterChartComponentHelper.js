@@ -42,7 +42,6 @@
             if(component.isValid() && state === 'SUCCESS')
             {
                 var Locations = response.getReturnValue();
-                console.log('Locations ' + Locations);
                 this.fireLocationEvent(component, event, Locations);
             }
             else if(state === 'ERROR')
@@ -63,13 +62,18 @@
         var getLocation = component.getEvent("SetLocations");
         var newString = Locations.toString();
         var newArray = newString.split(',');
-        console.log('NewArray ' + newArray);
-        component.set('v.AllLocations', newArray);
-        console.log('All Locations ' + component.get('v.AllLocations'));
+        var NoDupesArray = [];
+        for(var i = 0; i < newArray.length; i++)
+        {
+            if(!NoDupesArray.includes(newArray[i]))
+            {
+                 NoDupesArray.push(newArray[i]);
+            }
+        }
+        component.set('v.AllLocations', NoDupesArray);
         getLocation.setParam(
             "listOfLocations" , component.get('v.AllLocations')
         );
-        console.log('listOfLocations ' + getLocation.getParam('listOfLocations'));
         getLocation.fire();
     },
     
@@ -80,14 +84,10 @@
         {
             changeValue = [];
         }
-        console.log('value ' + changeValue);
-        console.log('length: ' + changeValue.length);
-        console.log('selectedQuarter: ' + component.get('v.selectedQuarter'));
     var action; 
     
     component.set('v.selectedLocations', changeValue);
     var Locations = component.get('v.selectedLocations');
-        console.log('Locations: ' + Locations);
     if(component.get('v.selectedQuarter') != 1 && changeValue.length != 0)
     {
      action = component.get('c.filterTrainingsByYearLocationQuarter');
@@ -100,12 +100,10 @@
 else if(changeValue.length != 0 && component.get('v.selectedQuarter') == 1)
 {
     action = component.get('c.filterTrainingsByYearLocation');
-    console.log('I made it here');
     action.setParams({
         'location' : Locations,
         'year' : component.get('v.selectedYear')
     });
-    console.log('I am here now');
 }
     else if(component.get('v.selectedQuarter') != 1)
     {
@@ -138,7 +136,6 @@ action.setCallback(this, function(response){
 },
 fireChangeToChart : function(component, event, data)
 {
-    console.log('FIRE!');
     component.set('v.dataTemp', data);
     var UpdateChart = $A.get('e.c:UpdateChartEvent');
     UpdateChart.setParams({'data' : component.get('v.dataTemp')});

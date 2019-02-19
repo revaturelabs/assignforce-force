@@ -8,6 +8,7 @@ public class afTimelineController {
                 AllTrainings = [SELECT Id, Name, TrainingLocation__c, Trainer__r.Name, StartDate__c, 
                                 TrainingLocation__r.OfficeName__c, EndDate__c,
                                 CoTrainer__r.name, TrainingTrack__r.ShortName__c,
+                                TrainingTrack__r.Color__c,
                                 TrainingClass__c FROM Training__c ORDER BY Trainer__r.name, StartDate__c];
             }
             
@@ -21,8 +22,6 @@ public class afTimelineController {
         get{
             if(currentTrainings == null)
             {  
-                system.debug('I have been reset');
-               	system.debug(AllTrainings);
                 currentTrainings = AllTrainings;
             }
             return currentTrainings;
@@ -49,7 +48,6 @@ public class afTimelineController {
         {
             officeLocations.add(t.TrainingLocation__r.OfficeName__c);
         }
-        system.debug(officeLocations);
         return officeLocations;
     }
     
@@ -81,12 +79,12 @@ public class afTimelineController {
                     tdw.x2 = t.EndDate__c;
                     tdw.y = i;
                     tdw.series = t.TrainingTrack__r.ShortName__c;
+                    tdw.color = t.TrainingTrack__r.Color__c;
                     trainerData.add(tdw); 
                 }
             }
         }
         
-        system.debug(trainerData);
         return System.json.serialize(trainerData);
         
     }
@@ -101,6 +99,8 @@ public class afTimelineController {
         public Date x2;
         @AuraEnabled
         public String series;
+        @AuraEnabled
+        public String color;
     }
     
     @AuraEnabled
