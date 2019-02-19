@@ -71,7 +71,7 @@
                 <field>TrainingRoom__c</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Required</behavior>
+                <behavior>Edit</behavior>
                 <field>TrainingTrack__c</field>
             </layoutItems>
             <layoutItems>

@@ -22,7 +22,6 @@
     <aura:registerEvent name="trackTransfer" type="c:afNewBatchFormTrackEvent"/>
     <aura:registerEvent name="locTransfer"      type="c:afNewBatchFormLocationEvent"/>
     
-    
     <!-- Handlers -->
     <aura:handler name="init"      value="{!this}"       action="{!c.doInit}" />
     <aura:handler name="change"        value="{!v.trainer}"  action="{!c.trainerChanged}"/>
