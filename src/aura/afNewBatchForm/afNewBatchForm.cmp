@@ -57,7 +57,7 @@
                             <lightning:inputField fieldName="StartDate__c" aura:id="startDate" value="{!v.startDate}" onchange="{!c.dateChanged}"/>
                         </div>
                         <div class="slds-col slds-size_1-of-6">
-                            <lightning:input type="number" label="Number of Weeks" aura:id="numWeeks" min="1" max="156" step="1" value="{!v.numWeeks}" onchange="{!c.dateChanged}"/>
+                            <lightning:input type="number" label="Number of Weeks" aura:id="numWeeks" step="1" value="{!v.numWeeks}" onchange="{!c.dateChanged}"/>
                         </div>
                         <div class="slds-col slds-size_1-of-4">
                             <lightning:inputField fieldName="EndDate__c" aura:id="endDate" value="{!v.endDate}" disabled="true"/> 

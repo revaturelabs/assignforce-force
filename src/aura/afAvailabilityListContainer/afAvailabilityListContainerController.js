@@ -15,8 +15,8 @@
         action.setCallback(this, function(response){
             var state = response.getState();
             if(component.isValid() && state === "SUCCESS"){
-                component.set('v.trainers', response.getReturnValue() );
-                
+                component.set('v.trainers', helper.sortTrainers(response.getReturnValue()));
+                console.log(helper.sortTrainers(response.getReturnValue()));
             } else{
                 console.log('Error');
             }
