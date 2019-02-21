@@ -1,19 +1,29 @@
 ({
-	doInit : function(component, event, helper) {
-		console.log('Did you even run?');
-        var trainer = component.get('v.trainer');                     
+
+    doInit : function(component, event, helper) {
+        var trainer = component.get('v.trainer');
+        var allSkills = component.get('v.allSkills');
+        var selected = component.get('v.selectedTrainingTrack');
+        var hasSkill = false;
         if(trainer.Available__c==="Available"){
             component.set('v.isAvailable', true);
         } else{
             component.set('v.isAvailable', false);
         }
-        console.log('Trainer= ' + trainer);
-        console.log('Skills= ' + JSON.stringify(component.get('v.allSkills')));
-	},
+        for(var i=0; i<allSkills.length;i++){
+            if(allSkills[i].Trainer__c==trainer.Id){
+                if(allSkills[i].Training_Track__c==selected){
+                    hasSkill = true;
+                }
+            }
+        }
+        component.set('v.hasSkill', hasSkill);
+        
+    },
     selectIsClicked : function(component, event, helper){
-        var selectedEvt = component.getEvent('TrainerIsSelected');
+        var selectedEvt = $A.get('e.c:TrainerSelected');
         var trainer = component.get('v.trainer');
-        selectedEvt.setParam('trainer', trainer);
+        selectedEvt.setParams({'trainer':trainer});
         selectedEvt.fire();
-    }
+    },
 })

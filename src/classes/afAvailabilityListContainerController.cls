@@ -3,7 +3,7 @@ public class afAvailabilityListContainerController {
     public static List<Training_Room__c> allRooms = [SELECT Id, name, TrainingLocationName__c, AVAvailability__c, RoomCapacity__c
                                                      FROM Training_Room__c
                                                      ORDER BY name];
-    public static List<User> Trainers = [SELECT Id, Name, Available__c, Training_Skills__c From User OrderByName /*WHERE Available__c!=null*/ /*UserRoleId=trainer role Id*/];
+    public static List<User> Trainers = [SELECT Id, Name, Available__c, Training_Skills__c From User /*WHERE Available__c!=null*/ /*UserRoleId=trainer role Id*/];
     
     @AuraEnabled
     public static List<Training_Room__c> getRooms(){
@@ -49,5 +49,10 @@ public class afAvailabilityListContainerController {
     public static List<Skill__c> getAllSkills(){
         return [SELECT Training_Track__c, Trainer__c From Skill__c];
     }
+    @AuraEnabled
+    public static List<Training__c> getAllTrainings(){
+        return [SELECT StartDate__c, EndDate__c, Trainer__c, CoTrainer__c FROM Training__c];
+    }
+
 
 }
