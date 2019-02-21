@@ -51,8 +51,8 @@
         
         var trainer   = component.get("v.trainer");
         var cotrainer = component.get("v.cotrainer");
-        component.set("v.trainer");
-        component.set("v.cotrainer");
+        component.set("v.trainer", trainer);
+        component.set("v.cotrainer", cotrainer);
     }, 
     
     clearBatchFields : function(component, event, helper) {
@@ -61,7 +61,6 @@
     
     findRooms : function(component, event, helper) {
         var loc      = component.get("v.location");
-        var roomsForLocation = component.get("v.availRooms");
         var allRooms = component.get("v.roomList");
         var availRooms = [];
         
@@ -74,8 +73,7 @@
         
         var locEvent = $A.get("e.c:afNewBatchFormLocationEvent");
         locEvent.setParams({
-            "location" : loc ,
-            "roomsForLocation" : roomsForLocation
+            "location" : loc
         });
         console.log('locEvent');
         locEvent.fire();
@@ -126,5 +124,5 @@
         console.log('testing');
         console.log('trainer: ' + trainer);
         helper.showTrainerToast(helper, event, trainings, trainer, startDate, endDate);
-    },
+    }
 })
