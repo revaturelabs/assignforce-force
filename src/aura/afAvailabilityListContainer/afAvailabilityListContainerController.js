@@ -1,16 +1,25 @@
 ({
-	doInit : function(component, event, helper) {
+    doInit : function(component, event, helper) {
         var getSkills = component.get("c.getAllSkills");
         getSkills.setCallback(this, function(response){
             var state = response.getState();
             if(component.isValid() && state === "SUCCESS"){
                 component.set('v.allSkills', response.getReturnValue());
+            } else{
+                console.log('Error');
+            }
+        });
+        var getTrainings = component.get("c.getAllTrainings");
+        getSkills.setCallback(this, function(response){
+            var state = response.getState();
+            if(component.isValid() && state === "SUCCESS"){
+                component.set('v.allTrainings', response.getReturnValue());
                 console.log(response.getReturnValue());
             } else{
                 console.log('Error');
             }
         });
-        $A.enqueueAction(getSkills);
+        $A.enqueueAction(getTrainings);
         var action = component.get("c.getAllTrainers");
         action.setCallback(this, function(response){
             var state = response.getState();
@@ -30,7 +39,7 @@
             
             if(component.isValid && state === 'SUCCESS'){
                 console.log('state ' + state);
-    			component.set("v.rooms", response.getReturnValue());
+                component.set("v.rooms", response.getReturnValue());
             }else if(state === 'ERROR'){
                 var errors = response.getError();
                 
@@ -64,5 +73,30 @@
         component.set('v.selectedTrainingTrack',trainingTrack);
         component.set('v.trainers', null);
         component.set('v.trainers', trainers);
+    },
+    dateHasChanged: function(component, event, helper){
+        var trainers = component.get('v.trainers');
+        var startDate = event.getParam('startDate');
+        var endDate = event.getParam('endDate');
+        for(var i=0; i<trainers.length; i++){
+            if(newStart!=undefined && newEnd!=undfined){
+                for (var j = 0; j < trainings.length; j++) {
+                    if(trainers[i].Id == trainings[j].Trainer__c || trainings[j].CoTrainer__c) {
+                        var prevStart = new Date(trainings[i].StartDate__c);
+                        var prevEnd = new Date(trainings[i].EndDate__c);
+                        if((prevStart <= newStart    && newStart <= prevEnd) || 
+                           (prevStart <= newEnd  && newEnd <= prevEnd) || 
+                           (prevStart >= newStart    && newEnd >= prevEnd)){
+                            trainer[i].Available__c = "Training";
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+        component.set('v.startDate', startDate);
+        component.set('v.endDate', endDate);
+        component.set('v.trainers', null);
+        component.set('v.trainers', helper.sortTrainers(trainers));
     }
 })

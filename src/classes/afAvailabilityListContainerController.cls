@@ -49,5 +49,9 @@ public class afAvailabilityListContainerController {
     public static List<Skill__c> getAllSkills(){
         return [SELECT Training_Track__c, Trainer__c From Skill__c];
     }
+    @AuraEnabled
+    public static List<Training__c> getAllTrainings(){
+        return [SELECT StartDate__c, EndDate__c, Trainer__c, CoTrainer__c FROM Training__c];
+    }
 
 }

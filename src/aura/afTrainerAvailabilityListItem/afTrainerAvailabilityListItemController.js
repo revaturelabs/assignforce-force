@@ -4,17 +4,17 @@
         var allSkills = component.get('v.allSkills');
         var selected = component.get('v.selectedTrainingTrack');
         var hasSkill = false;
-        if(trainer.Available__c==="Available"){
-            component.set('v.isAvailable', true);
-        } else{
-            component.set('v.isAvailable', false);
-        }
+        var trainings = component.get("v.allTrainings");
+
+            if(trainer.Available__c==="Available"){
+                component.set('v.isAvailable', true);
+            } else{
+                component.set('v.isAvailable', false);
+            }
         for(var i=0; i<allSkills.length;i++){
             if(allSkills[i].Trainer__c==trainer.Id){
-                console.log(allSkills[i].Training_Track__c);
                 if(allSkills[i].Training_Track__c==selected){
                     hasSkill = true;
-                    console.log('HasSkill');
                 }
             }
         }
@@ -28,5 +28,5 @@
         console.log('trainer' + trainer);
         selectedEvt.setParams({'trainer':trainer});
         selectedEvt.fire();
-    }
+    },
 })
