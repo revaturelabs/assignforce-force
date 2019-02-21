@@ -98,5 +98,6 @@
         }
         component.set('v.trainers', null);
         component.set('v.trainers', helper.sortTrainers(helper.sortTrainers(trainers)));
+
     }
 })

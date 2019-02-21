@@ -61,19 +61,21 @@
     
     findRooms : function(component, event, helper) {
         var loc      = component.get("v.location");
+        var roomsForLocation = component.get("v.roomsForLocation");
         var allRooms = component.get("v.roomList");
-        var availRooms = [];
+        var roomsForLocation = [];
         
         for (var i = 0; i < allRooms.length; i++) {
             if (allRooms[i].TrainingLocation__c == loc) {
-                availRooms.push(allRooms[i]);
+                roomsForLocation.push(allRooms[i]);
             }
         }
-        component.set("v.availRooms", availRooms);
+        component.set("v.roomsForLocation", roomsForLocation);
         
         var locEvent = $A.get("e.c:afNewBatchFormLocationEvent");
         locEvent.setParams({
-            "location" : loc
+            "location" : loc ,
+            "roomsForLocation" : roomsForLocation
         });
         console.log('locEvent');
         locEvent.fire();
@@ -96,7 +98,7 @@
     
     selectRoom : function(component, event, helper) {
         var room    = component.get("v.room");
-        var rooms   = component.get("v.availRooms");
+        var rooms   = component.get("v.roomsForLocation");
         
         for (var i = 0; i < rooms.length; i++) {
             if(rooms[i].Id == room) {
@@ -124,5 +126,5 @@
         console.log('testing');
         console.log('trainer: ' + trainer);
         helper.showTrainerToast(helper, event, trainings, trainer, startDate, endDate);
-    }
+    },
 })

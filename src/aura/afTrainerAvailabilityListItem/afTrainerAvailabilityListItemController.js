@@ -1,4 +1,5 @@
 ({
+
     doInit : function(component, event, helper) {
         var trainer = component.get('v.trainer');
         var allSkills = component.get('v.allSkills');
