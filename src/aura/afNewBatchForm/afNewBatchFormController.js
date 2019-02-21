@@ -1,48 +1,130 @@
 ({
-	changeEndDate : function(component, event, helper) {
-
-        var startDate = new Date(component.get("v.startDate"));
-        var numWeeks = component.get("v.numWeeks");
-        var endDate = new Date();
-        component.find("endDate").set("v.disabled", false);
-
-        if(startDate.getDay() == 0){
-            endDate.setDate(startDate.getUTCDate() + (numWeeks*7) + 4);
-            let year = endDate.getFullYear();
-            let month = endDate.getMonth();
-            let date = endDate.getDate();
-            component.set("v.endDate", (year + "-" + (month+1) + "-" + date));
-        } else if(startDate.getDay() == 1){
-            endDate.setDate(startDate.getUTCDate() + (numWeeks*7) + 3);
-            let year = endDate.getFullYear();
-            let month = endDate.getMonth();
-            let date = endDate.getDate();
-            component.set("v.endDate", (year + "-" + (month+1) + "-" + date));
-        } else if(startDate.getDay() == 2){
-            endDate.setDate(startDate.getUTCDate() + (numWeeks*7) + 2);
-            let year = endDate.getFullYear();
-            let month = endDate.getMonth();
-            let date = endDate.getDate();
-            component.set("v.endDate", (year + "-" + (month+1) + "-" + date));
-        } else if(startDate.getDay() == 3){
-            endDate.setDate(startDate.getUTCDate() + (numWeeks*7) + 1);
-            let year = endDate.getFullYear();
-            let month = endDate.getMonth();
-            let date = endDate.getDate();
-            component.set("v.endDate", (year + "-" + (month+1) + "-" + date));
-        } else if(startDate.getDay() == 4){
-            endDate.setDate(startDate.getUTCDate() + (numWeeks*7));
-            let year = endDate.getFullYear();
-            let month = endDate.getMonth();
-            let date = endDate.getDate();
-            component.set("v.endDate", (year + "-" + (month+1) + "-" + date));
-        } else if(startDate.getDay() == 5){ //saturday
-            component.set("v.endDate", "");
-            component.find("endDate").set("v.disabled", true);
-        } else if(startDate.getDay() == 6){ //sunday
-            component.set("v.endDate", "");
-            component.find("endDate").set("v.disabled", true);
-        }
+    doInit : function(component, event, helper) {
         
-	},
+        var allRooms = [];
+        var action = component.get("c.allRooms");
+        
+        action.setCallback(this, function(response) {
+            var state = response.getState();
+            if (state === "SUCCESS") {
+                allRooms = response.getReturnValue();
+                component.set("v.roomList", allRooms);
+                
+                var openTrainings = [];
+                var trngAction = component.get("c.allTrainings");
+                trngAction.setCallback(this, function(response) {
+                    var state = response.getState();
+                    if (state === "SUCCESS") {
+                        openTrainings = response.getReturnValue();
+                        component.set("v.openTrainings", openTrainings);
+                    } else if (state === "ERROR"){
+                        var errors = response.getError();
+                        if (errors) {
+                            if (errors[0] && errors[0].message) {
+                                console.log('Error message: ' + errors[0].message);
+                            }
+                        }
+                    } else {
+                        console.log('Unknown error.')
+                    }
+                })
+                $A.enqueueAction(trngAction);
+                
+            } else if (state === "ERROR"){
+                var errors = response.getError();
+                if (errors) {
+                    if (errors[0] && errors[0].message) {
+                        console.log('Error message: ' + errors[0].message);
+                    }
+                }
+            } else {
+                console.log('Unknown error.')
+            }
+        })
+        $A.enqueueAction(action);
+    },
+    
+    dateChanged : function(component, event, helper) {
+        //var trainings     = component.get("v.openTrainings");
+        
+        helper.changeEndDate(component, event, helper);
+        
+        var trainer   = component.get("v.trainer");
+        var cotrainer = component.get("v.cotrainer");
+        component.set("v.trainer", trainer);
+        component.set("v.cotrainer", cotrainer);
+    }, 
+    
+    clearBatchFields : function(component, event, helper) {
+        helper.clear(component, event);
+    },
+    
+    findRooms : function(component, event, helper) {
+        var loc      = component.get("v.location");
+        var roomsForLocation = component.get("v.roomsForLocation");
+        var allRooms = component.get("v.roomList");
+        var roomsForLocation = [];
+        
+        for (var i = 0; i < allRooms.length; i++) {
+            if (allRooms[i].TrainingLocation__c == loc) {
+                roomsForLocation.push(allRooms[i]);
+            }
+        }
+        component.set("v.roomsForLocation", roomsForLocation);
+        
+        var locEvent = $A.get("e.c:afNewBatchFormLocationEvent");
+        locEvent.setParams({
+            "location" : loc ,
+            "roomsForLocation" : roomsForLocation
+        });
+        console.log('locEvent');
+        locEvent.fire();
+    },
+    
+    onSubmit : function(component, event, helper) {
+        var form = component.find("newBatchForm");
+        event.preventDefault();       // stop the form from submitting
+        var fields = event.getParam('fields');
+        component.find('newBatchForm').submit(fields);
+    },
+    
+    onSuccess : function(component, event, helper) {
+        //var record = event.getParam("response");
+        var form = component.find("newBatchForm");
+        var fields = event.getParam('fields');
+        console.log('onSuccess');
+        helper.clear(component, event);  
+    },
+    
+    selectRoom : function(component, event, helper) {
+        var room    = component.get("v.room");
+        var rooms   = component.get("v.roomsForLocation");
+        
+        for (var i = 0; i < rooms.length; i++) {
+            if(rooms[i].Id == room) {
+                room = rooms[i];
+            }
+        }
+        component.set("v.hiddenRoom", room.Id);
+    },
+    
+    trackChanged : function(component, event, helper) {
+        var track = component.get("v.track");
+        var trackEvent = $A.get("e.c:afNewBatchFormTrackEvent");
+        trackEvent.setParams({
+            "track" : track
+        });
+        console.log('trackChanged');
+        trackEvent.fire();  
+    },
+    
+    trainerChanged : function(component, event, helper) {
+        var trainings   = component.get("v.openTrainings");
+        var trainer     = event.getParam("value");
+        var startDate   = component.get("v.startDate");
+        var endDate     = component.get("v.endDate");
+        console.log('testing');
+        console.log('trainer: ' + trainer);
+        helper.showTrainerToast(helper, event, trainings, trainer, startDate, endDate);
+    },
 })
