@@ -7,13 +7,11 @@
     <label>AssignForce</label>
     <navType>Standard</navType>
     <tab>Batches</tab>
+    <tab>Training_Location__c</tab>
     <tab>Curricula</tab>
     <tab>Trainers</tab>
     <tab>Profile</tab>
-    <tab>Training_Location__c</tab>
-    <tab>TrainingRole__c</tab>
     <tab>Training_Track__c</tab>
-    <tab>Skill__c</tab>
     <uiType>Lightning</uiType>
     <utilityBar>AssignForce_UtilityBar</utilityBar>
 </CustomApplication>
