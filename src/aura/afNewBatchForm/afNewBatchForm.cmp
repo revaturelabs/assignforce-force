@@ -17,10 +17,12 @@
     <aura:attribute name="startDate"       type="Date" />
     <aura:attribute name="status"          type="String" default="Planned" />
     <aura:attribute name="uncleared"       type="Boolean"    default="true" />
+    <aura:attribute name="newBatch" type="Training__c"/>
     
     <!-- Events -->
     <aura:registerEvent name="trackTransfer" type="c:afNewBatchFormTrackEvent"/>
     <aura:registerEvent name="locTransfer"      type="c:afNewBatchFormLocationEvent"/>
+    <aura:registerEvent name="newBatchCreated"      type="c:afNewBatchCreatedEvent"/>
     
     <!-- Handlers -->
     <aura:handler name="init"      value="{!this}"       action="{!c.doInit}" />

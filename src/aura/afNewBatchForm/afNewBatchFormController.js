@@ -92,7 +92,14 @@
         //var record = event.getParam("response");
         var form = component.find("newBatchForm");
         var fields = event.getParam('fields');
+        console.log('fields: ' + fields);
         console.log('onSuccess');
+        
+      /*  var object = [{
+            name : fields.Name,
+            : "v.startDate"
+        }]
+        */
         helper.clear(component, event);  
     },
     
