@@ -1,12 +1,14 @@
 <aura:component >
-    <aura:attribute name="trainer" type="Object"/>
+    <!--Attributes-->
+    <aura:attribute name="trainer" type="User"/>
     <aura:attribute name="isAvailable" type="Boolean" default="true"/>
     <aura:attribute name="allSkills" type="Skill__c[]"/>
     <aura:attribute name="hasSkill" type="Boolean" default="true"/>
     <aura:attribute name="selectedTrainingTrack" type="ID"/>
     
+    <!--Handlers-->
     <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
-    
+    <!--Events-->
     <aura:registerEvent name="TrainerIsSelected" type="c:TrainerSelected"/>
     
     <lightning:recordViewForm recordId="{!v.trainer.Id}" objectApiName="User">
