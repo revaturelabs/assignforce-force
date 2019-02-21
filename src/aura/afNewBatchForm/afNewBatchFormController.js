@@ -51,8 +51,8 @@
         
         var trainer   = component.get("v.trainer");
         var cotrainer = component.get("v.cotrainer");
-        component.set("v.trainer");
-        component.set("v.cotrainer");
+        component.set("v.trainer", trainer);
+        component.set("v.cotrainer", cotrainer);
     }, 
     
     clearBatchFields : function(component, event, helper) {
