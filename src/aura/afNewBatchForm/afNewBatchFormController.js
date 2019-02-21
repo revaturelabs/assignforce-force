@@ -118,7 +118,7 @@
     
     trainerChanged : function(component, event, helper) {
         var trainings   = component.get("v.openTrainings");
-        var trainer     = event.getParam("v.value");
+        var trainer     = event.getParam("value");
         var startDate   = component.get("v.startDate");
         var endDate     = component.get("v.endDate");
         console.log('testing');

@@ -66,9 +66,9 @@
         var newStart = new Date(startDate);
         var newEnd = new Date(endDate);
         for (var i = 0; i < trainings.length; i++) {
-            //console.log('has length');
+            console.log('has length');
             if(trainer != null && trainer != "" && (trainer == trainings[i].Trainer__c || trainings[i].CoTrainer__c)) {
-                //console.log('first conditional');
+                console.log('first conditional');
                 var prevStart = new Date(trainings[i].StartDate__c);
                 var prevEnd = new Date(trainings[i].EndDate__c);
                 
