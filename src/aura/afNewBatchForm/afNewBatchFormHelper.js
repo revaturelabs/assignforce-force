@@ -22,7 +22,13 @@
             component.set("v.endDate", "");
         }
         
-        //this.showTrainerToast(this, event, trainings, trainer, startDate, endDate);
+        var dateEvent = $A.get("e.c:afNewBatchFormDateEvent");
+        dateEvent.setParams({
+            "startDate" : startDate,
+            "endDate"    : endDate
+        });
+        console.log('dateChanged');
+        dateEvent.fire();
     },
     
     clear : function(component, event) {   

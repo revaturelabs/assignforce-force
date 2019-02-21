@@ -3,7 +3,6 @@
     <aura:attribute name="trainer" type="User"/>
     <aura:attribute name="isAvailable" type="Boolean" default="true"/>
     <aura:attribute name="allSkills" type="Skill__c[]"/>
-    <aura:attribute name="allTrainings" type="Training__c[]"/>
     <aura:attribute name="hasSkill" type="Boolean" default="true"/>
     <aura:attribute name="selectedTrainingTrack" type="ID"/>
     

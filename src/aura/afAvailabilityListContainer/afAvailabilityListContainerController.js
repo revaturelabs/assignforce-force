@@ -9,8 +9,9 @@
                 console.log('Error');
             }
         });
+        $A.enqueueAction(getSkills);
         var getTrainings = component.get("c.getAllTrainings");
-        getSkills.setCallback(this, function(response){
+        getTrainings.setCallback(this, function(response){
             var state = response.getState();
             if(component.isValid() && state === "SUCCESS"){
                 component.set('v.allTrainings', response.getReturnValue());

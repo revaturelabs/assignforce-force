@@ -4,13 +4,11 @@
         var allSkills = component.get('v.allSkills');
         var selected = component.get('v.selectedTrainingTrack');
         var hasSkill = false;
-        var trainings = component.get("v.allTrainings");
-
-            if(trainer.Available__c==="Available"){
-                component.set('v.isAvailable', true);
-            } else{
-                component.set('v.isAvailable', false);
-            }
+        if(trainer.Available__c==="Available"){
+            component.set('v.isAvailable', true);
+        } else{
+            component.set('v.isAvailable', false);
+        }
         for(var i=0; i<allSkills.length;i++){
             if(allSkills[i].Trainer__c==trainer.Id){
                 if(allSkills[i].Training_Track__c==selected){
