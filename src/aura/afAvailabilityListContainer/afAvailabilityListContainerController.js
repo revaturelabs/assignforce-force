@@ -15,7 +15,6 @@
             var state = response.getState();
             if(component.isValid() && state === "SUCCESS"){
                 component.set('v.allTrainings', response.getReturnValue());
-                console.log(response.getReturnValue());
             } else{
                 console.log('Error');
             }
@@ -25,8 +24,8 @@
         action.setCallback(this, function(response){
             var state = response.getState();
             if(component.isValid() && state === "SUCCESS"){
-                component.set('v.trainers', helper.sortTrainers(response.getReturnValue()));
-                console.log(helper.sortTrainers(response.getReturnValue()));
+                component.set('v.trainers', helper.sortTrainers(helper.sortTrainers(response.getReturnValue())));
+                component.set('v.masterTrainers', helper.sortTrainers(helper.sortTrainers(response.getReturnValue())));
             } else{
                 console.log('Error');
             }
@@ -77,27 +76,27 @@
     },
     dateHasChanged: function(component, event, helper){
         var trainers = component.get('v.trainers');
-        var startDate = event.getParam('startDate');
-        var endDate = event.getParam('endDate');
+        var trainings = component.get('v.allTrainings');
+        var startDate = new Date(event.getParam('startDate'));
+        var endDate = new Date(event.getParam('endDate'));
         for(var i=0; i<trainers.length; i++){
-            if(newStart!=undefined && newEnd!=undfined){
-                for (var j = 0; j < trainings.length; j++) {
-                    if(trainers[i].Id == trainings[j].Trainer__c || trainings[j].CoTrainer__c) {
-                        var prevStart = new Date(trainings[i].StartDate__c);
-                        var prevEnd = new Date(trainings[i].EndDate__c);
-                        if((prevStart <= newStart    && newStart <= prevEnd) || 
-                           (prevStart <= newEnd  && newEnd <= prevEnd) || 
-                           (prevStart >= newStart    && newEnd >= prevEnd)){
-                            trainer[i].Available__c = "Training";
-                            break;
-                        }
+            for (var j = 0; j < trainings.length; j++) {
+                if(trainers[i].Id == trainings[j].Trainer__c || trainers[i].Id == trainings[j].CoTrainer__c) {
+                    var prevStart = new Date(trainings[j].StartDate__c);
+                    var prevEnd = new Date(trainings[j].EndDate__c);
+                    
+                    if((prevStart <= startDate    && startDate <= prevEnd) || 
+                       (prevStart <= endDate  && endDate <= prevEnd) || 
+                       (prevStart >= startDate    && endDate >= prevEnd)){
+                        trainers[i].Available__c = "Training";
+                        break;
+                    }else{
+                        trainers[i].Available__c = "Available";
                     }
                 }
             }
         }
-        component.set('v.startDate', startDate);
-        component.set('v.endDate', endDate);
         component.set('v.trainers', null);
-        component.set('v.trainers', helper.sortTrainers(trainers));
+        component.set('v.trainers', helper.sortTrainers(helper.sortTrainers(trainers)));
     }
 })

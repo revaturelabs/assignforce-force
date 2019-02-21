@@ -4,12 +4,11 @@
     <!-- Attributes-->
     <aura:attribute name="rooms" type="Training_Room__c[]"/>
     <aura:attribute name="trainers" type="User[]"/>
+    <aura:attribute name="masterTrainers" type="User[]"/>
     <aura:attribute name="allSkills" type="Skill__c[]"/>
     <aura:attribute name="allTrainings" type="Training__c[]"/>
     <aura:attribute name="selectedTrainingTrack" type='ID'/>
     <aura:attribute name="tab1Shown" type="Boolean" default='true'/>
-    <aura:attribute name="startDate" type="Date"/>
-    <aura:attribute name="endDate" type="Date"/>
     
     <!--Handlers-->
     <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>

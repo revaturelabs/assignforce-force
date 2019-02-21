@@ -17,13 +17,11 @@
             }
         }
         component.set('v.hasSkill', hasSkill);
-        console.log('Selected' + selected);
         
     },
     selectIsClicked : function(component, event, helper){
         var selectedEvt = $A.get('e.c:TrainerSelected');
         var trainer = component.get('v.trainer');
-        console.log('trainer' + trainer);
         selectedEvt.setParams({'trainer':trainer});
         selectedEvt.fire();
     },
