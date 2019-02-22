@@ -1,5 +1,16 @@
 ({
 	doInit : function(component, event, helper) {
+        var getSkills = component.get("c.getAllSkills");
+        getSkills.setCallback(this, function(response){
+            var state = response.getState();
+            if(component.isValid() && state === "SUCCESS"){
+                component.set('v.allSkills', response.getReturnValue());
+                console.log(response.getReturnValue());
+            } else{
+                console.log('Error');
+            }
+        });
+        $A.enqueueAction(getSkills);
         var action = component.get("c.getAllTrainers");
         action.setCallback(this, function(response){
             var state = response.getState();
@@ -34,6 +45,7 @@
             }
         });
         $A.enqueueAction(getRooms);
+        
     },
     trainerClick: function (component, helper) {
         var isTab1Shown = component.get('v.tab1Shown');
@@ -73,5 +85,11 @@
         } else {
         	component.set("v.currentLocRooms", currentLocRooms);
         }
+    skillHasChanged: function(component, event, helper){
+        var trainers = component.get('v.trainers');
+        var trainingTrack = event.getParam('track');
+        component.set('v.selectedTrainingTrack',trainingTrack);
+        component.set('v.trainers', null);
+        component.set('v.trainers', trainers);
     }
 })

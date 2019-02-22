@@ -126,4 +126,5 @@
         console.log('trainer: ' + trainer);
         helper.showTrainerToast(helper, event, trainings, trainer, startDate, endDate);
     },
+
 })

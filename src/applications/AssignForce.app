@@ -13,7 +13,6 @@
     <tab>Training_Location__c</tab>
     <tab>TrainingRole__c</tab>
     <tab>Training_Track__c</tab>
-    <tab>Training_Room__c</tab>
     <tab>Skill__c</tab>
     <tab>Training__c</tab>
     <uiType>Lightning</uiType>
