@@ -70,7 +70,6 @@
                 })
                 $A.enqueueAction(trngAction);
                 // end of getting all Training__c records
-                
             } else if (state === "ERROR"){
                 var errors = response.getError();
                 if (errors) {

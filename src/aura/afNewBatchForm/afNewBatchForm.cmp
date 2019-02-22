@@ -1,4 +1,4 @@
-<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes" access="global" >
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes" access="global" controller="afNewBatchFormApexController">
     <ltng:require styles="{!$Resource.RevatureStyles}"/>
     <lightning:notificationsLibrary aura:id="notificationsLibrary"/>
     
@@ -60,6 +60,7 @@
                     </div>
                     <div class="slds-grid slds-grid_align-spread">
                         <div class="slds-col slds-size_1-of-4">
+
                             <lightning:inputField fieldName="StartDate__c" aura:id="startDate" value="{!v.startDate}" onchange="{!c.dateChanged}"/>
                         </div>
                         <div class="slds-col slds-size_1-of-6">
@@ -101,4 +102,5 @@
             </div>
         </lightning:recordEditForm>
     </div> 
+
 </aura:component>
