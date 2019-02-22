@@ -6,10 +6,16 @@
     <aura:attribute name="hasSkill" type="Boolean" default="true" description="This is a boolean value used to show whether or not the trainer has the selected training track"/>
     <aura:attribute name="selectedTrainingTrack" type="ID" description="This is an attribute that is populated from the afNewBatchFormDateEvent used to compare to the list of allSkills and affect the hasSkill attribute"/>
     
+<<<<<<< HEAD
     <!--Handlers-->
     <aura:handler name="init" value="{!this}" action="{!c.doInit}" description="Handles the initialization of the availability and hasSkill"/>
     <!--Events-->
     <aura:registerEvent name="TrainerIsSelected" type="c:TrainerSelected" description="when the selected button is clicked on this component the trainer's id is sent up in the event"/>
+=======
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    
+    <aura:registerEvent name="TrainerIsSelected" type="c:TrainerSelected"/>
+>>>>>>> 8affc68f2d3956c0c9333a080c5e32b805e38748
     
     <lightning:recordViewForm recordId="{!v.trainer.Id}" objectApiName="User">
         <div class="slds-grid" style="padding-top: 10px;">

@@ -1,3 +1,4 @@
-<aura:event type="APPLICATION" description="Event template">
-   <aura:attribute name="location" type="Id"/>
+<aura:event type="APPLICATION">
+   	<aura:attribute name="location" 		type="Id"/>
+    <aura:attribute name="roomsForLocation" type="List" />
 </aura:event>

@@ -12,7 +12,6 @@
             </componentInstanceProperties>
             <componentInstanceProperties>
                 <name>filterName</name>
-                <value>All</value>
             </componentInstanceProperties>
             <componentInstanceProperties>
                 <name>hideActionBar</name>

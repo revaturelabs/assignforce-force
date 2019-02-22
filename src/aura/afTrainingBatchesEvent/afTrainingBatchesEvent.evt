@@ -1,0 +1,3 @@
+<aura:event type="APPLICATION" description="Used to populate list view based on create a new batch form" >
+    <aura:attribute name="getDataFromBatchForm" type="Training__c" />
+</aura:event>
