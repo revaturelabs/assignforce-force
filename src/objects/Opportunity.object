@@ -1,76 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
-    <actionOverrides>
-        <actionName>AddInfluence</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>CancelEdit</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Clone</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Delete</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Edit</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>List</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>New</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>SaveEdit</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Tab</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>View</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
-    <enableFeeds>true</enableFeeds>
-    <enableHistory>false</enableHistory>
-    <fields>
-        <fullName>AccountId</fullName>
-        <trackFeedHistory>false</trackFeedHistory>
-        <trackTrending>false</trackTrending>
-        <type>Lookup</type>
-    </fields>
-    <fields>
-        <fullName>Amount</fullName>
-        <trackFeedHistory>true</trackFeedHistory>
-        <trackTrending>false</trackTrending>
-    </fields>
-    <fields>
-        <fullName>CampaignId</fullName>
-        <trackFeedHistory>false</trackFeedHistory>
-        <trackTrending>false</trackTrending>
-        <type>Lookup</type>
-    </fields>
-    <fields>
-        <fullName>CloseDate</fullName>
-        <trackFeedHistory>true</trackFeedHistory>
-        <trackTrending>false</trackTrending>
-    </fields>
-    <fields>
-        <fullName>ContractId</fullName>
-        <trackFeedHistory>false</trackFeedHistory>
-        <trackTrending>false</trackTrending>
-        <type>Lookup</type>
-    </fields>
     <fields>
         <fullName>CurrentGenerators__c</fullName>
         <externalId>false</externalId>
@@ -109,30 +38,6 @@
         </valueSet>
     </fields>
     <fields>
-        <fullName>Description</fullName>
-        <trackFeedHistory>false</trackFeedHistory>
-        <trackTrending>false</trackTrending>
-    </fields>
-    <fields>
-        <fullName>ExpectedRevenue</fullName>
-        <trackTrending>false</trackTrending>
-    </fields>
-    <fields>
-        <fullName>IqScore</fullName>
-        <trackTrending>false</trackTrending>
-    </fields>
-    <fields>
-        <fullName>IsPrivate</fullName>
-        <trackFeedHistory>false</trackFeedHistory>
-        <trackTrending>false</trackTrending>
-    </fields>
-    <fields>
-        <fullName>LeadSource</fullName>
-        <trackFeedHistory>false</trackFeedHistory>
-        <trackTrending>false</trackTrending>
-        <type>Picklist</type>
-    </fields>
-    <fields>
         <fullName>MainCompetitors__c</fullName>
         <externalId>false</externalId>
         <label>Main Competitor(s)</label>
@@ -142,16 +47,6 @@
         <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
-    </fields>
-    <fields>
-        <fullName>Name</fullName>
-        <trackFeedHistory>true</trackFeedHistory>
-        <trackTrending>false</trackTrending>
-    </fields>
-    <fields>
-        <fullName>NextStep</fullName>
-        <trackFeedHistory>false</trackFeedHistory>
-        <trackTrending>false</trackTrending>
     </fields>
     <fields>
         <fullName>OrderNumber__c</fullName>
@@ -165,33 +60,6 @@
         <unique>false</unique>
     </fields>
     <fields>
-        <fullName>OwnerId</fullName>
-        <trackFeedHistory>true</trackFeedHistory>
-        <trackTrending>false</trackTrending>
-        <type>Lookup</type>
-    </fields>
-    <fields>
-        <fullName>Pricebook2Id</fullName>
-        <trackTrending>false</trackTrending>
-        <type>Lookup</type>
-    </fields>
-    <fields>
-        <fullName>Probability</fullName>
-        <trackFeedHistory>false</trackFeedHistory>
-        <trackTrending>false</trackTrending>
-    </fields>
-    <fields>
-        <fullName>StageName</fullName>
-        <trackFeedHistory>true</trackFeedHistory>
-        <trackTrending>false</trackTrending>
-        <type>Picklist</type>
-    </fields>
-    <fields>
-        <fullName>TotalOpportunityQuantity</fullName>
-        <trackFeedHistory>false</trackFeedHistory>
-        <trackTrending>false</trackTrending>
-    </fields>
-    <fields>
         <fullName>TrackingNumber__c</fullName>
         <externalId>false</externalId>
         <label>Tracking Number</label>
@@ -201,12 +69,6 @@
         <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
-    </fields>
-    <fields>
-        <fullName>Type</fullName>
-        <trackFeedHistory>false</trackFeedHistory>
-        <trackTrending>false</trackTrending>
-        <type>Picklist</type>
     </fields>
     <listViews>
         <fullName>AllOpportunities</fullName>
@@ -303,24 +165,6 @@
         </filters>
         <label>Won</label>
     </listViews>
-    <searchLayouts>
-        <customTabListAdditionalFields>OPPORTUNITY.NAME</customTabListAdditionalFields>
-        <customTabListAdditionalFields>ACCOUNT.NAME</customTabListAdditionalFields>
-        <customTabListAdditionalFields>OPPORTUNITY.CLOSE_DATE</customTabListAdditionalFields>
-        <lookupDialogsAdditionalFields>OPPORTUNITY.NAME</lookupDialogsAdditionalFields>
-        <lookupDialogsAdditionalFields>ACCOUNT.NAME</lookupDialogsAdditionalFields>
-        <lookupDialogsAdditionalFields>ACCOUNT.SITE</lookupDialogsAdditionalFields>
-        <lookupPhoneDialogsAdditionalFields>OPPORTUNITY.NAME</lookupPhoneDialogsAdditionalFields>
-        <lookupPhoneDialogsAdditionalFields>ACCOUNT.NAME</lookupPhoneDialogsAdditionalFields>
-        <lookupPhoneDialogsAdditionalFields>ACCOUNT.SITE</lookupPhoneDialogsAdditionalFields>
-        <searchResultsAdditionalFields>OPPORTUNITY.NAME</searchResultsAdditionalFields>
-        <searchResultsAdditionalFields>ACCOUNT.NAME</searchResultsAdditionalFields>
-        <searchResultsAdditionalFields>ACCOUNT.SITE</searchResultsAdditionalFields>
-        <searchResultsAdditionalFields>OPPORTUNITY.STAGE_NAME</searchResultsAdditionalFields>
-        <searchResultsAdditionalFields>OPPORTUNITY.CLOSE_DATE</searchResultsAdditionalFields>
-        <searchResultsAdditionalFields>CORE.USERS.ALIAS</searchResultsAdditionalFields>
-    </searchLayouts>
-    <sharingModel>ReadWrite</sharingModel>
     <webLinks>
         <fullName>DeliveryStatus</fullName>
         <availability>online</availability>
