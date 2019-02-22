@@ -3,37 +3,32 @@
     <lightning:notificationsLibrary aura:id="notificationsLibrary"/>
     
     <!-- Attributes -->
-    <aura:attribute name="allTrainers"		type="List" />
-    <aura:attribute name="allCoTrainers"	type="List" />
-    <aura:attribute name="cotrainer"       	type="User" />
-    <aura:attribute name="endDate"          type="Date" />
-    <aura:attribute name="hiddenRoom"      	type="Id" />
-    <aura:attribute name="location"        	type="Id" />
-    <aura:attribute name="newBatch"         type="Training__c"/>
-    <aura:attribute name="numWeeks"         type="Integer"    	default="10"/>
-    <aura:attribute name="openTrainings"   	type="List" />
-    <aura:attribute name="room"            	type="Training_Room__c" />
-    <aura:attribute name="roomList"         type="List" />
-    <aura:attribute name="roomsForLocation" type="List" />
-    <aura:attribute name="track"           	type="Id" />
-    <aura:attribute name="trainer"          type="User" />
-    <aura:attribute name="startDate"       	type="Date" />
-    <aura:attribute name="status"          	type="String" 		default="Planned" />
-    <aura:attribute name="uncleared"       	type="Boolean"    	default="true" />
+    <aura:attribute name="availRooms"      type="List" />
+    <aura:attribute name="cotrainer"       type="User" />
+    <aura:attribute name="endDate"             type="Date" />
+    <aura:attribute name="hiddenRoom"      type="Id" />
+    <aura:attribute name="location"        type="Id" />
+    <aura:attribute name="numWeeks"            type="Integer"    default="10"/>
+    <aura:attribute name="openTrainings"   type="List" />
+    <aura:attribute name="room"            type="Training_Room__c" />
+    <aura:attribute name="roomList"            type="List" />
+    <aura:attribute name="track"           type="Id" />
+    <aura:attribute name="trainer"             type="User" />
+    <aura:attribute name="startDate"       type="Date" />
+    <aura:attribute name="status"          type="String" default="Planned" />
+    <aura:attribute name="uncleared"       type="Boolean"    default="true" />
     
     <!-- Events -->
-    <aura:registerEvent name="trackTransfer"    type="c:afNewBatchFormTrackEvent"/>
+    <aura:registerEvent name="trackTransfer" type="c:afNewBatchFormTrackEvent"/>
     <aura:registerEvent name="locTransfer"      type="c:afNewBatchFormLocationEvent"/>
-    <aura:registerEvent name="dateTransfer"     type="c:afNewBatchFormDateEvent"/>
-    <aura:registerEvent name="newBatchCreated"  type="c:afNewBatchCreatedEvent"/>
+    <aura:registerEvent name="dateTransfer" type="c:afNewBatchFormDateEvent"/>
     
     <!-- Handlers -->
-    <aura:handler name="init"           value="{!this}"             action="{!c.doInit}" />
-    <aura:handler name="change"         value="{!v.trainer}"        action="{!c.trainerChanged}"/>
-    <aura:handler name="change"         value="{!v.cotrainer}"      action="{!c.trainerChanged}"/>
-    <aura:handler name="change"         value="{!v.track}"          action="{!c.trackChanged}"/>
+    <aura:handler name="init"      value="{!this}"       action="{!c.doInit}" />
+    <aura:handler name="change"        value="{!v.trainer}"  action="{!c.trainerChanged}"/>
+    <aura:handler name="change"        value="{!v.cotrainer}"    action="{!c.trainerChanged}"/>
     
-<div class="slds-card">
+    <div class="slds-card">
         <lightning:recordEditForm aura:id="newBatchForm" objectApiName="Training__c" onsuccess="{!c.onSuccess}">
             <lightning:messages/>
             <div class="slds-card__header">
@@ -55,12 +50,11 @@
                 <aura:if isTrue="{!v.uncleared}">
                     <div class="slds-grid slds-grid_align-spread">
                         <div class="slds-col slds-size_1-of-2">
-                            <lightning:inputField fieldName="TrainingTrack__c" aura:id="trainingTrack" value="{!v.track}"/>
+                            <lightning:inputField fieldName="TrainingTrack__c" aura:id="trainingTrack" value="{!v.track}" onchange="{!c.trackChanged}"/>
                         </div>
                     </div>
                     <div class="slds-grid slds-grid_align-spread">
                         <div class="slds-col slds-size_1-of-4">
-
                             <lightning:inputField fieldName="StartDate__c" aura:id="startDate" value="{!v.startDate}" onchange="{!c.dateChanged}"/>
                         </div>
                         <div class="slds-col slds-size_1-of-6">
@@ -72,10 +66,10 @@
                     </div>
                     <div class="slds-grid slds-grid_align-spread">
                         <div class="slds-col slds-size_1-of-4">
-                            <lightning:inputField fieldName="Trainer__c" aura:id="trainer" value="{!v.trainer}" onchange="{!c.trainerChanged}"/>
+                            <lightning:inputField fieldName="Trainer__c" aura:id="trainer" value="{!v.trainer}"/>
                         </div>
                         <div class="slds-col slds-size_1-of-4 slds-col_bump-left">
-                            <lightning:inputField fieldName="CoTrainer__c" aura:id="cotrainer" value="{!v.cotrainer}" onchange="{!c.trainerChanged}"/>
+                            <lightning:inputField fieldName="CoTrainer__c" aura:id="cotrainer" value="{!v.cotrainer}"/>
                             <lightning:inputField fieldName="Status__c" value="{!v.status}" hidden="true"/>
                         </div>
                         <div class="slds-col slds-size_1-of-6 slds-col_bump-left">
@@ -102,5 +96,4 @@
             </div>
         </lightning:recordEditForm>
     </div> 
-
 </aura:component>

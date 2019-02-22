@@ -1,11 +1,7 @@
-<aura:component >
-    <aura:attribute name="room" type="Object"/>
-    <aura:attribute name="isYes" type="Boolean"/>
-    <aura:attribute name="isRequest" type="Boolean"/>
-    <aura:attribute name="allTrainings" type="Training__c[]"/>
-    <aura:attribute name="startDate" type="Date"/>
-    <aura:attribute name="endDate" type="Date"/>
-    <aura:attribute name="badTime" type="Boolean"/>
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes" access="global" >
+    <aura:attribute name="room" type="Training_Room__c" />
+    <aura:attribute name="isYes" type="Boolean" default="false"/>
+    <aura:attribute name="isRequest" type="Boolean" default="false"/>
     
     <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
     
@@ -44,4 +40,5 @@
             </div>
         </div>
     </lightning:recordViewForm>
+    
 </aura:component>
