@@ -19,20 +19,22 @@
             let year = endDate.getFullYear(); 
             let month = endDate.getMonth(); 
             let date = endDate.getDate();
+            
+            // pass new start/end dates to application event
             component.set("v.endDate", (year + "-" + (month+1) + "-" + date));
+            startDate = component.get("v.startDate");
+            endDate = component.get("v.endDate");
+            var dateEvent = $A.get("e.c:afNewBatchFormDateEvent");
+            dateEvent.setParams({
+                "startDate" : startDate,
+                "endDate"    : endDate
+            });
+            console.log('dateChanged');
+            dateEvent.fire();
             
         } else { // Thursday || Friday || Saturday || Sunday (no batches start here)
             component.set("v.endDate", "");
         }
-        
-        // pass new start/end dates to application event
-        var dateEvent = $A.get("e.c:afNewBatchFormDateEvent"); 
-        dateEvent.setParams({
-            "startDate" : startDate,
-            "endDate"	: endDate
-        });
-        console.log('dateChanged');
-        dateEvent.fire();
     },
     
     clear : function(component, event) {   
@@ -61,11 +63,9 @@
         var newEnd = new Date(endDate);
         
         for (var i = 0; i < trainings.length; i++) {
-
             // if training[i] is associated with the selected trainer/cotrainer...
             if(trainer != null && trainer != "" && (trainer == trainings[i].Trainer__c || trainings[i].CoTrainer__c)) {
                 // convert start/end dates of training[i] into JS Date format
-              
                 var prevStart = new Date(trainings[i].StartDate__c);
                 var prevEnd = new Date(trainings[i].EndDate__c);
                 
@@ -86,5 +86,5 @@
                 }
             }
         } 
-    },
+    }
 })

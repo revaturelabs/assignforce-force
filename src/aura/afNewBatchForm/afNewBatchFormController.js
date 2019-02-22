@@ -70,6 +70,7 @@
                 })
                 $A.enqueueAction(trngAction);
                 // end of getting all Training__c records
+                
             } else if (state === "ERROR"){
                 var errors = response.getError();
                 if (errors) {
@@ -87,13 +88,13 @@
     
     dateChanged : function(component, event, helper) {
 
-      helper.changeEndDate(component, event, helper);
+        helper.changeEndDate(component, event, helper);
         
         // get and set trainer/cotrainer to invoke showTrainerToast indirectly 
         var trainer   = component.get("v.trainer");
         var cotrainer = component.get("v.cotrainer");
-        component.set("v.trainer");
-        component.set("v.cotrainer");
+        component.set("v.trainer", trainer);
+        component.set("v.cotrainer", cotrainer);
     }, 
     
     clearBatchFields : function(component, event, helper) {
@@ -104,7 +105,7 @@
         var loc      = component.get("v.location");
         var allRooms = component.get("v.roomList");
         var roomsForLocation = [];
-        //console.log('loc: ' + loc);
+        
         for (var i = 0; i < allRooms.length; i++) {
             // if room is associated with selected location...
             if (allRooms[i].TrainingLocation__c == loc) {
@@ -117,10 +118,10 @@
         // pass new location and associated rooms to application event
         var locEvent = $A.get("e.c:afNewBatchFormLocationEvent");
         locEvent.setParams({
-            "location" : loc,
-            "rooms" : roomsForLocation
+            "location" : loc ,
+            "roomsForLocation" : roomsForLocation
         });
-        //console.log('locEvent1: ' + locEvent.getParam("rooms"));
+        console.log('locEvent');
         locEvent.fire();
     },
     
@@ -155,7 +156,7 @@
     
     selectRoom : function(component, event, helper) {
         var room    = component.get("v.room");
-        var rooms   = component.get("v.availRooms");
+        var rooms   = component.get("v.roomsForLocation");
         
         for (var i = 0; i < rooms.length; i++) {
             if(rooms[i].Id == room) {
@@ -180,7 +181,7 @@
     
     trainerChanged : function(component, event, helper) {
         var trainings   = component.get("v.openTrainings");
-        var trainer     = event.getParam("v.value");
+        var trainer     = event.getParam("value");
         var startDate   = component.get("v.startDate");
         var endDate     = component.get("v.endDate");
         
