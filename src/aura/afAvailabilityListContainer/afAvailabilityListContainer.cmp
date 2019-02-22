@@ -2,13 +2,11 @@
     <ltng:require styles="{!$Resource.RevatureStyles}"/>
     
     <!-- Attributes-->
-    <aura:attribute name="rooms" type="Training_Room__c[]"/>
-    <aura:attribute name="trainers" type="User[]"/>
-    <aura:attribute name="masterTrainers" type="User[]"/>
-    <aura:attribute name="allSkills" type="Skill__c[]"/>
-    <aura:attribute name="allTrainings" type="Training__c[]"/>
-    <aura:attribute name="selectedTrainingTrack" type='ID'/>
-    <aura:attribute name="tab1Shown" type="Boolean" default='true'/>
+    <aura:attribute name="trainers" type="User[]" description="List of all of the trainers used to populate the afTrainerAvailabilityListItem"/>
+    <aura:attribute name="allSkills" type="Skill__c[]" description="allSkills is a list of Skill__c objects that is used to pass the afTrainerAvailabilityListItem"/>
+    <aura:attribute name="allTrainings" type="Training__c[]" description="allTrainings attribute contains the list of all the Trainings with in the database"/>
+    <aura:attribute name="selectedTrainingTrack" type='ID' description="This stores the value of the Training Track that is recieved from the afNewBatchFormTrackEvent"/>
+    <aura:attribute name="tab1Shown" type="Boolean" default='true' description="Boolean to change between the Trainer Tab and the Rooms Tab"/>
     
     <!--Handlers-->
     <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>

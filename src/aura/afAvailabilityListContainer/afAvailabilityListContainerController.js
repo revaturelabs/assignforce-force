@@ -68,6 +68,7 @@
         }
     },
     skillHasChanged: function(component, event, helper){
+        //this method handles the event to send the new selected training track to all of the trainers
         var trainers = component.get('v.trainers');
         var trainingTrack = event.getParam('track');
         component.set('v.selectedTrainingTrack',trainingTrack);
@@ -75,6 +76,7 @@
         component.set('v.trainers', trainers);
     },
     dateHasChanged: function(component, event, helper){
+        //This method checks the start date and end date of every training within the dates selected from the afBatchFormDateEvent and changes the availability of the trainer accordingly
         var trainers = component.get('v.trainers');
         var trainings = component.get('v.allTrainings');
         var startDate = new Date(event.getParam('startDate'));

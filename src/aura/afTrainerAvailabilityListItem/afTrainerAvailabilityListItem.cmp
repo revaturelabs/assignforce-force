@@ -7,9 +7,9 @@
     <aura:attribute name="selectedTrainingTrack" type="ID" description="This is an attribute that is populated from the afNewBatchFormDateEvent used to compare to the list of allSkills and affect the hasSkill attribute"/>
     
     <!--Handlers-->
-    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" description="Handles the initialization of the availability and hasSkill"/>
     <!--Events-->
-    <aura:registerEvent name="TrainerIsSelected" type="c:TrainerSelected"/>
+    <aura:registerEvent name="TrainerIsSelected" type="c:TrainerSelected" description="when the selected button is clicked on this component the trainer's id is sent up in the event"/>
     
     <lightning:recordViewForm recordId="{!v.trainer.Id}" objectApiName="User">
         <div class="slds-grid" style="padding-top: 10px;">
