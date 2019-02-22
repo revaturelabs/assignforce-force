@@ -46,13 +46,23 @@
     
     dateChanged : function(component, event, helper) {
         //var trainings     = component.get("v.openTrainings");
+        var dateEvent = $A.get("e.c:afNewBatchFormDateEvent");
+        var startDate = component.get("v.startDate");
+        var endDate = component.get("v.endDate");
         
         helper.changeEndDate(component, event, helper);
         
+        dateEvent.setParams({
+                "startDate" : startDate,
+                "endDate" : endDate
+        });
+        
+        dateEvent.fire();
+        
         var trainer   = component.get("v.trainer");
         var cotrainer = component.get("v.cotrainer");
-        component.set("v.trainer", trainer);
-        component.set("v.cotrainer", cotrainer);
+        component.set("v.trainer");
+        component.set("v.cotrainer");
     }, 
     
     clearBatchFields : function(component, event, helper) {
@@ -61,22 +71,20 @@
     
     findRooms : function(component, event, helper) {
         var loc      = component.get("v.location");
-        var roomsForLocation = component.get("v.roomsForLocation");
         var allRooms = component.get("v.roomList");
-        var roomsForLocation = [];
-
+        var availRooms = [];
+        //console.log('loc: ' + loc);
         for (var i = 0; i < allRooms.length; i++) {
             if (allRooms[i].TrainingLocation__c == loc) {
-                roomsForLocation.push(allRooms[i]);
+                availRooms.push(allRooms[i]);
             }
         }
-        component.set("v.roomsForLocation", roomsForLocation);
+        component.set("v.availRooms", availRooms);
         
         var locEvent = $A.get("e.c:afNewBatchFormLocationEvent");
         locEvent.setParams({
-            "location" : loc ,
-            "roomsForLocation" : roomsForLocation
-
+            "location" : loc,
+            "rooms" : availRooms
         });
         //console.log('locEvent1: ' + locEvent.getParam("rooms"));
         locEvent.fire();
@@ -99,7 +107,7 @@
     
     selectRoom : function(component, event, helper) {
         var room    = component.get("v.room");
-        var rooms   = component.get("v.roomsForLocation");
+        var rooms   = component.get("v.availRooms");
         
         for (var i = 0; i < rooms.length; i++) {
             if(rooms[i].Id == room) {
@@ -121,7 +129,7 @@
     
     trainerChanged : function(component, event, helper) {
         var trainings   = component.get("v.openTrainings");
-        var trainer     = event.getParam("value");
+        var trainer     = event.getParam("v.value");
         var startDate   = component.get("v.startDate");
         var endDate     = component.get("v.endDate");
         console.log('testing');

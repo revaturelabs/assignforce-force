@@ -3,7 +3,7 @@
     <lightning:notificationsLibrary aura:id="notificationsLibrary"/>
     
     <!-- Attributes -->
-    <aura:attribute name="roomsForLocation"      type="List" />
+    <aura:attribute name="availRooms"      type="List" />
     <aura:attribute name="cotrainer"       type="User" />
     <aura:attribute name="endDate"             type="Date" />
     <aura:attribute name="hiddenRoom"      type="Id" />
@@ -17,13 +17,11 @@
     <aura:attribute name="startDate"       type="Date" />
     <aura:attribute name="status"          type="String" default="Planned" />
     <aura:attribute name="uncleared"       type="Boolean"    default="true" />
-    <aura:attribute name="newBatch" type="Training__c"/>
     
     <!-- Events -->
     <aura:registerEvent name="trackTransfer" type="c:afNewBatchFormTrackEvent"/>
     <aura:registerEvent name="locTransfer"      type="c:afNewBatchFormLocationEvent"/>
-    <aura:registerEvent name="dateTransfer" type="c:afNewBatchFormDateEvent"/>
-    <aura:registerEvent name="newBatchCreated"      type="c:afNewBatchCreatedEvent"/>
+    <aura:registerEvent name="dateTransfer"      type="c:afNewBatchFormDateEvent"/>
     
     <!-- Handlers -->
     <aura:handler name="init"      value="{!this}"       action="{!c.doInit}" />
@@ -60,7 +58,7 @@
                             <lightning:inputField fieldName="StartDate__c" aura:id="startDate" value="{!v.startDate}" onchange="{!c.dateChanged}"/>
                         </div>
                         <div class="slds-col slds-size_1-of-6">
-                            <lightning:input type="number" label="Number of Weeks" aura:id="numWeeks" min="1" max="156" step="1" value="{!v.numWeeks}" onchange="{!c.dateChanged}"/>
+                            <lightning:input type="number" label="Number of Weeks" aura:id="numWeeks" step="1" value="{!v.numWeeks}" onchange="{!c.dateChanged}"/>
                         </div>
                         <div class="slds-col slds-size_1-of-4">
                             <lightning:inputField fieldName="EndDate__c" aura:id="endDate" value="{!v.endDate}" disabled="true"/> 
@@ -86,7 +84,7 @@
                             </div>
                             <div class="slds-col slds-size_1-of-3">
                                 <lightning:select name="trainingRoom" label="Training Rooms" aura:id="trainingRoom" value="{!v.room}" onchange="{!c.selectRoom}">
-                                    <aura:iteration items="{!v.roomsForLocation}" var="room">
+                                    <aura:iteration items="{!v.availRooms}" var="room">
                                         <option text="{!room.Name}" value="{!room.Id}" selected="{!room.Name==v.room}"/>
                                     </aura:iteration>
                                 </lightning:select>
