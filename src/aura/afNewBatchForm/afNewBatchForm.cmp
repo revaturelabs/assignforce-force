@@ -90,7 +90,7 @@
                             </div>
                             <div class="slds-col slds-size_1-of-3">
                                 <lightning:select name="trainingRoom" label="Training Rooms" aura:id="trainingRoom" value="{!v.room}" onchange="{!c.selectRoom}">
-                                    <aura:iteration items="{!v.roomsForLocation}" var="room">
+                                    <aura:iteration items="{!v.availRooms}" var="room">
                                         <option text="{!room.Name}" value="{!room.Id}" selected="{!room.Name==v.room}"/>
                                     </aura:iteration>
                                 </lightning:select>
