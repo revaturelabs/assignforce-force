@@ -63,7 +63,7 @@
         var loc      = component.get("v.location");
         var allRooms = component.get("v.roomList");
         var availRooms = [];
-        
+        //console.log('loc: ' + loc);
         for (var i = 0; i < allRooms.length; i++) {
             if (allRooms[i].TrainingLocation__c == loc) {
                 availRooms.push(allRooms[i]);
@@ -73,9 +73,10 @@
         
         var locEvent = $A.get("e.c:afNewBatchFormLocationEvent");
         locEvent.setParams({
-            "location" : loc
+            "location" : loc,
+            "rooms" : availRooms
         });
-        console.log('locEvent');
+        //console.log('locEvent1: ' + locEvent.getParam("rooms"));
         locEvent.fire();
     },
     

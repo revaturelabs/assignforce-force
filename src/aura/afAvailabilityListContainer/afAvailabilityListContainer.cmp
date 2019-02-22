@@ -1,9 +1,15 @@
 <aura:component controller="afAvailabilityListContainerController" implements="force:appHostable,flexipage:availableForAllPageTypes" access="global" >
     <ltng:require styles="{!$Resource.RevatureStyles}"/>
-    <aura:attribute name="rooms" type="Training_Room__c[]"/>
+    <aura:attribute name="rooms" type="Object[]"/>
+    <aura:attribute name="roomsNotAtLoc" type="Object[]"/>
+    <aura:attribute name="currentLocRooms" type="Object[]"/>
     <aura:attribute name="trainers" type="User[]"/>
     <aura:attribute name="tab1Shown" type="Boolean" default='true'/>
+    <aura:attribute name="location" type="Id"/>
+    
     <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:handler event="c:afNewBatchFormLocationEvent" action="{!c.handleLoc}" />
+    
     <div class="slds-card">
         <div class="slds-card__body slds-card__body_inner">
             <div class="slds-tabs_default">
@@ -39,7 +45,7 @@
                         <div class="slds-col slds-size_1-of-5 slds-align_absolute-center"><h1>Available</h1></div>
                         <div class="slds-col slds-size_1-of-5 slds-align_absolute-center"><h1>Capacity</h1></div>
                     </div>
-                    <aura:iteration items="{!v.rooms}" var="room">
+                    <aura:iteration items="{!v.currentLocRooms}" var="room">
                         <c:afRoomAvailabilityListItem room="{!room}"/>   
                     </aura:iteration>
                 </div>

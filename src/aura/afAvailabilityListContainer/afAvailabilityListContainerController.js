@@ -20,6 +20,7 @@
             if(component.isValid && state === 'SUCCESS'){
                 console.log('state ' + state);
     			component.set("v.rooms", response.getReturnValue());
+                component.set("v.currentLocRooms", response.getReturnValue());
             }else if(state === 'ERROR'){
                 var errors = response.getError();
                 
@@ -44,6 +45,33 @@
         var isTab1Shown = component.get('v.tab1Shown');
         if(isTab1Shown){
             component.set('v.tab1Shown', false);
+        }
+    },
+    handleLoc : function(component, event, helper) {
+        var loc = event.getParam("location");
+        
+        component.set("v.location", loc);
+        
+        console.log('loc2: ' + loc);
+        
+        var currentLocRooms = [];
+        var roomsNotAtLoc = [];
+        
+        var location = component.get("v.location");
+        var rooms = component.get("v.rooms");
+        //console.log("rooms: " + rooms);
+        //console.log("location: " + location + " -- " + rooms[0].TrainingLocation__c);
+        for(var i = 0; i < rooms.length; i++){
+            if(rooms[i].TrainingLocation__c == location){
+                currentLocRooms.push(rooms[i]);
+            } else {
+                roomsNotAtLoc.push(rooms[i]);
+            }
+        }
+        if(loc == ""){
+            component.set("v.currentLocRooms", rooms);
+        } else {
+        	component.set("v.currentLocRooms", currentLocRooms);
         }
     }
 })
