@@ -51,8 +51,8 @@
         
         var trainer   = component.get("v.trainer");
         var cotrainer = component.get("v.cotrainer");
-        component.set("v.trainer");
-        component.set("v.cotrainer");
+        component.set("v.trainer", trainer);
+        component.set("v.cotrainer", cotrainer);
     }, 
     
     clearBatchFields : function(component, event, helper) {
@@ -119,12 +119,11 @@
     
     trainerChanged : function(component, event, helper) {
         var trainings   = component.get("v.openTrainings");
-        var trainer     = event.getParam("v.value");
+        var trainer     = event.getParam("value");
         var startDate   = component.get("v.startDate");
         var endDate     = component.get("v.endDate");
         console.log('testing');
         console.log('trainer: ' + trainer);
         helper.showTrainerToast(helper, event, trainings, trainer, startDate, endDate);
-    },
-
+    }
 })

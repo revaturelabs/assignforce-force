@@ -3,12 +3,15 @@
     <fullName>AssignForceObjects</fullName>
     <types>
         <members>afAvailabilityListContainerController</members>
+        <members>afNewBatchFormApexController</members>
         <name>ApexClass</name>
     </types>
     <types>
         <members>TrainerSelected</members>
         <members>afAvailabilityListContainer</members>
         <members>afNewBatchForm</members>
+        <members>afNewBatchFormLocationEvent</members>
+        <members>afNewBatchFormTrackEvent</members>
         <members>afRoomAvailabilityListItem</members>
         <members>afTrainerAvailabilityListItem</members>
         <members>roomSelected</members>

@@ -17,12 +17,21 @@
             let month = endDate.getMonth(); 
             let date = endDate.getDate();
             component.set("v.endDate", (year + "-" + (month+1) + "-" + date));
+            startDate = component.get("v.startDate");
+            endDate = component.get("v.endDate");
+            var dateEvent = $A.get("e.c:afNewBatchFormDateEvent");
+            dateEvent.setParams({
+                "startDate" : startDate,
+                "endDate"    : endDate
+            });
+            console.log('dateChanged');
+            dateEvent.fire();
             
         } else { // Thursday || Friday || Saturday || Sunday
             component.set("v.endDate", "");
         }
         
-        //this.showTrainerToast(this, event, trainings, trainer, startDate, endDate);
+        
     },
     
     clear : function(component, event) {   
@@ -66,9 +75,9 @@
         var newStart = new Date(startDate);
         var newEnd = new Date(endDate);
         for (var i = 0; i < trainings.length; i++) {
-            //console.log('has length');
+            console.log('has length');
             if(trainer != null && trainer != "" && (trainer == trainings[i].Trainer__c || trainings[i].CoTrainer__c)) {
-                //console.log('first conditional');
+                console.log('first conditional');
                 var prevStart = new Date(trainings[i].StartDate__c);
                 var prevEnd = new Date(trainings[i].EndDate__c);
                 
