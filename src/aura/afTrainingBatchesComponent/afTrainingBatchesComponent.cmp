@@ -19,7 +19,7 @@
     
     
     <lightning:button label = "delete" onclick="{!c.deleteBatches}" variant="destructive"/>
-    <!--<lightning:button label="Select" onclick="{!c.handleSelect}" />-->
+    
 
    
     

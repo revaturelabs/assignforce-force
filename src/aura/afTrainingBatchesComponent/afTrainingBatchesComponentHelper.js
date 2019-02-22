@@ -36,8 +36,8 @@
             let startDay = startDateString.getUTCDate();
             
             
-            var endDate = (endYear + "-" + (endMonth+1) + "-" + (endDay + 1));
-            var startDate = (startYear + "-" + (startMonth+1) + "-" + (startDay + 1));
+            var endDate = (endYear + "-" + (endMonth+1) + "-" + (endDay));
+            var startDate = (startYear + "-" + (startMonth+1) + "-" + (startDay));
             trainings.push({
                 Id : returnedTraining[i].Id,
                 Name: returnedTraining[i].Name,
@@ -86,13 +86,29 @@
     saveDataTable : function(cmp){
         var editedRecords =  cmp.find("dataTable").get("v.draftValues");
         console.log('edited Records: ' + JSON.stringify(editedRecords));
+        
         var action = cmp.get("c.updateBatchesServer");
         action.setParams({"updatedBatches" : editedRecords});
         action.setCallback(this, function(response){
         });
         $A.enqueueAction(action);
         cmp.find("dataTable").set("v.draftValues", null);
+       
+        this.reloadDataTable();
+        this.getData(cmp);
+        
+       
     },
+    reloadDataTable : function(cmp){
+    var refreshEvent = $A.get("e.force:refreshView");
+        console.log(refreshEvent);
+        if(refreshEvent){
+            refreshEvent.fire();
+            console.log("it is getting past fire");
+            //this.getData(cmp);
+        }
+    },
+   
     
     //After update, cmp.find("table-cmp-id").set("v.draftValues", null); to clear the cells and remove buttons
 })
