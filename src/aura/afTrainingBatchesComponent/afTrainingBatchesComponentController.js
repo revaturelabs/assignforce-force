@@ -7,15 +7,15 @@
         //var actions = helper.getRowActions.bind(this, cmp);
         
         cmp.set('v.batchesColumns', [
-            { label: 'Training ID', fieldName: 'Name', type: 'text', editable: 'false'},
-            { label: 'Training Class', fieldName: 'TrainingClass__c', type: 'text', sortable: 'true', editable: 'true'},
+            { label: 'Training ID', fieldName: 'Name', type: 'text'},
+            { label: 'Training Class', fieldName: 'TrainingClass__c', type: 'text', sortable: 'true'},
             { label: 'Start Date', fieldName: 'StartDate__c', type: 'date', sortable: 'true', editable: 'true', /*typeAttributes: {year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit'}*/},
             { label: 'End Date', fieldName: 'EndDate__c', type: 'date', sortable: 'true', editable: 'true', /*typeAttributes: {year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit'}*/},
-            { label: 'Status', fieldName: 'Status__c', type: 'text', sortable: 'true', editable: 'true', typeAttribute: {type: 'helpers.randomize', values: ['Planned', 'Confirmed', 'In Progress', 'Completed', 'Cancelled']}},
-            { label: 'Training Office', fieldName: 'officeName', type: 'text', sortable: 'true', editable: 'true'},
-            { label: 'Track', fieldName: 'track', type: 'text', sortable: 'true', editable: 'true'},
-            { label: 'Trainer', fieldName: 'trainer', type: 'text', sortable: 'true', editable: 'true'},
-            { label: 'Co-Trainer', fieldName: 'coTrainer', type: 'text', sortable: 'true', editable: 'true'},
+            { label: 'Status', fieldName: 'Status__c', type: 'text', sortable: 'true',  typeAttribute: {type: 'helpers.randomize', values: ['Planned', 'Confirmed', 'In Progress', 'Completed', 'Cancelled']}},
+            { label: 'Training Office', fieldName: 'officeName', type: 'text', sortable: 'true' },
+            { label: 'Track', fieldName: 'track', type: 'text', sortable: 'true' },
+            { label: 'Trainer', fieldName: 'trainer', type: 'text', sortable: 'true' },
+            { label: 'Co-Trainer', fieldName: 'coTrainer', type: 'text', sortable: 'true'},
             /*{ label: 'State', fieldName: 'active', type: 'text' },
             /*{ type: 'action', typeAttributes: { rowActions: actions } }*/
         ]);

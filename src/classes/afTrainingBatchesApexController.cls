@@ -10,7 +10,7 @@ public class afTrainingBatchesApexController{
                                FROM Training__c
                                ORDER BY StartDate__c];
            }
-
+			
            return AllTrainings;
        }
        set;
@@ -61,12 +61,20 @@ public class afTrainingBatchesApexController{
     @AuraEnabled
     public static void updateBatchesServer(List<Training__c> updatedBatches){
 		System.debug('Batches to Update: ' + updatedBatches);
-        /*
-        List<Training__c> batchesToUpdate = new List<Training__c>();
         
         for(integer s = 0; s < updatedBatches.size(); s++){
-                batchesToUpdate.add(new Training__c(updatedBatches[s]));
-        }*/
+            if(updatedBatches[s].StartDate__c != null)
+            {
+                updatedBatches[s].StartDate__c = updatedBatches[s].StartDate__c.addDays(-1);
+                System.debug('after subtract day: ' + updatedBatches[s]);
+            }
+            else if(updatedBatches[s].EndDate__c != null)
+            {
+                updatedBatches[s].EndDate__c = updatedBatches[s].EndDate__c.addDays(-1);
+                System.debug('after subtract day: ' + updatedBatches[s]);
+            }
+        }
+        //updatedBatches.StartDate__c - 1;
         update updatedBatches;
         System.debug('Update ran on batches');
     }
