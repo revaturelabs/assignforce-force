@@ -1,0 +1,4 @@
+<aura:event type="APPLICATION">
+   	<aura:attribute name="location" 		type="Id"/>
+    <aura:attribute name="roomsForLocation" type="List" />
+</aura:event>
