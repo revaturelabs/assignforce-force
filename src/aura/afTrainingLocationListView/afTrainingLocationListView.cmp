@@ -1,0 +1,36 @@
+<aura:component implements="flexipage:availableForRecordHome,force:lightningQuickAction" access="global" >
+    
+    <aura:attribute name="LocationsDB" type="Object" />
+    <aura:attribute name="lstLocations" type="List" />
+    
+    <aura:handler name="init" value="{!this}" action="{!doInit}" />
+    
+    <lightning:datatable data="{!LocationsDB}"
+                         columns="{!c.lstLocations}"
+                         keyField="id"
+                         onrowselection="{!c.getSelectedName}"/>
+    
+    <!--<lightning:recordViewForm recordId="{!recordId}" objectApiName="Training_Location__c">
+        <div class="slds-grid slds-wrapper slds-gutters slds-border_bottom" style="text-align: center" >
+            <div class="slds-col slds-size_2-of-12" >
+                <lightning:outputField fieldName="Name" />
+            </div>
+            <div class="slds-col slds-size_2-of-12" >
+                <lightning:outputField fieldName="OfficeName__c" />
+            </div>
+			<div class="slds-col slds-size_2-of-12" >
+                <lightning:outputField fieldName="ShippingStreetAddress__c" />
+            </div>            
+            <div class="slds-col slds-size_2-of-12" >
+                <lightning:outputField fieldName="ShippingCity__c" />
+            </div>
+            <div class="slds-col slds-size_2-of-12" >
+                <lightning:outputField fieldName="ShippingState__c" />
+            </div>
+            <div class="slds-col slds-size_2-of-12" >
+                <lightning:outputField fieldName="ShippingZipPostalCode__c" />
+            </div>
+        </div>
+    </lightning:recordViewForm>-->
+	
+</aura:component>
