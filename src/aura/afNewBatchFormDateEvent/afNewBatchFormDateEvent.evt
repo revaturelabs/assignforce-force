@@ -1,0 +1,4 @@
+<aura:event type="APPLICATION">
+    <aura:attribute name="startDate" 	type="Date"/>
+    <aura:attribute name="endDate"		type="Date"/>
+</aura:event>

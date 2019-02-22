@@ -1,0 +1,28 @@
+<aura:component implements="flexipage:availableForAllPageTypes" access="global" >
+    <ltng:require styles="{!$Resource.RevatureStyles}"/>
+    <div class="slds-card">
+        <div class="slds-card__header">
+            <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                <div class="slds-media__body">
+                    <h2 class="slds-card__header-title">
+                        <span class="slds-text-heading_medium" style="color: white">&emsp;<div style="padding : 10px">Batch Timeline</div></span>
+                    </h2>
+                </div>
+            </header>
+        </div>
+        <div class="slds-card__body slds-card__body_inner">
+            <div class="slds-grid slds-gutters">
+                <div class="slds-col slds-size_10-of-12">
+                    <span>
+                    <c:afBatchTimeline/>
+                        </span>
+                </div>
+                <div class="slds-col slds-size_2-of-12">
+                    <span>
+                    <c:FilterChartComponent/>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>       
+</aura:component>
