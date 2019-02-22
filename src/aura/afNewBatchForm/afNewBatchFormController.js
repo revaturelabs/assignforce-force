@@ -105,7 +105,7 @@
         var loc      = component.get("v.location");
         var allRooms = component.get("v.roomList");
         var roomsForLocation = [];
-        
+
         for (var i = 0; i < allRooms.length; i++) {
             // if room is associated with selected location...
             if (allRooms[i].TrainingLocation__c == loc) {
@@ -120,8 +120,9 @@
         locEvent.setParams({
             "location" : loc ,
             "roomsForLocation" : roomsForLocation
+
         });
-        console.log('locEvent');
+        //console.log('locEvent1: ' + locEvent.getParam("rooms"));
         locEvent.fire();
     },
     
