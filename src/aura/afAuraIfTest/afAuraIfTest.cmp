@@ -1,0 +1,12 @@
+<aura:component >
+    <aura:attribute name="cleared" type="Boolean" default="true"/>
+    <form>
+        <lightning:button onclick="{!c.goodbyeWorld}" label="Clear"/>
+        <aura:if isTrue="{!v.uncleared}">
+            <div>
+                <br/>
+                <span>Hello World!</span>
+            </div>
+        </aura:if>
+    </form>
+</aura:component>

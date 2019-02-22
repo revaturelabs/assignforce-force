@@ -1,4 +1,4 @@
-<aura:component controller="afAvailabilityListContainerController" implements="force:appHostable,flexipage:availableForAllPageTypes" access="global" >
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes" access="global" >
     <ltng:require styles="{!$Resource.RevatureStyles}"/>
     
     <aura:attribute name="rooms" type="Object[]"/>
@@ -22,13 +22,13 @@
         <div class="slds-card__body slds-card__body_inner">
             <div class="slds-tabs_default">
                 <ul class="slds-tabs_default__nav">
-                    <li class="{!v.tab1Shown ? 'slds-tabs_default__item slds-is-active' : 'slds-tabs_default__item'}">
-                        <span class=" slds-text-heading_medium" tabindex="0" id="trainersTab" onclick='{!c.trainerClick}'>
-                            Available Trainers
+                    <li class="slds-tabs_default__item slds-is-active">
+                        <span class=" slds-text-heading_medium" tabindex="0" id="trainersTab">
+                           	Available Trainers
                         </span>
                     </li>
-                    <li class="{!v.tab1Shown ? 'slds-tabs_default__item ' : 'slds-tabs_default__item slds-is-active'}">
-                        <span class="slds-text-heading_medium" tabindex="-1" id="roomsTab" onclick='{!c.roomClick}'>
+                    <li class="slds-tabs_default__item">
+                        <span class="slds-text-heading_medium" tabindex="-1" id="roomsTab">
                             Available Rooms
                         </span>
                     </li>
@@ -57,6 +57,7 @@
                         <c:afRoomAvailabilityListItem room="{!room}"/>   
                     </aura:iteration>
                 </div>
+                
             </div>
         </div>
     </div>
