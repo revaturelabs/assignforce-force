@@ -18,11 +18,19 @@
             let date = endDate.getDate();
             component.set("v.endDate", (year + "-" + (month+1) + "-" + date));
             
+            startDate = component.get("v.startDate");
+            endDate = component.get("v.endDate");
+            var dateEvent = $A.get("e.c:afNewBatchFormDateEvent");
+            dateEvent.setParams({
+                "startDate" : startDate,
+                "endDate" : endDate
+            });
+            
+            dateEvent.fire();
+            
         } else { // Thursday || Friday || Saturday || Sunday
             component.set("v.endDate", "");
         }
-        
-        //this.showTrainerToast(this, event, trainings, trainer, startDate, endDate);
     },
     
     clear : function(component, event) {   

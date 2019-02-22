@@ -114,17 +114,18 @@
                 }
             }
         }
-        for(var i=0; i<currentLocRooms.length; i++){
+         for(var i=0; i<currentLocRooms.length; i++){
             for (var j = 0; j < trainings.length; j++) {
                 if(currentLocRooms[i].Id == trainings[j].TrainingRoom__c) {
                     var prevStart = new Date(trainings[j].StartDate__c);
                     var prevEnd = new Date(trainings[j].EndDate__c);
                     
-                    if((prevStart <= startDate    && startDate <= prevEnd) || 
+                    if((prevStart <= startDate && startDate <= prevEnd) || 
                        (prevStart <= endDate  && endDate <= prevEnd) || 
                        (prevStart >= startDate    && endDate >= prevEnd)){
                         currentLocRooms[i].AVAvailability__c = "No";
-                    }else if(currentLocRooms[i].AVAvailability__c == "No"){
+                        break;
+                    }else {
                         currentLocRooms[i].AVAvailability__c = "Yes";
                     }
                 }

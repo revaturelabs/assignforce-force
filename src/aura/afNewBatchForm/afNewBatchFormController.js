@@ -45,19 +45,8 @@
     },
     
     dateChanged : function(component, event, helper) {
-        //var trainings     = component.get("v.openTrainings");
-        var dateEvent = $A.get("e.c:afNewBatchFormDateEvent");
-        var startDate = component.get("v.startDate");
-        var endDate = component.get("v.endDate");
         
         helper.changeEndDate(component, event, helper);
-        
-        dateEvent.setParams({
-                "startDate" : startDate,
-                "endDate" : endDate
-        });
-        
-        dateEvent.fire();
         
         var trainer   = component.get("v.trainer");
         var cotrainer = component.get("v.cotrainer");
