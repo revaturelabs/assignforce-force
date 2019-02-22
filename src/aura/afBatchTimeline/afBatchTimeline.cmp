@@ -1,4 +1,4 @@
-<aura:component implements="flexipage:availableForAllPageTypes" controller="afTimelineController">
+<aura:component implements="flexipage:availableForAllPageTypes" controller="afTimelineController" >
     <aura:attribute name="chartTitle" type="String"/>
     <aura:attribute name="trainers" type="List[]"/>
     <aura:attribute name="data" type="List"/>
@@ -6,7 +6,8 @@
     <aura:registerEvent name="CreateJSON" type="c:CreateListOfStringJSON"/>
     <aura:handler name="CreateJSON" event="c:CreateListOfStringJSON" action="{!c.createJSON}"/>
     
-    <aura:handler event="c:UpdateChartEvent" action="{!c.updateChart}"/>    
+    <aura:handler event="c:UpdateChartEvent" action="{!c.updateChart}"/>
+    <!--<aura:handler event="c:afNewBatchCreated" action="{!c.updateChart}"/> -->   
     <!--<div class="slds-grid">
         <div class="slds-col slds-size_9-of-12" aura:id="container"></div>
     </div>-->

@@ -12,6 +12,7 @@
     <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
     <aura:registerEvent name="UpdateChart" type="c:UpdateChartEvent"/>
 
+    
     <lightning:select name="yearSelect" label="Filter by year:" aura:id="yearSelect" value="{!v.selectedYear}" onchange="{!c.handleChange}">
         <aura:iteration items="{!v.yearOptions}" var="yearOption">
             <option text="{!yearOption.label}" value="{!yearOption.id}" selected="{!yearOption.selected}"/>
