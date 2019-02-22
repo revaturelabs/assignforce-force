@@ -31,7 +31,6 @@
             component.set("v.endDate", "");
         }
         
-        
     },
     
     clear : function(component, event) {   
@@ -50,7 +49,7 @@
         var trainingRoom     = component.get("v.room");
         
         var roomList         = component.get("v.roomList");
-        var availRooms       = component.get("v.availRooms");
+        var roomsForLocation       = component.get("v.roomsForLocation");
         
         
         //set component values to empty
@@ -65,8 +64,7 @@
         trainer          = component.set("v.trainer", "");
         cotrainer        = component.set("v.cotrainer", "");
         
-        availRooms       = component.set("v.availRooms", []);
-        
+        roomsForLocation       = component.set("v.roomsForLocation", []);
     },
     
     showTrainerToast : function(helper, event, trainings, trainer, startDate, endDate) {
@@ -75,9 +73,7 @@
         var newStart = new Date(startDate);
         var newEnd = new Date(endDate);
         for (var i = 0; i < trainings.length; i++) {
-            console.log('has length');
             if(trainer != null && trainer != "" && (trainer == trainings[i].Trainer__c || trainings[i].CoTrainer__c)) {
-                console.log('first conditional');
                 var prevStart = new Date(trainings[i].StartDate__c);
                 var prevEnd = new Date(trainings[i].EndDate__c);
                 

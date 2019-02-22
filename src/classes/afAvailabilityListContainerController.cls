@@ -55,4 +55,5 @@ public class afAvailabilityListContainerController {
         return [SELECT TrainingRoom__c, StartDate__c, EndDate__c, Trainer__c, CoTrainer__c FROM Training__c];
     }
 
+
 }
