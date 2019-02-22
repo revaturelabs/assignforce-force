@@ -7,6 +7,7 @@ public class afNewBatchFormApexController {
         return rooms;
     }
     
+    /*
     @AuraEnabled
     public static List<User> allTrainers () {
         List<User> trnrList = [SELECT Id, Name, UserRole.Name
@@ -15,6 +16,7 @@ public class afNewBatchFormApexController {
         System.debug(trnrList);
         return trnrList;
     }
+    */
     
     @AuraEnabled
     public static List<Training__c> allTrainings () {
