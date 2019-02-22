@@ -6,9 +6,8 @@
     <aura:attribute name="hasSkill" type="Boolean" default="true" description="This is a boolean value used to show whether or not the trainer has the selected training track"/>
     <aura:attribute name="selectedTrainingTrack" type="ID" description="This is an attribute that is populated from the afNewBatchFormDateEvent used to compare to the list of allSkills and affect the hasSkill attribute"/>
     
-    <!--Handlers-->
     <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
-    <!--Events-->
+    
     <aura:registerEvent name="TrainerIsSelected" type="c:TrainerSelected"/>
     
     <lightning:recordViewForm recordId="{!v.trainer.Id}" objectApiName="User">
