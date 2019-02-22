@@ -1,0 +1,7 @@
+<aura:event type="APPLICATION" description="Event template">
+    <aura:attribute name="trainer" 		type="Id"/>
+    <aura:attribute name="cotrainer" 	type="Id"/>
+    <aura:attribute name="location"		type="Id"/>
+    <aura:attribute name="room" 		type="Id"/>
+    <aura:attribute name="roomList" 	type="List"/>
+</aura:event>
