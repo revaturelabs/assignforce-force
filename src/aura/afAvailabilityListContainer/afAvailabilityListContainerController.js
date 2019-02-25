@@ -24,8 +24,8 @@
         action.setCallback(this, function(response){
             var state = response.getState();
             if(component.isValid() && state === "SUCCESS"){
-                component.set('v.trainers', helper.sortTrainers(helper.sortTrainers(response.getReturnValue())));
-                component.set('v.masterTrainers', helper.sortTrainers(helper.sortTrainers(response.getReturnValue())));
+                var trainers = helper.resetHasSkill(response.getReturnValue());
+                component.set('v.trainers', helper.sortTrainers(trainers));
             } else{
                 console.log('Error');
             }
@@ -71,7 +71,9 @@
         //this method handles the event to send the new selected training track to all of the trainers
         var trainers = component.get('v.trainers');
         var trainingTrack = event.getParam('track');
+        var skills = component.get('v.allSkills');
         component.set('v.selectedTrainingTrack',trainingTrack);
+        trainers = helper.checkHasSkill(trainers, skills, trainingTrack);
         component.set('v.trainers', null);
         component.set('v.trainers', trainers);
     },
@@ -99,7 +101,7 @@
             }
         }
         component.set('v.trainers', null);
-        component.set('v.trainers', helper.sortTrainers(helper.sortTrainers(trainers)));
+        component.set('v.trainers', helper.sortTrainers(trainers));
     },
     /*trainingTrackCreated: function(component, event, helper){
         var trainings = component.get('v.allTrainings');
@@ -113,5 +115,6 @@
         component.set('v.currentLocRooms', null);
         component.set('v.currentLocRooms', currentLocRooms);
         
-    }*/
-})
+    },*/
+        
+    })

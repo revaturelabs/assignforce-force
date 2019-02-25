@@ -2,11 +2,12 @@
     <ltng:require styles="{!$Resource.RevatureStyles}"/>
     
     <!-- Attributes-->
-    <aura:attribute name="trainers" type="User[]" description="List of all of the trainers used to populate the afTrainerAvailabilityListItem"/>
+    <aura:attribute name="trainers" type="Object[]" description="List of all of the trainers used to populate the afTrainerAvailabilityListItem"/>
     <aura:attribute name="allSkills" type="Skill__c[]" description="allSkills is a list of Skill__c objects that is used to pass the afTrainerAvailabilityListItem"/>
     <aura:attribute name="allTrainings" type="Training__c[]" description="allTrainings attribute contains the list of all the Trainings with in the database"/>
     <aura:attribute name="selectedTrainingTrack" type='ID' description="This stores the value of the Training Track that is recieved from the afNewBatchFormTrackEvent"/>
     <aura:attribute name="tab1Shown" type="Boolean" default='true' description="Boolean to change between the Trainer Tab and the Rooms Tab"/>
+    <aura:attribute name="trainersPlusInfo" type="Object[]" description="attempt to have the user and hasSkill boolean along with it"/>
     
     <!--Handlers-->
     <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
@@ -39,7 +40,7 @@
                         <div class="slds-col slds-size_1-of-5 slds-align_absolute-center"><h1>Experienced</h1></div>
                     </div>
                     <aura:iteration  items="{!v.trainers}" var="trainerVar">
-                        <c:afTrainerAvailabilityListItem trainer="{!trainerVar}" allSkills="{!v.allSkills}" selectedTrainingTrack="{!v.selectedTrainingTrack}"/>
+                        <c:afTrainerAvailabilityListItem trainerId="{!trainerVar.Id}" hasSkill="{!trainerVar.hasSkill}" avaibility="{!trainerVar.Available__c}"/>
                     </aura:iteration>
                 </div>
                 <div id="rooms" class="{!v.tab1Shown ? 'slds-tabs_default__content slds-hide' : 'slds-tabs_default__content slds-show'}">
