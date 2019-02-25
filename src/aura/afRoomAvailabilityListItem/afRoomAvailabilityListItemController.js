@@ -1,7 +1,6 @@
 ({
     doInit : function(component, event, helper) {
         var getRoom = component.get('v.room');
-        
         //Based off of this room's availability, sets the appropriate boolean attribute to true
         //Done so a certain icon will appear for this room in the application
         if(getRoom.AVAvailability__c == 'Yes'){

@@ -4,5 +4,9 @@
         <members>*</members>
         <name>AuraDefinitionBundle</name>
     </types>
+    <types>
+        <members>TrainingUpdateProcess-3</members>
+        <name>Flow</name>
+    </types>
     <version>38.0</version>
 </Package>

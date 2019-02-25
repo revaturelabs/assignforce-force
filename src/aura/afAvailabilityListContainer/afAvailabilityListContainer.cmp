@@ -2,15 +2,19 @@
     <ltng:require styles="{!$Resource.RevatureStyles}"/>
     
     <!-- Attributes-->
+    <aura:attribute name="rooms" type="Object[]"/>
+    <aura:attribute name="roomsNotAtLoc" type="Object[]"/>
+    <aura:attribute name="currentLocRooms" type="Object[]"/>
     <aura:attribute name="trainers" type="Object[]" description="List of all of the trainers used to populate the afTrainerAvailabilityListItem"/>
     <aura:attribute name="allSkills" type="Skill__c[]" description="allSkills is a list of Skill__c objects that is used to pass the afTrainerAvailabilityListItem"/>
     <aura:attribute name="allTrainings" type="Training__c[]" description="allTrainings attribute contains the list of all the Trainings with in the database"/>
     <aura:attribute name="selectedTrainingTrack" type='ID' description="This stores the value of the Training Track that is recieved from the afNewBatchFormTrackEvent"/>
     <aura:attribute name="tab1Shown" type="Boolean" default='true' description="Boolean to change between the Trainer Tab and the Rooms Tab"/>
-    <aura:attribute name="trainersPlusInfo" type="Object[]" description="attempt to have the user and hasSkill boolean along with it"/>
+    <aura:attribute name="location" type="Id"/>
     
     <!--Handlers-->
     <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:handler event="c:afNewBatchFormLocationEvent" action="{!c.handleLoc}" />
     <aura:handler event="c:afNewBatchFormTrackEvent" action="{!c.skillHasChanged}"/>
     <aura:handler event="c:afNewBatchFormDateEvent" action="{!c.dateHasChanged}"/>
     <!--<aura:handler event="c:afNewBatchFormCreatedEvent" action="{!c.trainingTrackCreated}"/>-->
@@ -51,7 +55,7 @@
                         <div class="slds-col slds-size_1-of-5 slds-align_absolute-center"><h1>Available</h1></div>
                         <div class="slds-col slds-size_1-of-5 slds-align_absolute-center"><h1>Capacity</h1></div>
                     </div>
-                    <aura:iteration items="{!v.rooms}" var="room">
+                    <aura:iteration items="{!v.currentLocRooms}" var="room">
                         <c:afRoomAvailabilityListItem room="{!room}"/>   
                     </aura:iteration>
                 </div>

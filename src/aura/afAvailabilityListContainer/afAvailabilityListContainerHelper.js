@@ -17,11 +17,7 @@
         trainersAvailable = this.sortAlphabetically(trainersAvailable);
         trainersAvailablePlusHasSkill = this.sortAlphabetically(trainersAvailablePlusHasSkill);
         trainersUnavailable = this.sortAlphabetically(trainersUnavailable);
-        console.log('ta ' + trainersAvailable);
-        console.log('taps ' + trainersAvailablePlusHasSkill);
-        console.log('tu ' + trainersUnavailable)
         var everyone = trainersAvailablePlusHasSkill.concat(trainersAvailable, trainersUnavailable);
-        console.log('combined lists ' + everyone);
         return everyone;
         
     },
