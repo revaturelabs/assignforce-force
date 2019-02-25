@@ -1,18 +1,16 @@
 ({
-    doInit : function(component, event, helper) {
-        var avaibility = component.get('v.avaibility');
-        var trainerId = component.get('v.trainerId');
-        if(avaibility==="Available"){
+	doInit : function(component, event, helper) {
+		var trainer = component.get('v.trainer');                     
+        if(trainer.Available__c==="Available"){
             component.set('v.isAvailable', true);
         } else{
             component.set('v.isAvailable', false);
         }
-        
-    },
+	},
     selectIsClicked : function(component, event, helper){
-        var selectedEvt = $A.get('e.c:TrainerSelected');
+        var selectedEvt = component.getEvent('TrainerIsSelected');
         var trainer = component.get('v.trainer');
-        selectedEvt.setParams({'trainerId':trainerId});
+        selectedEvt.setParam('trainer', trainer);
         selectedEvt.fire();
-    },
+    }
 })
