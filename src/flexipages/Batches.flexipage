@@ -27,7 +27,7 @@
             </componentInstanceProperties>
             <componentInstanceProperties>
                 <name>pageSize</name>
-                <value>3</value>
+                <value>12</value>
             </componentInstanceProperties>
             <componentName>flexipage:filterListCard</componentName>
         </componentInstances>
@@ -37,6 +37,9 @@
     <flexiPageRegions>
         <componentInstances>
             <componentName>afAvailabilityListContainer</componentName>
+        </componentInstances>
+        <componentInstances>
+            <componentName>FullChartLightningComponent</componentName>
         </componentInstances>
         <name>column2</name>
         <type>Region</type>

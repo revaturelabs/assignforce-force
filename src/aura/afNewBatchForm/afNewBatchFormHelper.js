@@ -11,7 +11,7 @@
             // For batches starting on Wednesday, first week ends Friday of the next week
             if(startDate.getDay() == 2) {
                 endDate.setDate(startDate.getUTCDate() + (numWeeks*7) + offset);
-                // For batches starting Monday/Wednesday, first week ends Friday of starting week
+            // For batches starting Monday/Wednesday, first week ends Friday of starting week
             } else {
                 endDate.setDate(startDate.getUTCDate() + ((numWeeks-1)*7) + offset);
             }
@@ -20,14 +20,15 @@
             let month = endDate.getMonth(); 
             let date = endDate.getDate();
             
-            // pass new start/end dates to application event
             component.set("v.endDate", (year + "-" + (month+1) + "-" + date));
+            
+            // pass new start/end dates to application event
             startDate = component.get("v.startDate");
             endDate = component.get("v.endDate");
             var dateEvent = $A.get("e.c:afNewBatchFormDateEvent");
             dateEvent.setParams({
                 "startDate" : startDate,
-                "endDate"    : endDate
+                "endDate"   : endDate
             });
             console.log('dateChanged');
             dateEvent.fire();

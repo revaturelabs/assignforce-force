@@ -9,7 +9,6 @@
     <aura:attribute name="endDate"          type="Date" />
     <aura:attribute name="hiddenRoom"      	type="Id" />
     <aura:attribute name="location"        	type="Id" />
-    <aura:attribute name="newBatch"         type="Training__c"/>
     <aura:attribute name="numWeeks"         type="Integer"    	default="10"/>
     <aura:attribute name="openTrainings"   	type="List" />
     <aura:attribute name="room"            	type="Training_Room__c" />
@@ -21,21 +20,29 @@
     <aura:attribute name="status"          	type="String" 		default="Planned" />
     <aura:attribute name="uncleared"       	type="Boolean"    	default="true" />
     
+    <aura:attribute name="newBatch"         type="Map" 			default="{ 	CoTrainer__c : '',
+                                                                         	EndDate__c : '',
+                                                                         	Trainer__c : '',
+                                                                         	TrainingLocation__c : '',
+                                                                         	TrainingRoom__c : '',
+                                                                         	TrainingTrack__c : '',
+                                                                         	StartDate__c : '',
+                                                                         	Status__c : ''  }"/>
+    
     <!-- Events -->
     <aura:registerEvent name="trackTransfer"    type="c:afNewBatchFormTrackEvent"/>
     <aura:registerEvent name="locTransfer"      type="c:afNewBatchFormLocationEvent"/>
     <aura:registerEvent name="dateTransfer"     type="c:afNewBatchFormDateEvent"/>
     <aura:registerEvent name="newBatchCreated"  type="c:afNewBatchCreatedEvent"/>
-    <aura:registerEvent name="trainerSelected" 	type="c:TrainerSelected"/>
-    <aura:registerEvent name="roomSelected"		type="c:roomSelected"/>
     
     <!-- Handlers -->
     <aura:handler name="init"           value="{!this}"             action="{!c.doInit}" />
     <aura:handler name="change"         value="{!v.trainer}"        action="{!c.trainerChanged}"/>
     <aura:handler name="change"         value="{!v.cotrainer}"      action="{!c.trainerChanged}"/>
     <aura:handler name="change"         value="{!v.track}"          action="{!c.trackChanged}"/>
-    <aura:handler 						event="c:TrainerSelected"	action="{!incomingTrainer}"/>
-    <aura:handler 						event="c:roomSelected"		action="{!incomingRoom}"/>
+    <!--aura:handler name="change"			value="{!v.location}"		action="{!c.locChanged}"/-->
+    <aura:handler 						event="c:TrainerSelected"	action="{!c.setTrainerField}"/>
+    <aura:handler 						event="c:roomSelected"		action="{!c.setRoomField}"/>
     
 <div class="slds-card">
         <lightning:recordEditForm aura:id="newBatchForm" objectApiName="Training__c" onsuccess="{!c.onSuccess}">

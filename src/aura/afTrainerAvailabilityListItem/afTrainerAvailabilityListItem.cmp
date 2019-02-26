@@ -1,17 +1,16 @@
 <aura:component >
     <!--Attributes-->
-    <aura:attribute name="trainer" type="User"/>
-    <aura:attribute name="isAvailable" type="Boolean" default="true"/>
-    <aura:attribute name="allSkills" type="Skill__c[]"/>
-    <aura:attribute name="hasSkill" type="Boolean" default="true"/>
-    <aura:attribute name="selectedTrainingTrack" type="ID"/>
+    <aura:attribute name="trainerId" type="ID" description="The attribute is used to house the information about a trainer"/>
+    <aura:attribute name="availability" type="String"/>
+    <aura:attribute name="isAvailable" type="Boolean" default="true" description="This is a boolean value that represents if that trainer is available"/>
+    <aura:attribute name="hasSkill" type="Boolean" default="true" description="This is a boolean value used to show whether or not the trainer has the selected training track"/>
     
     <!--Handlers-->
-    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" description="Handles the initialization of the availability and hasSkill"/>
     <!--Events-->
-    <aura:registerEvent name="TrainerIsSelected" type="c:TrainerSelected"/>
+    <aura:registerEvent name="TrainerIsSelected" type="c:TrainerSelected" description="when the selected button is clicked on this component the trainer's id is sent up in the event"/>
     
-    <lightning:recordViewForm recordId="{!v.trainer.Id}" objectApiName="User">
+    <lightning:recordViewForm recordId="{!v.trainerId}" objectApiName="User">
         <div class="slds-grid" style="padding-top: 10px;">
             <div class="slds-col slds-size_1-of-5">
                 <div class="slds-align_absolute-center">
