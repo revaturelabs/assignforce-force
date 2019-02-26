@@ -2,7 +2,7 @@
     doInit : function(component, event, helper) {
         var userId = $A.get("$SObjectType.CurrentUser.Id"); 
         component.set("v.userId", userId);
-        
+
         var file = component.get("c.getFile");
         file.setParams({ "userId" : userId });
         

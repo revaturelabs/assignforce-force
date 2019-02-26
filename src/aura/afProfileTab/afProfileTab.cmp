@@ -29,7 +29,7 @@
                                 <header class="slds-media slds-media_center slds-has-flexi-truncate">
                                     <div class="slds-media__body">
                                         <h2 class="slds-card__header-title">
-                                            <span class="slds-text-heading_medium">Profile</span>
+                                            <span class="slds-text-heading_medium">Edit Profile</span>
                                         </h2>
                                     </div>
                                     <div class="slds-no-flex">
@@ -39,7 +39,8 @@
                                         <lightning:buttonIcon class="headerBtn" onclick="{!c.isRefreshed}" iconName="utility:close" variant="bare" size="large" alternativeText="Clear"/>
                                     </div>
                                 </header>
-                            </div>                            <lightning:messages />
+                            </div>                            
+                            <lightning:messages />
                             <div class="slds-grid slds-grid_align-spread slds-gutters slds-p-horizontal_medium slds-p-bottom_large">
                                 <div class="slds-col slds-size_1-of-2">
                                     <lightning:inputField fieldName="FirstName" /><br/>
