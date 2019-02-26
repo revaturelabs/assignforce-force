@@ -2,27 +2,40 @@
     doInit : function(component, event, helper) {
         var userId = $A.get("$SObjectType.CurrentUser.Id"); 
         component.set("v.userId", userId);
-
-        var files = component.get("c.getFiles");
-        files.setParams({ "userId" : userId });
-
-        files.setCallback(this, function(response){
+        
+        var file = component.get("c.getFile");
+        file.setParams({ "userId" : userId });
+        
+        file.setCallback(this, function(response){
             var state = response.getState();
             if(component.isValid() && state === "SUCCESS"){
                 component.set('v.filename', response.getReturnValue().Title);
                 component.set('v.fileId', response.getReturnValue().Id);
             } else{
-                console.log('Error');
+                console.log('Some Error');
             }
         });
-        $A.enqueueAction(files); 
+        $A.enqueueAction(file); 
     },
     
     handleFiles : function (component, event, helper) {
-        var file = event.getSource().get("v.files").Title;
-        console.log(file);
-        component.set("v.filename", file);
-        location.reload();
+        var userId = component.get("v.userId");
+        
+        var handleFile = component.get("c.getFile");
+        handleFile.setParams({ "userId" : userId});
+        
+        handleFile.setCallback(this, function(response){
+            var state = response.getState();
+            if(component.isValid() && state === "SUCCESS"){
+                component.set('v.filename', response.getReturnValue().Title);
+                component.set('v.fileId', response.getReturnValue().Id);
+            } else{
+                console.log('Some Error');
+            }
+        });
+        $A.enqueueAction(handleFile);
+        
+        component.set("v.hasChanged", true);
     },
     
     onSubmit : function(component, event, helper) {

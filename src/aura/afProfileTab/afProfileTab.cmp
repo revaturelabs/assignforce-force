@@ -6,7 +6,8 @@
     <aura:attribute name="userId" type="Id"/>
     <aura:attribute name="filename" type="String"/>
     <aura:attribute name="fileId" type="Id"/>
-
+	<aura:attribute name="hasChanged" type="boolean" default="false"/>
+    
     <aura:attribute name="status" type="String" default="Planned" />
     <aura:attribute name="uncleared" type="Boolean" default="true" />
     <aura:attribute name="disabled" type="Boolean" default="false" />
@@ -15,7 +16,7 @@
     
     <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
     <aura:handler event="force:refreshView" action="{!c.isRefreshed}" />
-    
+    <aura:handler name="change" value="{!v.hasChanged}" action="{!c.isRefreshed}"/>
     
     <html>
         <div class="slds-card__body slds-card__body_inner">
@@ -61,6 +62,5 @@
                 </div>
             </aura:if>
         </div>
-        File - {!v.file}
     </html>
 </aura:component>

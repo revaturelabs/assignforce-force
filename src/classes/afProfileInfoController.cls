@@ -1,7 +1,7 @@
 public class afProfileInfoController {
-
+    
     @AuraEnabled
-    public static ContentVersion getFiles(Id userId){
-        return [SELECT Id, Title FROM ContentVersion WHERE CreatedbyId = :userId LIMIT 1];
+    public static ContentDocument getFile(Id userId){
+        return [SELECT Id, Title FROM ContentDocument WHERE CreatedbyId = :userId ORDER BY CreatedDate DESC LIMIT 1];
     }
 }
