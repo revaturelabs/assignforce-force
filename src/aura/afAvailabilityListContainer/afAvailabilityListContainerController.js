@@ -6,7 +6,7 @@
             if(component.isValid() && state === "SUCCESS"){
                 component.set('v.allSkills', response.getReturnValue());
             } else{
-                console.log('Error');
+                console.log('Error1');
             }
         });
         $A.enqueueAction(getSkills);
@@ -19,7 +19,7 @@
                 var t = component.get('v.allTrainings');
                 console.log("Training: " + t);
             } else{
-                console.log('Error');
+                console.log('Error2');
             }
         });
         $A.enqueueAction(getTrainings);
@@ -29,9 +29,10 @@
             var state = response.getState();
             if(component.isValid() && state === "SUCCESS"){
                 var trainers = helper.resetHasSkill(response.getReturnValue());
+                console.log('trainers' + trainers);
                 component.set('v.trainers', helper.sortTrainers(trainers));
             } else{
-                console.log('Error');
+                console.log('Error3');
             }
         });
         $A.enqueueAction(action);

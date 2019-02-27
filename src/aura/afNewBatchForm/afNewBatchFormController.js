@@ -114,12 +114,12 @@
                 roomsForLocation.push(allRooms[i]);
             }
         }
-        if (roomsForLocation.size > 0) {
+        if(roomsForLocation.length > 0) {
             component.set("v.hiddenRoom", roomsForLocation[0].Id);
+            console.log("rFL[0]: " + roomsForLocation[0].Id);
+        } else {
+            component.set("v.hiddenRoom", "");
         }
-        console.log("rFL[0]: " + roomsForLocation[0].Id);
-        component.set("v.roomsForLocation", roomsForLocation);
-        
         // pass new location and associated rooms to application event
         var locEvent = $A.get("e.c:afNewBatchFormLocationEvent");
         locEvent.setParams({
@@ -174,7 +174,7 @@
         toastEvent.fire();
         
         // send new batch to other components
-       /* var newBatchEvent = $A.get("e.c:afNewBatchCreatedEvent");
+        /* var newBatchEvent = $A.get("e.c:afNewBatchCreatedEvent");
         
         newBatchEvent.setParams({
             "newBatch" : newBatch
@@ -200,25 +200,29 @@
         component.set("v.hiddenRoom", room.Id);
     },
     
-    setRoomField : function(component, event, helper){
-        var room = event.getParam("room");
+setRoomField : function(component, event, helper){
         
-        component.set("v.uncleared", false);
-        component.set("v.uncleared", true);
+    	var room = event.getParam("room");
+        var allRooms = component.get("v.roomList");
+        var roomsForLoc = [];
         
+        for (var i = 0; i < allRooms.length; i++) {
+            if (allRooms[i].TrainingLocation__c == room.TrainingLocation__c) {
+                roomsForLoc.push(allRooms[i]);
+            }
+        }
+    console.log('roomsforLoc: ' + roomsForLoc);		
         component.set("v.location", room.TrainingLocation__c);
         component.set("v.room", ({"Id " : room.Id  , "Name " : room.Name  ,"TrainingLocation__c " : room.TrainingLocation__c}));
+        //actually just set it to room.Id
         component.set("v.hiddenRoom", room.Id);
-        component.set("v.roomsForLocation", room);
+        component.set("v.roomsForLocation", roomsForLoc);
     },
     
     setTrainerField : function(component, event, helper) {
         var trainer = event.getParam("trainerId");
-        
-        component.set("v.uncleared", false);
-        component.set("v.uncleared", true);
-        
         component.set("v.trainer", trainer);
+
     },
     
     trackChanged : function(component, event, helper) {

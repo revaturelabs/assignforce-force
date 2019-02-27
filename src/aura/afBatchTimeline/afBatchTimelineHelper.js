@@ -88,7 +88,7 @@
                         
                     },
                     formatter: function(){
-                        return Math.ceil((this.x2 - this.x) / (7 * 24 * 60 * 60 * 1000)) - 1 + " Weeks";
+                        return Math.ceil((this.x2 - this.x) / (7 * 24 * 60 * 60 * 1000)) + " Weeks";
                     }
                 }
                                });

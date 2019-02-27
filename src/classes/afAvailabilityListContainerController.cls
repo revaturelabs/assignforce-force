@@ -4,7 +4,7 @@ public class afAvailabilityListContainerController {
                                                      FROM Training_Room__c
                                                      ORDER BY name];
     
-    public static List<User> Trainers = [SELECT Id, Name, Available__c, Training_Skills__c 
+    public static List<User> Trainers = [SELECT Id, Name, Available__c
                                          FROM User 
                                          WHERE UserRole.Name = 'Trainer' OR UserRole.Name = 'CoTrainer'];
     									/*WHERE Available__c!=null*/ /*UserRoleId=trainer role Id*/
