@@ -1,0 +1,26 @@
+<aura:component implements="flexipage:availableForRecordHome,force:lightningQuickAction" controller="afTrainingBatchesApexController" access="global" >
+
+
+   <aura:attribute name="batchesData" type="Object[]" />
+   <aura:attribute name="batchesColumns" type="List" />
+   <aura:attribute name="keyField" type="String" default="id"/>
+    <aura:attribute name="selectedRows" type="Object[]"/>
+  <!--  <aura:attribute name="draftValues" type="Object" default="[]"/>-->
+
+   <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+   <!--<aura:handler  event="c:afNewBatchCreatedEvent" action="{!c.getDataFromForm}" />-->
+
+   <lightning:datatable data="{!v.batchesData}"
+                        columns="{!v.batchesColumns}"
+                        keyField="Id"
+                        aura:id="dataTable"
+                        onrowselection="{!c.handleSelect}" 
+                        onsave="{!c.handleSave}" />
+    
+    
+    <lightning:button label = "delete" onclick="{!c.deleteBatches}" variant="destructive"/>
+    
+
+   
+    
+</aura:component>
