@@ -339,6 +339,12 @@
         <fullName>All</fullName>
         <columns>NAME</columns>
         <columns>OfficeName__c</columns>
+        <columns>ShippingCity__c</columns>
+        <columns>ShippingState__c</columns>
+        <columns>ShippingStreetAddress__c</columns>
+        <columns>ShippingZipPostalCode__c</columns>
+        <columns>LAST_ACTIVITY</columns>
+        <columns>UPDATEDBY_USER</columns>
         <filterScope>Everything</filterScope>
         <label>All</label>
     </listViews>
