@@ -18,7 +18,7 @@
         trainersAvailablePlusHasSkill = this.sortAlphabetically(trainersAvailablePlusHasSkill);
         trainersUnavailable = this.sortAlphabetically(trainersUnavailable);
         var everyone = trainersAvailablePlusHasSkill.concat(trainersAvailable, trainersUnavailable);
-        console.log('combined lists ' + everyone);
+       // console.log('combined lists ' + everyone);
         return everyone;
         
     },

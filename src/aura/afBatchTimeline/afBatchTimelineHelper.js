@@ -127,6 +127,7 @@
                 }
             }      
         }
+        
         seriesObj.push({'name' : 'Free Time', 'pointWidth' : 30, 'data' : freeTimeData, 'fill' : '#FFFFFF', 'dataLabels' : {
             enabled : true,
             style:
@@ -183,7 +184,8 @@
             plotOptions: {
                 series: {
                     stacking: 'normal'
-                }
+                },
+               
             },
             series: //[ dataObj ]
             seriesObj            

@@ -91,6 +91,72 @@
         </valueSet>
     </fields>
     <fields>
+        <fullName>CurrentLocation__c</fullName>
+        <externalId>false</externalId>
+        <label>Current Location</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Fairfax</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>SPS</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>Reston</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>UTA-ERB</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>USF-NEC</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>ASU</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>WVU-CBE</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>Queens</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>USF-SOC</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>Online</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>USF-BSN</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>UTA-PRS</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>UTA-K</fullName>
+                    <default>false</default>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
         <fullName>ManagerId</fullName>
         <trackFeedHistory>true</trackFeedHistory>
         <type>Hierarchy</type>

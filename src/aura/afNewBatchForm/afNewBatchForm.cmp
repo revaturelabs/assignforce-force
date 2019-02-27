@@ -30,10 +30,10 @@
                                                                          	Status__c : ''  }"/>
     
     <!-- Events -->
-    <aura:registerEvent name="trackTransfer"    type="c:afNewBatchFormTrackEvent"/>
-    <aura:registerEvent name="locTransfer"      type="c:afNewBatchFormLocationEvent"/>
-    <aura:registerEvent name="dateTransfer"     type="c:afNewBatchFormDateEvent"/>
-    <aura:registerEvent name="newBatchCreated"  type="c:afNewBatchCreatedEvent"/>
+    <aura:registerEvent name="afNewBatchFormTrack"        type="c:afNewBatchFormTrackEvent"/>
+    <aura:registerEvent name="afNewBatchFormLocation"      type="c:afNewBatchFormLocationEvent"/>
+    <aura:registerEvent name="afNewBatchFormDate"         type="c:afNewBatchFormDateEvent"/>
+    <aura:registerEvent name="afNewBatchCreated"          type="c:afNewBatchCreatedEvent"/>
     
     <!-- Handlers -->
     <aura:handler name="init"           value="{!this}"             action="{!c.doInit}" />

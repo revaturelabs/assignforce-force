@@ -72,9 +72,9 @@ public class afTimelineController {
         System.debug('currentTrainings: ' + currentTrainings);
         
         for(Training__c t : currentTrainings){
-            for(Integer i = 0; i < getTrainers().size(); i++)
+            for(Integer i = 0; i < trainers.size(); i++)
             { 
-                if(t.Trainer__r.name == getTrainers()[i]){
+                if(t.Trainer__r.name == trainers[i].name){
                     TrainingDataWrapper tdw = new TrainingDataWrapper();
                     tdw.x = t.StartDate__c;
                     tdw.x2 = t.EndDate__c;

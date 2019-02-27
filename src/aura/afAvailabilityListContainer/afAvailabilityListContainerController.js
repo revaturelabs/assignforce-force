@@ -17,7 +17,7 @@
             if(component.isValid() && state === "SUCCESS"){
                 component.set('v.allTrainings', response.getReturnValue());
                 var t = component.get('v.allTrainings');
-                console.log("Training: " + t);
+              //  console.log("Training: " + t);
             } else{
                 console.log('Error2');
             }
@@ -29,7 +29,7 @@
             var state = response.getState();
             if(component.isValid() && state === "SUCCESS"){
                 var trainers = helper.resetHasSkill(response.getReturnValue());
-                console.log('trainers' + trainers);
+               // console.log('trainers' + trainers);
                 component.set('v.trainers', helper.sortTrainers(trainers));
             } else{
                 console.log('Error3');
@@ -106,12 +106,12 @@
     handleLoc : function(component, event, helper) {
         var loc = event.getParam("location");
         component.set("v.location", loc);
-        console.log("loc: " + loc);
+       // console.log("loc: " + loc);
         var currentLocRooms = [];
         var roomsNotAtLoc = [];
         
         var rooms = component.get("v.rooms");
-        console.log("handling");
+       // console.log("handling");
         for(var i = 0; i < rooms.length; i++){
             if(rooms[i].TrainingLocation__c == loc){
                 currentLocRooms.push(rooms[i]);
@@ -119,8 +119,8 @@
                 roomsNotAtLoc.push(rooms[i]);
             }
         }
-        console.log("currentLocRooms: " + currentLocRooms);
-        console.log("roomsNotAtLoc: " 	+ roomsNotAtLoc);
+      //  console.log("currentLocRooms: " + currentLocRooms);
+       // console.log("roomsNotAtLoc: " 	+ roomsNotAtLoc);
         if(loc == "" || null){
             component.set("v.currentLocRooms", null);
             component.set("v.currentLocRooms", rooms);

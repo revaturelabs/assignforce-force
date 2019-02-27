@@ -106,7 +106,7 @@
         var allRooms = component.get("v.roomList");
         var roomsForLocation = [];
         
-        console.log('made it here');
+        // console.log('made it here');
         for (var i = 0; i < allRooms.length; i++) {
             // if room is associated with selected location...
             if (allRooms[i].TrainingLocation__c == loc) {
@@ -114,9 +114,10 @@
                 roomsForLocation.push(allRooms[i]);
             }
         }
+        component.set("v.roomsForLocation",roomsForLocation);
         if(roomsForLocation.length > 0) {
             component.set("v.hiddenRoom", roomsForLocation[0].Id);
-            console.log("rFL[0]: " + roomsForLocation[0].Id);
+            // console.log("rFL[0]: " + roomsForLocation[0].Id);
         } else {
             component.set("v.hiddenRoom", "");
         }
@@ -126,13 +127,13 @@
             "location" : loc,
             "roomsForLocation" : roomsForLocation
         });
-        console.log('locEvent');
+        // console.log('locEvent');
         locEvent.fire();
     },
     
     onSubmit : function(component, event, helper) {
         // in-built functionality to handle recordEditForm submission
-        console.log('onSubmit new');
+        // console.log('onSubmit new');
         // var form = component.find("newBatchForm");
         event.preventDefault();       // stop the form from submitting
         var fields = event.getParam('fields');
@@ -142,22 +143,17 @@
     
     onSuccess : function(component, event, helper) {
         console.log('onSuccess');
-        /*var form = component.find("newBatchForm");
-        var fields = event.getParam('fields');*/
-        console.log(component.get('v.newBatch'));
         
-        component.set('v.newBatch.CoTrainer__c', 		component.get('v.cotrainer'));
-        component.set('v.newBatch.EndDate__c', 			component.get('v.endDate'));
-        component.set('v.newBatch.Trainer__c', 			component.get('v.trainer'));
-        component.set('v.newBatch.TrainingLocation__c', component.get('v.location'));
-        component.set('v.newBatch.TrainingRoom__c', 	component.get('v.hiddenRoom'));
-        component.set('v.newBatch.TrainingTrack__c', 	component.get('v.track'));
-        component.set('v.newBatch.StartDate__c', 		component.get('v.startDate'));
-        component.set('v.newBatch.Status__c', 			component.get('v.status'));
-        
-        var newBatch = component.get('v.newBatch');
-        console.log('newBatch ' + newBatchEvent.getParam("newBatch"));
-        console.log('newBatch JSON ' + JSON.stringify(newBatchEvent.getParam("newBatch")));
+        var newBatch = [{
+               CoTrainer__c         : component.get("v.cotrainer"),
+            EndDate__c             : component.get("v.endDate"),
+            Trainer__c             : component.get("v.trainer"),
+            TrainingLocation__c : component.get("v.location"),
+            TrainingRoom__c     : component.get("v.hiddenRoom"),
+            TrainingTrack__c     : component.get("v.track"),
+            StartDate__c         : component.get("v.startDate"),
+            Status__c             : component.get("v.status")
+        }];
         
         // records have been submitted, clear form
         helper.clear(component, event);  
@@ -174,15 +170,14 @@
         toastEvent.fire();
         
         // send new batch to other components
-        /* var newBatchEvent = $A.get("e.c:afNewBatchCreatedEvent");
+        var newBatchEvent = $A.get("e.c:afNewBatchCreatedEvent");
         
         newBatchEvent.setParams({
             "newBatch" : newBatch
         });
         
-        console.log('newBatch ' + newBatchEvent.getParam("newBatch"));
         console.log('newBatch JSON ' + JSON.stringify(newBatchEvent.getParam("newBatch")));
-        newBatchEvent.fire();*/
+        newBatchEvent.fire();
     },
     
     selectRoom : function(component, event, helper) {
@@ -194,15 +189,15 @@
                 room = rooms[i];
             }
         }
-        console.log("selectRoom: " + room);
-        console.log("selectRoom Id: " + room.Id);
+        // console.log("selectRoom: " + room);
+        // console.log("selectRoom Id: " + room.Id);
         // set to hidden inputField for form submission
         component.set("v.hiddenRoom", room.Id);
     },
     
-setRoomField : function(component, event, helper){
+    setRoomField : function(component, event, helper){
         
-    	var room = event.getParam("room");
+        var room = event.getParam("room");
         var allRooms = component.get("v.roomList");
         var roomsForLoc = [];
         
@@ -211,7 +206,7 @@ setRoomField : function(component, event, helper){
                 roomsForLoc.push(allRooms[i]);
             }
         }
-    console.log('roomsforLoc: ' + roomsForLoc);		
+        // console.log('roomsforLoc: ' + roomsForLoc);		
         component.set("v.location", room.TrainingLocation__c);
         component.set("v.room", ({"Id " : room.Id  , "Name " : room.Name  ,"TrainingLocation__c " : room.TrainingLocation__c}));
         //actually just set it to room.Id
@@ -222,18 +217,18 @@ setRoomField : function(component, event, helper){
     setTrainerField : function(component, event, helper) {
         var trainer = event.getParam("trainerId");
         component.set("v.trainer", trainer);
-
+        
     },
     
     trackChanged : function(component, event, helper) {
         var track = component.get("v.track");
-        console.log('track: ' + track);
+        // console.log('track: ' + track);
         // pass selected training track to application event
         var trackEvent = $A.get("e.c:afNewBatchFormTrackEvent");
         trackEvent.setParams({
             "track" : track
         });
-        console.log('trackChanged');
+        // console.log('trackChanged');
         trackEvent.fire();  
     },
     

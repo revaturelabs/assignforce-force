@@ -120,7 +120,7 @@
                         'year' : component.get('v.selectedYear')
                     });
                 }
-        console.log("action: " + JSON.stringify(action));
+       // console.log("action: " + JSON.stringify(action));
         action.setCallback(this, function(response){
             var state = response.getState();
             if(/*component.isValid() &&*/ state === 'SUCCESS')
