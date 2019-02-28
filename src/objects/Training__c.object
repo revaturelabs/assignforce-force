@@ -307,9 +307,6 @@
     <label>Training</label>
     <listViews>
         <fullName>All</fullName>
-        <columns>NAME</columns>
-        <columns>TrainingLocation__c</columns>
-        <columns>TrainingTrack__c</columns>
         <filterScope>Everything</filterScope>
         <label>All</label>
     </listViews>

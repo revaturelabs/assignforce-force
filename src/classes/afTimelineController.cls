@@ -6,7 +6,7 @@ public class afTimelineController {
             if(AllTrainings == null)
             {
                 AllTrainings = [SELECT Id, Name, TrainingLocation__c, Trainer__r.Name, StartDate__c, 
-                                TrainingLocation__r.OfficeName__c, EndDate__c,
+                                TrainingLocation__r.OfficeName__c, EndDate__c, 
                                 CoTrainer__r.name, TrainingTrack__r.ShortName__c,
                                 TrainingTrack__r.Color__c,
                                 TrainingClass__c FROM Training__c ORDER BY Trainer__r.name, StartDate__c];
@@ -33,7 +33,8 @@ public class afTimelineController {
         get{
             if(trainers == null){
                 trainers =  [SELECT Name 
-                             FROM User /*WHERE "This will be the trainer role" */];
+                             FROM User 
+                             WHERE UserRole.Name = 'Trainer' OR UserRole.Name = 'CoTrainer'];
             }
             return trainers;
         }
@@ -71,9 +72,9 @@ public class afTimelineController {
         System.debug('currentTrainings: ' + currentTrainings);
         
         for(Training__c t : currentTrainings){
-            for(Integer i = 0; i < getTrainers().size(); i++)
+            for(Integer i = 0; i < trainers.size(); i++)
             { 
-                if(t.Trainer__r.name == getTrainers()[i]){
+                if(t.Trainer__r.name == trainers[i].name){
                     TrainingDataWrapper tdw = new TrainingDataWrapper();
                     tdw.x = t.StartDate__c;
                     tdw.x2 = t.EndDate__c;

@@ -26,7 +26,7 @@
                 { id: 2, label: quarters[1]},
                 { id: 3, label: quarters[2]},
                 { id: 4, label: quarters[3]},
-                { id: 4, label: quarters[4]}
+                { id: 5, label: quarters[4]}
             ]
         };
         component.set('v.quarterOptions', choices.quarter);
@@ -67,7 +67,7 @@
         {
             if(!NoDupesArray.includes(newArray[i]))
             {
-                 NoDupesArray.push(newArray[i]);
+                NoDupesArray.push(newArray[i]);
             }
         }
         component.set('v.AllLocations', NoDupesArray);
@@ -79,66 +79,74 @@
     
     filterByChange : function(component, event)
     {
-    var changeValue = component.get('v.value');//event.getParam("value");
+        var changeValue = component.get('v.value');//event.getParam("value");
         if(changeValue == undefined)
         {
             changeValue = [];
         }
-    var action; 
-    
-    component.set('v.selectedLocations', changeValue);
-    var Locations = component.get('v.selectedLocations');
-    if(component.get('v.selectedQuarter') != 1 && changeValue.length != 0)
-    {
-     action = component.get('c.filterTrainingsByYearLocationQuarter');
-    action.setParams({
-    'location' : Locations,
-    'year' : component.get('v.selectedYear'),
-    'quarter' : component.get('v.selectedQuarter')
-		});
-}
-else if(changeValue.length != 0 && component.get('v.selectedQuarter') == 1)
-{
-    action = component.get('c.filterTrainingsByYearLocation');
-    action.setParams({
-        'location' : Locations,
-        'year' : component.get('v.selectedYear')
-    });
-}
-    else if(component.get('v.selectedQuarter') != 1)
-    {
-        action = component.get('c.filterTrainingsByYearQuarter');
-        action.setParams({
-            'year' : component.get('v.selectedYear'),
-            'quarter' : component.get('v.selectedQuarter')
-        });
-    }
-        else
+        var action; 
+        
+        component.set('v.selectedLocations', changeValue);
+        var Locations = component.get('v.selectedLocations');
+        if(component.get('v.selectedQuarter') != 1 && changeValue.length != 0)
         {
-            action = component.get('c.filterTrainingsByYear');
+            action = component.get('c.filterTrainingsByYearLocationQuarter');
             action.setParams({
+                'location' : Locations,
+                'year' : component.get('v.selectedYear'),
+                'quarter' : component.get('v.selectedQuarter')
+            });
+        }
+        else if(changeValue.length != 0 && component.get('v.selectedQuarter') == 1)
+        {
+            action = component.get('c.filterTrainingsByYearLocation');
+            action.setParams({
+                'location' : Locations,
                 'year' : component.get('v.selectedYear')
             });
         }
-action.setCallback(this, function(response){
-    var state = response.getState();
-    if(component.isValid() && state === 'SUCCESS')
-    {
-        var data = response.getReturnValue();
-        this.fireChangeToChart(component, event, data);
-    }
-    else
-    {
-        alert('There seems to have been an error with the callback for the filter. Please Contact your administrator.');
-    }
-});
+            else if(component.get('v.selectedQuarter') != 1)
+            {
+                action = component.get('c.filterTrainingsByYearQuarter');
+                action.setParams({
+                    'year' : component.get('v.selectedYear'),
+                    'quarter' : component.get('v.selectedQuarter')
+                });
+            }
+                else
+                {
+                    action = component.get('c.filterTrainingsByYear');
+                    action.setParams({
+                        'year' : component.get('v.selectedYear')
+                    });
+                }
+       // console.log("action: " + JSON.stringify(action));
+        action.setCallback(this, function(response){
+            var state = response.getState();
+            if(/*component.isValid() &&*/ state === 'SUCCESS')
+            {
+                var data = response.getReturnValue();
+                this.fireChangeToChart(component, event, data);
+            }
+            else if(state === 'ERROR') {
+                var errors = response.getError();
+                        if (errors) {
+                            if (errors[0] && errors[0].message) {
+                                console.log('Error message: ' + errors[0].message);
+                            }
+                        }
+            } else {
+                console.log("state " + state);
+                alert('There seems to have been an error with the callback for the filter. Please Contact your administrator, bro.');
+            }
+        });
         $A.enqueueAction(action);
-},
-fireChangeToChart : function(component, event, data)
-{
-    component.set('v.dataTemp', data);
-    var UpdateChart = $A.get('e.c:UpdateChartEvent');
-    UpdateChart.setParams({'data' : component.get('v.dataTemp')});
-   UpdateChart.fire();
-},
+    },
+    fireChangeToChart : function(component, event, data)
+    {
+        component.set('v.dataTemp', data);
+        var UpdateChart = $A.get('e.c:UpdateChartEvent');
+        UpdateChart.setParams({'data' : component.get('v.dataTemp')});
+        UpdateChart.fire();
+    },
 })

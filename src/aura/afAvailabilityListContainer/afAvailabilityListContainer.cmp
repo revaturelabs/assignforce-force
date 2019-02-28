@@ -1,36 +1,35 @@
-<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes" access="global" >
+<aura:component controller="afAvailabilityListContainerController" implements="force:appHostable,flexipage:availableForAllPageTypes" access="global" >
     <ltng:require styles="{!$Resource.RevatureStyles}"/>
-    <!-- Attributes-->
-    <aura:attribute name="rooms" type="Object[]"/>
-    <aura:attribute name="roomsNotAtLoc" type="Object[]"/>
-    <aura:attribute name="currentLocRooms" type="Object[]"/>
-    <aura:attribute name="trainers" type="User[]"/>
-    <aura:attribute name="masterTrainers" type="User[]"/>
-    <aura:attribute name="allSkills" type="Skill__c[]"/>
-    <aura:attribute name="allTrainings" type="Training__c[]"/>
-    <aura:attribute name="selectedTrainingTrack" type='ID'/>
-    <aura:attribute name="tab1Shown" type="Boolean" default='true'/>
-    <aura:attribute name="location" type="Id"/>
-        
-    <!--Handlers-->
-    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
-    <aura:handler event="c:afNewBatchFormLocationEvent" action="{!c.handleLoc}" />
     
-    <aura:handler event="c:afNewBatchFormTrackEvent" action="{!c.skillHasChanged}"/>
-    <aura:handler event="c:afNewBatchFormDateEvent" action="{!c.dateHasChanged}"/>
+    <!-- Attributes-->
+    <aura:attribute name="rooms" 					type="Object[]"/>
+    <aura:attribute name="roomsNotAtLoc" 			type="Object[]"/>
+    <aura:attribute name="currentLocRooms" 			type="Object[]"/>
+    <aura:attribute name="trainers" 				type="User[]"/>
+    <aura:attribute name="allSkills" 				type="Skill__c[]"/>
+    <aura:attribute name="allTrainings" 			type="Training__c[]"/>
+    <aura:attribute name="selectedTrainingTrack" 	type='ID'/>
+    <aura:attribute name="tab1Shown" 				type="Boolean" 			default='true'/>
+    <aura:attribute name="location" 				type="Id"/>
+    
+    <!--Handlers-->
+    <aura:handler name="init" 		value="{!this}" 	action="{!c.doInit}"/>
+    <aura:handler event="c:afNewBatchFormTrackEvent" 	action="{!c.skillHasChanged}"/>
+    <aura:handler event="c:afNewBatchFormDateEvent" 	action="{!c.dateHasChanged}"/>
+    <aura:handler event="c:afNewBatchFormLocationEvent"	action="{!c.handleLoc}"/>
     
     <!--Visual Components-->
     <div class="slds-card">
         <div class="slds-card__body slds-card__body_inner">
             <div class="slds-tabs_default">
                 <ul class="slds-tabs_default__nav">
-                    <li class="slds-tabs_default__item slds-is-active">
-                        <span class=" slds-text-heading_medium" tabindex="0" id="trainersTab">
-                           	Available Trainers
+                    <li class="{!v.tab1Shown ? 'slds-tabs_default__item slds-is-active' : 'slds-tabs_default__item'}">
+                        <span class=" slds-text-heading_medium" tabindex="0" id="trainersTab" onclick='{!c.trainerClick}'>
+                            Available Trainers
                         </span>
                     </li>
-                    <li class="slds-tabs_default__item">
-                        <span class="slds-text-heading_medium" tabindex="-1" id="roomsTab">
+                    <li class="{!v.tab1Shown ? 'slds-tabs_default__item ' : 'slds-tabs_default__item slds-is-active'}">
+                        <span class="slds-text-heading_medium" tabindex="-1" id="roomsTab" onclick='{!c.roomClick}'>
                             Available Rooms
                         </span>
                     </li>
@@ -44,7 +43,7 @@
                         <div class="slds-col slds-size_1-of-5 slds-align_absolute-center"><h1>Experienced</h1></div>
                     </div>
                     <aura:iteration  items="{!v.trainers}" var="trainerVar">
-                        <c:afTrainerAvailabilityListItem trainer="{!trainerVar}" allSkills="{!v.allSkills}" selectedTrainingTrack="{!v.selectedTrainingTrack}"/>
+                        <c:afTrainerAvailabilityListItem trainerId="{!trainerVar.Id}" hasSkill="{!trainerVar.hasSkill}" availability="{!trainerVar.Available__c}"/>
                     </aura:iteration>
                 </div>
                 <div id="rooms" class="{!v.tab1Shown ? 'slds-tabs_default__content slds-hide' : 'slds-tabs_default__content slds-show'}">
@@ -59,7 +58,6 @@
                         <c:afRoomAvailabilityListItem room="{!room}"/>   
                     </aura:iteration>
                 </div>
-                
             </div>
         </div>
     </div>
