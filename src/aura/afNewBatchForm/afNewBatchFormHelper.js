@@ -10,22 +10,25 @@
         if(0 <= startDate.getDay() && startDate.getDay() <= 2) {
             // For batches starting on Wednesday, first week ends Friday of the next week
             if(startDate.getDay() == 2) {
-                endDate.setDate(startDate.getUTCDate() + (numWeeks*7) + offset);
-                // For batches starting Monday/Wednesday, first week ends Friday of starting week
+                endDate.setDate(startDate.getDate() + (numWeeks*7) + offset);
+            // For batches starting Monday/Wednesday, first week ends Friday of starting week
             } else {
-                endDate.setDate(startDate.getUTCDate() + ((numWeeks-1)*7) + offset);
+                endDate.setDate(startDate.getDate() + ((numWeeks-1)*7) + offset);
             }
             // convert to legible date format
-            let year = endDate.getFullYear(); 
-            let month = endDate.getMonth(); 
-            let date = endDate.getDate();
+            let year = endDate.getUTCFullYear(); 
+            let month = endDate.getUTCMonth(); 
+            let date = endDate.getUTCDate();
+            
             component.set("v.endDate", (year + "-" + (month+1) + "-" + date));
+            
+            // pass new start/end dates to application event
             startDate = component.get("v.startDate");
             endDate = component.get("v.endDate");
             var dateEvent = $A.get("e.c:afNewBatchFormDateEvent");
             dateEvent.setParams({
                 "startDate" : startDate,
-                "endDate"    : endDate
+                "endDate"   : endDate
             });
             console.log('dateChanged');
             dateEvent.fire();
@@ -33,15 +36,6 @@
         } else { // Thursday || Friday || Saturday || Sunday (no batches start here)
             component.set("v.endDate", "");
         }
-        
-        // pass new start/end dates to application event
-        var dateEvent = $A.get("e.c:afNewBatchFormDateEvent"); 
-        dateEvent.setParams({
-            "startDate" : startDate,
-            "endDate"	: endDate
-        });
-        console.log('dateChanged');
-        dateEvent.fire();
     },
     
     clear : function(component, event) {   
@@ -93,5 +87,5 @@
                 }
             }
         } 
-    },
+    }
 })

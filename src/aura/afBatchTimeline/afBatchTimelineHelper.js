@@ -28,6 +28,13 @@
         );
         createJSON.fire();
     },
+    
+    InitUpdate : function(component, event, names)
+    {
+        component.set('v.data', event.getParam('data'));
+        var names = component.get('v.trainers');
+        this.createChart(component, event, names);
+    },
     createChart : function(component, event, names) {
         var jsonData = component.get("v.data");
         var seriesObj = [];
@@ -78,7 +85,7 @@
                         textAlign : 'center',
                         color : 'white',
                         textOutline : false,
-
+                        
                     },
                     formatter: function(){
                         return Math.ceil((this.x2 - this.x) / (7 * 24 * 60 * 60 * 1000)) + " Weeks";
@@ -89,17 +96,38 @@
             
             
         }
-        
+        var freeTimeData = [];
+        var trainersDone = [];
         for(var i = 0; i < dataObj.length; i++)
         {
-            for(var j = i + 1; j < dataObj.length; j++)
-            {
-                if(dataObj[j].x > dataObj[i].x2 && dataObj[j].y == dataObj[i].y)
+            if(!trainersDone.includes(dataObj[i].y)){
+                var currentTrainer = dataObj[i].y;
+                trainersDone.push(currentTrainer);
+                var currentTrainerBatches = [];
+                //var currentTrainerFreeTime = [];
+                for(var j = i; j < dataObj.length; j++)
                 {
-                    freeTimeData.push({'x' : dataObj[i].x2, 'x2' : dataObj[j].x, 'y' : dataObj[i].y , 'color' : '#FFFFFF'});
+                    if(currentTrainer == dataObj[j].y && !currentTrainerBatches.includes(dataObj[j])){
+                        currentTrainerBatches.push(dataObj[j]);
+                    }
+                    
                 }
-            }
+                for(var k = 0 ; k < currentTrainerBatches.length ; k++){
+                    if(currentTrainerBatches.length < 2){
+                        break;
+                    } else {
+                        
+                        if(currentTrainerBatches[k].x2 < currentTrainerBatches[k+1].x){
+                            freeTimeData.push({'x' : currentTrainerBatches[k].x2, 'x2' : currentTrainerBatches[k+1].x, 'y' : currentTrainer, 'color' : '#FFFFFF'});
+                        }
+                        if(k == currentTrainerBatches.length - 2){
+                            break;
+                        }
+                    }
+                }
+            }      
         }
+        
         seriesObj.push({'name' : 'Free Time', 'pointWidth' : 30, 'data' : freeTimeData, 'fill' : '#FFFFFF', 'dataLabels' : {
             enabled : true,
             style:
@@ -111,7 +139,7 @@
                 textOutline : false,
             },
             formatter: function(){
-                return Math.ceil((this.x2 - this.x) / (7 * 24 * 60 * 60 * 1000)) + " Weeks";
+                return Math.ceil((this.x2 - this.x) / (7 * 24 * 60 * 60 * 1000))  + " Weeks";
             }
         }
                        });
@@ -138,16 +166,16 @@
             yAxis: {
                 title:{
                     text: '',
-            },
-                    labels: {
-                        style:
-                        {
-                            fontSize : '14px',
-                            fontFamily : 'Futura-Std-Book',
-                            wordWrap : 'break-word',
-                            width: '30px'
-                            
-                        }
+                },
+                labels: {
+                    style:
+                    {
+                        fontSize : '14px',
+                        fontFamily : 'Futura-Std-Book',
+                        wordWrap : 'break-word',
+                        width: '30px'
+                        
+                    }
                 },
                 categories: trainers,
                 reversed : true,
@@ -156,7 +184,8 @@
             plotOptions: {
                 series: {
                     stacking: 'normal'
-                }
+                },
+               
             },
             series: //[ dataObj ]
             seriesObj            
