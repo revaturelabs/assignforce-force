@@ -11,7 +11,7 @@
     <aura:registerEvent name="newPendingPTO" type="c:afNewPTOCreatedEvent"/>
     
     <div class="slds-card">
-        <lightning:recordEditForm aura:id="newPTOForm" objectApiName="PTO__c" onsubmit="{!c.onSubmit}" onsuccess="{!c.onSuccess}">
+        <lightning:recordEditForm aura:id="newPTOForm" objectApiName="PTO__c" onsubmit="{!c.onSubmit}" onsuccess="{!c.onSuccess}" >
             <lightning:messages/>
             <div class="slds-card__header">
                 <header class="slds-media slds-media_center slds-has-flexi-truncate">

@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
     <types>
-        <members>User</members>
         <members>*</members>
-        <name>CustomObject</name>
+        <name>ApexClass</name>
     </types>
     <types>
         <members>*</members>
-        <name>CustomApplication</name>
+        <name>ApexTrigger</name>
     </types>
     <types>
         <members>*</members>
@@ -15,20 +14,21 @@
     </types>
     <types>
         <members>*</members>
-        <name>ApexClass</name>
+        <name>CustomApplication</name>
+    </types>
+    <types>
+        <members>*</members>
+        <members>User</members>
+        <name>CustomObject</name>
     </types>
     <types>
         <members>Batches</members>
         <name>FlexiPage</name>
     </types>
     <types>
-        <members>*</members>
-        <name>ApexTrigger</name>
-    </types>
-    <types>
+        <members>CTO</members>
         <members>CoTrainer</members>
         <members>Trainer</members>
-        <members>CTO</members>
         <name>Role</name>
     </types>
     <types>
