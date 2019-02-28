@@ -1,24 +1,26 @@
 <aura:component implements="flexipage:availableForRecordHome,force:lightningQuickAction" controller="afTrainingBatchesApexController" access="global" >
 
+	<!--ATTRIBUTES-->
+   <aura:attribute name="batchesData" type="Object[]" description = "Data for dataTable" />
+   <aura:attribute name="batchesColumns" type="List" description = "Records for the dataTable" />
+   <aura:attribute name="keyField" type="String" default="id" description = "primary key of records is alpha-numeric" />
+    <aura:attribute name="selectedRows" type="Object[]" description = "stores the selected records" />
+  
+	<!--EVENT HANDLERS-->
+   <aura:handler name="init" value="{!this}" action="{!c.doInit}" descripton = "Sets the initial values for the data table" />
+   <!--<aura:handler  event="c:afNewBatchCreatedEvent" action="{!c.getDataFromForm}" description = "Listens for event from the create new batches form" />-->
 
-   <aura:attribute name="batchesData" type="Object[]" />
-   <aura:attribute name="batchesColumns" type="List" />
-   <aura:attribute name="keyField" type="String" default="id"/>
-    <aura:attribute name="selectedRows" type="Object[]"/>
-  <!--  <aura:attribute name="draftValues" type="Object" default="[]"/>-->
-
-   <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
-   <!--<aura:handler  event="c:afNewBatchCreatedEvent" action="{!c.getDataFromForm}" />-->
-
+    <!--VIEW COMPONENTS-->
    <lightning:datatable data="{!v.batchesData}"
                         columns="{!v.batchesColumns}"
                         keyField="Id"
                         aura:id="dataTable"
                         onrowselection="{!c.handleSelect}" 
-                        onsave="{!c.handleSave}" />
+                        onsave="{!c.handleSave}" 
+                        description = "List view of the current Batches when creating a new Batch"/>
     
     
-    <lightning:button label = "delete" onclick="{!c.deleteBatches}" variant="destructive"/>
+    <lightning:button label = "delete" onclick="{!c.deleteBatches}" variant="destructive" />
     
 
    
