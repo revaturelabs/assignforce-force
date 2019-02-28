@@ -4,6 +4,11 @@ public class afAvailabilityListContainerController {
                                                      FROM Training_Room__c
                                                      ORDER BY name];
     
+    public static List<User> Trainers = [SELECT Id, Name, Available__c
+                                         FROM User 
+                                         WHERE UserRole.Name = 'Trainer' OR UserRole.Name = 'CoTrainer'];
+    									/*WHERE Available__c!=null*/ /*UserRoleId=trainer role Id*/
+    
     @AuraEnabled
     public static List<Training_Room__c> getRooms(){
         List<Training_Room__c> yesFirst = new List<Training_Room__c>();
@@ -27,8 +32,7 @@ public class afAvailabilityListContainerController {
         
         return yesFirst;
     }
-    
-    public static List<User> Trainers = [SELECT Id, Name, Available__c, Training_Skills__c From User OrderByName /*WHERE Available__c!=null*/ /*UserRoleId=trainer role Id*/];
+  
     @AuraEnabled
     public static List<User> getAllTrainers(){
         //Must add a WHERE clause UserRoleId=Trainer Role Id
@@ -45,14 +49,14 @@ public class afAvailabilityListContainerController {
         system.debug(availableList);
         return availableList;
     }
-    
     @AuraEnabled
     public static List<Skill__c> getAllSkills(){
-        return [SELECT Name, Trainer__c, Training_Track__c FROM Skill__c];
+        return [SELECT Training_Track__c, Trainer__c From Skill__c];
     }
-    
     @AuraEnabled
     public static List<Training__c> getAllTrainings(){
-        return [SELECT TrainingRoom__c, StartDate__c, EndDate__c, Trainer__c, CoTrainer__c FROM Training__c];
+        return [SELECT StartDate__c, EndDate__c, Trainer__c, CoTrainer__c FROM Training__c];
     }
+
+
 }

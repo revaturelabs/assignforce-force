@@ -139,10 +139,6 @@
     <label>Training Room</label>
     <listViews>
         <fullName>All</fullName>
-        <columns>NAME</columns>
-        <columns>AVAvailability__c</columns>
-        <columns>RoomCapacity__c</columns>
-        <columns>TrainingLocationName__c</columns>
         <filterScope>Everything</filterScope>
         <label>All</label>
     </listViews>

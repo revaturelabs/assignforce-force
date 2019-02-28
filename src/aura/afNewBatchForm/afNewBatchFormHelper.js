@@ -10,17 +10,19 @@
         if(0 <= startDate.getDay() && startDate.getDay() <= 2) {
             // For batches starting on Wednesday, first week ends Friday of the next week
             if(startDate.getDay() == 2) {
-                endDate.setDate(startDate.getUTCDate() + (numWeeks*7) + offset);
-                // For batches starting Monday/Wednesday, first week ends Friday of starting week
+                endDate.setDate(startDate.getDate() + (numWeeks*7) + offset);
+            // For batches starting Monday/Wednesday, first week ends Friday of starting week
             } else {
-                endDate.setDate(startDate.getUTCDate() + ((numWeeks-1)*7) + offset);
+                endDate.setDate(startDate.getDate() + ((numWeeks-1)*7) + offset);
             }
             // convert to legible date format
-            let year = endDate.getFullYear(); 
-            let month = endDate.getMonth(); 
-            let date = endDate.getDate();
+            let year = endDate.getUTCFullYear(); 
+            let month = endDate.getUTCMonth(); 
+            let date = endDate.getUTCDate();
+            
             component.set("v.endDate", (year + "-" + (month+1) + "-" + date));
             
+            // pass new start/end dates to application event
             startDate = component.get("v.startDate");
             endDate = component.get("v.endDate");
             var dateEvent = $A.get("e.c:afNewBatchFormDateEvent");
@@ -62,11 +64,9 @@
         var newEnd = new Date(endDate);
         
         for (var i = 0; i < trainings.length; i++) {
-
             // if training[i] is associated with the selected trainer/cotrainer...
             if(trainer != null && trainer != "" && (trainer == trainings[i].Trainer__c || trainings[i].CoTrainer__c)) {
                 // convert start/end dates of training[i] into JS Date format
-              
                 var prevStart = new Date(trainings[i].StartDate__c);
                 var prevEnd = new Date(trainings[i].EndDate__c);
                 
@@ -87,5 +87,5 @@
                 }
             }
         } 
-    },
+    }
 })
