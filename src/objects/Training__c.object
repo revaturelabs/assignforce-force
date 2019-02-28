@@ -307,9 +307,6 @@
     <label>Training</label>
     <listViews>
         <fullName>All</fullName>
-        <columns>NAME</columns>
-        <columns>TrainingLocation__c</columns>
-        <columns>TrainingTrack__c</columns>
         <filterScope>Everything</filterScope>
         <label>All</label>
     </listViews>
@@ -322,4 +319,11 @@
     <pluralLabel>Trainings</pluralLabel>
     <searchLayouts/>
     <sharingModel>ReadWrite</sharingModel>
+    <validationRules>
+        <fullName>Start_Date_Weekday</fullName>
+        <active>true</active>
+        <errorConditionFormula>((WEEKDAY(StartDate__c) == 1) || (WEEKDAY(StartDate__c) &gt; 4)) = TRUE</errorConditionFormula>
+        <errorDisplayField>StartDate__c</errorDisplayField>
+        <errorMessage>Start Date of a batch must be a Monday, Tuesday or a Wednesday.</errorMessage>
+    </validationRules>
 </CustomObject>

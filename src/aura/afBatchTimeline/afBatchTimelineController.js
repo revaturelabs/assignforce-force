@@ -6,10 +6,13 @@
     
     updateChart : function(component, event, helper)
     {
-       component.set('v.data', event.getParam('data'));
-       var names = component.get('v.trainers');
-       helper.createChart(component, event, names);
-		
+        
+        if (event.getSource().getName() == 'cFilterChartComponent') {
+            component.set('v.data', event.getParam('data'));
+        }
+        var names = component.get('v.trainers');
+        helper.createChart(component, event, names);
+        
     },
     
     createJSON : function(component, event, helper)
@@ -21,7 +24,9 @@
                 var dataObj = response.getReturnValue();
                 component.set("v.data",dataObj);
                 var names = null;
-                helper.createChart(component, event, names);
+                if(event.getSource().getName() == 'cAfNewBatchForm'){
+                $A.get('e.force:refreshView').fire();
+                }
                 
                 
             }
@@ -32,5 +37,12 @@
         });
         $A.enqueueAction(action);
     },
+    /*
+    refreshChart : function(component, event, helper){
+      	component.set("v.resetBoolean",false);
+        component.set("v.resetBoolean",true);
+        
+        component.reInit();
+    },*/
     
 })
