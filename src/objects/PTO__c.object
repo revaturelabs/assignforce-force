@@ -43,6 +43,7 @@
     <allowInChatterGroups>false</allowInChatterGroups>
     <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
     <deploymentStatus>Deployed</deploymentStatus>
+    <description>Paid Time Off</description>
     <enableActivities>false</enableActivities>
     <enableBulkApi>true</enableBulkApi>
     <enableFeeds>false</enableFeeds>
@@ -70,7 +71,7 @@
     <fields>
         <fullName>StartDate__c</fullName>
         <externalId>false</externalId>
-        <label>StartDate</label>
+        <label>Start Date</label>
         <required>false</required>
         <trackTrending>false</trackTrending>
         <type>Date</type>
@@ -88,7 +89,7 @@
                 <sorted>false</sorted>
                 <value>
                     <fullName>Needs to be Submitted</fullName>
-                    <default>false</default>
+                    <default>true</default>
                 </value>
                 <value>
                     <fullName>Pending Approval</fullName>
@@ -119,15 +120,32 @@
     <label>PTO</label>
     <listViews>
         <fullName>All</fullName>
+        <columns>NAME</columns>
+        <columns>StartDate__c</columns>
+        <columns>Status__c</columns>
         <filterScope>Everything</filterScope>
         <label>All</label>
     </listViews>
     <nameField>
-        <displayFormat>PTO-{0000}</displayFormat>
-        <label>PTO Name</label>
+        <displayFormat>PTO-{00000}</displayFormat>
+        <label>PTO Number</label>
         <type>AutoNumber</type>
     </nameField>
     <pluralLabel>PTOs</pluralLabel>
     <searchLayouts/>
     <sharingModel>ReadWrite</sharingModel>
+    <validationRules>
+        <fullName>End_Date_Check</fullName>
+        <active>true</active>
+        <errorConditionFormula>EndDate__c &lt; StartDate__c</errorConditionFormula>
+        <errorDisplayField>EndDate__c</errorDisplayField>
+        <errorMessage>End date must in the future or the same day as start date.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Start_Date_check</fullName>
+        <active>true</active>
+        <errorConditionFormula>StartDate__c &lt; TODAY()</errorConditionFormula>
+        <errorDisplayField>StartDate__c</errorDisplayField>
+        <errorMessage>The start date must be today or later.</errorMessage>
+    </validationRules>
 </CustomObject>

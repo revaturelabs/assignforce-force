@@ -44,7 +44,7 @@
     <aura:handler 						event="c:TrainerSelected"	action="{!c.setTrainerField}"/>
     <aura:handler 						event="c:roomSelected"		action="{!c.setRoomField}"/>
     
-<div class="slds-card">
+    <div class="slds-card">
         <lightning:recordEditForm aura:id="newBatchForm" objectApiName="Training__c" onsuccess="{!c.onSuccess}">
             <lightning:messages/>
             <div class="slds-card__header">
@@ -66,7 +66,7 @@
                 <aura:if isTrue="{!v.uncleared}">
                     <div class="slds-grid slds-grid_align-spread">
                         <div class="slds-col slds-size_1-of-2">
-                            <lightning:inputField fieldName="TrainingTrack__c" aura:id="trainingTrack" value="{!v.track}"/>
+                            <lightning:inputField fieldName="TrainingTrack__c" aura:id="trainingTrack" value="{!v.track}" onchange="{!c.trackChanged}"/>
                         </div>
                     </div>
                     <div class="slds-grid slds-grid_align-spread">
@@ -82,10 +82,10 @@
                     </div>
                     <div class="slds-grid slds-grid_align-spread">
                         <div class="slds-col slds-size_1-of-4">
-                            <lightning:inputField fieldName="Trainer__c" aura:id="trainer" value="{!v.trainer}" onchange="{!c.trainerChanged}"/>
+                            <lightning:inputField fieldName="Trainer__c" aura:id="trainer" value="{!v.trainer}"/>
                         </div>
                         <div class="slds-col slds-size_1-of-4 slds-col_bump-left">
-                            <lightning:inputField fieldName="CoTrainer__c" aura:id="cotrainer" value="{!v.cotrainer}" onchange="{!c.trainerChanged}"/>
+                            <lightning:inputField fieldName="CoTrainer__c" aura:id="cotrainer" value="{!v.cotrainer}"/>
                             <lightning:inputField fieldName="Status__c" value="{!v.status}" hidden="true"/>
                         </div>
                         <div class="slds-col slds-size_1-of-6 slds-col_bump-left">
