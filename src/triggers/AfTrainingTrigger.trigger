@@ -1,4 +1,4 @@
-trigger AfTrainingTrigger on Training__c (after update, after insert) {
+trigger afTrainingTrigger on Training__c (after update, after insert) {
     
     if(trigger.isAfter && (trigger.isUpdate || trigger.isInsert)){
         List<Training__c> completedTrainings = new List<Training__c>();
@@ -10,5 +10,4 @@ trigger AfTrainingTrigger on Training__c (after update, after insert) {
         if(completedTrainings.isEmpty()==false) //checks to ensure there is something in the list of completed trainings
         afTrainingTriggerHelper.createSkills(completedTrainings);
     }
-	
 }
