@@ -31,7 +31,21 @@
                 console.log('Unknown Error has occured');
             }
         });
+        var getBatches = component.get('c.getBatches');
+        getBatches.setParams({'user': user});
+        getBatches.setCallback(this,function(response){
+            var state = response.getState();
+            if(component.isValid && state==='SUCCESS'){
+                component.set('v.Batches',response.getReturnValue());
+            }else if(state==='ERROR'){
+                console.log('Server error occured');
+            } else{
+                console.log('Unknown Error has occured');
+            }
+        });
+        $A.enqueueAction(getBatches);
         $A.enqueueAction(getPTOS);
+        
     },
     addNewPTO : function(component, event, helper){
         var pending = component.get('v.pendingPTOs');

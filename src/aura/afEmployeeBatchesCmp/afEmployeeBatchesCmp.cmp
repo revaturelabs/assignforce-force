@@ -1,4 +1,4 @@
-<aura:component implements="flexipage:availableForRecordHome" controller="afTrainingBatchesApexController" access="global">
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes" controller="afTrainingBatchesApexController" access="global">
 	
     <!--Loads static resource for lightning component-->
     <ltng:require styles="{!$Resource.FuturaStdHeavy + '/assets/styles/lightning-design-system-ltng.css'}"/>
@@ -10,7 +10,7 @@
     <aura:attribute name="empFutureBatchDataset" type="Object[]" description ="Data for lightning dataTable that involves future batches "/>
     <aura:attribute name="userId" type="Id" description="Used to store a value for the current users id"/>
     <aura:attribute name="hasBatches" type = "Boolean" default="false" description="A boolean used to represent whether a trainer has any batches scheduled" />
-    
+     
     <!--HANDLERS-->
     <aura:handler name="init" value="{!this}" action="{!c.doInit}" description="Used to intialize values for the two data tables" />
     
@@ -18,9 +18,9 @@
     <!-- aura:if is used determine whether both tables should render or a text based message-->
     <aura:if isTrue="{!v.hasBatches}" >
     <div class = "slds-grid slds-wrapper">
-        <lightning:card title="Current Batches">
+        <lightning:card class="title" title="Current Batches">
     <lightning:dataTable
-                         
+                         style="color:#474C55"
                          data="{!v.empCurrentBatchDataset}"
                          columns="{!v.empBatchesRecordset}"
                          keyField="id"
@@ -32,9 +32,9 @@
     </div>
     
     <div class = "slds-grid slds-wrapper">
-    	<lightning:card title="Upcoming Batches">
+    	<lightning:card class="title" title="Upcoming Batches">
     <lightning:dataTable
-                         
+                         style="color:#474C55"
                          data="{!v.empFutureBatchDataset}"
                          columns="{!v.empBatchesRecordset}"
                          keyField="id"
