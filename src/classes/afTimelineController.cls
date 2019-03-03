@@ -68,26 +68,34 @@ public class afTimelineController {
     public static String wrapTrainingToJSON()
     {
         List<TrainingDataWrapper> trainerData = new List<TrainingDataWrapper>();
-        System.debug('This is trainers: ' + trainers);
-        System.debug('currentTrainings: ' + currentTrainings);
-        
+        Map<Integer,String> trainerNumbersNames = new Map<Integer,String>();
+        List<String> trainerNames = new List<String>();
+        Integer trainerNumber = 0;
+        Integer trainerIndex = 0;
+        Integer j = 0;
         for(Training__c t : currentTrainings){
-            for(Integer i = 0; i < trainers.size(); i++)
-            { 
-                if(t.Trainer__r.name == trainers[i].name){
-                    TrainingDataWrapper tdw = new TrainingDataWrapper();
-                    tdw.x = t.StartDate__c;
-                    tdw.x2 = t.EndDate__c;
-                    tdw.y = i;
-                    tdw.series = t.TrainingTrack__r.ShortName__c;
-                    tdw.color = t.TrainingTrack__r.Color__c;
-                    trainerData.add(tdw); 
-                }
+            Boolean trainerInMap = false;
+            TrainingDataWrapper tdw = new TrainingDataWrapper();
+            for(j = 0 ; j < trainerNames.size() ; j++){   
+                if(trainerNames[j] == t.Trainer__r.Name){
+                    tdw.y = j;
+                    trainerInMap = true;
+                    break;
+                } 
             }
+            if(!trainerInMap){
+                trainerNames.add(t.Trainer__r.Name);
+                tdw.y = trainerNumber;
+                trainerNumber++;
+            }
+            tdw.x = t.StartDate__c;
+            tdw.x2 = t.EndDate__c;
+            tdw.series = t.TrainingTrack__r.ShortName__c;
+            tdw.color = t.TrainingTrack__r.Color__c;
+            tdw.trainerName = t.Trainer__r.Name;
+            trainerData.add(tdw);
         }
-        
-        return System.json.serialize(trainerData);
-        
+        return System.json.serialize(trainerData);   
     }
     
     public class TrainingDataWrapper
@@ -102,6 +110,8 @@ public class afTimelineController {
         public String series;
         @AuraEnabled
         public String color;
+        @AuraEnabled
+        public String trainerName; 
     }
     
     @AuraEnabled
@@ -221,10 +231,6 @@ public class afTimelineController {
             
             for(String s : Location)
             {
-                System.debug('TrainingLocation__r: ' + t.TrainingLocation__r.OfficeName__c);
-                System.debug('s: ' + s);
-                System.debug('Year: ' + convertedYear);
-                
                 if(t.TrainingLocation__r.OfficeName__c == s && convertedYear == trainingYear )
                 {
                     NewTrainings.add(t);

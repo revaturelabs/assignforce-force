@@ -45,11 +45,13 @@
         else{
             var trainers = names;
         }
+        console.log('trainers has been set to: ' + trainers);
         var trainerAssignment = [];
         
         var seriesNames = [];
         var seriesData = [];
         var freeTimeData = [];
+        var trainersInData = [];
         for(var i = 0; i < dataObj.length; i++)
         {
             var year = dataObj[i].x.substring(0,4);
@@ -62,6 +64,10 @@
             dataObj[i].x2 = Date.UTC(year2,month2,day2);
             var seriesName = dataObj[i].series;
             delete dataObj[i].series;
+            if(!trainersInData.includes(dataObj[i].trainerName)){
+                 trainersInData.push(dataObj[i].trainerName);
+			}
+            delete dataObj[i].trainerName;
             if(seriesNames.includes(seriesName))
             {
                 for(var c = 0; c < seriesObj.length; c++)
@@ -127,7 +133,16 @@
                 }
             }      
         }
-        
+        console.log('trainers: ' + trainers);
+        console.log('trainersInData: ' + trainersInData);
+        /*
+        for(var l = 0 ; l < trainers.length ; l++){
+            if(!trainersInData.includes(trainers[l])){
+                console.log('trainer: ' + trainers[l] + ' does not have any batches. Splicing at index: ' + l);
+                trainers.splice(l, 1);
+            }
+        }
+        */
         seriesObj.push({'name' : 'Free Time', 'pointWidth' : 30, 'data' : freeTimeData, 'fill' : '#FFFFFF', 'dataLabels' : {
             enabled : true,
             style:
@@ -183,7 +198,8 @@
             },
             plotOptions: {
                 series: {
-                    stacking: 'normal'
+               //     stacking: 'normal' (If this is enabled, the bars will be in one straight line in the middle, however if 
+               //     						two trainers have batches starting the same week, it will move one of them down)
                 },
                
             },
