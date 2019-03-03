@@ -102,6 +102,9 @@
     },
     
     findRooms : function(component, event, helper) {
+        component.set("v.locUncleared", false);
+        component.set("v.locUncleared", true);
+        
         var loc      = component.get("v.location");
         var allRooms = component.get("v.roomList");
         var roomsForLocation = [];
@@ -117,17 +120,15 @@
         component.set("v.roomsForLocation",roomsForLocation);
         if(roomsForLocation.length > 0) {
             component.set("v.hiddenRoom", roomsForLocation[0].Id);
-            // console.log("rFL[0]: " + roomsForLocation[0].Id);
+            component.set("v.room", roomsForLocation[0]);
         } else {
-            component.set("v.hiddenRoom", "");
+            component.set("v.hiddenRoom", null);
         }
         // pass new location and associated rooms to application event
         var locEvent = $A.get("e.c:afNewBatchFormLocationEvent");
         locEvent.setParams({
             "location" : loc,
-            "roomsForLocation" : roomsForLocation
         });
-        // console.log('locEvent');
         locEvent.fire();
     },
     
@@ -145,7 +146,7 @@
         console.log('onSuccess');
         
         var newBatch = [{
-               CoTrainer__c         : component.get("v.cotrainer"),
+            CoTrainer__c         : component.get("v.cotrainer"),
             EndDate__c             : component.get("v.endDate"),
             Trainer__c             : component.get("v.trainer"),
             TrainingLocation__c : component.get("v.location"),
@@ -189,32 +190,37 @@
                 room = rooms[i];
             }
         }
-        // console.log("selectRoom: " + room);
-        // console.log("selectRoom Id: " + room.Id);
         // set to hidden inputField for form submission
         component.set("v.hiddenRoom", room.Id);
     },
     
     setRoomField : function(component, event, helper){
-        
         var room = event.getParam("room");
         var allRooms = component.get("v.roomList");
         var roomsForLoc = [];
+        
+        component.set("v.locUncleared", false);
+        component.set("v.locUncleared", true);
         
         for (var i = 0; i < allRooms.length; i++) {
             if (allRooms[i].TrainingLocation__c == room.TrainingLocation__c) {
                 roomsForLoc.push(allRooms[i]);
             }
         }
-        // console.log('roomsforLoc: ' + roomsForLoc);		
+                    
+        console.log(room.TrainingLocation__c);
         component.set("v.location", room.TrainingLocation__c);
-        component.set("v.room", ({"Id " : room.Id  , "Name " : room.Name  ,"TrainingLocation__c " : room.TrainingLocation__c}));
-        //actually just set it to room.Id
         component.set("v.hiddenRoom", room.Id);
         component.set("v.roomsForLocation", roomsForLoc);
+        component.set("v.room", room.Id);
+
     },
     
     setTrainerField : function(component, event, helper) {
+        
+        component.set("v.trainerUncleared", false);
+        component.set("v.trainerUncleared", true);
+        
         var trainer = event.getParam("trainerId");
         component.set("v.trainer", trainer);
         

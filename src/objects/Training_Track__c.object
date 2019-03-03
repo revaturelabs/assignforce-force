@@ -97,5 +97,5 @@
     </nameField>
     <pluralLabel>Training Tracks</pluralLabel>
     <searchLayouts/>
-    <sharingModel>ReadWrite</sharingModel>
+    <sharingModel>Private</sharingModel>
 </CustomObject>

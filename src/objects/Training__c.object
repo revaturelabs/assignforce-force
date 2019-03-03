@@ -318,7 +318,7 @@
     </nameField>
     <pluralLabel>Trainings</pluralLabel>
     <searchLayouts/>
-    <sharingModel>ReadWrite</sharingModel>
+    <sharingModel>Private</sharingModel>
     <validationRules>
         <fullName>Start_Date_Weekday</fullName>
         <active>true</active>

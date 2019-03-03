@@ -37,4 +37,34 @@ public class afTrainingTriggerHelper {
         Database.insert(skillsToCreate, false); // inserts the new skills into the data base with partial processing
     }
     
+    public static void shareTrainings(List<Training__c> trainings){
+        List<Id> trainingIds = new List<Id>();
+        List<Id> trainerIds = new List<Id>();
+        Map<Id,Id> trainersToTrainings = new Map<Id,Id>();
+        for(Training__c t : trainings){
+            if(t.Id != null && t.Trainer__c != null){
+                trainersToTrainings.put(t.Trainer__c,t.Id);
+             	trainingIds.add(t.Id);
+                trainerIds.add(t.Trainer__c);
+                if(t.CoTrainer__c != null){
+                    trainersToTrainings.put(t.CoTrainer__c,t.Id);
+                    trainerIds.add(t.CoTrainer__c);
+                }
+            }
+        }
+        executeSharing(trainersToTrainings);
+    }
+    
+    public static void executeSharing(Map<Id,Id> trainersToTrainings){
+        List<Training__Share> trainingSharesToInsert = new List<Training__Share>();
+        for(Id i : trainersToTrainings.keySet()){
+            Training__Share trainingShare = new Training__Share();
+            trainingShare.ParentId = trainersToTrainings.get(i);
+            trainingShare.UserOrGroupId = i;
+            trainingShare.AccessLevel = 'Read';
+            trainingShare.RowCause = Schema.Training__Share.RowCause.Rule;
+            trainingSharesToInsert.add(trainingShare);
+        }
+        List<Database.SaveResult> sr = Database.insert(trainingSharesToInsert,false);
+    }    
 }
