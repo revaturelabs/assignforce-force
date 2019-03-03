@@ -7,7 +7,7 @@
         if(getRoom.AVAvailability__c == 'Yes'){
             component.set("v.isYes", "true");
         }else if(getRoom.AVAvailability__c == 'No'){
-            component.set("v.isNo", "true");
+            component.set("v.isYes", "false");
         }else{
             component.set("v.isRequest", "true");
         }

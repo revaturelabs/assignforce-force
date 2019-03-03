@@ -15,8 +15,7 @@
             var state = response.getState();
             if(component.isValid() && state === "SUCCESS"){
                 component.set('v.allTrainings', response.getReturnValue());
-                var t = component.get('v.allTrainings');
-              //  console.log("Training: " + t);
+                console.log(JSON.stringify(response.getReturnValue()));
             } else{
                 console.log('Error2');
             }

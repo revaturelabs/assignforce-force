@@ -1,4 +1,4 @@
-<aura:component controller="afAvailabilityListContainerController" implements="force:appHostable,flexipage:availableForAllPageTypes" access="global" >
+<aura:component controller="afAvailListContainerApexController" implements="force:appHostable,flexipage:availableForAllPageTypes" access="global" >
     <ltng:require styles="{!$Resource.RevatureStyles}"/>
     
     <!-- Attributes-->

@@ -31,15 +31,6 @@
             dateEvent.fire();
             
             // pass new start/end dates to application event
-            startDate = component.get("v.startDate");
-            endDate = component.get("v.endDate");
-            var dateEvent = $A.get("e.c:afNewBatchFormDateEvent");
-            dateEvent.setParams({
-                "startDate" : startDate,
-                "endDate"   : endDate
-            });
-            console.log('dateChanged');
-            dateEvent.fire();
             
         } else { // Thursday || Friday || Saturday || Sunday (no batches start here)
             component.set("v.endDate", "");
