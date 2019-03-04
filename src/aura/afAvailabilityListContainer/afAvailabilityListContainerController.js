@@ -86,7 +86,7 @@
                 }
             }
         }
-        for(var i=0; i<currentLocRooms.length; i++){
+         for(var i=0; i<currentLocRooms.length; i++){
             for (var j = 0; j < trainings.length; j++) {
                 if(currentLocRooms[i].Id == trainings[j].TrainingRoom__c) {
                     var prevStart = new Date(trainings[j].StartDate__c);
