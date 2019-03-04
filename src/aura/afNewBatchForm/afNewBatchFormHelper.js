@@ -27,7 +27,7 @@
                 "startDate" : startDate,
                 "endDate"    : endDate
             });
-            console.log('dateChanged');
+            
             dateEvent.fire();
             
             // pass new start/end dates to application event
