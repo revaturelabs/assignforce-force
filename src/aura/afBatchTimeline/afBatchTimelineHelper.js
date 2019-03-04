@@ -45,7 +45,6 @@
         else{
             var trainers = names;
         }
-        console.log('trainers has been set to: ' + trainers);
         var trainerAssignment = [];
         
         var seriesNames = [];
@@ -133,16 +132,7 @@
                 }
             }      
         }
-        console.log('trainers: ' + trainers);
-        console.log('trainersInData: ' + trainersInData);
-        /*
-        for(var l = 0 ; l < trainers.length ; l++){
-            if(!trainersInData.includes(trainers[l])){
-                console.log('trainer: ' + trainers[l] + ' does not have any batches. Splicing at index: ' + l);
-                trainers.splice(l, 1);
-            }
-        }
-        */
+        
         seriesObj.push({'name' : 'Free Time', 'pointWidth' : 30, 'data' : freeTimeData, 'fill' : '#FFFFFF', 'dataLabels' : {
             enabled : true,
             style:

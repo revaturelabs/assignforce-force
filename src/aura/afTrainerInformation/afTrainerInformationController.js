@@ -12,7 +12,7 @@
                 component.set('v.filename', response.getReturnValue().Title);
                 component.set('v.fileId', response.getReturnValue().Id);
             } else{
-                console.log('Some Error');
+                console.log('No File to Display');
             }
         });
         $A.enqueueAction(file); 
@@ -30,7 +30,7 @@
                 component.set('v.filename', response.getReturnValue().Title);
                 component.set('v.fileId', response.getReturnValue().Id);
             } else{
-                console.log('Some Error');
+                console.log('No File to Display');
             }
         });
         $A.enqueueAction(handleFile);

@@ -3,7 +3,6 @@
    getData : function(component) {
 		var userId = $A.get("$SObjectType.CurrentUser.Id");
         component.set("v.userId",userId);
-       console.log(userId);
        let action = component.get("c.getTrainingBatchesById");
        action.setParams({"userId" : userId});
        action.setCallback(this, function(response){
@@ -11,7 +10,6 @@
 
            if (component.isValid && state === "SUCCESS"){
                var temp = response.getReturnValue();
-               console.log("This is temp " + temp);
                
                //if response value is empty hasBatches will be false and will not render both data tables
                if(temp.length == 0){
@@ -21,8 +19,7 @@
                else if (temp.length > 0){
                    component.set('v.hasBatches', true);
                }
-               console.log(temp);
-               console.log(temp.length);
+               
                var tempCurrent = [];
                var tempFuture = [];
                /*Loops through all the response values searches and then filters by status to determine
@@ -38,8 +35,6 @@
                tempCurrent.push(temp[i]);
            }
        }
-               console.log('tempFuture: ' + tempFuture);
-               console.log('tempCurrent: ' + tempCurrent);
                //Calls modGetData which is responsible for putting values on data table
                this.modGetData(component, tempCurrent, tempFuture);
            }
@@ -62,38 +57,28 @@
        //Populates values from server *Ask Jeramiah
        var trainings = [];
        var futureTrainings = [];
-       console.log('returnedTraining: ' + JSON.stringify(returnedTraining));
-       console.log('returnedFutureTrainings: ' + JSON.stringify(returnedFutureTrainings));
+       
        //Loops through an array of current batches in order to show values on data table
-       if(returnedTraining.length > 0){
        for(var i = 0 ; i < returnedTraining.length ; i++){
-
            var tempObj = returnedTraining[i];
            var endDateString = new Date(tempObj.EndDate__c);
            var startDateString = new Date(tempObj.StartDate__c);
            var endDate =  this.endDateHandler(endDateString);
            var startDate = this.startDateHandler(startDateString);
-           console.log('pushing tempObj: ' + JSON.stringify(tempObj) + ' in returnedTraining loop.');
-           trainings.push(this.addToArray(tempObj , endDateString, startDateString));
+           trainings.push(this.addToArray(tempObj));
            
        }
-       }
-       
        //Loops through an array of upcoming batches in order to show values on the upcoming batches datatable
-       if(returnedFutureTrainings.length > 0){
        for(var j = 0; j < returnedFutureTrainings.length; j++){
            var tempObj = returnedFutureTrainings[j];
            var endDateString = new Date(tempObj.EndDate__c);
            var startDateString = new Date(tempObj.StartDate__c);
            var endDate =  this.endDateHandler(endDateString);
            var startDate = this.startDateHandler(startDateString);
-           console.log('pushing tempObj: ' + JSON.stringify(tempObj) + ' in returnedFutureTrainings loop.');
-           console.log('tempObj name: ' + tempObj.Name);
-           futureTrainings.push(this.addToArray(tempObj , endDateString, startDateString));
+           futureTrainings.push(this.addToArray(tempObj));
        }
-       }
+       
        //sets the values from trainings to current batch datatable and futureTrainings to upcoming batch table
-
        component.set('v.empCurrentBatchDataset', trainings);
        component.set('v.empFutureBatchDataset', futureTrainings);
        
@@ -118,36 +103,17 @@
     	return new Date(endYear,endMonth,endDay +1);
 	},
     //Called from modeGetData to reference key value pairs
- addToArray : function(tempObj, endDateString, startDateString){
-     console.log('adding to array. Name is: ' + tempObj.Train);
-     if(!tempObj.CoTrainer__r){
+ addToArray : function(tempObj){
     		var tempArray = {
                Id : tempObj.Id,
                Name: tempObj.Name,
                trainingClass : tempObj.TrainingClass__c,
-               startDate : startDateString ,
-               endDate : endDateString ,
+               startDate : tempObj.StartDate__c ,
+               endDate : tempObj.EndDate__c ,
                status : tempObj.Status__c,
                officeName : tempObj.TrainingLocation__r.OfficeName__c,
-               city: tempObj.TrainingLocation__r.OfficeName__c,
-               track : tempObj.TrainingTrack__r.ShortName__c,
-               trainer : tempObj.Trainer__r.Name
+               track : tempObj.TrainingTrack__r.ShortName__c
            };
-     } else if(tempObj.CoTrainer__r){
-    		var tempArray = {
-               Id : tempObj.Id,
-               Name: tempObj.Name,
-               trainingClass : tempObj.TrainingClass__c,
-               startDate : startDateString ,
-               endDate : endDateString ,
-               status : tempObj.Status__c,
-               officeName : tempObj.TrainingLocation__r.OfficeName__c,
-               city: tempObj.TrainingLocation__r.OfficeName__c,
-               track : tempObj.TrainingTrack__r.ShortName__c,
-               trainer : tempObj.Trainer__r.Name,
-               coTrainer : tempObj.CoTrainer__r.Name
-           };
-     }
     return tempArray;
 },
     
