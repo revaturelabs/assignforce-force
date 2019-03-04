@@ -1,7 +1,7 @@
 ({
     doInit : function(component, event, helper) {
+        //Initialization function that sets the boolean isAvailable to display an icon visually representing whether the trainer is available or not
         var availability = component.get('v.availability');
-        var trainerId = component.get('v.trainerId');
         if(availability==="Available"){
             component.set('v.isAvailable', true);
         } else{
@@ -10,6 +10,7 @@
         
     },
     selectIsClicked : function(component, event, helper){
+        //This method fires the trainer Id in an application event
         var selectedEvt = $A.get('e.c:TrainerSelected');
         var trainerId = component.get('v.trainerId');
         console.log(trainerId);

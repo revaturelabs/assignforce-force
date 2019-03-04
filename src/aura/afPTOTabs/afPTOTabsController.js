@@ -48,12 +48,11 @@
         
     },
     addNewPTO : function(component, event, helper){
+        //This function adds the created PTO from the newPTO tab to the pending list without calling to the server
         var pending = component.get('v.pendingPTOs');
-        
         var newId = event.getParam('newPTO');
         var newStartDate = event.getParam('startDate');
         var newPTO = {Id:newId, StartDate__c:newStartDate};
-        console.log(newPTO);
         pending.push(newPTO);
         component.set('v.pendingPTOs', helper.sortPTOs(pending));
     },
@@ -79,6 +78,7 @@
         }
     },
     prevPTOIsClicked : function(component, event, helper){
+        //This function toggles between showing current PTO and old PTO
         var isClicked = component.get('v.prevIsClicked');
         if(isClicked){
             var newApproved = component.get('v.newApprovedPTOs');
