@@ -1,4 +1,5 @@
 ({
+   
     getData : function(cmp) {
         
         let action = cmp.get("c.getTrainingBatches");
@@ -20,7 +21,7 @@
         
         $A.enqueueAction(action);
     },
-    
+     
     modGetData : function(cmp, temp){
         var returnedTraining = temp;
         var trainings = [];
@@ -28,30 +29,41 @@
             
             var endDateString = new Date(returnedTraining[i].EndDate__c);
             var startDateString = new Date(returnedTraining[i].StartDate__c);
-            let endYear = endDateString.getUTCFullYear();
-            let endMonth = endDateString.getUTCMonth();
-            let endDay =  endDateString.getUTCDate();
-            let startYear = startDateString.getUTCFullYear();
-            let startMonth = startDateString.getUTCMonth();
-            let startDay = startDateString.getUTCDate();
+            
+            var endYear = endDateString.getUTCFullYear();
+            var endMonth = endDateString.getUTCMonth();
+            var endDay =  endDateString.getUTCDate();
+            var endDayHours = endDateString.getUTCHours();
+            var startYear = startDateString.getUTCFullYear();
+            var startMonth = startDateString.getUTCMonth();
+            var startDay =  startDateString.getUTCDate();
+            var startDayHours = startDateString.getUTCHours();
+            var startDayMins = startDateString.getUTCMinutes();
             
             
-            var endDate = (endYear + "-" + (endMonth+1) + "-" + (endDay));
-            var startDate = (startYear + "-" + (startMonth+1) + "-" + (startDay));
+            
+            
+            
+            var endDate = new Date(endYear,endMonth,endDay +1);
+            var startDate = new Date(startYear,startMonth,startDay +1);
+            console.log(startDate);
             trainings.push({
                 Id : returnedTraining[i].Id,
                 Name: returnedTraining[i].Name,
                 TrainingClass__c : returnedTraining[i].TrainingClass__c,
-                StartDate__c : startDate,
-                EndDate__c : endDate,
+                StartDate__c : startDate ,
+                EndDate__c : endDate ,
                 Status__c : returnedTraining[i].Status__c,
                 officeName : returnedTraining[i].TrainingLocation__r.OfficeName__c,
                 track : returnedTraining[i].TrainingTrack__r.ShortName__c,
                 trainer : returnedTraining[i].Trainer__r.Name,
                 coTrainer : returnedTraining[i].CoTrainer__r.Name
             });
+            //startDate = (startYear + "-" + (startMonth+1) + "-" + (startDay )  );
         }
         cmp.set('v.batchesData', trainings);
+        
+        
     },
     
     deleteBatchesHelper : function(cmp){
@@ -95,7 +107,9 @@
         cmp.find("dataTable").set("v.draftValues", null);
        
         this.reloadDataTable();
+        
         this.getData(cmp);
+        //this.modGetData(cmp);
         
        
     },
@@ -103,9 +117,8 @@
     var refreshEvent = $A.get("e.force:refreshView");
         console.log(refreshEvent);
         if(refreshEvent){
+            
             refreshEvent.fire();
-            console.log("it is getting past fire");
-            //this.getData(cmp);
         }
     },
    
