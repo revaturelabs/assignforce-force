@@ -4,7 +4,7 @@
    <!--Attributes-->
    <aura:attribute name="availability" type="String"/>
    <aura:attribute name="cotrainer"    type="ID"/>
-   <aura:attribute name="currLoc"        type="String"/>
+   <aura:attribute name="currLoc"      type="String"/>
    <aura:attribute name="trainers"     type="User[]"/>
 
    <!--Handlers-->
@@ -14,16 +14,17 @@
    <aura:registerEvent name="afTrainerSelected" type="c:TrainerSelected"/>
 
    <div id="trainersListView">
+       <div id="top"/>
        <div class="slds-grid">
-           <div class="slds-col slds-size_1-of-8 slds-align_absolute-center"/>
-           <div class="slds-col slds-size_1-of-5 slds-align_absolute-center"><h1>Id</h1></div>
-           <div class="slds-col slds-size_1-of-6 slds-align_absolute-center"><h1>Name</h1></div>
-           <div class="slds-col slds-size_1-of-6 slds-align_absolute-center"><h1>Available</h1></div>
-           <div class="slds-col slds-size_1-of-6 slds-align_absolute-center"><h1>Current Location</h1></div>
-           <div class="slds-col slds-size_1-of-6 slds-align_absolute-center"><h1>Skills</h1></div>
+           <div class="slds-col slds-size_2-of-12 slds-align_absolute-center"/>
+           <div class="slds-col slds-size_2-of-12 slds-align_absolute-center"><h1>Name</h1></div>
+           <div class="slds-col slds-size_2-of-12 slds-align_absolute-center"><h1>Available</h1></div>
+           <div class="slds-col slds-size_2-of-12 slds-align_absolute-center"><h1>Current Location</h1></div>
+           <div class="slds-col slds-size_4-of-12 slds-align_absolute-center"><h1>Skills</h1></div>
        </div>
        <aura:iteration  items="{!v.trainers}" var="trainerVar">
            <c:afTrainersTabListViewItem trainerId="{!trainerVar.Id}" availability="{!trainerVar.Available__c}" currLoc="{!trainerVar.CurrentLocation__c}" skills="{!trainerVar.Skills__c}"/>
        </aura:iteration>
+       <div id="bottom"/>
    </div>
 </aura:component>

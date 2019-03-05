@@ -1,3 +1,15 @@
+.THIS #top {
+    background-color: #FFFFFF;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    height: 20px;
+}
+.THIS #bottom {
+    background-color: #FFFFFF;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    height: 20px;
+}
 .THIS .slds-tabs_default__item.slds-active, .THIS .slds-tabs_default__item.slds-is-active{
    color: #F26925;
 }
@@ -13,6 +25,5 @@
 }
 
 .THIS .slds-grid {
-   background-color: white;
-   border-radius: 5px;
+   background-color: #FFFFFF;
 }

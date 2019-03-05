@@ -25,7 +25,6 @@
                                     columns="{!v.empPTORecordset}"
                                     keyField="id"
                                     aura:id="empDataTable"
-                                    hideCheckboxColumn="true"
                                     description="data table to reflect batches associated with a specific trainer"
                                     />
            </lightning:card>
@@ -45,9 +44,11 @@
            </lightning:card>
        </div>
        <aura:set attribute="else">
+           <div class="emptyBatchBackground" id="top"/>
            <div class="emptyBatchBackground">
-               <h1 class="emptyBatchClass" >No PTO scheduled</h1>
+               <h1 class="emptyBatchClass" >No PTO scheduled for Selected Trainer</h1>
            </div>
+           <div class="emptyBatchBackground" id="bottom"/>
        </aura:set>
    </aura:if>
 </aura:component>

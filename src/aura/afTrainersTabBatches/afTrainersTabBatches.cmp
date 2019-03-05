@@ -45,9 +45,11 @@
            </lightning:card>
        </div>
        <aura:set attribute="else">
+           <div class="emptyBatchBackground" id="top"/>
            <div class="emptyBatchBackground">
                <h1 class="emptyBatchClass" >You currently have no batches scheduled!</h1>
            </div>
+           <div class="emptyBatchBackground" id="bottom"/>
        </aura:set>
    </aura:if>
 </aura:component>
