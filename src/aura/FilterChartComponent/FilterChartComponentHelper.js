@@ -10,7 +10,7 @@
                 { id: 2, label: year, selected: true},
                 { id: 3, label: year - 1},
                 { id: 4, label: year - 2 },
-                {id: 5, label: 'AllYears'}
+                {id: 5, label: 'All'}
                 
             ]
         };
