@@ -17,6 +17,7 @@
             var state = response.getState();
             if(component.isValid() && state === "SUCCESS"){
                 component.set('v.allTrainings', response.getReturnValue());
+                var t = component.get('v.allTrainings');
             } else{
                 console.log('Error2');
             }
@@ -89,6 +90,7 @@
          for(var i=0; i<currentLocRooms.length; i++){
             for (var j = 0; j < trainings.length; j++) {
                 if(currentLocRooms[i].Id == trainings[j].TrainingRoom__c) {
+                    console.log('training rooms equal');
                     var prevStart = new Date(trainings[j].StartDate__c);
                     var prevEnd = new Date(trainings[j].EndDate__c);
                     
@@ -97,7 +99,7 @@
                        (prevStart >= startDate    && endDate >= prevEnd)){
                         currentLocRooms[i].AVAvailability__c = "No";
                         break;
-                    }else {
+                    }else{
                         currentLocRooms[i].AVAvailability__c = "Yes";
                     }
                 }

@@ -133,19 +133,19 @@
     </nameField>
     <pluralLabel>PTOs</pluralLabel>
     <searchLayouts/>
-    <sharingModel>ReadWrite</sharingModel>
+    <sharingModel>Private</sharingModel>
     <validationRules>
-        <fullName>End_Date_Check</fullName>
+        <fullName>EndDate_Validation</fullName>
         <active>true</active>
-        <errorConditionFormula>EndDate__c &lt; StartDate__c</errorConditionFormula>
+        <errorConditionFormula>StartDate__c &gt; EndDate__c</errorConditionFormula>
         <errorDisplayField>EndDate__c</errorDisplayField>
-        <errorMessage>End date must in the future or the same day as start date.</errorMessage>
+        <errorMessage>PTO must end on the same day or later than the start date</errorMessage>
     </validationRules>
     <validationRules>
-        <fullName>Start_Date_check</fullName>
+        <fullName>StartDate_validation</fullName>
         <active>true</active>
         <errorConditionFormula>StartDate__c &lt; TODAY()</errorConditionFormula>
         <errorDisplayField>StartDate__c</errorDisplayField>
-        <errorMessage>The start date must be today or later.</errorMessage>
+        <errorMessage>PTO can only be requested for today or later</errorMessage>
     </validationRules>
 </CustomObject>

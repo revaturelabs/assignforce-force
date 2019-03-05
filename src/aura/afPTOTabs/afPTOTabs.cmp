@@ -1,17 +1,17 @@
 <aura:component controller="afPTOTabsApexController" implements="force:appHostable,flexipage:availableForAllPageTypes" access="global" >
     
     <!--Attributes-->
-    <aura:attribute name="tab" 				type="Integer" default="1" 		description="used to change between approved=1, pending=2 and create new PTO=3 tabs"/>
-    <aura:attribute name="oldApprovedPTOs" 	type="Object[]" 				description="used to store the approved PTO records with a start date before today"/>
-    <aura:attribute name="newApprovedPTOs" 	type="Object[]" 				description="used to store the approved PTO records with a start date equal to or after today"/>
-    <aura:attribute name="prevIsClicked" 	type="Boolean" default="true" 	description="boolean that adds the oldApprovedPTOs to the approvedPTOs to display the old PTO records"/>
-    <aura:attribute name="approvedPTOs"		type="Object[]" 				description="used to store the list of approved PTO records to display on the approved PTO tab"/>
-    <aura:attribute name="pendingPTOs"		type="Object[]" 				description="used to store the list of pending PTO records to display on the pending PTO tab"/>
-    <aura:attribute name="Batches"			type="Object[]"					description="stores a list of all training records used for validation of creating new PTO records"/>
+    <aura:attribute name="tab" 				type="Integer" default="1" 		description=""/>
+    <aura:attribute name="oldApprovedPTOs" 	type="Object[]" 				description=""/>
+    <aura:attribute name="newApprovedPTOs" 	type="Object[]" 				description=""/>
+    <aura:attribute name="prevIsClicked" 	type="Boolean" default="true" 	description=""/>
+    <aura:attribute name="approvedPTOs"		type="Object[]" 				description=""/>
+    <aura:attribute name="pendingPTOs"		type="Object[]" 				description=""/>
+    <aura:attribute name="Batches"			type="Object[]"/>
     
     <!--Handlers-->
-    <aura:handler name="init" value="{!this}" action="{!c.doInit}" description="This initializes the Object arrays with data from the server"/>
-    <aura:handler name="newPendingPTO" event="c:afNewPTOCreatedEvent" action="{!c.addNewPTO}" description="Handles the afNewPTOCreatedEvent adds the new PTO record to the pending PTO array"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:handler name="newPendingPTO" event="c:afNewPTOCreatedEvent" action="{!c.addNewPTO}"/>
     
     <!--Component Markup-->
     <div class="slds-card">
