@@ -4,11 +4,14 @@
         var today = new Date();
         var year = today.getFullYear();
         var choices = {
-            selectedYearId: 1,
+            selectedYearId: 2,
             years: [
-                { id: 1, label: year, selected: true },
-                { id: 2, label: year - 1},
-                { id: 3, label: year - 2 }
+                {id: 1, label: year + 1},
+                { id: 2, label: year, selected: true},
+                { id: 3, label: year - 1},
+                { id: 4, label: year - 2 },
+                {id: 5, label: 'AllYears'}
+                
             ]
         };
         component.set('v.yearOptions', choices.years);

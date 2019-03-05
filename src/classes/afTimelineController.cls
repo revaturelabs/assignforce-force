@@ -160,17 +160,25 @@ public class afTimelineController {
         {
             when 1
             {
-                convertedYear = Date.today().year();
+                convertedYear = Date.today().year() + 1;
             }
-            
-            when 2 
+            when 2
             {
-                convertedYear = Date.today().year() - 1;
+                convertedYear = Date.today().year();
             }
             
             when 3 
             {
+                convertedYear = Date.today().year() - 1;
+            }
+            
+            when 4 
+            {
                 convertedYear = Date.today().year() - 2;
+            }
+            when 5
+            {
+                convertedYear = null;
             }
             
             when else
@@ -187,6 +195,9 @@ public class afTimelineController {
             {
                 if(t.TrainingLocation__r.OfficeName__c == s && convertedYear == trainingYear && monthList.contains(trainingMonth))
                 {
+                    NewTrainings.add(t);
+                }
+                else if(t.TrainingLocation__r.OfficeName__c == s && monthList.contains(trainingMonth) && convertedYear == null){
                     NewTrainings.add(t);
                 }
             }
@@ -206,17 +217,25 @@ public class afTimelineController {
         {
             when 1
             {
-                convertedYear = Date.today().year();
+                convertedYear = Date.today().year() + 1;
             }
-            
-            when 2 
+            when 2
             {
-                convertedYear = Date.today().year() - 1;
+                convertedYear = Date.today().year();
             }
             
             when 3 
             {
+                convertedYear = Date.today().year() - 1;
+            }
+            
+            when 4 
+            {
                 convertedYear = Date.today().year() - 2;
+            }
+            when 5
+            {
+                convertedYear = null;
             }
             
             when else
@@ -233,6 +252,9 @@ public class afTimelineController {
             {
                 if(t.TrainingLocation__r.OfficeName__c == s && convertedYear == trainingYear )
                 {
+                    NewTrainings.add(t);
+                }
+                else if(t.TrainingLocation__r.OfficeName__c == s && convertedYear == null){
                     NewTrainings.add(t);
                 }
             }
@@ -254,17 +276,25 @@ public class afTimelineController {
         {
             when 1
             {
-                convertedYear = Date.today().year();
+                convertedYear = Date.today().year() + 1;
             }
-            
-            when 2 
+            when 2
             {
-                convertedYear = Date.today().year() - 1;
+                convertedYear = Date.today().year();
             }
             
             when 3 
             {
+                convertedYear = Date.today().year() - 1;
+            }
+            
+            when 4 
+            {
                 convertedYear = Date.today().year() - 2;
+            }
+            when 5
+            {
+                convertedYear = null;
             }
             
             when else
@@ -316,6 +346,9 @@ public class afTimelineController {
             {
                 NewTrainings.add(t);
             }
+            else if(monthList.contains(trainingMonth) && convertedYear == null){
+                NewTrainings.add(t);
+            }
             
         }
         currentTrainings = NewTrainings;
@@ -333,17 +366,25 @@ public class afTimelineController {
         {
             when 1
             {
-                convertedYear = Date.today().year();
+                convertedYear = Date.today().year() + 1;
             }
-            
-            when 2 
+            when 2
             {
-                convertedYear = Date.today().year() - 1;
+                convertedYear = Date.today().year();
             }
             
             when 3 
             {
+                convertedYear = Date.today().year() - 1;
+            }
+            
+            when 4 
+            {
                 convertedYear = Date.today().year() - 2;
+            }
+            when 5
+            {
+                convertedYear = null;
             }
             
             when else
@@ -358,6 +399,9 @@ public class afTimelineController {
             
             if(convertedYear == trainingYear )
             {
+                NewTrainings.add(t);
+            }
+            else if(convertedYear == null){
                 NewTrainings.add(t);
             }
         }
