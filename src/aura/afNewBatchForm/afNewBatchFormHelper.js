@@ -11,7 +11,7 @@
             // For batches starting on Wednesday, first week ends Friday of the next week
             if(startDate.getDay() == 2) {
                 endDate.setDate(startDate.getDate() + (numWeeks*7) + offset);
-            // For batches starting Monday/Wednesday, first week ends Friday of starting week
+                // For batches starting Monday/Wednesday, first week ends Friday of starting week
             } else {
                 endDate.setDate(startDate.getDate() + ((numWeeks-1)*7) + offset);
             }
@@ -43,6 +43,11 @@
         // refresh the aura:if containing the recordEditForm
         component.set("v.uncleared", false);
         component.set("v.uncleared", true);
+        
+        // reset Location ltng:select to start with an empty value
+        var allLocs = component.get("v.allLocations");
+        allLocs.unshift(null);
+        component.set("v.allLocations", allLocs);
         
         //set component values (that aren't handled in doInit) to empty
         component.set("v.cotrainer", "");

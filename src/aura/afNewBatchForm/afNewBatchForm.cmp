@@ -3,24 +3,25 @@
     <lightning:notificationsLibrary aura:id="notificationsLibrary"/>
     
     <!-- Attributes -->
-    <aura:attribute name="allTrainers"     type="List" />
-    <aura:attribute name="allCoTrainers"   type="List" />
-    <aura:attribute name="cotrainer"           type="User" />
+    <aura:attribute name="allTrainers"    	type="List" />
+    <aura:attribute name="allCoTrainers"   	type="List" />
+    <aura:attribute name="allLocations"		type="Training_Location__c[]"/>
+    <aura:attribute name="cotrainer"        type="User" />
     <aura:attribute name="endDate"          type="Date" />
-    <aura:attribute name="hiddenRoom"          type="Id" />
-    <aura:attribute name="location"            type="Id" />
-    <aura:attribute name="locUncleared"    type="Boolean"        default="true"/>
+    <aura:attribute name="hiddenRoom"       type="Id" />
+    <aura:attribute name="location"         type="Training_Location__c" />
+    <aura:attribute name="locUncleared"    	type="Boolean"       default="true"/>
     <aura:attribute name="numWeeks"         type="Integer"       default="10"/>
-    <aura:attribute name="openTrainings"       type="List" />
-    <aura:attribute name="room"                type="Training_Room__c" />
+    <aura:attribute name="openTrainings"    type="List" />
+    <aura:attribute name="room"             type="Training_Room__c" />
     <aura:attribute name="roomList"         type="List" />
     <aura:attribute name="roomsForLocation" type="List" />
-    <aura:attribute name="track"               type="Id" />
+    <aura:attribute name="track"            type="Id" />
     <aura:attribute name="trainer"          type="User" />
     <aura:attribute name="trainerUncleared" type="Boolean"       default="true"/>
-    <aura:attribute name="startDate"           type="Date" />
-    <aura:attribute name="status"              type="String"         default="Planned" />
-    <aura:attribute name="uncleared"           type="Boolean"        default="true" />
+    <aura:attribute name="startDate"        type="Date" />
+    <aura:attribute name="status"           type="String"        default="Planned" />
+    <aura:attribute name="uncleared"        type="Boolean"       default="true" />
     
     <aura:attribute name="newBatch"         type="Map"           default="{     CoTrainer__c : '',
                                                                          EndDate__c : '',
@@ -101,8 +102,13 @@
                         <div class="slds-box">
                             <div class="slds-grid slds-grid_align-spread">
                                 <div class="slds-col slds-size_1-of-3">
-                                    <lightning:inputField fieldName="TrainingLocation__c" aura:id="trainingLocation" value="{!v.location}" onchange="{!c.findRooms}"/>
-                                </div>
+                                   <lightning:select name="trainingLoc" label="Training Location" aura:id="trainingLoc" value="{!v.location}" onchange="{!c.findRooms}">
+                                       <aura:iteration items="{!v.allLocations}" var="loc">
+                                           <option value="{!loc.Id}" selected="{!v.loc}">{!loc.OfficeName__c}</option>
+                                       </aura:iteration>
+                                   </lightning:select>
+                                   <lightning:inputField fieldName="TrainingLocation__c" value="{!v.hiddenLoc}" hidden="true"/>
+                               </div>
                                 <div class="slds-col slds-size_1-of-3">
                                     <lightning:select name="trainingRoom" label="Training Rooms" aura:id="trainingRoom" value="{!v.room}" onchange="{!c.selectRoom}">
                                         <aura:iteration items="{!v.roomsForLocation}" var="room">
