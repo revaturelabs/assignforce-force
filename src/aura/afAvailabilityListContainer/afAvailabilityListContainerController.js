@@ -10,20 +10,17 @@
             }
         });
         $A.enqueueAction(getSkills);
-        
         var getTrainings = component.get("c.getAllTrainings");
         getTrainings.setCallback(this, function(response){
             var state = response.getState();
             if(component.isValid() && state === "SUCCESS"){
                 component.set('v.allTrainings', response.getReturnValue());
-                var t = component.get('v.allTrainings');
-              //  console.log("Training: " + t);
+                console.log(JSON.stringify(response.getReturnValue()));
             } else{
                 console.log('Error2');
             }
         });
         $A.enqueueAction(getTrainings);
-        
         var action = component.get("c.getAllTrainers");
         action.setCallback(this, function(response){
             var state = response.getState();
@@ -41,27 +38,32 @@
         getRooms.setCallback(this, function(response) {
             var state = response.getState();
             
-            if(component.isValid && state === 'SUCCESS'){
+            if(component.isValid && state === 'SUCCESS'){                
                 component.set("v.rooms", response.getReturnValue());
                 component.set("v.currentLocRooms", response.getReturnValue());
             }else if(state === 'ERROR'){
                 var errors = response.getError();
                 
-                console.log('Error message: ' + errors[0].message);
+                if(errors){
+                    if(errors[0] && errors[0].message){
+                        console.log('Error message: ' + errors[0].message);
+                    }
+                }
             }else{
                 console.log('Unknown error');
             }
         });
         $A.enqueueAction(getRooms);
+        
     },
     
     dateHasChanged: function(component, event, helper){
+        //This method checks the start date and end date of every training within the dates selected from the afBatchFormDateEvent and changes the availability of the trainer accordingly
         var trainers = component.get('v.trainers');
         var trainings = component.get('v.allTrainings');
         var startDate = new Date(event.getParam('startDate'));
         var endDate = new Date(event.getParam('endDate'));
         var currentLocRooms = component.get('v.currentLocRooms');
-        
         for(var i=0; i<trainers.length; i++){
             for (var j = 0; j < trainings.length; j++) {
                 if(trainers[i].Id == trainings[j].Trainer__c || trainers[i].Id == trainings[j].CoTrainer__c) {
@@ -84,7 +86,7 @@
                 if(currentLocRooms[i].Id == trainings[j].TrainingRoom__c) {
                     var prevStart = new Date(trainings[j].StartDate__c);
                     var prevEnd = new Date(trainings[j].EndDate__c);
-                    
+
                     if((prevStart <= startDate && startDate <= prevEnd) || 
                        (prevStart <= endDate  && endDate <= prevEnd) || 
                        (prevStart >= startDate    && endDate >= prevEnd)){

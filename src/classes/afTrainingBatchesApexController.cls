@@ -6,15 +6,17 @@ public class afTrainingBatchesApexController{
            if(AllTrainings == null)
            {
                AllTrainings = [SELECT Id, Name, TrainingLocation__r.OfficeName__c, TrainingTrack__r.ShortName__c,
-                               Status__c, TrainingClass__c, StartDate__c, EndDate__c, Trainer__r.Name, CoTrainer__r.Name
+                               Status__c, TrainingClass__c, StartDate__c, EndDate__c, TrainingLocation__r.ShippingCity__c, Trainer__r.Name, CoTrainer__r.Name
                                FROM Training__c
                                ORDER BY StartDate__c];
            }
-
+			
            return AllTrainings;
        }
        set;
    }
+    
+    
 
    @AuraEnabled
    public static List<Training__c> currentTrainings
@@ -34,41 +36,48 @@ public class afTrainingBatchesApexController{
        return AllTrainings;
    }
     
+    //Used by afEmployeeBatchesCmp to get batches by trainers id to populate data tables
+    @auraEnabled
+    public static List<Training__c> getTrainingBatchesById(Id userId){
+        system.debug(userId);
+        List<Training__c> userTrainings = 
+            database.query('SELECT Id, Name, TrainingLocation__r.OfficeName__c, TrainingTrack__r.ShortName__c,Status__c, TrainingClass__c, StartDate__c, EndDate__c, TrainingLocation__r.ShippingCity__c, Trainer__r.Name, CoTrainer__r.Name FROM Training__c WHERE Trainer__r.Id =: userId   ORDER BY StartDate__c');
+        system.debug(userTrainings);
+         return userTrainings;
+    }
+    
     @AuraEnabled
     public static void deleteBatchesServer(String[] batchIds)
     {
-       // Map<String, String> Objects = new Map<String, String>();
-      
         List<Training__c> batchesToDelete = new List<Training__c>();
         
         for(integer s = 0; s < batchIds.size(); s++){
                 batchesToDelete.add(new Training__c(Id = batchIds[s]));
             }
         
-        /*
-        List<SObject> batches = new List<SObject>();
-        for(integer i = 0; i < AllTrainings.size(); i++){
-            for(integer j = 0; j < batchIds.size()-1; j++){
-                if(AllTrainings[i].id == batchIds[j] )
-                {
-                    batches.add(AllTrainings[i]);
-                }
-            }
-        }*/
+       
         delete batchesToDelete; 
     }
     
     @AuraEnabled
     public static void updateBatchesServer(List<Training__c> updatedBatches){
 		System.debug('Batches to Update: ' + updatedBatches);
-        /*
-        List<Training__c> batchesToUpdate = new List<Training__c>();
         
         for(integer s = 0; s < updatedBatches.size(); s++){
-                batchesToUpdate.add(new Training__c(updatedBatches[s]));
-        }*/
+            if(updatedBatches[s].StartDate__c != null)
+            {
+                updatedBatches[s].StartDate__c = updatedBatches[s].StartDate__c.addDays(-1);
+                System.debug('after subtract day: ' + updatedBatches[s]);
+            }
+            else if(updatedBatches[s].EndDate__c != null)
+            {
+                updatedBatches[s].EndDate__c = updatedBatches[s].EndDate__c.addDays(-1);
+                System.debug('after subtract day: ' + updatedBatches[s]);
+            }
+        }
+        
         update updatedBatches;
-        System.debug('Update ran on batches');
+        
     }
-
+	
 }
