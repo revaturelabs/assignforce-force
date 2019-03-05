@@ -50,6 +50,7 @@
         var seriesNames = [];
         var seriesData = [];
         var freeTimeData = [];
+        var trainersInData = [];
         for(var i = 0; i < dataObj.length; i++)
         {
             var year = dataObj[i].x.substring(0,4);
@@ -62,6 +63,10 @@
             dataObj[i].x2 = Date.UTC(year2,month2,day2);
             var seriesName = dataObj[i].series;
             delete dataObj[i].series;
+            if(!trainersInData.includes(dataObj[i].trainerName)){
+                 trainersInData.push(dataObj[i].trainerName);
+			}
+            delete dataObj[i].trainerName;
             if(seriesNames.includes(seriesName))
             {
                 for(var c = 0; c < seriesObj.length; c++)
@@ -183,7 +188,8 @@
             },
             plotOptions: {
                 series: {
-                    stacking: 'normal'
+               //     stacking: 'normal' (If this is enabled, the bars will be in one straight line in the middle, however if 
+               //     						two trainers have batches starting the same week, it will move one of them down)
                 },
                
             },

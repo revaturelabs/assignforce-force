@@ -10,15 +10,32 @@
             }else if(trainerList[i].Available__c=="Available"){
                 trainersAvailable.push(trainerList[i]);
             }
-            else{
-                trainersUnavailable.push(trainerList[i])
-            }
+                else{
+                    trainersUnavailable.push(trainerList[i])
+                }
         }
         trainersAvailable = this.sortAlphabetically(trainersAvailable);
         trainersAvailablePlusHasSkill = this.sortAlphabetically(trainersAvailablePlusHasSkill);
         trainersUnavailable = this.sortAlphabetically(trainersUnavailable);
         var everyone = trainersAvailablePlusHasSkill.concat(trainersAvailable, trainersUnavailable);
-       // console.log('combined lists ' + everyone);
+        // console.log('combined lists ' + everyone);
+        return everyone;
+        
+    },
+    sortTrainingRoom : function(trainingRoomList) {
+        // sort method that sorts the trainers by available first then by name
+        var trainingRoomAvailable = [];
+        var trainingRoomUnavailable = [];
+        for(var i=0; i<trainingRoomList.length;i++){
+            if(trainingRoomList[i].AVAvailability__c=="Yes"){
+                trainingRoomAvailable.push(trainingRoomList[i]);
+            }else{
+                    trainingRoomUnavailable.push(trainingRoomList[i])
+                }
+            }
+        trainingRoomAvailable = this.sortAlphabetically(trainingRoomAvailable);
+        trainingRoomUnavailable = this.sortAlphabetically(trainingRoomUnavailable);
+        var everyone = trainingRoomAvailable.concat(trainingRoomUnavailable);
         return everyone;
         
     },
@@ -52,7 +69,7 @@
         }
         return trainers;
     },
-    sortAlphabetically : function(trainerList){
-        return trainerList.sort((a,b) => (a.Name>b.Name) ? 1 :-1);
-    }
+    sortAlphabetically : function(listToSort){
+        return listToSort.sort((a,b) => (a.Name>b.Name) ? 1 :-1);
+    },
 })

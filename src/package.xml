@@ -13,13 +13,8 @@
         <name>AuraDefinitionBundle</name>
     </types>
     <types>
-        <members>*</members>
-        <name>CustomApplication</name>
-    </types>
-    <types>
-        <members>*</members>
-        <members>User</members>
-        <name>CustomObject</name>
+        <members>Trainer</members>
+        <name>Profile</name>
     </types>
     <types>
         <members>Batches</members>

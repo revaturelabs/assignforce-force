@@ -1,6 +1,6 @@
 <aura:component implements="flexipage:availableForAllPageTypes" access="global" >
     <ltng:require styles="{!$Resource.RevatureStyles}"/>
-        <div class="slds-card__body slds-card__body_inner">
+        <div class="slds-card__body ">
             <div class="slds-grid slds-gutters">
                 <div class="slds-col slds-size_8-of-12">
                     <span>

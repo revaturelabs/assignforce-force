@@ -37,13 +37,16 @@ public class afTrainingBatchesApexController{
    }
     
     //Used by afEmployeeBatchesCmp to get batches by trainers id to populate data tables
-    @auraEnabled
+    @AuraEnabled
     public static List<Training__c> getTrainingBatchesById(Id userId){
-        system.debug(userId);
+       // System.runAs()
         List<Training__c> userTrainings = 
-            database.query('SELECT Id, Name, TrainingLocation__r.OfficeName__c, TrainingTrack__r.ShortName__c,Status__c, TrainingClass__c, StartDate__c, EndDate__c, TrainingLocation__r.ShippingCity__c, Trainer__r.Name, CoTrainer__r.Name FROM Training__c WHERE Trainer__r.Id =: userId   ORDER BY StartDate__c');
-        system.debug(userTrainings);
-         return userTrainings;
+            //database.query('SELECT Id, Name, TrainingLocation__r.OfficeName__c, TrainingTrack__r.ShortName__c,Status__c, TrainingClass__c, StartDate__c, EndDate__c, TrainingLocation__r.ShippingCity__c, Trainer__r.Name, CoTrainer__r.Name FROM Training__c WHERE Trainer__r.Id = :userId   ORDER BY StartDate__c');
+            [SELECT Id, Name, TrainingClass__c, StartDate__c, EndDate__c, Status__c, TrainingTrack__r.ShortName__c, TrainingLocation__r.OfficeName__c 
+             FROM Training__c 
+             WHERE (Trainer__r.Id = :userId OR CoTrainer__r.Id = :userId)
+             ORDER BY StartDate__c];
+            return userTrainings;
     }
     
     @AuraEnabled

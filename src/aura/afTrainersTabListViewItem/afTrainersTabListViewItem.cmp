@@ -1,0 +1,36 @@
+<aura:component implements="flexipage:availableForAllPageTypes">
+
+   <!--Attributes-->
+   <aura:attribute name="currLoc"         type="String"/>
+   <aura:attribute name="skills"        type="String"/>
+   <aura:attribute name="availability"    type="String"/>
+   <aura:attribute name="trainerId"    type="Id"/>
+
+   <!--Events-->
+   <aura:registerEvent name="TrainerSelected"    type="c:TrainerSelected"/>
+
+   <lightning:recordViewForm recordId="{!v.trainerId}" objectApiName="User">
+       <div class="slds-grid" style="padding-top: 10px;">
+           <div class="slds-col slds-size_1-of-8">
+               <div class="slds-align_absolute-center">
+                   <lightning:button class="btnSelect" label="Select" onclick="{!c.select}"/>
+               </div>
+           </div>
+           <div class="slds-col slds-size_1-of-5 slds-align_absolute-center">
+               <lightning:outputField fieldName="Id" variant="label-hidden"/>
+           </div>
+           <div class="slds-col slds-size_1-of-6 slds-align_absolute-center">
+               <lightning:outputField fieldName="Name" variant="label-hidden"/>
+           </div>
+           <div class="slds-col slds-size_1-of-6 slds-align_absolute-center">
+               <lightning:outputField fieldName="Available__c" variant="label-hidden"/>
+           </div>
+           <div class="slds-col slds-size_1-of-6 slds-align_absolute-center">
+               <lightning:outputField fieldName="CurrentLocation__c" variant="label-hidden"/>
+           </div>
+           <div class="slds-col slds-size_1-of-6 slds-align_absolute-center">
+               <lightning:outputField fieldName="Training_Skills__c" variant="label-hidden"/>
+           </div>
+       </div>
+   </lightning:recordViewForm>
+</aura:component>
