@@ -8,6 +8,7 @@
     <aura:attribute name="allLocations"		type="Training_Location__c[]"/>
     <aura:attribute name="cotrainer"        type="User" />
     <aura:attribute name="endDate"          type="Date" />
+    <aura:attribute name="hiddenLoc"		type="Id"/>
     <aura:attribute name="hiddenRoom"       type="Id" />
     <aura:attribute name="location"         type="Training_Location__c" />
     <aura:attribute name="locUncleared"    	type="Boolean"       default="true"/>

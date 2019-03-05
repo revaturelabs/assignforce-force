@@ -9,7 +9,7 @@ public class afTimelineController {
                                 TrainingLocation__r.OfficeName__c, EndDate__c, 
                                 CoTrainer__r.name, TrainingTrack__r.ShortName__c,
                                 TrainingTrack__r.Color__c,
-                                TrainingClass__c FROM Training__c ORDER BY Trainer__r.name, StartDate__c];
+                                TrainingClass__c FROM Training__c ORDER BY Trainer__r.Name, StartDate__c];
             }
             
             return AllTrainings;
@@ -34,7 +34,8 @@ public class afTimelineController {
             if(trainers == null){
                 trainers =  [SELECT Name 
                              FROM User 
-                             WHERE UserRole.Name = 'Trainer' OR UserRole.Name = 'CoTrainer'];
+                             WHERE UserRole.Name = 'Trainer' OR UserRole.Name = 'CoTrainer'
+                             ORDER BY Name];
             }
             return trainers;
         }
@@ -58,8 +59,15 @@ public class afTimelineController {
         String[]trainerNames;
         trainerNames = new String[]{};
             for(User u : trainers)
-        {
-            trainerNames.add(u.Name);
+        { 
+            Boolean trainerInTrainings = false;
+            for(Training__c t : currentTrainings){   
+                if(u.Name == t.Trainer__r.Name){
+                    trainerInTrainings = true;
+                    trainerNames.add(u.Name);
+                    break;
+                } 
+            }
         }
         return trainerNames;
     }
@@ -111,7 +119,7 @@ public class afTimelineController {
         @AuraEnabled
         public String color;
         @AuraEnabled
-        public String trainerName; 
+        public String trainerName;
     }
     
     @AuraEnabled
