@@ -319,6 +319,10 @@
     <pluralLabel>Trainings</pluralLabel>
     <searchLayouts/>
     <sharingModel>Private</sharingModel>
+    <sharingReasons>
+        <fullName>Rule__c</fullName>
+        <label>Rule</label>
+    </sharingReasons>
     <validationRules>
         <fullName>Start_Date_Weekday</fullName>
         <active>true</active>

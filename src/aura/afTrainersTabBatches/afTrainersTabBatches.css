@@ -1,0 +1,17 @@
+.THIS .slds-truncate {
+  text-overflow: inherit;
+  white-space: normal;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+.THIS .slds-button_icon-bare {
+  display: none;
+}
+.THIS .slds-grid {
+   background-color: white;
+   border-radius: 5px;
+}
+.THIS .emptyBatchBackground {
+   background-color: white;
+   border-radius: 5px;
+}

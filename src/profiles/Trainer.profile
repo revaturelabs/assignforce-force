@@ -29,6 +29,14 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>afTrainersTabListViewApexController</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>afTrainersTabPTOApexController</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>afTrainingBatchesApexController</apexClass>
         <enabled>false</enabled>
     </classAccesses>
