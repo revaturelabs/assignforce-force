@@ -46,8 +46,10 @@
         
         // reset Location ltng:select to start with an empty value
         var allLocs = component.get("v.allLocations");
-        allLocs.unshift(null);
-        component.set("v.allLocations", allLocs);
+        if(allLocs[0] != null){
+            allLocs.unshift(null);
+            component.set("v.allLocations", allLocs);
+        }
         
         //set component values (that aren't handled in doInit) to empty
         component.set("v.cotrainer", "");
