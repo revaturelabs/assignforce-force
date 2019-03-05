@@ -15,6 +15,7 @@
                 //if response value is empty hasBatches will be false and will not render both data tables
                 if(temp.length == 0){
                     component.set('v.hasBatches', false);
+                    component.set('v.hasSelected', true);
                 }
                 //if response value is not empty hasBatches will be true and will render both data tables
                 else if (temp.length > 0){
