@@ -3,14 +3,12 @@
     getData : function(component, event) {
         var userId = event.getParam("trainerId");
         component.set("v.userId",userId);
-        console.log(userId);
         let action = component.get("c.getTrainingBatchesById");
         action.setParams({"userId" : userId});
         action.setCallback(this, function(response){
             let state = response.getState();
             if (component.isValid && state === "SUCCESS"){
                 var temp = response.getReturnValue();
-                console.log("This is temp " + temp);
                 
                 //if response value is empty hasBatches will be false and will not render both data tables
                 if(temp.length == 0){
@@ -20,9 +18,9 @@
                 //if response value is not empty hasBatches will be true and will render both data tables
                 else if (temp.length > 0){
                     component.set('v.hasBatches', true);
+                    component.set('v.hasSelected', true);
                 }
-                console.log(temp);
-                console.log(temp.length);
+                
                 var tempCurrent = [];
                 var tempFuture = [];
                 /*Loops through all the response values searches and then filters by status to determine

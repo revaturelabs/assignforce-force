@@ -49,13 +49,13 @@
             <aura:if isTrue="{!v.hasSelected}">
                 <div class="emptyBatchBackground" id="top"/>
                 <div class="emptyBatchBackground">
-                    <h1 class="emptyBatchClass" >You currently have no batches scheduled!</h1>
+                    <h1 class="emptyBatchClass" >This Trainer does not have any scheduled Batches.</h1>
                 </div>
                 <div class="emptyBatchBackground" id="bottom"/>
             <aura:set attribute="else">
                 <div class="emptyBatchBackground" id="top"/>
                 <div class="emptyBatchBackground">
-                    <h1 class="emptyBatchClass" >Select A Trainer to View Batches!</h1>
+                    <h1 class="emptyBatchClass" >Select a Trainer to view Batches</h1>
                 </div>
                 <div class="emptyBatchBackground" id="bottom"/>
             </aura:set>

@@ -10,6 +10,7 @@
    <aura:attribute name="empFuturePTODataset"         type="Object[]"                 description ="Data for lightning dataTable that involves upcoming PTO "/>
    <aura:attribute name="userId"                     type="Id"                         description="Used to store a value for the current users id"/>
    <aura:attribute name="hasPTO"                     type="Boolean"     default="false" description="A boolean used to represent whether a trainer has any batches scheduled" />
+    <aura:attribute name="selectedPTO"                 type="Boolean"     default="false" description="This the boolean to toggle if a trainer has been selected."/>
 
    <!--HANDLERS-->
    <aura:handler event="c:TrainerSelected" action="{!c.TrainersPTO}"/>
@@ -44,11 +45,20 @@
            </lightning:card>
        </div>
        <aura:set attribute="else">
+           <aura:if isTrue="{!v.selectedPTO}">
            <div class="emptyBatchBackground" id="top"/>
            <div class="emptyBatchBackground">
                <h1 class="emptyBatchClass" >No PTO scheduled for Selected Trainer</h1>
            </div>
            <div class="emptyBatchBackground" id="bottom"/>
+               <aura:set attribute="else">
+                              <div class="emptyBatchBackground" id="top"/>
+           <div class="emptyBatchBackground">
+               <h1 class="emptyBatchClass" >Select a Trainer to View PTO</h1>
+           </div>
+           <div class="emptyBatchBackground" id="bottom"/>
+       </aura:set>
+           </aura:if>
        </aura:set>
    </aura:if>
 </aura:component>

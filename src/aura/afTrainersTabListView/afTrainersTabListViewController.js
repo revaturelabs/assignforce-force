@@ -9,7 +9,7 @@
            if (state === "SUCCESS") {
                trainers = response.getReturnValue();
                component.set("v.trainers", trainers);
-
+			
            } else if (state === "ERROR"){
                var errors = response.getError();
                if (errors) {

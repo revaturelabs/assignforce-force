@@ -3,7 +3,7 @@
     getData : function(component, event) {
         var userId = event.getParam("trainerId");
         component.set("v.userId",userId);
-        console.log(userId);
+        
         //Gets current date in order to compare values in if statement below
         var currentDate = new Date();
         var todaysYear 	= currentDate.getUTCFullYear();
@@ -11,7 +11,6 @@
         var todaysDate 	= currentDate.getUTCDate() ;
         
         currentDate = (todaysYear + "-0" + (todaysMonth+1) + "-0" + todaysDate);       
-        console.log("current Date " + currentDate );
         let action = component.get("c.getTrainingPTOById");
         action.setParams({"userId" : userId});
         action.setCallback(this, function(response){
@@ -20,18 +19,18 @@
             if (component.isValid && state === "SUCCESS"){
                 
                 var temp = response.getReturnValue();
-                console.log("This is temp " + JSON.stringify(temp));
                 
                 //if response value is empty hasPTO will be false and will not render both data tables
                 if(temp.length == 0){
                     component.set('v.hasPTO', false);
+                    component.set('v.selectedPTO', true);
                 }
                 //if response value is not empty hasPTO will be true and will render both data tables
                 else if (temp.length > 0){
                     component.set('v.hasPTO', true);
+                    component.set('v.selectedPTO', true);
                 }
-                console.log(temp);
-                console.log(temp.length);
+                
                 var tempCurrent = [];
                 var tempFuture = [];
                 
@@ -40,8 +39,6 @@
                 */
                 for(var i = 0; i < temp.length; i++)
                 {
-                    console.log(temp[i].StartDate__c);
-                    console.log((temp[i].StartDate__c) - currentDate);
                     
                     if(temp[i].EndDate__c > currentDate && temp[i].StartDate__c > currentDate )
                     {
@@ -54,8 +51,6 @@
                         tempCurrent.push(temp[i]);
                     }
                 }
-                console.log("current " + tempCurrent);
-                console.log("upcoming " + tempFuture);
                 //Calls modGetData which is responsible for putting values on data table
                 this.modGetData(component, tempCurrent, tempFuture);
             }

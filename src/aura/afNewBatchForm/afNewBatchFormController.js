@@ -111,6 +111,10 @@
         // end of getting all Training_Room__c records
     },
     
+    clearBatchFields : function(component, event, helper) {
+        helper.clear(component, event);
+    },
+    
     dateChanged : function(component, event, helper) {
         
         helper.changeEndDate(component, event, helper);
@@ -121,10 +125,6 @@
         component.set("v.trainer", trainer);
         component.set("v.cotrainer", cotrainer);
     }, 
-    
-    clearBatchFields : function(component, event, helper) {
-        helper.clear(component, event);
-    },
     
     findRooms : function(component, event, helper) {
         component.set("v.locUncleared", false);
@@ -260,6 +260,12 @@
         
         var trainer = event.getParam("trainerId");
         component.set("v.trainer", trainer);
+        
+        var trainings = component.get("v.openTrainings");
+        var startDate = component.get("v.startDate");
+        var endDate	  = component.get("v.endDate");
+        
+        helper.showTrainerToast(helper, event, trainings, trainer, startDate, endDate);
         
     },
     

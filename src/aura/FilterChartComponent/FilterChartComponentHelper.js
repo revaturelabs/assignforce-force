@@ -11,7 +11,6 @@
                 { id: 3, label: year - 1},
                 { id: 4, label: year - 2 },
                 {id: 5, label: 'All'}
-                
             ]
         };
         component.set('v.yearOptions', choices.years);
@@ -77,6 +76,7 @@
         getLocation.setParam(
             "listOfLocations" , component.get('v.AllLocations')
         );
+         
         getLocation.fire();
     },
     

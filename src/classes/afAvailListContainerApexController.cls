@@ -6,7 +6,7 @@ public class afAvailListContainerApexController {
     
     public static List<User> Trainers = [SELECT Id, Name, Available__c
                                          FROM User 
-                                         WHERE UserRole.Name = 'Trainer' OR UserRole.Name = 'CoTrainer'];
+                                         WHERE UserRole.Name = 'Trainer'];
     /*WHERE Available__c!=null*/ /*UserRoleId=trainer role Id*/
     
     @AuraEnabled
@@ -46,7 +46,6 @@ public class afAvailListContainerApexController {
             }
         }
         availableList.addAll(unavailableList);
-        system.debug(availableList);
         return availableList;
     }
     @AuraEnabled
