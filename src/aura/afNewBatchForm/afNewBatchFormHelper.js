@@ -44,15 +44,22 @@
         component.set("v.uncleared", false);
         component.set("v.uncleared", true);
         
+        // reset Location ltng:select to start with an empty value
+        var allLocs = component.get("v.allLocations");
+        if(allLocs[0] != null) {
+        	allLocs.unshift(null);
+        	component.set("v.allLocations", allLocs);
+        }
+        
         //set component values (that aren't handled in doInit) to empty
         component.set("v.cotrainer", "");
-        component.set("v.endDate", new Date());
+        component.set("v.endDate", null);
         component.set("v.hiddenRoom", "");
         component.set("v.location", "");
         component.set("v.numWeeks", 10);
         component.set("v.room", "");
         component.set("v.roomsForLocation", []);
-        component.set("v.startDate", new Date());
+        component.set("v.startDate", null);
         component.set("v.track", "")
         component.set("v.trainer", ""); 
     },

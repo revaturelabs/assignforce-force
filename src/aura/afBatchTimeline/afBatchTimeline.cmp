@@ -15,6 +15,7 @@
                                                                                     the filter component." />
     <aura:handler event="c:afNewBatchCreatedEvent" action="{!c.createJSON}" description="This will recieve the new incoming data and refresh our chart with it."/>  
     
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" /> 
     <aura:method name="reInit" action="{!c.doInit}" description="Runs the init method again "/>
         
     <aura:if isTrue="{!v.resetBoolean}">

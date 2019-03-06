@@ -11,37 +11,62 @@
                 allRooms = response.getReturnValue();
                 component.set("v.roomList", allRooms);
                 
-                /* get all Training__c records */
-                var openTrainings = [];
-                var trngAction = component.get("c.allTrainings");
+                /* get all Training_Location__c records */
+                var allLocs = [];
+                var locAction = component.get("c.allLocs");
                 
-                trngAction.setCallback(this, function(response) {
+                locAction.setCallback(this, function(response) {
                     var state = response.getState();
                     if (state === "SUCCESS") {
-                        openTrainings = response.getReturnValue();
-                        component.set("v.openTrainings", openTrainings);
+                        allLocs = response.getReturnValue();
+                        allLocs.unshift(null);
+                        component.set("v.allLocations", allLocs);
                         
-                        // get all User records with Trainer/CoTrainer roles
-                        var trainers = [];
-                        var cotrainers = [];
-                        var trnrAction = component.get("c.allTrainers");
+                        /* get all Training__c records */
+                        var openTrainings = [];
+                        var trngAction = component.get("c.allTrainings");
                         
-                        trnrAction.setCallback(this, function(response) {
+                        trngAction.setCallback(this, function(response) {
                             var state = response.getState();
                             if (state === "SUCCESS") {
-                                trainers = response.getReturnValue();
+                                openTrainings = response.getReturnValue();
+                                component.set("v.openTrainings", openTrainings);
                                 
-                                for(var i = 0; i < trainers.length; i++) {
-                                    // CoTrainers removed and added to separate list
-                                    if(trainers[i].RoleName == 'CoTrainer') {
-                                        var ct = trainers[i];
-                                        trainers.splice(i, i+1);
-                                        cotrainers.push(ct);
-                                        i--; // changing the length of list means ensuring we don't skip values
+                                // get all User records with Trainer/CoTrainer roles
+                                var trainers = [];
+                                var cotrainers = [];
+                                var trnrAction = component.get("c.allTrainers");
+                                
+                                trnrAction.setCallback(this, function(response) {
+                                    var state = response.getState();
+                                    if (state === "SUCCESS") {
+                                        trainers = response.getReturnValue();
+                                        
+                                        for(var i = 0; i < trainers.length; i++) {
+                                            // CoTrainers removed and added to separate list
+                                            if(trainers[i].RoleName == 'CoTrainer') {
+                                                var ct = trainers[i];
+                                                trainers.splice(i, i+1);
+                                                cotrainers.push(ct);
+                                                i--; // changing the length of list means ensuring we don't skip values
+                                            }
+                                        }
+                                        component.set("v.allTrainers", trainers);
+                                        component.set("v.allCoTrainers", cotrainers);
+                                        
+                                    } else if (state === "ERROR"){
+                                        var errors = response.getError();
+                                        if (errors) {
+                                            if (errors[0] && errors[0].message) {
+                                                console.log('Error message: ' + errors[0].message);
+                                            }
+                                        }
+                                    } else {
+                                        console.log('Unknown error.')
                                     }
-                                }
-                                component.set("v.allTrainers", trainers);
-                                component.set("v.allCoTrainers", cotrainers);
+                                })
+                                $A.enqueueAction(trnrAction);
+                                // end of getting all User records with Trainer/CoTrainer roles
                                 
                             } else if (state === "ERROR"){
                                 var errors = response.getError();
@@ -54,8 +79,8 @@
                                 console.log('Unknown error.')
                             }
                         })
-                        $A.enqueueAction(trnrAction);
-                        // end of getting all User records with Trainer/CoTrainer roles
+                        $A.enqueueAction(trngAction);
+                        // end of getting all Training__c records
                         
                     } else if (state === "ERROR"){
                         var errors = response.getError();
@@ -68,8 +93,8 @@
                         console.log('Unknown error.')
                     }
                 })
-                $A.enqueueAction(trngAction);
-                // end of getting all Training__c records
+                $A.enqueueAction(locAction);
+                // end of getting all Training_Location__c records
                 
             } else if (state === "ERROR"){
                 var errors = response.getError();
@@ -86,6 +111,10 @@
         // end of getting all Training_Room__c records
     },
     
+    clearBatchFields : function(component, event, helper) {
+        helper.clear(component, event);
+    },
+    
     dateChanged : function(component, event, helper) {
         
         helper.changeEndDate(component, event, helper);
@@ -97,12 +126,23 @@
         component.set("v.cotrainer", cotrainer);
     }, 
     
-    clearBatchFields : function(component, event, helper) {
-        helper.clear(component, event);
-    },
-    
     findRooms : function(component, event, helper) {
-        var loc      = component.get("v.location");
+        component.set("v.locUncleared", false);
+        component.set("v.locUncleared", true);
+        
+        var loc 	= component.get("v.location");
+        var allLocs = component.get("v.allLocations");
+        console.log("allLocs: " + allLocs);
+        // remove blank space from beginning of ltng:select
+        if(allLocs[0] == null) {
+            console.log('shift');
+            allLocs.shift();
+            component.set("v.allLocations", allLocs);
+        }
+        
+        console.log("loc Id: " + loc);
+        component.set("v.hiddenLoc", loc);
+        
         var allRooms = component.get("v.roomList");
         var roomsForLocation = [];
         
@@ -117,17 +157,15 @@
         component.set("v.roomsForLocation",roomsForLocation);
         if(roomsForLocation.length > 0) {
             component.set("v.hiddenRoom", roomsForLocation[0].Id);
-            // console.log("rFL[0]: " + roomsForLocation[0].Id);
+            component.set("v.room", roomsForLocation[0]);
         } else {
-            component.set("v.hiddenRoom", "");
+            component.set("v.hiddenRoom", null);
         }
         // pass new location and associated rooms to application event
         var locEvent = $A.get("e.c:afNewBatchFormLocationEvent");
         locEvent.setParams({
             "location" : loc,
-            "roomsForLocation" : roomsForLocation
         });
-        // console.log('locEvent');
         locEvent.fire();
     },
     
@@ -145,7 +183,7 @@
         console.log('onSuccess');
         
         var newBatch = [{
-               CoTrainer__c         : component.get("v.cotrainer"),
+            CoTrainer__c         : component.get("v.cotrainer"),
             EndDate__c             : component.get("v.endDate"),
             Trainer__c             : component.get("v.trainer"),
             TrainingLocation__c : component.get("v.location"),
@@ -189,34 +227,45 @@
                 room = rooms[i];
             }
         }
-        // console.log("selectRoom: " + room);
-        // console.log("selectRoom Id: " + room.Id);
         // set to hidden inputField for form submission
         component.set("v.hiddenRoom", room.Id);
     },
     
     setRoomField : function(component, event, helper){
-        
         var room = event.getParam("room");
         var allRooms = component.get("v.roomList");
         var roomsForLoc = [];
+        
+        component.set("v.locUncleared", false);
+        component.set("v.locUncleared", true);
         
         for (var i = 0; i < allRooms.length; i++) {
             if (allRooms[i].TrainingLocation__c == room.TrainingLocation__c) {
                 roomsForLoc.push(allRooms[i]);
             }
         }
-        // console.log('roomsforLoc: ' + roomsForLoc);		
+        
+        console.log(room.TrainingLocation__c);
         component.set("v.location", room.TrainingLocation__c);
-        component.set("v.room", ({"Id " : room.Id  , "Name " : room.Name  ,"TrainingLocation__c " : room.TrainingLocation__c}));
-        //actually just set it to room.Id
         component.set("v.hiddenRoom", room.Id);
         component.set("v.roomsForLocation", roomsForLoc);
+        component.set("v.room", room.Id);
+        
     },
     
     setTrainerField : function(component, event, helper) {
+        
+        component.set("v.trainerUncleared", false);
+        component.set("v.trainerUncleared", true);
+        
         var trainer = event.getParam("trainerId");
         component.set("v.trainer", trainer);
+        
+        var trainings = component.get("v.openTrainings");
+        var startDate = component.get("v.startDate");
+        var endDate	  = component.get("v.endDate");
+        
+        helper.showTrainerToast(helper, event, trainings, trainer, startDate, endDate);
         
     },
     

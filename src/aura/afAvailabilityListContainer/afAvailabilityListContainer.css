@@ -1,5 +1,8 @@
 .THIS .slds-tabs_default__item.slds-active, .THIS .slds-tabs_default__item.slds-is-active{
-    color: #F26925;
+    color: #FFFFFF;
+    background-color: #474C55;
+    border-top-left-radius : 5px;
+    border-top-right-radius: 5px;
 }
 
 .THIS .slds-tabs_default__item:hover:after, .THIS .slds-tabs--default__item:hover:after, .THIS .slds-tabs_default__item.slds-active:after, .THIS .slds-tabs_default__item.slds-is-active:after, .THIS .slds-tabs--default__item.slds-active:after, .THIS .slds-tabs--default__item.slds-is-active:after {

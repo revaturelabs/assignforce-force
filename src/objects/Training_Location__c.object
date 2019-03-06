@@ -356,5 +356,5 @@
     </nameField>
     <pluralLabel>Training Locations</pluralLabel>
     <searchLayouts/>
-    <sharingModel>ReadWrite</sharingModel>
+    <sharingModel>Private</sharingModel>
 </CustomObject>
