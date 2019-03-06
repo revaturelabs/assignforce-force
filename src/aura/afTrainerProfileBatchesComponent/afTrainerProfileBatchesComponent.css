@@ -2,6 +2,8 @@
     font-size: x-large;
     color: #474C55;
     font-family:Futura-Std-Heavy;
+    text-align: center;
+    border-radius: 5px;
 }
 
 .THIS.emptyBatchBackground{
