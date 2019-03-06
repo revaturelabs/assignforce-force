@@ -16,7 +16,7 @@
 }
 .THIS .headings{
     font-family: 'Futura-Std-Bold';
-    font-size: 14pt;
+    font-size: 12pt;
     color: #474C55;
 }
 .THIS .btn,
@@ -35,7 +35,7 @@
 .THIS .btn:focus{
     background-color:#F26925;
     color:black;
-    font-family: 'Futura-Std-Bold';
+    font-family: 'Futura-Std-Heavy';
 }
 .THIS .slds-text-heading_medium {
     font-size:1rem;

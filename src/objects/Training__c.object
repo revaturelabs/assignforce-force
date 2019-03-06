@@ -310,6 +310,38 @@
         <filterScope>Everything</filterScope>
         <label>All</label>
     </listViews>
+    <listViews>
+        <fullName>All_Confirmed</fullName>
+        <columns>NAME</columns>
+        <columns>TrainingTrack__c</columns>
+        <columns>StartDate__c</columns>
+        <columns>EndDate__c</columns>
+        <columns>Status__c</columns>
+        <columns>Trainer__c</columns>
+        <columns>Training_Location_Name__c</columns>
+        <columns>TrainingRoom__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Status__c</field>
+            <operation>equals</operation>
+            <value>Confirmed</value>
+        </filters>
+        <label>All Confirmed</label>
+    </listViews>
+    <listViews>
+        <fullName>All_Planned</fullName>
+        <columns>NAME</columns>
+        <columns>StartDate__c</columns>
+        <columns>EndDate__c</columns>
+        <columns>TrainingTrack__c</columns>
+        <columns>Status__c</columns>
+        <columns>Trainer__c</columns>
+        <columns>CoTrainer__c</columns>
+        <columns>Training_Location_Name__c</columns>
+        <columns>TrainingRoom__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>All Planned</label>
+    </listViews>
     <nameField>
         <displayFormat>TRNG-{00000000}</displayFormat>
         <label>Training ID</label>

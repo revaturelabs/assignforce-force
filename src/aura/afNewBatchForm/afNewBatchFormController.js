@@ -35,6 +35,7 @@
                                 // get all User records with Trainer/CoTrainer roles
                                 var trainers = [];
                                 var cotrainers = [];
+                                /*
                                 var trnrAction = component.get("c.allTrainers");
                                 
                                 trnrAction.setCallback(this, function(response) {
@@ -67,7 +68,7 @@
                                 })
                                 $A.enqueueAction(trnrAction);
                                 // end of getting all User records with Trainer/CoTrainer roles
-                                
+                                */
                             } else if (state === "ERROR"){
                                 var errors = response.getError();
                                 if (errors) {

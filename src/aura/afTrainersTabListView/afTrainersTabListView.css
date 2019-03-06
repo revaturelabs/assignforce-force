@@ -27,3 +27,8 @@
 .THIS .slds-grid {
    background-color: #FFFFFF;
 }
+
+.THIS .table-header {
+    font-family: 'Futura-Std-Heavy';
+    font-size: 18px;
+}
