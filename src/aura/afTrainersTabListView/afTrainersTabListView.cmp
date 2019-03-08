@@ -14,11 +14,11 @@
    <aura:registerEvent name="afTrainerSelected" type="c:TrainerSelected"/>
 
    <div id="trainersListView">
-       <div id="top"/>
+       <lightning:card title="Trainers" >
        <div class="slds-grid">
            <div class="slds-col slds-size_2-of-12 slds-align_absolute-center"/>
            <div class="slds-col slds-size_2-of-12 slds-align_absolute-center" style="text-align:center"><h1 class="table-header">Name</h1></div>
-           <div class="slds-col slds-size_2-of-12 slds-align_absolute-center" style="text-align:center"><h1 class="table-header">Available</h1></div>
+           <div class="slds-col slds-size_2-of-12 slds-align_absolute-center" style="text-align:center"><h1 class="table-header">Availability</h1></div>
            <div class="slds-col slds-size_2-of-12 slds-align_absolute-center" style="text-align:center"><h1 class="table-header">Current Location</h1></div>
            <div class="slds-col slds-size_4-of-12 slds-align_absolute-center" style="text-align:center"><h1 class="table-header">Skills</h1></div>
        </div>
@@ -30,5 +30,6 @@
                </div>
        </aura:iteration>
        <div id="bottom"/>
+       </lightning:card>
    </div>
 </aura:component>

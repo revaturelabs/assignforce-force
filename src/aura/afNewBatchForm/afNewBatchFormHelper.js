@@ -87,7 +87,7 @@
                     toastEvent.setParams({
                         title : 'Notice',
                         message: 'The trainer you selected is scheduled to be training another batch at the start date you selected.',
-                        mode: 'sticky',
+                        duration: 5000,
                         type: 'info',
                     });
                     toastEvent.fire();
