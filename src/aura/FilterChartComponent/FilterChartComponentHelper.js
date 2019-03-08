@@ -3,7 +3,7 @@
     {
         var today = new Date();
         var year = today.getFullYear();
-        var choices = {
+        var choices = {		//this creates the filterable set of years dynamically.
             selectedYearId: 2,
             years: [
                 {id: 1, label: year + 1},
@@ -13,16 +13,16 @@
                 {id: 5, label: 'All'}
             ]
         };
-        component.set('v.yearOptions', choices.years);
-        component.set('v.selectedYear', choices.selectedYearId);
+        component.set('v.yearOptions', choices.years); //sets the year Options
+        component.set('v.selectedYear', choices.selectedYearId); // sets the selected year to the current year.
     },
     
     setInitMonth : function(component, event)
     {
-        var quarters = ['Choose one...','Q1', 'Q2', 'Q3', 'Q4'];
+        var quarters = ['Choose one...','Q1', 'Q2', 'Q3', 'Q4']; //Quarter filters. each quarter is a 3-month span
         
         var choices = {
-            selectedQuarterId: 1,
+            selectedQuarterId: 1, //Selects the Choose one... as the first option in the chart.
             quarter: [
                 { id: 1, label: quarters[0], selected: true },
                 { id: 2, label: quarters[1]},
@@ -31,20 +31,20 @@
                 { id: 5, label: quarters[4]}
             ]
         };
-        component.set('v.quarterOptions', choices.quarter);
-        component.set('v.selectedQuarter', choices.selectedQuarterId);
+        component.set('v.quarterOptions', choices.quarter); //sets the quarter options
+        component.set('v.selectedQuarter', choices.selectedQuarterId); //sets the selected quarter
     },
     
     setLocation : function(component, event) 
     {
-        var action = component.get('c.getTrainingLocations');
+        var action = component.get('c.getTrainingLocations'); //gets the getTrainingLocations from the apex controller
         
-        action.setCallback(this, function(response){
+        action.setCallback(this, function(response){ //callback to get Location data from the database
             var state = response.getState();
             if(component.isValid() && state === 'SUCCESS')
             {
                 var Locations = response.getReturnValue();
-                this.fireLocationEvent(component, event, Locations);
+                this.fireLocationEvent(component, event, Locations); //fire the event when the location info has been recieved.
             }
             else if(state === 'ERROR')
             {
@@ -72,7 +72,7 @@
                 NoDupesArray.push(newArray[i]);
             }
         }
-        component.set('v.AllLocations', NoDupesArray);
+        component.set('v.AllLocations', NoDupesArray); //adds the locations to the attibute without duplicates.
         getLocation.setParam(
             "listOfLocations" , component.get('v.AllLocations')
         );
@@ -89,18 +89,18 @@
         }
         var action; 
         
-        component.set('v.selectedLocations', changeValue);
+        component.set('v.selectedLocations', changeValue); // this sets the selected locations
         var Locations = component.get('v.selectedLocations');
         if(component.get('v.selectedQuarter') != 1 && changeValue.length != 0)
         {
-            action = component.get('c.filterTrainingsByYearLocationQuarter');
+            action = component.get('c.filterTrainingsByYearLocationQuarter'); //filter by all 3 (location, year, and quarter)
             action.setParams({
                 'location' : Locations,
                 'year' : component.get('v.selectedYear'),
                 'quarter' : component.get('v.selectedQuarter')
             });
         }
-        else if(changeValue.length != 0 && component.get('v.selectedQuarter') == 1)
+        else if(changeValue.length != 0 && component.get('v.selectedQuarter') == 1) //filter by 2
         {
             action = component.get('c.filterTrainingsByYearLocation');
             action.setParams({
@@ -108,7 +108,7 @@
                 'year' : component.get('v.selectedYear')
             });
         }
-            else if(component.get('v.selectedQuarter') != 1)
+            else if(component.get('v.selectedQuarter') != 1) //filter by 2
             {
                 action = component.get('c.filterTrainingsByYearQuarter');
                 action.setParams({
@@ -118,7 +118,7 @@
             }
                 else
                 {
-                    action = component.get('c.filterTrainingsByYear');
+                    action = component.get('c.filterTrainingsByYear'); //filter by 1
                     action.setParams({
                         'year' : component.get('v.selectedYear')
                     });
