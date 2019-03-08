@@ -1,14 +1,13 @@
 ({
     changeEndDate : function(component, event, helper) {
         
-        var startDate = new Date(component.get("v.startDate"));	// get startDate
-        var numWeeks = component.get("v.numWeeks");				// get numWeeks
-        var endDate = startDate;								// initialize endDate based on startDate
-        var offset = 4 - startDate.getDay();					// offset = days to end of workweek
+        var startDate = new Date(component.get("v.startDate"));
+        var numWeeks = component.get("v.numWeeks");
+        var endDate = startDate;
+        var offset = 4 - startDate.getDay();
         
         // Monday - Wednesday
         if(0 <= startDate.getDay() && startDate.getDay() <= 2) {
-            // For batches starting on Wednesday, first week ends Friday of the next week
             if(startDate.getDay() == 2) {
                 endDate.setDate(startDate.getDate() + (numWeeks*7) + offset);
             // For batches starting Monday/Wednesday, first week ends Friday of starting week
@@ -21,17 +20,17 @@
             let date = endDate.getUTCDate();
             
             component.set("v.endDate", (year + "-" + (month+1) + "-" + date));
-            
-            // pass new start/end dates to application event
             startDate = component.get("v.startDate");
             endDate = component.get("v.endDate");
             var dateEvent = $A.get("e.c:afNewBatchFormDateEvent");
             dateEvent.setParams({
                 "startDate" : startDate,
-                "endDate"   : endDate
+                "endDate"    : endDate
             });
-            console.log('dateChanged');
+            
             dateEvent.fire();
+            
+            // pass new start/end dates to application event
             
         } else { // Thursday || Friday || Saturday || Sunday (no batches start here)
             component.set("v.endDate", "");
@@ -40,7 +39,6 @@
     
     clear : function(component, event) {   
         
-        // refresh the aura:if containing the recordEditForm
         component.set("v.uncleared", false);
         component.set("v.uncleared", true);
         
@@ -66,10 +64,9 @@
     
     showTrainerToast : function(helper, event, trainings, trainer, startDate, endDate) {
         
-        // convert selected start/end dates into JS Date format
+        console.log('we made it');
         var newStart = new Date(startDate);
         var newEnd = new Date(endDate);
-        
         for (var i = 0; i < trainings.length; i++) {
             // if training[i] is associated with the selected trainer/cotrainer...
             if(trainer != null && trainer != "" && (trainer == trainings[i].Trainer__c || trainings[i].CoTrainer__c)) {
@@ -77,7 +74,6 @@
                 var prevStart = new Date(trainings[i].StartDate__c);
                 var prevEnd = new Date(trainings[i].EndDate__c);
                 
-                // if selected dates overlap with existing training dates...
                 if((prevStart <= newStart    && newStart <= prevEnd) || 
                    (prevStart <= newEnd  && newEnd <= prevEnd) || 
                    (prevStart >= newStart    && newEnd >= prevEnd)) {
@@ -92,6 +88,7 @@
                     });
                     toastEvent.fire();
                 }
+
             }
         } 
     }

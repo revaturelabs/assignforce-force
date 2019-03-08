@@ -12,5 +12,19 @@
         <members>*</members>
         <name>ApexTrigger</name>
     </types>
+    <types>
+        <members>Batches</members>
+        <name>FlexiPage</name>
+    </types>
+    <types>
+        <members>CTO</members>
+        <members>CoTrainer</members>
+        <members>Trainer</members>
+        <name>Role</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>StaticResource</name>
+    </types>
     <version>38.0</version>
 </Package>

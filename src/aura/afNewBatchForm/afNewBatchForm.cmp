@@ -69,7 +69,7 @@
                 <aura:if isTrue="{!v.uncleared}">
                     <div class="slds-grid slds-grid_align-spread">
                         <div class="slds-col slds-size_1-of-2">
-                            <lightning:inputField fieldName="TrainingTrack__c" aura:id="trainingTrack" value="{!v.track}"/>
+                            <lightning:inputField fieldName="TrainingTrack__c" aura:id="trainingTrack" value="{!v.track}" onchange="{!c.trackChanged}"/>
                         </div>
                     </div>
                     <div class="slds-grid slds-grid_align-spread">
@@ -90,7 +90,7 @@
                             </aura:if>
                         </div>
                         <div class="slds-col slds-size_1-of-4 slds-col_bump-left">
-                            <lightning:inputField fieldName="CoTrainer__c" aura:id="cotrainer" value="{!v.cotrainer}" onchange="{!c.trainerChanged}"/>
+                            <lightning:inputField fieldName="CoTrainer__c" aura:id="cotrainer" value="{!v.cotrainer}"/>
                             <lightning:inputField fieldName="Status__c" value="{!v.status}" hidden="true"/>
                         </div>
                         <div class="slds-col slds-size_1-of-6 slds-col_bump-left">
