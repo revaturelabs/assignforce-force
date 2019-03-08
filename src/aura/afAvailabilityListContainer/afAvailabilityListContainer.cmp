@@ -2,15 +2,13 @@
     <ltng:require styles="{!$Resource.RevatureStyles}"/>
     
     <!-- Attributes-->
-    <aura:attribute name="rooms" 					type="Object[]"/>
-    <aura:attribute name="roomsNotAtLoc" 			type="Object[]"/>
-    <aura:attribute name="currentLocRooms" 			type="Object[]"/>
-    <aura:attribute name="trainers" 				type="User[]"/>
-    <aura:attribute name="allSkills" 				type="Skill__c[]"/>
-    <aura:attribute name="allTrainings" 			type="Training__c[]"/>
-    <aura:attribute name="selectedTrainingTrack" 	type='ID'/>
-    <aura:attribute name="tab1Shown" 				type="Boolean" 			default='true'/>
-    <aura:attribute name="location" 				type="Id"/>
+    <aura:attribute name="rooms" 					type="Object[]"			description="contains the response from the server with a array of all the training rooms"/>    <aura:attribute name="currentLocRooms" 			type="Object[]"			description="contains an array of the training rooms at this location when filtered by the afNewBatchForm"/>
+    <aura:attribute name="trainers" 				type="User[]"			description="contains an array of Users with the role of trainer, iterated over to populate the data for the trainers' tab"/>
+    <aura:attribute name="allSkills" 				type="Skill__c[]"		description="contains the response from the server with an array of skills records, used when the afNewBatchFormTrackEvent is handled"/>
+    <aura:attribute name="allTrainings" 			type="Training__c[]"	description="contains a an array of all training records used to alter whether a trainer or training room is available during the time period recieved from the afNewBatchFormDateEvent"/>
+    <aura:attribute name="selectedTrainingTrack" 	type='ID'				description="used to store the ID of the training track recieved from the afNewBatchFormTrackEvent"/>
+    <aura:attribute name="tab1Shown" 				type="Boolean" 	default='true'		description="Boolean used to change between the trainer and training rooms tab"/>
+    <aura:attribute name="location" 				type="Id"				description="used to store the current location Id from the afNewBatchFormLocationEvent"/>
     
     <!--Handlers-->
     <aura:handler name="init" 		value="{!this}" 	action="{!c.doInit}"/>

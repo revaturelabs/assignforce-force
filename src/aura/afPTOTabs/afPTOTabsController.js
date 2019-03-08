@@ -79,6 +79,7 @@
         }
     },
     prevPTOIsClicked : function(component, event, helper){
+        //This function toggles between showing current PTO and old PTO
         var isClicked = component.get('v.prevIsClicked');
         if(isClicked){
             var newApproved = component.get('v.newApprovedPTOs');
