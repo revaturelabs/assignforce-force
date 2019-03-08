@@ -2,9 +2,6 @@
    <ltng:require styles="{!$Resource.RevatureStyles}"/>
 
    <!--Attributes-->
-   <aura:attribute name="availability" type="String"/>
-   <aura:attribute name="cotrainer"    type="ID"/>
-   <aura:attribute name="currLoc"      type="String"/>
    <aura:attribute name="trainers"     type="User[]"/>
 
    <!--Handlers-->
