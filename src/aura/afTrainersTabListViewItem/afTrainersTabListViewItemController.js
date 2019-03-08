@@ -9,7 +9,9 @@
        getSkillsAction.setCallback(this, function(response) {
            var state = response.getState();
            if (state === "SUCCESS") {
-               var skills = response.getReturnValue().toString();
+               if(response.getReturnValue() != null){
+               var skills = response.getReturnValue();
+               }
                component.set("v.skills", skills);
                
            } else if (state === "ERROR"){

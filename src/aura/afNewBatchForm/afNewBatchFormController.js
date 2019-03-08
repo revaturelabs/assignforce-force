@@ -1,16 +1,15 @@
 ({
     doInit : function(component, event, helper) {
         
-        // get all Training_Room__c records
         var allRooms = [];
-        var roomAction = component.get("c.allRooms");
+        var action = component.get("c.allRooms");
         
-        roomAction.setCallback(this, function(response) {
+        action.setCallback(this, function(response) {
             var state = response.getState();
             if (state === "SUCCESS") {
                 allRooms = response.getReturnValue();
                 component.set("v.roomList", allRooms);
-                
+
                 /* get all Training_Location__c records */
                 var allLocs = [];
                 var locAction = component.get("c.allLocs");
@@ -35,6 +34,7 @@
                                 // get all User records with Trainer/CoTrainer roles
                                 var trainers = [];
                                 var cotrainers = [];
+                                /*
                                 var trnrAction = component.get("c.allTrainers");
                                 
                                 trnrAction.setCallback(this, function(response) {
@@ -67,7 +67,7 @@
                                 })
                                 $A.enqueueAction(trnrAction);
                                 // end of getting all User records with Trainer/CoTrainer roles
-                                
+                                */
                             } else if (state === "ERROR"){
                                 var errors = response.getError();
                                 if (errors) {
@@ -81,7 +81,7 @@
                         })
                         $A.enqueueAction(trngAction);
                         // end of getting all Training__c records
-                        
+
                     } else if (state === "ERROR"){
                         var errors = response.getError();
                         if (errors) {
@@ -107,8 +107,7 @@
                 console.log('Unknown error.')
             }
         })
-        $A.enqueueAction(roomAction);
-        // end of getting all Training_Room__c records
+        $A.enqueueAction(action);
     },
     
     clearBatchFields : function(component, event, helper) {
@@ -119,7 +118,6 @@
         
         helper.changeEndDate(component, event, helper);
         
-        // get and set trainer/cotrainer to invoke showTrainerToast indirectly 
         var trainer   = component.get("v.trainer");
         var cotrainer = component.get("v.cotrainer");
         component.set("v.trainer", trainer);
@@ -148,10 +146,8 @@
         
         // console.log('made it here');
         for (var i = 0; i < allRooms.length; i++) {
-            // if room is associated with selected location...
             if (allRooms[i].TrainingLocation__c == loc) {
-                // ...add to list
-                roomsForLocation.push(allRooms[i]);
+                availRooms.push(allRooms[i]);
             }
         }
         component.set("v.roomsForLocation",roomsForLocation);
@@ -286,8 +282,8 @@
         var trainer     = event.getParam("value");
         var startDate   = component.get("v.startDate");
         var endDate     = component.get("v.endDate");
-        
-        // pass appropriate values to helper function for display of toast
+        console.log('testing');
+        console.log('trainer: ' + trainer);
         helper.showTrainerToast(helper, event, trainings, trainer, startDate, endDate);
-    },
+    }
 })

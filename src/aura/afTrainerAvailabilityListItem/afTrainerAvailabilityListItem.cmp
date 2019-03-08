@@ -1,7 +1,7 @@
 <aura:component >
     <!--Attributes-->
     <aura:attribute name="trainerId" type="ID" description="The attribute is used to house the information about a trainer"/>
-    <aura:attribute name="availability" type="String"/>
+    <aura:attribute name="availability" type="String" description="This attribute determines whether the trainer is available or not"/>
     <aura:attribute name="isAvailable" type="Boolean" default="true" description="This is a boolean value that represents if that trainer is available"/>
     <aura:attribute name="hasSkill" type="Boolean" default="true" description="This is a boolean value used to show whether or not the trainer has the selected training track"/>
     
@@ -21,7 +21,6 @@
                 <lightning:outputField fieldName="Name" variant="label-hidden"/>
             </div>
             <div class="slds-col slds-size_1-of-5 slds-align_absolute-center">
-                <!--Change this to a checkbox if the -->
                 <aura:if isTrue="{!v.isAvailable}">
                     <lightning:icon iconName="utility:check" alternativeText="Available" size="small"/>
                     <aura:set attribute="else">
@@ -31,10 +30,9 @@
                 
             </div>
             <div class="slds-col slds-size_1-of-5 slds-align_absolute-center">
-                <lightning:outputField fieldName="CurrentLocation__c" variant="label-hidden"/><!--figure out how to set up the locations-->
+                <lightning:outputField fieldName="CurrentLocation__c" variant="label-hidden"/>
             </div>
             <div class="slds-col slds-size_1-of-5 slds-align_absolute-center">
-                <!-- change this to checkbox if the trainer has the skill selected in create batch-->
                 <aura:if isTrue="{!v.hasSkill}">
                     <lightning:icon iconName="utility:check" alternativeText="has Skill" size="small"/>
                     <aura:set attribute="else">

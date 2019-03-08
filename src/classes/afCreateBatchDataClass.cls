@@ -1,0 +1,6 @@
+@isTest
+public class afCreateBatchDataClass {
+
+    
+    
+}
