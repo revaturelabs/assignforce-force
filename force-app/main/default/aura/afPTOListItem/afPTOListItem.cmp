@@ -1,0 +1,16 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes" access="global">
+    <aura:attribute name="PTOId" type="ID"/>
+        <lightning:recordViewForm recordId="{!v.PTOId}" objectApiName="PTO__c">
+            <div class="slds-grid line">
+                <div class="slds-col slds-size_1-of-3">
+                   <lightning:outputField class="text" fieldName="StartDate__c" variant="label-hidden"/>
+                </div>
+                <div class="slds-col slds-size_1-of-3 " >
+                    <lightning:outputField class="text" fieldName="EndDate__c" variant="label-hidden"/>
+                </div>
+                <div class="slds-col slds-size_1-of-3" >
+                    <lightning:outputField class="text" fieldName="Reason__c" variant="label-hidden"/>
+                </div>
+            </div>
+        </lightning:recordViewForm>
+</aura:component>

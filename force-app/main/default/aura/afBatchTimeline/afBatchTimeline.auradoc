@@ -1,0 +1,33 @@
+<aura:documentation>
+    <aura:description>
+        <p>An <code>c:afBatchTimeline</code> component is a component that stores the chart. This component recieves
+        access from the HighCharts API. This API allows the component to render a complex chart that displays
+        customized data from the database.</p>
+        <!--More markup here, such as <pre> for code samples-->
+    </aura:description>
+    <aura:example name="afBatchTimelineExample" ref="c:afBatchTimeline" label="Using the c:afBatchTimeline Component">
+    <p>This example shows a simple setup of <!--<code><aura:component description="This component will be the 
+                                                                               component that will house the information for the chart">
+    <aura:attribute name="chartTitle" type="String" description="This is the title of the chart."/>
+    <aura:attribute name="trainers" type="List[]" description="This attribute stores a List of trainers from database."/>
+    <aura:attribute name="data" type="List" description="This is the attribute that sets the data for the chart."/>
+    <ltng:require styles="{!$Resource.RevatureStyles}" scripts="{!join(',',$Resource.highchartsJS, $Resource.xrange, $Resource.exporting)}" afterScriptsLoaded="{!c.doInit}"
+                  description="This is where the styles and reference to the static resource is made. It allow us to access the
+                                 highcharts API."/>
+    <aura:registerEvent name="CreateJSON" type="c:CreateListOfStringJSON" description="This allows for us to recieve the event when the database
+                                                                                         has returned the information from the database to us. This
+                                                                                         was made due to the asynchronous nature of lightning."/>
+    <aura:handler name="CreateJSON" event="c:CreateListOfStringJSON" action="{!c.createJSON}" description="This is the event handler for the CreateJSON event
+                                                                                                           that is fired from this component."/>
+    
+    <aura:handler event="c:UpdateChartEvent" action="{!c.updateChart}" description="This is the event handler that allows us to recieve the application event from
+                                                                                    the filter component."/>
+    <aura:handler event="c:afNewBatchCreated" action="{!c.updateChart}" description="This will recieve the new incoming data and refresh our chart with it."/>    
+    <div class="slds-grid">
+        <div class="slds-col slds-size_9-of-12" aura:id="container"></div>
+    </div>
+    <div aura:id="container" description="This stores the chart."></div>
+    
+        </aura:component>.</code>--></p>
+    </aura:example>
+</aura:documentation>
