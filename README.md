@@ -4,7 +4,7 @@
 
 
 ## Resources
-
+first commits https://github.com/s3rj/trainingForce
 
 ## Description of Files and Directories
 
