@@ -1,0 +1,64 @@
+<aura:component implements="flexipage:availableForAllPageTypes" controller="afTrainersTabPTOApexController" access="global">
+
+   <!--Loads static resource for lightning component-->
+   <ltng:require styles="{!$Resource.FuturaStdHeavy + '/assets/styles/lightning-design-system-ltng.css'}"/>
+
+   <!--ATTRIBUTES-->
+   <aura:attribute name="empPTORecordset"             type="List"                     description="List of records for the lightning:dataTable columns" />
+   <aura:attribute name="keyField"                 type="String"     default="id"     description="Primary key for list of records" />
+   <aura:attribute name="empCurrentPTODataset"     type="Object[]"                 description="Data for lightning dataTable that involves current PTO"/>
+   <aura:attribute name="empFuturePTODataset"         type="Object[]"                 description ="Data for lightning dataTable that involves upcoming PTO "/>
+   <aura:attribute name="userId"                     type="Id"                         description="Used to store a value for the current users id"/>
+   <aura:attribute name="hasPTO"                     type="Boolean"     default="false" description="A boolean used to represent whether a trainer has any batches scheduled" />
+    <aura:attribute name="selectedPTO"                 type="Boolean"     default="false" description="This the boolean to toggle if a trainer has been selected."/>
+
+   <!--HANDLERS-->
+   <aura:handler event="c:TrainerSelected" action="{!c.TrainersPTO}"/>
+
+   <!--COMPONENTS-->
+   <!-- aura:if is used determine whether both tables should render or a text based message-->
+   <aura:if isTrue="{!v.hasPTO}" >
+       <div class="slds-grid slds-wrapper" >
+           <lightning:card title="Current PTO">
+               <lightning:dataTable
+
+                                    data="{!v.empCurrentPTODataset}"
+                                    columns="{!v.empPTORecordset}"
+                                    keyField="id"
+                                    aura:id="empDataTable"
+                                    description="data table to reflect batches associated with a specific trainer"
+                                    />
+           </lightning:card>
+       </div>
+
+       <div class="slds-grid slds-wrapper">
+           <lightning:card title="Upcoming PTO">
+               <lightning:dataTable
+
+                                    data="{!v.empFuturePTODataset}"
+                                    columns="{!v.empPTORecordset}"
+                                    keyField="id"
+                                    aura:id="empDataTables"
+                                    hideCheckboxColumn="true"
+                                    description="data table to reflect batches associated with a specific trainer"
+                                    />
+           </lightning:card>
+       </div>
+       <aura:set attribute="else">
+           <aura:if isTrue="{!v.selectedPTO}">
+           <div class="emptyBatchBackground" id="top"/>
+           <div class="emptyBatchBackground">
+               <h1 class="emptyBatchClass" >No PTO scheduled for Selected Trainer</h1>
+           </div>
+           <div class="emptyBatchBackground" id="bottom"/>
+               <aura:set attribute="else">
+                              <div class="emptyBatchBackground" id="top"/>
+           <div class="emptyBatchBackground">
+               <h1 class="emptyBatchClass" >Select a Trainer to View PTO</h1>
+           </div>
+           <div class="emptyBatchBackground" id="bottom"/>
+       </aura:set>
+           </aura:if>
+       </aura:set>
+   </aura:if>
+</aura:component>
