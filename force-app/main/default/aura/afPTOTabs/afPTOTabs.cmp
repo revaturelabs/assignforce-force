@@ -1,0 +1,71 @@
+<aura:component controller="afPTOTabsApexController" implements="force:appHostable,flexipage:availableForAllPageTypes" access="global" >
+    
+    <!--Attributes-->
+    <aura:attribute name="tab" 				type="Integer" default="1" 		description=""/>
+    <aura:attribute name="oldApprovedPTOs" 	type="Object[]" 				description=""/>
+    <aura:attribute name="newApprovedPTOs" 	type="Object[]" 				description=""/>
+    <aura:attribute name="prevIsClicked" 	type="Boolean" default="true" 	description=""/>
+    <aura:attribute name="approvedPTOs"		type="Object[]" 				description=""/>
+    <aura:attribute name="pendingPTOs"		type="Object[]" 				description=""/>
+    <aura:attribute name="Batches"			type="Object[]"/>
+    
+    <!--Handlers-->
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:handler name="newPendingPTO" event="c:afNewPTOCreatedEvent" action="{!c.addNewPTO}"/>
+    
+    <!--Component Markup-->
+    <div class="slds-card">
+        <div class="slds-card__body slds-card__body_inner">
+            <div class="slds-tabs_default">
+                <ul class="slds-tabs_default__nav">
+                    <li class="{!v.tab ==1 ? 'slds-tabs_default__item slds-is-active' : 'slds-tabs_default__item'}">
+                        <span class=" slds-text-heading_medium" tabindex="0" id="approvedPTOTab" onclick='{!c.approvedPTOClicked}'>
+                            Approved PTO
+                        </span>
+                    </li>
+                    <li class="{!v.tab==2 ? 'slds-tabs_default__item slds-is-active' : 'slds-tabs_default__item '}">
+                        <span class="slds-text-heading_medium" tabindex="-1" id="pendingPTOTab" onclick='{!c.pendingPTOClicked}'>
+                            Pending PTO
+                        </span>
+                    </li>
+                    <li class="{!v.tab==3 ? 'slds-tabs_default__item slds-is-active' : 'slds-tabs_default__item '}">
+                        <span class="slds-text-heading_medium" tabindex="-1" id="newPTOTab" onclick='{!c.newPTOClicked}'>
+                            New PTO
+                        </span>
+                    </li>
+                </ul>
+                <div id="ApprovedPTO" class="{!v.tab==1 ? 'slds-tabs_default__content slds-show' : 'slds-tabs_default__content slds-hide'}">
+                    <div class="slds-grid">
+                        <div class="slds-col slds-size_1-of-3"><h1 class="headings">Start Date</h1></div>
+                        <div class="slds-col slds-size_1-of-3"><h1 class="headings">End Date</h1></div>
+                        <div class="slds-col slds-size_1-of-3"><h1 class="headings">Reason</h1></div>
+                    </div>
+                    <aura:iteration  items="{!v.approvedPTOs}" var="pto">
+                        <c:afPTOListItem PTOId="{!pto.Id}"/>
+                    </aura:iteration>
+                    <aura:if isTrue="{!v.prevIsClicked}">
+                        <lightning:button class="btn" label="Show Prev PTO" onclick="{!c.prevPTOIsClicked}"/>
+                        <aura:set attribute="else">
+                            <lightning:button class="btn" label="Hide Prev PTO" onclick="{!c.prevPTOIsClicked}"/>
+                        </aura:set>    
+                    </aura:if>
+                </div>
+                <div id="PendingPTO" class="{!v.tab==2 ? 'slds-tabs_default__content slds-show' : 'slds-tabs_default__content slds-hide'}">
+                    <div class="slds-grid">
+                        <div class="slds-col slds-size_1-of-3"><h1 class="headings">Start Date</h1></div>
+                        <div class="slds-col slds-size_1-of-3"><h1 class="headings">End Date</h1></div>
+                        <div class="slds-col slds-size_1-of-3"><h1 class="headings">Reason</h1></div>
+                    </div>
+                    <aura:iteration items="{!v.pendingPTOs}" var="pto">  
+                        <c:afPTOListItem PTOId="{!pto.Id}"/>
+                    </aura:iteration>
+                </div>
+                <div id="newPTO" class="{!v.tab==3 ? 'slds-tabs_default__content slds-show' : 'slds-tabs_default__content slds-hide'}">
+                    <div class="slds-grid">
+                    </div>
+                    <c:afNewPTO Batches="{!v.Batches}"/>
+                </div>
+            </div>
+        </div>
+    </div>
+</aura:component>

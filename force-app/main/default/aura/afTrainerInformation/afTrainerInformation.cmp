@@ -1,0 +1,67 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes" access="global" controller="afTrainerInfoController">
+    
+    <ltng:require styles="{!$Resource.RevatureStyles}"/>
+    <lightning:notificationsLibrary aura:id="notificationsLibrary"/>
+    
+    <aura:attribute name="userId" type="Id"/>
+    <aura:attribute name="filename" type="String"/>
+    <aura:attribute name="fileId" type="Id"/>
+    <aura:attribute name="hasChanged" type="boolean" default="false"/>
+    
+    <aura:attribute name="status" type="String" default="Planned" />
+    <aura:attribute name="uncleared" type="Boolean" default="true" />
+    <aura:attribute name="disabled" type="Boolean" default="false" />
+    <aura:attribute name="saved" type="Boolean" default="false" />
+    <aura:attribute name="showSpinner" type="Boolean" default="true" />
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:handler event="force:refreshView" action="{!c.isRefreshed}" />
+    <aura:handler name="change" value="{!v.hasChanged}" action="{!c.isRefreshed}"/>
+  
+        <div class="slds-card__body slds-card__body_inner">
+            <aura:if isTrue="{!v.uncleared}">
+                <div class="slds-card">
+                    <lightning:recordEditForm aura:id="currentUserInfo" recordId="{!v.userId}" objectApiName="User" onsuccess="{!c.onSuccess}">
+                        <div class="slds-card">
+                            <lightning:messages/>
+                            <div class="slds-card__header">
+                                <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                                    <div class="slds-media__body">
+                                        <h2 class="slds-card__header-title">
+                                            <span class="slds-text-heading_medium">Edit Profile</span>
+                                        </h2>
+                                    </div>
+                                    <div class="slds-no-flex">
+                                        <lightning:buttonIcon class="headerBtn" onclick="{!c.onSubmit}" iconName="utility:check" variant="bare" size="large" alternativeText="Submit"/>
+                                    </div>
+                                    <div class="slds-no-flex">
+                                        <lightning:buttonIcon class="headerBtn" onclick="{!c.isRefreshed}" iconName="utility:close" variant="bare" size="large" alternativeText="Clear"/>
+                                    </div>
+                                </header>
+                            </div>                            
+                            <lightning:messages />
+                            <div class="slds-grid slds-gutters slds-p-horizontal_medium slds-p-bottom_large">
+                                <div class="slds-col slds-size_1-of-3">
+                                    <lightning:inputField fieldName="FirstName" /><br/>
+                                    <lightning:fileUpload label="Attach resume:"
+                                                          name="fileUploader"
+                                                          multiple="true"
+                                                          accept=".doc, .docx, .pdf"
+                                                          recordId="{!v.userId}"
+                                                          onuploadfinished="{!c.handleFiles}" />
+                                    <ui:outputText value="{!v.filename}"/>
+                                </div> 
+                                <div class="slds-col slds-size_1-of-3">
+                                    <lightning:inputField fieldName="LastName" />
+                                </div>
+                                <div class="slds-grid_absolute-center slds-col slds-size_1-of-3">
+                                    <lightning:inputField fieldName="CurrentLocation__c" />
+                                    
+                                </div>    
+                            </div>
+                        </div>
+                    </lightning:recordEditForm>
+                </div>
+            </aura:if>
+        </div>
+</aura:component>

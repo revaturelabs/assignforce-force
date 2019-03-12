@@ -1,0 +1,36 @@
+<aura:component controller="afTimelineController" implements="flexipage:availableForAllPageTypes">
+    <aura:attribute name="selectedLocations" type="String[]" description="This is where we are storing the list of selected locations."/>
+    <aura:attribute name="selectedYear" type="Integer" access="PRIVATE" description="This is the selected year value for the filter."/>
+    <aura:attribute name="selectedQuarter" type="Integer" access="PRIVATE" description="This is the selected quarter value."/>
+    <aura:attribute name="dataTemp" type="String[]" description="This is where we are temporarily storing the incoming data."/>
+    <aura:attribute name="AllLocations" type="String[]" description="This is a list of all Locations in our database."/>
+    
+    <aura:attribute name="yearOptions" type="List" access="PRIVATE" description="This is a dynamic variable that houses the current year, and 2 years previous."/>
+    <aura:attribute name="quarterOptions" type="List" access="PRIVATE" description="This is a dynamic variable that houses the 4 Quarters. Each Quarter displays 3 months."/>
+    <aura:attribute name="locationOptions" type="List" access="PRIVATE" description="This is a dynamic variable that displays the checkbox options for the location."/>
+    <aura:attribute name="value" type="List" description="This is the selected values for location."/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" description="This is the intialization for the filter to default show data."/>
+    <aura:registerEvent name="UpdateChart" type="c:UpdateChartEvent" description="This is the event that regathers the data to display on the chart."/>
+
+    
+    <lightning:select name="yearSelect" label="Filter by year:" aura:id="yearSelect" value="{!v.selectedYear}" onchange="{!c.handleChange}">
+        <aura:iteration items="{!v.yearOptions}" var="yearOption">
+            <option text="{!yearOption.label}" value="{!yearOption.id}" selected="{!yearOption.selected}"/>
+        </aura:iteration>
+    </lightning:select>
+    
+        <lightning:select name="quarterSelect" label="Filter by quarter:" aura:id="quarterSelect" value="{!v.selectedQuarter}" onchange="{!c.handleChange}">
+        <aura:iteration items="{!v.quarterOptions}" var="quarterOption">
+            <option text="{!quarterOption.label}" value="{!quarterOption.id}" selected="{!quarterOption.selected}"/>
+        </aura:iteration>
+    </lightning:select>
+    
+    <aura:registerEvent name="SetLocations" type="c:SetLocationsEvent" description="This event sets the locations for the chart and filters based on them."/>
+    <aura:handler name="SetLocations" event="c:SetLocationsEvent" action="{!c.setLocationInit}"/>
+
+	    <lightning:checkboxGroup name="Location"
+                             label="Location"
+                             options="{!v.locationOptions}"
+                             value="{!v.value}"
+                             onchange="{!c.handleChange}"/>    
+</aura:component>

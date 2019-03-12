@@ -1,0 +1,7 @@
+.THIS .text{
+    font-family: 'Futura-Std-Book';
+}
+.THIS .line{
+    border-bottom: 1px solid lightgrey;
+    padding-bottom: 5px;
+}
