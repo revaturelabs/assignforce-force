@@ -1,0 +1,127 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes" access="global" controller="afNewBatchFormApexController">
+    <ltng:require styles="{!$Resource.RevatureStyles}"/>
+    <lightning:notificationsLibrary aura:id="notificationsLibrary"/>
+    
+    <!-- Attributes -->
+    <aura:attribute name="allTrainers"     type="List" />
+    <aura:attribute name="allCoTrainers"   type="List" />
+    <aura:attribute name="allLocations"        type="Training_Location__c[]" />
+    <aura:attribute name="cotrainer"           type="User" />
+    <aura:attribute name="endDate"          type="Date" />
+    <aura:attribute name="hiddenRoom"          type="Id" />
+    <aura:attribute name="hiddenLoc"        type="Id" />
+    <aura:attribute name="location"            type="Training_Location__c"/>
+    <aura:attribute name="locUncleared"    type="Boolean"        default="true"/>
+    <aura:attribute name="numWeeks"         type="Integer"       default="10"/>
+    <aura:attribute name="openTrainings"       type="List" />
+    <aura:attribute name="room"                type="Training_Room__c" />
+    <aura:attribute name="roomList"         type="List" />
+    <aura:attribute name="roomsForLocation" type="List" />
+    <aura:attribute name="track"               type="Id" />
+    <aura:attribute name="trainer"          type="User" />
+    <aura:attribute name="trainerUncleared" type="Boolean"       default="true"/>
+    <aura:attribute name="startDate"           type="Date" />
+    <aura:attribute name="status"              type="String"         default="Planned" />
+    <aura:attribute name="uncleared"           type="Boolean"        default="true" />
+    
+    <aura:attribute name="newBatch"         type="Map"           default="{     CoTrainer__c : '',
+                                                                         EndDate__c : '',
+                                                                         Trainer__c : '',
+                                                                         TrainingLocation__c : '',
+                                                                         TrainingRoom__c : '',
+                                                                         TrainingTrack__c : '',
+                                                                         StartDate__c : '',
+                                                                         Status__c : ''  }"/>
+    
+    <!-- Events -->
+    <aura:registerEvent name="afNewBatchFormTrack"        type="c:afNewBatchFormTrackEvent"/>
+    <aura:registerEvent name="afNewBatchFormLocation"     type="c:afNewBatchFormLocationEvent"/>
+    <aura:registerEvent name="afNewBatchFormDate"         type="c:afNewBatchFormDateEvent"/>
+    <aura:registerEvent name="afNewBatchCreated"          type="c:afNewBatchCreatedEvent"/>
+    
+    <!-- Handlers -->
+    <aura:handler name="init"           value="{!this}"             action="{!c.doInit}" />
+    <aura:handler name="change"         value="{!v.trainer}"        action="{!c.trainerChanged}"/>
+    <aura:handler name="change"         value="{!v.cotrainer}"      action="{!c.trainerChanged}"/>
+    <aura:handler name="change"         value="{!v.track}"          action="{!c.trackChanged}"/>
+    <aura:handler                        event="c:TrainerSelected" action="{!c.setTrainerField}"/>
+    <aura:handler                        event="c:roomSelected"        action="{!c.setRoomField}"/>
+    
+    <div class="slds-card">
+        <lightning:recordEditForm aura:id="newBatchForm" objectApiName="Training__c" onsuccess="{!c.onSuccess}">
+            <lightning:messages/>
+            <div class="slds-card__header">
+                <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                    <div class="slds-media__body">
+                        <h2 class="slds-card__header-title">
+                            <span class="slds-text-heading_medium">Create a New Batch</span>
+                        </h2>
+                    </div>
+                    <div class="slds-no-flex">
+                        <lightning:buttonIcon class="headerBtn" onclick="{!c.onSubmit}" iconName="utility:check" variant="bare" size="large" alternativeText="Submit"/>
+                    </div>
+                    <div class="slds-no-flex">
+                        <lightning:buttonIcon class="headerBtn" onclick="{!c.clearBatchFields}" iconName="utility:close" variant="bare" size="large" alternativeText="Clear"/>
+                    </div>
+                </header>
+            </div>
+            <div class="slds-card__body slds-card__body_inner">
+                <aura:if isTrue="{!v.uncleared}">
+                    <div class="slds-grid slds-grid_align-spread">
+                        <div class="slds-col slds-size_1-of-2">
+                            <lightning:inputField fieldName="TrainingTrack__c" aura:id="trainingTrack" value="{!v.track}"/>
+                        </div>
+                    </div>
+                    <div class="slds-grid slds-grid_align-spread">
+                        <div class="slds-col slds-size_1-of-4">
+                            <lightning:inputField fieldName="StartDate__c" aura:id="startDate" value="{!v.startDate}" onchange="{!c.dateChanged}"/>
+                        </div>
+                        <div class="slds-col slds-size_1-of-6">
+                            <lightning:input type="number" label="Number of Weeks" aura:id="numWeeks" step="1" value="{!v.numWeeks}" onchange="{!c.dateChanged}"/>
+                        </div>
+                        <div class="slds-col slds-size_1-of-4">
+                            <lightning:inputField fieldName="EndDate__c" aura:id="endDate" value="{!v.endDate}" disabled="true"/> 
+                        </div>
+                    </div>
+                    <div class="slds-grid slds-grid_align-spread">
+                        <div class="slds-col slds-size_1-of-4">
+                            <aura:if isTrue="{!v.trainerUncleared}">
+                                <lightning:inputField fieldName="Trainer__c" aura:id="trainer" value="{!v.trainer}" onchange="{!c.trainerChanged}"/>
+                            </aura:if>
+                        </div>
+                        <div class="slds-col slds-size_1-of-4 slds-col_bump-left">
+                            <lightning:inputField fieldName="CoTrainer__c" aura:id="cotrainer" value="{!v.cotrainer}" onchange="{!c.trainerChanged}"/>
+                            <lightning:inputField fieldName="Status__c" value="{!v.status}" hidden="true"/>
+                        </div>
+                        <div class="slds-col slds-size_1-of-6 slds-col_bump-left">
+                            <span> </span>
+                        </div>
+                    </div>
+                    <div class="slds-text-heading_medium boxLabel">Location:</div>
+                    <aura:if isTrue="{!v.locUncleared}">
+                        <div class="slds-box">
+                            <div class="slds-grid slds-grid_align-spread">
+                                <div class="slds-col slds-size_1-of-3">
+                                    <lightning:select name="trainingLoc" label="Training Location" aura:id="trainingLoc" value="{!v.location}" onchange="{!c.findRooms}">
+                                        <aura:iteration items="{!v.allLocations}" var="loc">
+                                            <option value="{!loc.Id}" selected="{!v.loc}">{!loc.OfficeName__c}</option>
+                                        </aura:iteration>
+                                    </lightning:select>
+                                    <lightning:inputField fieldName="TrainingLocation__c" value="{!v.hiddenLoc}" hidden="true"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-3">
+                                    <lightning:select name="trainingRoom" label="Training Room" aura:id="trainingRoom" value="{!v.room}" onchange="{!c.selectRoom}">
+                                        <aura:iteration items="{!v.roomsForLocation}" var="room">
+                                            <option value="{!room.Id}" selected="{!v.room}">{!room.Name}</option>
+                                        </aura:iteration>
+                                    </lightning:select>
+                                    <lightning:inputField fieldName="TrainingRoom__c" value="{!v.hiddenRoom}" hidden="true"/>
+                                </div>
+                            </div>
+                        </div>
+                    </aura:if>
+                </aura:if>
+            </div>
+        </lightning:recordEditForm>
+    </div> 
+</aura:component>
