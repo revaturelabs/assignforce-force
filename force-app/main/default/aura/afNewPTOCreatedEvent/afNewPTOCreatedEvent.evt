@@ -1,0 +1,4 @@
+<aura:event type="COMPONENT" description="Fires the new pending PTO id to update pending PTO list without calling to the server">
+    <aura:attribute name="newPTO" type="ID"/>
+    <aura:attribute name="startDate" type="Date"/>
+</aura:event>

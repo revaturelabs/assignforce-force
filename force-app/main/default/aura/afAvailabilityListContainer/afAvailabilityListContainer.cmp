@@ -1,0 +1,68 @@
+<aura:component controller="afAvailListContainerApexController" implements="force:appHostable,flexipage:availableForAllPageTypes" access="global" >
+    <ltng:require styles="{!$Resource.RevatureStyles}"/>
+    
+    <!-- Attributes-->
+    <aura:attribute name="rooms" 					type="Object[]"/>
+    <aura:attribute name="roomsNotAtLoc" 			type="Object[]"/>
+    <aura:attribute name="currentLocRooms" 			type="Object[]"/>
+    <aura:attribute name="trainers" 				type="User[]"/>
+    <aura:attribute name="allSkills" 				type="Skill__c[]"/>
+    <aura:attribute name="allTrainings" 			type="Training__c[]"/>
+    <aura:attribute name="selectedTrainingTrack" 	type='ID'/>
+    <aura:attribute name="tab1Shown" 				type="Boolean" 			default='true'/>
+    <aura:attribute name="location" 				type="Id"/>
+    
+    <!--Handlers-->
+    <aura:handler name="init" 		value="{!this}" 	action="{!c.doInit}"/>
+    <aura:handler event="c:afNewBatchFormTrackEvent" 	action="{!c.skillHasChanged}"/>
+    <aura:handler event="c:afNewBatchFormDateEvent" 	action="{!c.dateHasChanged}"/>
+    <aura:handler event="c:afNewBatchFormLocationEvent"	action="{!c.handleLoc}"/>
+    
+    <!--Visual Components-->
+    <div class="slds-card">
+        <div class="slds-card__body slds-card__body_inner">
+            <div class="slds-tabs_default">
+                <ul class="slds-tabs_default__nav">
+                    <li class="{!v.tab1Shown ? 'slds-tabs_default__item slds-is-active' : 'slds-tabs_default__item'}">
+                        <span class=" slds-text-heading_medium" tabindex="0" id="trainersTab" onclick='{!c.trainerClick}'>
+                            Available Trainers
+                        </span>
+                    </li>
+                    <li class="{!v.tab1Shown ? 'slds-tabs_default__item ' : 'slds-tabs_default__item slds-is-active'}">
+                        <span class="slds-text-heading_medium" tabindex="-1" id="roomsTab" onclick='{!c.roomClick}'>
+                            Available Rooms
+                        </span>
+                    </li>
+                </ul>
+                <div id="trainers" class="{!v.tab1Shown ? 'slds-tabs_default__content slds-show' : 'slds-tabs_default__content slds-hide'}">
+                    <div class="slds-grid">
+                        <div class="slds-col slds-size_1-of-5 slds-align_absolute-center"></div>
+                        <div class="slds-col slds-size_1-of-5 slds-align_absolute-center"><h1>Name</h1></div>
+                        <div class="slds-col slds-size_1-of-5 slds-align_absolute-center"><h1>Available</h1></div>
+                        <div class="slds-col slds-size_1-of-5 slds-align_absolute-center"><h1>Current Location</h1></div>
+                        <div class="slds-col slds-size_1-of-5 slds-align_absolute-center"><h1>Experienced</h1></div>
+                    </div>
+                    <div class="slds-scrollable" style="height: 300px">
+                        <aura:iteration  items="{!v.trainers}" var="trainerVar">
+                            <c:afTrainerAvailabilityListItem trainerId="{!trainerVar.Id}" hasSkill="{!trainerVar.hasSkill}" availability="{!trainerVar.Available__c}"/>
+                        </aura:iteration>
+                    </div>
+                </div>
+                <div id="rooms" class="{!v.tab1Shown ? 'slds-tabs_default__content slds-hide' : 'slds-tabs_default__content slds-show'}">
+                    <div class="slds-grid">
+                        <div class="slds-col slds-size_1-of-5 slds-align_absolute-center"></div>
+                        <div class="slds-col slds-size_1-of-5 slds-align_absolute-center"><h1>Name</h1></div>
+                        <div class="slds-col slds-size_1-of-5 slds-align_absolute-center"><h1>Location</h1></div>
+                        <div class="slds-col slds-size_1-of-5 slds-align_absolute-center"><h1>Available</h1></div>
+                        <div class="slds-col slds-size_1-of-5 slds-align_absolute-center"><h1>Capacity</h1></div>
+                    </div>
+                    <div class="slds-scrollable" style="height: 300px">
+                        <aura:iteration items="{!v.currentLocRooms}" var="room">
+                            <c:afRoomAvailabilityListItem room="{!room}"/>   
+                        </aura:iteration>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</aura:component>

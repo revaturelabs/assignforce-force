@@ -1,0 +1,50 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes" access="global">
+    
+    <!--Attributes-->
+    <aura:attribute name="uncleared"       type="Boolean"    default="true" 			description="boolean used to clear the fields when the clear button is clicked"/>
+    <aura:attribute name="startDate"       type="Date" 									description="used to store the start date of the new PTO"/>
+    <aura:attribute name="endDate"         type="Date" 									description="used to store the end date of the new PTO"/>
+    <aura:attribute name="reason"          type="String" 								description="used to store the reason of the new PTO"/>
+    <aura:attribute name="trainer"		   type="ID" 									description="used to store the user accessing this page and set that to the trainer field of PTO"/>
+    <aura:attribute name="status"		   type="String" 	default="Pending Approval"  description="used in a hidden field to set the status of the new PTO to pending upon creation"/>
+    <aura:attribute name="Batches"		   type="Object[]"/>
+    <lightning:notificationsLibrary/>
+    <!--Handlers-->
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    
+    <!--Registered Events-->
+    <aura:registerEvent name="newPendingPTO" type="c:afNewPTOCreatedEvent"/>
+    
+    <!--Component Markup-->
+    <div class="slds-card">
+        <lightning:recordEditForm aura:id="newPTOForm" objectApiName="PTO__c" onsubmit="{!c.onSubmit}" onsuccess="{!c.onSuccess}" >
+            <lightning:messages/>
+            <div class="slds-card">
+                <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                    <div class="slds-media__body">
+                        <h2 class="slds-card__header-title">
+                            <span class="slds-text-heading_medium">Request New Paid Time Off</span>
+                        </h2>
+                    </div>
+                    <div class="slds-no-flex">
+                        <lightning:buttonIcon class="headerBtn" type="submit" iconName="utility:check" variant="bare" size="large" alternativeText="Submit"/>
+                    </div>
+                    <div class="slds-no-flex">
+                        <lightning:buttonIcon class="headerBtn" onclick="{!c.clearFields}" iconName="utility:close" variant="bare" size="large" alternativeText="Clear"/>
+                    </div>
+                </header>
+            </div>
+            <div class="slds-card__body slds-card__body_inner">
+                <aura:if isTrue="{!v.uncleared}">
+                    <lightning:inputField fieldName="StartDate__c" aura:id="startDate" value="{!v.startDate}"/>
+                    <lightning:inputField fieldName="EndDate__c" aura:id="endDate" value="{!v.endDate}"/> 
+                    <lightning:inputField fieldName="Reason__c" aura:id="reason" value="{!v.reason}"/>
+                    <div class="slds-hide">
+                        <lightning:inputField fieldName="Trainer__c" value="{!v.trainer}" disabled="true"/>
+                        <lightning:inputField fieldName="Status__c" value="{!v.status}" disabled="true"/>
+                    </div>
+                </aura:if>
+            </div>
+        </lightning:recordEditForm>
+    </div> 
+</aura:component>
