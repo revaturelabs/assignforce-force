@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+    <testsuite name="force.apex" timestamp="2019-03-13T14:04:32-04:00" hostname="https://cunning-badger-hxf67c-dev-ed.my.salesforce.com" tests="7" failures="7"  errors="0"  time="0">
+        <properties>
+            <property name="outcome" value="Failed"/>
+            <property name="testsRan" value="7"/>
+            <property name="passing" value="0"/>
+            <property name="failing" value="7"/>
+            <property name="skipped" value="0"/>
+            <property name="passRate" value="0%"/>
+            <property name="failRate" value="100%"/>
+            <property name="testStartTime" value="Mar 13, 2019 2:04 PM"/>
+            <property name="testExecutionTime" value="0 s"/>
+            <property name="testTotalTime" value="0 s"/>
+            <property name="commandTime" value="5.43 s"/>
+            <property name="hostname" value="https://cunning-badger-hxf67c-dev-ed.my.salesforce.com"/>
+            <property name="orgId" value="00D1U0000014v21UAA"/>
+            <property name="username" value="rafael.lopez.leaf@cunning-badger-hxf67c.com"/>
+            <property name="testRunId" value="7071U00000YNDrt"/>
+            <property name="userId" value="0051U0000057cC2QAI"/>
+        </properties>
+        <testcase name="afAvailListContainerApexControllerTest" classname="AssignForceTestClass" time="0">
+            <failure message="System.QueryException: List has no rows for assignment to SObject"><![CDATA[Class.ApexTestUtilityClass.getUserData: line 77, column 1
+Class.ApexTestUtilityClass.__sfdc_users: line 98, column 1
+Class.ApexTestUtilityClass.location: line 64, column 1
+Class.ApexTestUtilityClass.__sfdc_tLoc: line 53, column 1
+Class.ApexTestUtilityClass.createTrainingsData: line 7, column 1
+Class.AssignForceTestClass.AssignForceDataSetup: line 6, column 1]]></failure>
+        </testcase>
+        <testcase name="afCreateNewTrainingTrackTrigger" classname="AssignForceTestClass" time="0">
+            <failure message="System.QueryException: List has no rows for assignment to SObject"><![CDATA[Class.ApexTestUtilityClass.getUserData: line 77, column 1
+Class.ApexTestUtilityClass.__sfdc_users: line 98, column 1
+Class.ApexTestUtilityClass.location: line 64, column 1
+Class.ApexTestUtilityClass.__sfdc_tLoc: line 53, column 1
+Class.ApexTestUtilityClass.createTrainingsData: line 7, column 1
+Class.AssignForceTestClass.AssignForceDataSetup: line 6, column 1]]></failure>
+        </testcase>
+        <testcase name="afNewBatchFormApexControllerTest" classname="AssignForceTestClass" time="0">
+            <failure message="System.QueryException: List has no rows for assignment to SObject"><![CDATA[Class.ApexTestUtilityClass.getUserData: line 77, column 1
+Class.ApexTestUtilityClass.__sfdc_users: line 98, column 1
+Class.ApexTestUtilityClass.location: line 64, column 1
+Class.ApexTestUtilityClass.__sfdc_tLoc: line 53, column 1
+Class.ApexTestUtilityClass.createTrainingsData: line 7, column 1
+Class.AssignForceTestClass.AssignForceDataSetup: line 6, column 1]]></failure>
+        </testcase>
+        <testcase name="afTimelineControllerTest" classname="AssignForceTestClass" time="0">
+            <failure message="System.QueryException: List has no rows for assignment to SObject"><![CDATA[Class.ApexTestUtilityClass.getUserData: line 77, column 1
+Class.ApexTestUtilityClass.__sfdc_users: line 98, column 1
+Class.ApexTestUtilityClass.location: line 64, column 1
+Class.ApexTestUtilityClass.__sfdc_tLoc: line 53, column 1
+Class.ApexTestUtilityClass.createTrainingsData: line 7, column 1
+Class.AssignForceTestClass.AssignForceDataSetup: line 6, column 1]]></failure>
+        </testcase>
+        <testcase name="afTrainingBatchesApexControllerTest" classname="AssignForceTestClass" time="0">
+            <failure message="System.QueryException: List has no rows for assignment to SObject"><![CDATA[Class.ApexTestUtilityClass.getUserData: line 77, column 1
+Class.ApexTestUtilityClass.__sfdc_users: line 98, column 1
+Class.ApexTestUtilityClass.location: line 64, column 1
+Class.ApexTestUtilityClass.__sfdc_tLoc: line 53, column 1
+Class.ApexTestUtilityClass.createTrainingsData: line 7, column 1
+Class.AssignForceTestClass.AssignForceDataSetup: line 6, column 1]]></failure>
+        </testcase>
+        <testcase name="afTrainingTriggerTest" classname="AssignForceTestClass" time="0">
+            <failure message="System.QueryException: List has no rows for assignment to SObject"><![CDATA[Class.ApexTestUtilityClass.getUserData: line 77, column 1
+Class.ApexTestUtilityClass.__sfdc_users: line 98, column 1
+Class.ApexTestUtilityClass.location: line 64, column 1
+Class.ApexTestUtilityClass.__sfdc_tLoc: line 53, column 1
+Class.ApexTestUtilityClass.createTrainingsData: line 7, column 1
+Class.AssignForceTestClass.AssignForceDataSetup: line 6, column 1]]></failure>
+        </testcase>
+        <testcase name="triggerTest" classname="AssignForceTestClass" time="0">
+            <failure message="System.QueryException: List has no rows for assignment to SObject"><![CDATA[Class.ApexTestUtilityClass.getUserData: line 77, column 1
+Class.ApexTestUtilityClass.__sfdc_users: line 98, column 1
+Class.ApexTestUtilityClass.location: line 64, column 1
+Class.ApexTestUtilityClass.__sfdc_tLoc: line 53, column 1
+Class.ApexTestUtilityClass.createTrainingsData: line 7, column 1
+Class.AssignForceTestClass.AssignForceDataSetup: line 6, column 1]]></failure>
+        </testcase>
+    </testsuite>
+</testsuites>

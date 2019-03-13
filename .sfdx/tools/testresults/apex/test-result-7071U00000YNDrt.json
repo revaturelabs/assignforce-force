@@ -1,0 +1,190 @@
+{
+    "summary": {
+        "outcome": "Failed",
+        "testsRan": 7,
+        "passing": 0,
+        "failing": 7,
+        "skipped": 0,
+        "passRate": "0%",
+        "failRate": "100%",
+        "testStartTime": "Mar 13, 2019 2:04 PM",
+        "testExecutionTime": "0 ms",
+        "testTotalTime": "0 ms",
+        "commandTime": "5429 ms",
+        "hostname": "https://cunning-badger-hxf67c-dev-ed.my.salesforce.com",
+        "orgId": "00D1U0000014v21UAA",
+        "username": "rafael.lopez.leaf@cunning-badger-hxf67c.com",
+        "testRunId": "7071U00000YNDrt",
+        "userId": "0051U0000057cC2QAI"
+    },
+    "tests": [
+        {
+            "attributes": {
+                "type": "ApexTestResult",
+                "url": "/services/data/v45.0/tooling/sobjects/ApexTestResult/07M1U00000ABQ5mUAH"
+            },
+            "Id": "07M1U00000ABQ5mUAH",
+            "QueueItemId": "7091U000000EQfZQAW",
+            "StackTrace": "Class.ApexTestUtilityClass.getUserData: line 77, column 1\nClass.ApexTestUtilityClass.__sfdc_users: line 98, column 1\nClass.ApexTestUtilityClass.location: line 64, column 1\nClass.ApexTestUtilityClass.__sfdc_tLoc: line 53, column 1\nClass.ApexTestUtilityClass.createTrainingsData: line 7, column 1\nClass.AssignForceTestClass.AssignForceDataSetup: line 6, column 1",
+            "Message": "System.QueryException: List has no rows for assignment to SObject",
+            "AsyncApexJobId": "7071U00000YNDrtQAH",
+            "MethodName": "afAvailListContainerApexControllerTest",
+            "Outcome": "Fail",
+            "ApexClass": {
+                "attributes": {
+                    "type": "ApexClass",
+                    "url": "/services/data/v45.0/tooling/sobjects/ApexClass/01p1U00000NV9sHQAT"
+                },
+                "Id": "01p1U00000NV9sHQAT",
+                "Name": "AssignForceTestClass",
+                "NamespacePrefix": null
+            },
+            "RunTime": null,
+            "FullName": "AssignForceTestClass.afAvailListContainerApexControllerTest"
+        },
+        {
+            "attributes": {
+                "type": "ApexTestResult",
+                "url": "/services/data/v45.0/tooling/sobjects/ApexTestResult/07M1U00000ABQ5nUAH"
+            },
+            "Id": "07M1U00000ABQ5nUAH",
+            "QueueItemId": "7091U000000EQfZQAW",
+            "StackTrace": "Class.ApexTestUtilityClass.getUserData: line 77, column 1\nClass.ApexTestUtilityClass.__sfdc_users: line 98, column 1\nClass.ApexTestUtilityClass.location: line 64, column 1\nClass.ApexTestUtilityClass.__sfdc_tLoc: line 53, column 1\nClass.ApexTestUtilityClass.createTrainingsData: line 7, column 1\nClass.AssignForceTestClass.AssignForceDataSetup: line 6, column 1",
+            "Message": "System.QueryException: List has no rows for assignment to SObject",
+            "AsyncApexJobId": "7071U00000YNDrtQAH",
+            "MethodName": "afCreateNewTrainingTrackTrigger",
+            "Outcome": "Fail",
+            "ApexClass": {
+                "attributes": {
+                    "type": "ApexClass",
+                    "url": "/services/data/v45.0/tooling/sobjects/ApexClass/01p1U00000NV9sHQAT"
+                },
+                "Id": "01p1U00000NV9sHQAT",
+                "Name": "AssignForceTestClass",
+                "NamespacePrefix": null
+            },
+            "RunTime": null,
+            "FullName": "AssignForceTestClass.afCreateNewTrainingTrackTrigger"
+        },
+        {
+            "attributes": {
+                "type": "ApexTestResult",
+                "url": "/services/data/v45.0/tooling/sobjects/ApexTestResult/07M1U00000ABQ5oUAH"
+            },
+            "Id": "07M1U00000ABQ5oUAH",
+            "QueueItemId": "7091U000000EQfZQAW",
+            "StackTrace": "Class.ApexTestUtilityClass.getUserData: line 77, column 1\nClass.ApexTestUtilityClass.__sfdc_users: line 98, column 1\nClass.ApexTestUtilityClass.location: line 64, column 1\nClass.ApexTestUtilityClass.__sfdc_tLoc: line 53, column 1\nClass.ApexTestUtilityClass.createTrainingsData: line 7, column 1\nClass.AssignForceTestClass.AssignForceDataSetup: line 6, column 1",
+            "Message": "System.QueryException: List has no rows for assignment to SObject",
+            "AsyncApexJobId": "7071U00000YNDrtQAH",
+            "MethodName": "afNewBatchFormApexControllerTest",
+            "Outcome": "Fail",
+            "ApexClass": {
+                "attributes": {
+                    "type": "ApexClass",
+                    "url": "/services/data/v45.0/tooling/sobjects/ApexClass/01p1U00000NV9sHQAT"
+                },
+                "Id": "01p1U00000NV9sHQAT",
+                "Name": "AssignForceTestClass",
+                "NamespacePrefix": null
+            },
+            "RunTime": null,
+            "FullName": "AssignForceTestClass.afNewBatchFormApexControllerTest"
+        },
+        {
+            "attributes": {
+                "type": "ApexTestResult",
+                "url": "/services/data/v45.0/tooling/sobjects/ApexTestResult/07M1U00000ABQ5pUAH"
+            },
+            "Id": "07M1U00000ABQ5pUAH",
+            "QueueItemId": "7091U000000EQfZQAW",
+            "StackTrace": "Class.ApexTestUtilityClass.getUserData: line 77, column 1\nClass.ApexTestUtilityClass.__sfdc_users: line 98, column 1\nClass.ApexTestUtilityClass.location: line 64, column 1\nClass.ApexTestUtilityClass.__sfdc_tLoc: line 53, column 1\nClass.ApexTestUtilityClass.createTrainingsData: line 7, column 1\nClass.AssignForceTestClass.AssignForceDataSetup: line 6, column 1",
+            "Message": "System.QueryException: List has no rows for assignment to SObject",
+            "AsyncApexJobId": "7071U00000YNDrtQAH",
+            "MethodName": "afTimelineControllerTest",
+            "Outcome": "Fail",
+            "ApexClass": {
+                "attributes": {
+                    "type": "ApexClass",
+                    "url": "/services/data/v45.0/tooling/sobjects/ApexClass/01p1U00000NV9sHQAT"
+                },
+                "Id": "01p1U00000NV9sHQAT",
+                "Name": "AssignForceTestClass",
+                "NamespacePrefix": null
+            },
+            "RunTime": null,
+            "FullName": "AssignForceTestClass.afTimelineControllerTest"
+        },
+        {
+            "attributes": {
+                "type": "ApexTestResult",
+                "url": "/services/data/v45.0/tooling/sobjects/ApexTestResult/07M1U00000ABQ5qUAH"
+            },
+            "Id": "07M1U00000ABQ5qUAH",
+            "QueueItemId": "7091U000000EQfZQAW",
+            "StackTrace": "Class.ApexTestUtilityClass.getUserData: line 77, column 1\nClass.ApexTestUtilityClass.__sfdc_users: line 98, column 1\nClass.ApexTestUtilityClass.location: line 64, column 1\nClass.ApexTestUtilityClass.__sfdc_tLoc: line 53, column 1\nClass.ApexTestUtilityClass.createTrainingsData: line 7, column 1\nClass.AssignForceTestClass.AssignForceDataSetup: line 6, column 1",
+            "Message": "System.QueryException: List has no rows for assignment to SObject",
+            "AsyncApexJobId": "7071U00000YNDrtQAH",
+            "MethodName": "afTrainingBatchesApexControllerTest",
+            "Outcome": "Fail",
+            "ApexClass": {
+                "attributes": {
+                    "type": "ApexClass",
+                    "url": "/services/data/v45.0/tooling/sobjects/ApexClass/01p1U00000NV9sHQAT"
+                },
+                "Id": "01p1U00000NV9sHQAT",
+                "Name": "AssignForceTestClass",
+                "NamespacePrefix": null
+            },
+            "RunTime": null,
+            "FullName": "AssignForceTestClass.afTrainingBatchesApexControllerTest"
+        },
+        {
+            "attributes": {
+                "type": "ApexTestResult",
+                "url": "/services/data/v45.0/tooling/sobjects/ApexTestResult/07M1U00000ABQ5rUAH"
+            },
+            "Id": "07M1U00000ABQ5rUAH",
+            "QueueItemId": "7091U000000EQfZQAW",
+            "StackTrace": "Class.ApexTestUtilityClass.getUserData: line 77, column 1\nClass.ApexTestUtilityClass.__sfdc_users: line 98, column 1\nClass.ApexTestUtilityClass.location: line 64, column 1\nClass.ApexTestUtilityClass.__sfdc_tLoc: line 53, column 1\nClass.ApexTestUtilityClass.createTrainingsData: line 7, column 1\nClass.AssignForceTestClass.AssignForceDataSetup: line 6, column 1",
+            "Message": "System.QueryException: List has no rows for assignment to SObject",
+            "AsyncApexJobId": "7071U00000YNDrtQAH",
+            "MethodName": "afTrainingTriggerTest",
+            "Outcome": "Fail",
+            "ApexClass": {
+                "attributes": {
+                    "type": "ApexClass",
+                    "url": "/services/data/v45.0/tooling/sobjects/ApexClass/01p1U00000NV9sHQAT"
+                },
+                "Id": "01p1U00000NV9sHQAT",
+                "Name": "AssignForceTestClass",
+                "NamespacePrefix": null
+            },
+            "RunTime": null,
+            "FullName": "AssignForceTestClass.afTrainingTriggerTest"
+        },
+        {
+            "attributes": {
+                "type": "ApexTestResult",
+                "url": "/services/data/v45.0/tooling/sobjects/ApexTestResult/07M1U00000ABQ5sUAH"
+            },
+            "Id": "07M1U00000ABQ5sUAH",
+            "QueueItemId": "7091U000000EQfZQAW",
+            "StackTrace": "Class.ApexTestUtilityClass.getUserData: line 77, column 1\nClass.ApexTestUtilityClass.__sfdc_users: line 98, column 1\nClass.ApexTestUtilityClass.location: line 64, column 1\nClass.ApexTestUtilityClass.__sfdc_tLoc: line 53, column 1\nClass.ApexTestUtilityClass.createTrainingsData: line 7, column 1\nClass.AssignForceTestClass.AssignForceDataSetup: line 6, column 1",
+            "Message": "System.QueryException: List has no rows for assignment to SObject",
+            "AsyncApexJobId": "7071U00000YNDrtQAH",
+            "MethodName": "triggerTest",
+            "Outcome": "Fail",
+            "ApexClass": {
+                "attributes": {
+                    "type": "ApexClass",
+                    "url": "/services/data/v45.0/tooling/sobjects/ApexClass/01p1U00000NV9sHQAT"
+                },
+                "Id": "01p1U00000NV9sHQAT",
+                "Name": "AssignForceTestClass",
+                "NamespacePrefix": null
+            },
+            "RunTime": null,
+            "FullName": "AssignForceTestClass.triggerTest"
+        }
+    ]
+}
