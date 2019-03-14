@@ -197,11 +197,11 @@ public class AssignForceTestClass{
     }
 
 
-    
+    /* MOVED TO ANOTHER CLASS - IAN
     @isTest
     public static void afCreateNewTrainingTrackTrigger(){
         ApexTestUtilityClass.createNewTrainingTrack();
-    }
+    }*/
 
 
 
