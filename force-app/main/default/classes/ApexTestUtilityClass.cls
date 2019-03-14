@@ -1,3 +1,4 @@
+@isTest
 public class ApexTestUtilityClass {    
 
     /***********************
@@ -112,8 +113,7 @@ public class ApexTestUtilityClass {
 
 
     public static void location() {
-        Training_Location__c tempLoc = new Training_Location__c(
-            OfficeName__c = 'OfficeName1'); 
+        Training_Location__c tempLoc = new Training_Location__c(OfficeName__c = 'OfficeName1'); 
         System.runAs(users) {
             try {
                 System.debug('TempLoc: ' + tempLoc);
