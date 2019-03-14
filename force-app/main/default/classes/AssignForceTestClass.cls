@@ -1,6 +1,7 @@
 @isTest
 public class AssignForceTestClass{
     
+
     @testSetup
     public static void AssignForceDataSetup(){
         ApexTestUtilityClass.createTrainingsData(7);
@@ -15,6 +16,8 @@ public class AssignForceTestClass{
         //ApexTestUtilityClass.createPTOs(50);        
     }
     
+
+
     //afTimelineController Tests START
     @isTest
     public static void afTimelineControllerTest(){
@@ -165,6 +168,9 @@ public class AssignForceTestClass{
                             afTimelineController.filterTrainingsByYearQuarter(null,null));
     }
     
+
+
+
     @isTest
     public static void afAvailListContainerApexControllerTest(){
         List<Training_Room__c> allRoomsTest = [SELECT Id, name, TrainingLocation__c, TrainingLocationName__c, AVAvailability__c, RoomCapacity__c
@@ -189,11 +195,16 @@ public class AssignForceTestClass{
         
         
     }
-    
+
+
+    /* MOVED TO ANOTHER CLASS - IAN
     @isTest
     public static void afCreateNewTrainingTrackTrigger(){
         ApexTestUtilityClass.createNewTrainingTrack();
-    }
+    }*/
+
+
+
     
     @isTest
     public static void afNewBatchFormApexControllerTest(){
@@ -208,6 +219,8 @@ public class AssignForceTestClass{
         system.assertEquals(trngList, afNewBatchFormApexController.allTrainings());
     }
     
+
+
     @isTest
     public static void afTrainingBatchesApexControllerTest(){
         List <Training__c> AllTrainings = [SELECT Id, Name, TrainingLocation__r.OfficeName__c, TrainingTrack__r.ShortName__c,
@@ -232,6 +245,9 @@ public class AssignForceTestClass{
         system.assertEquals(newTrainingsList.size(), afTrainingBatchesApexController.AllTrainings.size()); 
         afTrainingBatchesApexController.updateBatchesServer(newTrainingsList);
     }
+
+
+
     
     @isTest
     public static void afTrainingTriggerTest(){
@@ -241,6 +257,8 @@ public class AssignForceTestClass{
         }
         update AllTrainings;
     }
+
+
     
    @isTest
    public static void triggerTest(){
@@ -299,6 +317,8 @@ public class AssignForceTestClass{
        System.assertEquals(training1.Trainer__c, usrTrainer.Id);
        System.assertEquals(training2.CoTrainer__c, usrCotrainer.Id);
    }
+
+   
     
   /* @isTest
    public static void afTrainerInfoControllerTest(){      
