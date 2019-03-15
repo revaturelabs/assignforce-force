@@ -1,0 +1,47 @@
+<aura:component >
+    <!--Attributes-->
+    <aura:attribute name="trainerId" type="ID" description="The attribute is used to house the information about a trainer"/>
+    <aura:attribute name="availability" type="String"/>
+    <aura:attribute name="isAvailable" type="Boolean" default="true" description="This is a boolean value that represents if that trainer is available"/>
+    <aura:attribute name="hasSkill" type="Boolean" default="true" description="This is a boolean value used to show whether or not the trainer has the selected training track"/>
+    
+    <!--Handlers-->
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" description="Handles the initialization of the availability and hasSkill"/>
+    <!--Events-->
+    <aura:registerEvent name="TrainerIsSelected" type="c:TrainerSelected" description="when the selected button is clicked on this component the trainer's id is sent up in the event"/>
+    
+    <lightning:recordViewForm recordId="{!v.trainerId}" objectApiName="User">
+        <div class="slds-grid" style="padding-top: 10px;">
+            <div class="slds-col slds-size_1-of-5">
+                <div class="slds-align_absolute-center">
+                    <lightning:button class="btnSelect" label="Select" onclick="{!c.selectIsClicked}"/>
+                </div>
+            </div>
+            <div class="slds-col slds-size_1-of-5 slds-align_absolute-center">
+                <lightning:outputField fieldName="Name" variant="label-hidden"/>
+            </div>
+            <div class="slds-col slds-size_1-of-5 slds-align_absolute-center">
+                <!--Change this to a checkbox if the -->
+                <aura:if isTrue="{!v.isAvailable}">
+                    <lightning:icon iconName="utility:check" alternativeText="Available" size="small"/>
+                    <aura:set attribute="else">
+                        <lightning:icon iconName="utility:clear" alternativeText="Not Available" size="small" variant="error"/>
+                    </aura:set>
+                </aura:if>  
+                
+            </div>
+            <div class="slds-col slds-size_1-of-5 slds-align_absolute-center">
+                <lightning:outputField fieldName="CurrentLocation__c" variant="label-hidden"/><!--figure out how to set up the locations-->
+            </div>
+            <div class="slds-col slds-size_1-of-5 slds-align_absolute-center">
+                <!-- change this to checkbox if the trainer has the skill selected in create batch-->
+                <aura:if isTrue="{!v.hasSkill}">
+                    <lightning:icon iconName="utility:check" alternativeText="has Skill" size="small"/>
+                    <aura:set attribute="else">
+                        <lightning:icon iconName="utility:clear" alternativeText="Does not have Skill" size="small" variant="error"/>
+                    </aura:set>
+                </aura:if> 
+            </div>
+        </div>
+    </lightning:recordViewForm>
+</aura:component>

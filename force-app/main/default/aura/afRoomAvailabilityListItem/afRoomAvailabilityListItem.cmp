@@ -1,0 +1,44 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes" access="global" >
+    <aura:attribute name="room" 		type="Training_Room__c" />
+    <aura:attribute name="isYes" 		type="Boolean" default="false"/>
+    <aura:attribute name="isRequest" 	type="Boolean" default="false"/>
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    
+    <aura:registerEvent name="roomSelected" type="c:roomSelected"/>
+    
+    <lightning:recordViewForm recordId="{!v.room.Id}" objectApiName="Training_Room__c">
+        <div class="slds-grid" style="padding-top: 10px;">
+            <div class="slds-col slds-size_1-of-5">
+                <div class="slds-align_absolute-center">
+                    <lightning:button class="btnSelect" label="Select" onclick="{!c.selectedRoom}"/>
+                </div>
+            </div>
+            <div class="slds-col slds-size_1-of-5 slds-align_absolute-center">
+                <lightning:outputField fieldName="Name" variant="label-hidden"/>
+            </div>
+            <div class="slds-col slds-size_1-of-5 slds-align_absolute-center">
+                <lightning:outputField fieldName="TrainingLocationName__c" variant="label-hidden"/>
+            </div>
+            <div class="slds-col slds-size_1-of-5 slds-align_absolute-center">
+                <!-- Nested if-else statment to display the proper icon for the room's availability -->
+                <aura:if isTrue="{!v.isYes}">
+                    <lightning:icon iconName="utility:check" alternativeText="Available" size="small"/>
+                    <aura:set attribute="else">
+                        <aura:if isTrue="{!v.isRequest}">
+                            <lightning:icon iconName="utility:dash" alternativeText="Available" size="small"/>
+                            <aura:set attribute="else">
+                                <lightning:icon iconName="utility:clear" alternativeText="Not Available" size="small" variant="error"/>
+                            </aura:set>
+                        </aura:if>                    
+                    </aura:set>
+                </aura:if>  
+                
+            </div>
+            <div class="slds-col slds-size_1-of-5 slds-align_absolute-center">
+                <lightning:outputField fieldName="RoomCapacity__c" variant="label-hidden"/>
+            </div>
+        </div>
+    </lightning:recordViewForm>
+    
+</aura:component>
