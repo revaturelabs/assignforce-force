@@ -28,5 +28,17 @@
         <members>*</members>
         <name>StaticResource</name>
     </types>
+    <types>
+        <members>*</members>
+        <name>ApprovalProcess</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>Workflow</name>
+    </types>
+	<types>
+		<members>*</members>
+		<name>Layout</name>
+	</types>
     <version>45.0</version>
 </Package>

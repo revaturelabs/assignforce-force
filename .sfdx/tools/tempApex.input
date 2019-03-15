@@ -1,0 +1,32 @@
+//CreateAssignForceData.createTrainingLocations();
+//CreateAssignForceData.createTrainingRooms();
+//CreateAssignForceData.createTrainingTracks();
+
+List<Training_Location__c> locationsToCreate = new List<Training_Location__c>();
+List<String> officeNames = new List<String>{'Fairfax', 'SPS', 'Reston', 'UTA-ERB', 'USF-NEC', 'ASU', 'WVU-CBE', 'Queens', 'USF-SOC', 'Online', 'USF-BSN', 'UTA-PRS','UTA-KC'};
+List<String> shippingStreets = new List<String>{'10565 Fairfax Blvd', 'CUNY School of Processional Studies', 'Plaza America Office Park', 'UTA Engineering Research Building','USF Northwest Education Complex', 'SkySong Innovation Center', 'WVU College of Business and Economics', 'Tech Incubator at Queens College', 'USF Department of Sociology', 'Online', 'USF Muma College of Business', 'UTA Preston Hall', 'UTA Kalpana Chawla Hall'};
+List<String> shippingCities = new List<String>{'Fairfax', 'New York', 'Reston', 'Arlington', 'Tampa', 'Scottsdale', 'Morgantown', 'Queens', 'Tampa', 'Reston', 'Tampa', 'Arlington', 'Arlington'};    
+List<String> shippingStates = new List<String>{'Virginia', 'New York', 'Virginia', 'Texas', 'Florida', 'Arizona', 'West Virginia', 'New York', 'Florida', 'Virginia', 'Florida', 'Texas', 'Texas'};
+    for(Integer i = 0; i < officeNames.size(); i++){
+        Training_Location__c newTL = new Training_Location__c();
+        newTL.OfficeName__c = officeNames[i];
+        newTL.ShippingStreetAddress__c = shippingStreets[i];
+        newTL.ShippingCity__c = shippingCities[i];
+        newTL.ShippingState__c = shippingStates[i];
+        locationsToCreate.add(newTL);
+    }
+for(Training_Location__c loc : locationsToCreate) {
+    System.debug(loc);
+}
+System.debug('/////////////////////////////////////////////');
+for(Integer i = 0; i < officeNames.size(); i++) {
+    for(Integer j = 0; j < officeNames.size(); j++) {
+        if (i != j) {
+            if (locationsToCreate[i].OfficeName__c.equalsIgnoreCase(locationsToCreate[j].OfficeName__c)) {
+                System.debug(i + ' == ' + j);
+            }
+        }
+    }
+}
+System.debug('/////////////////////////////////////////////');
+Database.insert(locationsToCreate, true);
