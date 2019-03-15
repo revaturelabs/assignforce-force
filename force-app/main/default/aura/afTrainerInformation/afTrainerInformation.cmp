@@ -3,6 +3,22 @@
     <ltng:require styles="{!$Resource.RevatureStyles}"/>
     <lightning:notificationsLibrary aura:id="notificationsLibrary"/>
     
+    <aura:attribute name="frameWidth" type="String" default="250" /><!--250-->
+    <aura:attribute name="frameHeight" type="String" default="30" /><!--30-->
+
+    <aura:attribute name="recordId" type="Id" />
+
+    <!-- Needed to send messages to VF page. But we will get it from VF itself -->
+    <aura:attribute name="vfHost" type="String" default="" />
+    <!-- Domain of LC for VF to send message -->
+    <aura:attribute name="lcHost" type="String" />
+
+
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+
+    <aura:attribute name="frameSrc" type="String" />
+
     <aura:attribute name="userId" type="Id"/>
     <aura:attribute name="filename" type="String"/>
     <aura:attribute name="fileId" type="Id"/>
@@ -49,6 +65,12 @@
                                                           accept=".doc, .docx, .pdf"
                                                           recordId="{!v.userId}"
                                                           onuploadfinished="{!c.handleFiles}" />
+                                      <div class="slds">
+                                        <div aura:id="uiMessage">{!v.body}</div>
+                                
+                                       <!-- <lightning:button label="Upload File" value="Upload File" onclick="{!c.sendMessage}" disabled="true" aura:id="uploadFileButton"/>
+                                        <iframe aura:id="vfFrame" src="{! v.frameSrc}" width="{!v.frameWidth}" height="{!v.frameHeight}" class="vfFrame"/>-->
+                                    </div>
                                     <ui:outputText value="{!v.filename}"/>
                                 </div> 
                                 <div class="slds-col slds-size_1-of-3">
