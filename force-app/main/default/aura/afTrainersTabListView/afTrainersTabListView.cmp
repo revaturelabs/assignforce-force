@@ -12,23 +12,24 @@
    <!--Events-->
    <aura:registerEvent name="afTrainerSelected" type="c:TrainerSelected"/>
 
+   <!-- This will create the table called Trainers in the Trainers Tab-->
    <div id="trainersListView">
        <lightning:card title="Trainers" >
-       <div class="slds-grid">
-           <div class="slds-col slds-size_2-of-12 slds-align_absolute-center"/>
-           <div class="slds-col slds-size_2-of-12 slds-align_absolute-center" style="text-align:center"><h1 class="table-header">Name</h1></div>
-           <div class="slds-col slds-size_2-of-12 slds-align_absolute-center" style="text-align:center"><h1 class="table-header">Availability</h1></div>
-           <div class="slds-col slds-size_2-of-12 slds-align_absolute-center" style="text-align:center"><h1 class="table-header">Current Location</h1></div>
-           <div class="slds-col slds-size_4-of-12 slds-align_absolute-center" style="text-align:center"><h1 class="table-header">Skills</h1></div>
-       </div>
-       <aura:iteration  items="{!v.trainers}" var="trainerVar">
-           <div style="background-color:#FFFFFF">
-           <div style="border-bottom: solid #d6d6d6 1px; padding-bottom:3px; background-color:#FFFFFF; margin-right: 25px; margin-left: 25px">
-           <c:afTrainersTabListViewItem trainerId="{!trainerVar.Id}" availability="{!trainerVar.Available__c}" currLoc="{!trainerVar.CurrentLocation__c}" skills="{!trainerVar.Skills__c}"/>
-           </div>
-               </div>
-       </aura:iteration>
-       <div id="bottom"/>
+            <div class="slds-grid">
+                <div class="slds-col slds-size_2-of-12 slds-align_absolute-center"/>
+                <div class="slds-col slds-size_2-of-12 slds-align_absolute-center" style="text-align:center"><h1 class="table-header">Name</h1></div>
+                <div class="slds-col slds-size_2-of-12 slds-align_absolute-center" style="text-align:center"><h1 class="table-header">Availability</h1></div>
+                <div class="slds-col slds-size_2-of-12 slds-align_absolute-center" style="text-align:center"><h1 class="table-header">Current Location</h1></div>
+                <div class="slds-col slds-size_4-of-12 slds-align_absolute-center" style="text-align:center"><h1 class="table-header">Skills</h1></div>
+            </div>
+            <aura:iteration  items="{!v.trainers}" var="trainerVar">
+                <div style="background-color:#FFFFFF">
+                <div style="border-bottom: solid #d6d6d6 1px; padding-bottom:3px; background-color:#FFFFFF; margin-right: 25px; margin-left: 25px">
+                <c:afTrainersTabListViewItem trainerId="{!trainerVar.Id}" availability="{!trainerVar.Available__c}" currLoc="{!trainerVar.CurrentLocation__c}" skills="{!trainerVar.Skills__c}"/>
+                </div>
+                    </div>
+            </aura:iteration>
+            <div id="bottom"/>
        </lightning:card>
    </div>
 </aura:component>
