@@ -12,7 +12,7 @@
         <members>*</members>
         <name>ApexPage</name>
     </types>
-    <types>
+    <types
         <members>*</members>
         <name>ApexTestSuite</name>
     </types>
@@ -27,6 +27,10 @@
     <types>
         <members>*</members>
         <name>StaticResource</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>Role</name>
     </types>
     <version>45.0</version>
 </Package>
