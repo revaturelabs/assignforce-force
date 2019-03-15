@@ -30,7 +30,6 @@
     </types>
     <types>
         <members>*</members>
-<<<<<<< HEAD
         <name>ApprovalProcess</name>
     </types>
     <types>
@@ -48,9 +47,7 @@
     <types>
         <members>*</members>
         <name>Profile</name>
-=======
         <name>Role</name>
->>>>>>> f69abd9c1ee72e38dbde09f20339d565be4ec7be
     </types>
     <version>45.0</version>
 </Package>
