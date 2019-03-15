@@ -1,0 +1,43 @@
+<!--
+    Author: Oscar
+    Created Date: 03/13/19
+    Description: Merge afTrainersTabPTO and afTrainersTabBatches together for the trainer's tab.
+    Interactive tabs to make PTO tab 
+-->
+<aura:component implements="flexipage:availableForAllPageTypes" controller="afTrainingBatchesApexController" access="global">
+    
+    <aura:attribute name="tab" 				type="Integer" default="1" 		description=""/>
+    <!--SLDS card is a form of style, it has background shadow and rounded edges-->
+    <div class="slds-card">
+        <div class="slds-card__body slds-card__body_inner">
+            <div class="slds-tabs_default">
+                <div class="slds-tabs_default">
+                    <!--Navigation tabs, display names and the actions, (OnClick, tabIndex-->
+                    <ul class="slds-tabs_default__nav">
+                        <li class="{!v.tab ==1 ? 'slds-tabs_default__item slds-is-active' : 'slds-tabs_default__item'}">
+                            <span class="slds-text-heading_medium" tabindex="0" id="PTOTab" onclick='{!c.afTrainersTabPTOClicked}'>
+                                PTO List
+                            </span>
+                        </li>
+                        <li class="{!v.tab ==2 ? 'slds-tabs_default__item slds-is-active' : 'slds-tabs_default__item'}">
+                            <span class="slds-text-heading_medium" tabindex="-1" id="batchesTab" onclick='{!c.afTrainersTabBatchesClicked}'>
+                                Current Batches
+                            </span>
+                        </li>
+                    </ul>
+                    
+                    <div id="PTOList" class="{!v.tab==1 ? 'slds-tabs_default__content slds-show' : 'slds-tabs_default__content slds-hide'}">
+                            <div class="slds-grid">
+                            </div>
+                            <c:afTrainersTabPTO/>
+                    </div>
+                    <div id="BatchList" class="{!v.tab==2 ? 'slds-tabs_default__content slds-show' : 'slds-tabs_default__content slds-hide'}">
+                            <div class="slds-grid">
+                            </div>
+                            <c:afTrainersTabBatches/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</aura:component>
