@@ -1,8 +1,21 @@
+/*
+ * afNewTrainingTrackTriggerHelperTest
+ * Tests the NewTrainingTrack Trigger Helper class
+ * Ensures the trigger runs correctly for both a single record
+ * and a large number of records.
+ */
+
+
 @isTest
 public with sharing class afNewTrainingTrackTriggerHelperTest {
 
     @isTest
     public static void doTest() {
+
+        /****************
+            SINGLE CASE
+        ****************/
+
 
         //Call the UtilityClass to create and insert training track
         ApexTestUtilityClass.createNewTrainingTrack();
@@ -15,6 +28,36 @@ public with sharing class afNewTrainingTrackTriggerHelperTest {
 
         //Check that the Color field has been filled
         System.assertNotEquals(newTrack.Color__c,null);
+
+
+        /***************
+            BULK CASE
+        ***************/
+
+        //Create a list to store a lot of Training Track sObjects
+        List<Training_Track__c> tracks = new List<Training_Track__c>();
+
+        //Create 200 Training tracks and add them to the list
+        for (integer i = 0; i < 200; i++){
+            Training_Track__c t = new Training_Track__c(ShortName__c = 'Test' + i);
+            tracks.add(t);
+        }
+
+        //insert all the tracks, firing the trigger
+        insert tracks;
+
+        //Query to get the training tracks back
+        List<Training_Track__c> results = [SELECT id,color__c FROM Training_Track__c];
+
+        //Ensure the list is not null, and has 200 tracks in it
+        System.assertNotEquals(results,null);
+        System.assertEquals(results.size(),200);
+
+        //Assert the color field for every track in the list is not null
+        for(Training_Track__c t : results){
+            System.assertNotEquals(t.color__c,null);
+        }
+
 
     }
 }
