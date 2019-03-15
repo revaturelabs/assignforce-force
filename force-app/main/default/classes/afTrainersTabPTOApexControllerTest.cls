@@ -37,6 +37,8 @@ public with sharing class afTrainersTabPTOApexControllerTest {
     @isTest
     public static void doTest() {
 
+        Test.startTest();
+
         //Get the user created in Setup
         User u = [SELECT id FROM User WHERE UserRole.name = 'Trainer' LIMIT 1];
 
@@ -78,6 +80,8 @@ public with sharing class afTrainersTabPTOApexControllerTest {
             System.assertEquals(p.Status__c,    'Needs to be Submitted');
             System.assertEquals(p.Reason__c,    'Test');
         }
+
+        Test.stopTest();
 
     }
 
