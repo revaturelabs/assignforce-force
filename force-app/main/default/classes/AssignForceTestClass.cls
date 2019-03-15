@@ -6,12 +6,13 @@ public class AssignForceTestClass{
     public static void AssignForceDataSetup(){
         ApexTestUtilityClass.createTrainingsData(7);
         ApexTestUtilityClass.createTrainingRoomData(5);
-        ApexTestUtilityClass.createNewTrainingTrack();
+        // ApexTestUtilityClass.createNewTrainingTrack(); (Deprecated)
+        insert new Training_Track__c(ShortName__c = 'TestShortName');
         ApexTestUtilityClass.createSkills(5);
-       List<User> usersToCreate = new List<User>();
-       usersToCreate.add(ApexTestUtilityClass.getUserData());
-       usersToCreate.add(ApexTestUtilityClass.getUserData());
-       insert usersToCreate;
+        List<User> usersToCreate = new List<User>();
+        usersToCreate.add(ApexTestUtilityClass.getUserData());
+        usersToCreate.add(ApexTestUtilityClass.getUserData());
+        insert usersToCreate;
         //ApexTestUtilityClass.createManagers();
         //ApexTestUtilityClass.createPTOs(50);        
     }

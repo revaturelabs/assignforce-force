@@ -492,20 +492,7 @@ public class ApexTestUtilityClass {
         return [SELECT StartDate__c, EndDate__c, Trainer__c, CoTrainer__c FROM Training__c];
     }
     
-    
-    /*
-     *   CreateNewTrainingTrack Utility Method
-     *   -Creates a new training track
-     *   -Inserts to database
-     *   -Causes the CreateNewTrainingTrack Trigger to fire for testing
-     */
-    public static void createNewTrainingTrack(){
-        Training_Track__c newTrack = new Training_Track__c(ShortName__c = 'TrackShortName');
-        system.runAs(users){
-            insert newTrack;
-        }
-    }
-    // END CreateNewTrainingTrack() Utility Method
+
 
 
     public static Training_Track__c track() {
