@@ -64,4 +64,5 @@ public with sharing class afNewTrainingTrackTriggerHelperTest {
         Test.stopTest();
 
     }
+    
 }
