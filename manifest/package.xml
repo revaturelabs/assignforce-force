@@ -47,7 +47,14 @@
     <types>
         <members>*</members>
         <name>Profile</name>
-        <name>Role</name> <!-- this is how you show the roles-->
+    </types>
+    <types>
+        <members>*</members>
+        <name>Role</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>FlexiPage</name>
     </types>
     <version>45.0</version>
 </Package>
