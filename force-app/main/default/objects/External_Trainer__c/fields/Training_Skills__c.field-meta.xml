@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Training_Skills__c</fullName>
+    <externalId>false</externalId>
+    <label>Training Skills</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Appian BPM</fullName>
+                <default>false</default>
+                <label>Appian BPM</label>
+            </value>
+            <value>
+                <fullName>Big Data/Hadoop</fullName>
+                <default>false</default>
+                <label>Big Data/Hadoop</label>
+            </value>
+            <value>
+                <fullName>Business Analyst</fullName>
+                <default>false</default>
+                <label>Business Analyst</label>
+            </value>
+            <value>
+                <fullName>Dynamics CRM</fullName>
+                <default>false</default>
+                <label>Dynamics CRM</label>
+            </value>
+            <value>
+                <fullName>ETL/Informatics</fullName>
+                <default>false</default>
+                <label>ETL/Informatics</label>
+            </value>
+            <value>
+                <fullName>Full Stack .NET</fullName>
+                <default>false</default>
+                <label>Full Stack .NET</label>
+            </value>
+            <value>
+                <fullName>Full Stack Java/JEE</fullName>
+                <default>false</default>
+                <label>Full Stack Java/JEE</label>
+            </value>
+            <value>
+                <fullName>Full Stack JTA</fullName>
+                <default>false</default>
+                <label>Full Stack JTA</label>
+            </value>
+            <value>
+                <fullName>Microservices</fullName>
+                <default>false</default>
+                <label>Microservices</label>
+            </value>
+            <value>
+                <fullName>Oracle Fusion Middleware</fullName>
+                <default>false</default>
+                <label>Oracle Fusion Middleware</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+            <value>
+                <fullName>Pega</fullName>
+                <default>false</default>
+                <label>Pega</label>
+            </value>
+            <value>
+                <fullName>Salesforce</fullName>
+                <default>false</default>
+                <label>Salesforce</label>
+            </value>
+            <value>
+                <fullName>System Admin</fullName>
+                <default>false</default>
+                <label>System Admin</label>
+            </value>
+            <value>
+                <fullName>Web Tools</fullName>
+                <default>false</default>
+                <label>Web Tools</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <visibleLines>4</visibleLines>
+</CustomField>
