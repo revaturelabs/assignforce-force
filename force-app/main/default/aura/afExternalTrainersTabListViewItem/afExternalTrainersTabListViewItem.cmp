@@ -1,0 +1,54 @@
+<!--Items for the external trainers tab list view. Puts together all external trainers in this, but throws an
+error for Location, there's some issue with comparing this component and the trainers one, some Id field probably.-->
+<aura:component implements="flexipage:availableForAllPageTypes" controller="afExtTrainersTabListViewApexController">
+    
+    <!--Attributes for location, skills, availability, and external trainer id-->
+    <aura:attribute name="currLoc"         type="String"/>
+    <aura:attribute name="skills"        type="String" default = "Java"/>
+    <aura:attribute name="availability"    type="String"/>
+    <aura:attribute name="ExternalTrainerId"    type="Id"/>
+    
+    <!--handler that calls the javascript controller doInit-->
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    
+    <!--Event that should work with the batch tab in order to display batch info when clicked.
+    THIS NEEDS WORK-->
+    <aura:registerEvent name="ExternalTrainerSelected"    type="c:ExternalTrainerSelected"/>
+    
+    <div style="border: black, border-width: 5px">
+        <!--Record form for displaying row information-->
+        <lightning:recordViewForm recordId="{!v.ExternalTrainerId}" objectApiName="External_Trainer__c" >
+            <div class="slds-grid" style="padding-top: 10px;">
+                <div class="slds-col slds-size_2-of-12">
+                    <div class="slds-align_absolute-center">
+                        <!--Select button that should work with batches tab to update. NEEDS WORK-->
+                        <lightning:button class="btnSelect" label="Select" onclick="{!c.select}"/>
+                    </div>
+                </div>
+                <div class="slds-col slds-size_2-of-12 slds-align_absolute-center">
+                    <!--First name that is actually the id. NEEDS WORK-->
+                    <lightning:outputField fieldName="First_Name__c" variant="label-hidden"/>
+                    &nbsp;
+                    <lightning:outputField fieldName="Last_Name__c" variant="label-hidden"/>
+                </div>
+                <!--<div class="slds-col slds-size_1-of-12 slds-align_absolute-center">
+                    Last name that is actually part of the id. NEEDS WORK
+                    <lightning:outputField fieldName="Last_Name__c" variant="label-hidden"/>
+                    </div>-->
+                <div class="slds-col slds-size_2-of-12 slds-align_absolute-center">
+                    <!--Availability-->
+                    <lightning:outputField fieldName="Available__c" variant="label-hidden"/>
+                </div>
+                <div class="slds-col slds-size_2-of-12 slds-align_absolute-center">
+                    <!--Location-->
+                    <lightning:outputField fieldName="Current_Location__c" variant="label-hidden"/>
+                </div>
+                <div class="slds-col slds-size_4-of-12 slds-align_absolute-center">
+                    <!--Skills-->
+                    <lightning:formattedText value="{!v.skills}" variant="label-hidden"/>
+                </div>
+            </div>
+            
+        </lightning:recordViewForm>
+    </div>
+</aura:component>

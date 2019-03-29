@@ -1,0 +1,36 @@
+<!-- list view to display all external trainers in a viewable format
+     the records within this list view are provided by afExternalTrainersTabListViewItem -->
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes" access="global" controller="afExtTrainersTabListViewApexController">
+    <ltng:require styles="{!$Resource.RevatureStyles}"/>
+    <!--Attributes to set availability, location, and the list of external trainers-->
+   <aura:attribute name="availability"    type="String"/>
+   <aura:attribute name="currLoc"         type="String"/>
+   <aura:attribute name="extTrainers"     type="External_Trainer__c[]"/>
+
+   <!--Handler to get list of external trainers-->
+   <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+
+    <!--Register this Event to display batches when an external trainer is selected-->
+    <aura:registerEvent name="ExternalTrainerSelected" type="c:ExternalTrainerSelected"/>
+
+    <div id="trainersListView">
+        <lightning:card title="External Trainers" >
+        <div class="slds-grid">
+            <div class="slds-col slds-size_2-of-12 slds-align_absolute-center"/>
+            <div class="slds-col slds-size_2-of-12 slds-align_absolute-center" style="text-align:center"><h1 class="table-header">Name</h1></div>
+            <div class="slds-col slds-size_2-of-12 slds-align_absolute-center" style="text-align:center"><h1 class="table-header">Availability</h1></div>
+            <div class="slds-col slds-size_2-of-12 slds-align_absolute-center" style="text-align:center"><h1 class="table-header">Location</h1></div>
+            <div class="slds-col slds-size_4-of-12 slds-align_absolute-center" style="text-align:center"><h1 class="table-header">Skills</h1></div>
+        </div>
+        <aura:iteration  items="{!v.extTrainers}" var="ExtrainerVar">
+            <div style="background-color:#FFFFFF">
+            <div style="border-bottom: solid #d6d6d6 1px; padding-bottom:3px; background-color:#FFFFFF; margin-right: 25px; margin-left: 25px">
+            <!--calls the list view item with given parameters to iteratively populate a list of external trainers-->
+            <c:afExternalTrainersTabListViewItem ExternalTrainerId="{!ExtrainerVar.Id}" availability="{!ExtrainerVar.Available__c}" currLoc ="{!ExtrainerVar.Current_Location__c}" skills="{!ExtrainerVar.Training_Skills__c}"/>
+            </div>
+                </div>
+        </aura:iteration>
+        <div id="bottom"/>
+        </lightning:card>
+    </div>
+</aura:component>

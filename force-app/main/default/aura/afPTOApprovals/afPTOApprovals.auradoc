@@ -1,0 +1,6 @@
+<aura:documentation>
+	<aura:description>Documentation</aura:description>
+	<aura:example name="ExampleName" ref="exampleComponentName" label="Label">
+		A component in the PTO Tab, for the managers to either approve or deny PTO requests.
+	</aura:example>
+</aura:documentation>

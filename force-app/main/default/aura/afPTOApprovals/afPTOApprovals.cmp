@@ -1,0 +1,16 @@
+<!-- 
+Nathaniel Jaime
+3/18/19
+A component for the managers to either approve or deny PTO requests-->
+<aura:component implements="flexipage:availableForAllPageTypes" access="global" >
+    <ltng:require styles="{!$Resource.RevatureStyles}"/>
+    <div class="slds-card__body slds-card__body_inner">
+        <div class="slds-grid slds-gutters">
+            <div class="slds-col slds-size_8-of-12">
+                <span>
+                    <c:afTrainerProfileBatchesComponent/>
+                </span>
+            </div>
+        </div>
+    </div>     	
+</aura:component>

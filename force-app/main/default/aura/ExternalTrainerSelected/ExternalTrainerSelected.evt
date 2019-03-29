@@ -1,0 +1,3 @@
+<aura:event type="APPLICATION" description="Event that is fired when an external trainer is selected from the afExternalTrainerTabListView" >
+    <aura:attribute name="ExternalTrainerId" type="ID"/> 
+</aura:event>
