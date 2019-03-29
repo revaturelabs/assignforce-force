@@ -1,0 +1,17 @@
+<<<<<<< HEAD
+.sfdx
+.vscode
+.DS_Store
+=======
+*.json
+.vscode/
+.settings/
+test.txt
+.vim-force.com
+.sfdx/
+<<<<<<< HEAD
+.settings/
+>>>>>>> 8b3d674969edeaafc5f6bac52231f4038d140afe
+=======
+.settings
+>>>>>>> 7c029df1553b9f2f2f9bc8a63a7ad761b8c055b5

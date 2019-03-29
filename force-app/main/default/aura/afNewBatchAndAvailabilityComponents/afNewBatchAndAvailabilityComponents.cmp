@@ -1,0 +1,51 @@
+<aura:component implements="flexipage:availableForAllPageTypes" access="global"  controller="afNewBatchAndAvailabilityApexController">
+    
+    <!-- 
+		Attributes to populate with SOQL Queries from the APEX Controller 
+		*These attributes values will be passed to child component attributes
+	-->
+    <aura:attribute name="allLocations"     
+                    type="List" 
+                    access="public" 
+                    description="List of all Training Locations passed from afNewBatchAndAvailabilityApexController"/>
+    <aura:attribute name="allRooms"     
+                    type="List" 
+                    access="public" 
+                    description="List of all Training Rooms passed from afNewBatchAndAvailabilityApexController"/>
+    <aura:attribute name="allSkills"     
+                    type="List" 
+                    access="public" 
+                    description="List of all Training Track skills passed from afNewBatchAndAvailabilityApexController"/>
+    <aura:attribute name="allTrainers"     
+                    type="List" 
+                    description="List of all Trainers passed from afNewBatchAndAvailabilityApexController"/>
+    <aura:attribute name="openTrainings"     
+                    type="List" 
+                    access="public" 
+                    description="List of all current Trainings (Batches) passed from afNewBatchAndAvailabilityApexController"/>
+    <aura:handler name="init" 
+                  value="{!this}" 
+                  action="{!c.doInit}"/>
+    
+    <ltng:require styles="{!$Resource.RevatureStyles}"/>
+    <div class="slds-card__body ">
+        <div class="slds-grid slds-gutters">
+            <div class="slds-col slds-size_7-of-12">
+                <span>
+                    <!-- Initiate child component with query of allLocations and allRooms -->
+                  	<c:afNewBatchForm allLocations="{!v.allLocations}" 
+                                      openTrainings="{!v.openTrainings}"
+                                      allRooms="{!v.allRooms}"/>
+                </span>
+            </div>
+            <div class="slds-col slds-size_5-of-12">
+                <span>
+                    <!-- Initiate child component with query of skills, trainings, rooms, and trainers -->
+                    <c:afAvailabilityListContainer  allSkills="{!v.allSkills}"
+                                                    allRooms="{!v.allRooms}"
+                                                    allTrainers="{!v.allTrainers}"/>
+                </span>
+            </div>
+        </div>
+    </div>
+</aura:component>

@@ -1,0 +1,21 @@
+<aura:documentation>
+        <aura:description>
+       The <code>afPTOListItem</code> component
+       is used to represent a single PTO record within
+       the <code>afPTOTabs</code> component.
+        </aura:description>
+        <aura:example   name="afPTOListItem"
+                                        ref="afPTOListItem"
+                                        label="NOTE:"
+        >
+                <p>
+           In the <code>.auradoc</code> file: <br />
+           The <code>c:</code> namespace is omitted
+           from the <code>ref</code> attribute. <br />
+           This is due to an issue in which the styling does not appear correctly
+           on this page. <br />
+           Add <code>c:</code> before the name of the component
+           to view the example in the auradocs.
+       </p>
+        </aura:example>
+</aura:documentation>

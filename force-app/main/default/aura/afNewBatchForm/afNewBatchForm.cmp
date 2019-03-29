@@ -1,0 +1,215 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes" access="global" controller="afNewBatchFormApexController">
+   <ltng:require styles="{!$Resource.RevatureStyles}"/>
+   <lightning:notificationsLibrary aura:id="notificationsLibrary"/>
+
+   <!-- 
+      User Selection:Attributes 
+      * In the order that they appear on the user interface
+   -->
+   <aura:attribute name="track"                
+                   type="Id" 
+                   description="ID for the Lookup field to Training Track"/>
+   <aura:attribute name="startDate"            
+                   type="Date" 
+                   description="Start date of the batch"/>
+   <aura:attribute name="numWeeks"             
+                   type="Integer"                 
+                   default="10" 
+                   description="Duration of the batch (in weeks)"/>
+   <aura:attribute name="endDate"              
+                   type="Date" 
+                   description="End date of the batch"/>
+   <aura:attribute name="trainer"              
+                   type="User" 
+                   description="Selected Trainer for the batch"/>
+   <aura:attribute name="cotrainer"            
+                   type="User" 
+                   description="(Optional) co-trainer for the batch"/>
+   <aura:attribute name="ExternalTrainer"      
+                   type="External_Trainer__c" 
+                   description="External Trainer (if applicable) for the batch"/>
+   <aura:attribute name="location"             
+                   type="Id" 
+                   description="ID for the Lookup field to Training Location"/>  
+   <aura:attribute name="room"                 
+                   type="Training_Room__c" 
+                   description="Training Room the batch will take place in"/>
+   <aura:attribute name="status"			   
+                   type="String"				
+                   default="Planned"/>
+
+   <!-- Attributes passed in information from master controller -->
+   <aura:attribute name="allLocations"         
+                   type="Training_Location__c[]"  
+                   description="List of Training Locations passed from Master Controller"/>
+   <aura:attribute name="allRooms"			     
+                   type="Training_Room__c[]" 
+                   description="List of Training Rooms passed from Master Controller"/>
+   <aura:attribute name="openTrainings"        
+                   type="List" 
+                   description="List of Trainings passed from Master Controller"/>
+
+   <!-- 
+      Component Refresh
+      * Used for when information is passed back to this controller
+      to update the input field with the information passed in
+   -->
+   <aura:attribute name="trainerUncleared" 	   
+                   type="Boolean"                 
+                   default="true" 
+                   description="Used for refreshing the Trainer field when it is updated via JavaScript"/>
+   <aura:attribute name="locUncleared"    	   
+                   type="Boolean"                 
+                   default="true" 
+                   description="Used for refreshing the Location field when it is updated via JavaScript"/>
+    <aura:attribute name="uncleared"            
+                    type="Boolean"				  
+                    default="true"/>
+
+   <!-- Serverside filtered attributes -->
+   <aura:attribute name="roomsForLocation"     
+                   type="Training_Room__c[]"      
+                   default="" 
+                   description="List of Training Rooms that have been filtered based on location and passed back from Master Controller"/>
+   
+   <!-- NewBatch Creation Attribute -->
+   <aura:attribute name="newBatch"             
+                   type="Map"                     
+                   default="{  
+                            TrainingTrack__c : '',
+                            StartDate__c : '',
+                            EndDate__c : '',
+                            Trainer__c : '',
+                            CoTrainer__c : '',
+                            External_Trainer__c : '',
+                            TrainingLocation__c : '',
+                            TrainingRoom__c : '',
+                            Status__c : ''  }"
+                   description="Provides a blank default value to
+                    the form once a batch has been created at the component refreshes"/>
+
+   <aura:attribute name="hiddenLoc"        
+                   type="Id" 
+                   description="Used for swithching back and forth between 'Available Trainers' and 'Available Rooms' tabs"/>
+   <aura:attribute   name="hiddenRoom"      
+                    type="Id"
+                    description="Used for swithching back and forth between
+                    'Available Trainers' and 'Available Rooms' tabs"
+  />
+
+  <!-- Events -->
+  <aura:registerEvent  name="updateFiltersEvent"       
+                       type="c:afNewBatchFormEvent"
+                       description="Update filters for Trainers and Rooms
+                       based on the user's selection"
+  />
+  <aura:registerEvent  name="afNewBatchCreated"         
+                       type="c:afNewBatchCreatedEvent"
+                       description="Event fires when a new batch is created"
+  />
+ 
+  <!-- Handlers -->
+  <aura:handler        event="c:TrainerSelected"             
+                       action="{!c.setTrainerField}"
+                       description="Populate the Trainer field when a trainer
+                       is selected from the availability list"
+  />
+  <aura:handler        event="c:roomSelected"                
+                       action="{!c.setRoomField}"
+                       description="Populate the Room field when a room
+                       is selected from the availability list"
+  />
+   <aura:handler 		name="change"     value="{!v.track}"        	            action="{!c.updateAvailabilityOnChange}"/>
+   <aura:handler 		name="change"     value="{!v.startDate}"        	      action="{!c.updateAvailabilityOnChange}"/>
+   <aura:handler 		name="change"     value="{!v.numWeeks}"        	         action="{!c.updateAvailabilityOnChange}"/>
+   <aura:handler 		name="change"     value="{!v.trainer}"        	         action="{!c.updateAvailabilityOnChange}"/>
+   <aura:handler 		name="change"     value="{!v.location}"        	         action="{!c.updateAvailabilityOnChange}"/>
+   
+
+   <!-- Component Content: Black Create a New Batch Bar with buttons -->
+   <div class="slds-card">
+      <lightning:recordEditForm aura:id="newBatchForm" objectApiName="Training__c" onsuccess="{!c.onSuccess}">
+         <lightning:messages/>
+         <div class="slds-card__header">
+            <header class="slds-media slds-media_center slds-has-flexi-truncate">
+               <div class="slds-media__body">
+                  <h2 class="slds-card__header-title">
+                     <span class="slds-text-heading_medium">Create a New Batch</span>
+                  </h2>
+               </div>
+               <div class="slds-no-flex">
+                  <lightning:buttonIcon class="headerBtn" onclick="{!c.onSubmit}" iconName="utility:check" variant="bare" size="large" alternativeText="Submit"/>
+               </div>
+               <div class="slds-no-flex">
+                  <lightning:buttonIcon class="headerBtn" onclick="{!c.clearBatchFields}" iconName="utility:close" variant="bare" size="large" alternativeText="Clear"/>
+               </div>
+            </header>
+         </div>
+   <!-- Component Content: User Input Section -->
+      <!-- Training Track Row -->
+         <div class="slds-card__body slds-card__body_inner">
+             <aura:if isTrue="{!v.uncleared}">
+            <div class="slds-grid slds-grid_align-spread">
+               <div class="slds-col slds-size_1-of-2">
+                  <lightning:inputField fieldName="TrainingTrack__c" aura:id="trainingTrack" value="{!v.track}"/>
+               </div>
+            </div>
+      <!-- Date Selection Row -->
+            <div class="slds-grid slds-grid_align-spread">
+               <div class="slds-col slds-size_1-of-4">
+                   <lightning:inputField fieldName="StartDate__c" aura:id="startDate" value="{!v.startDate}" />
+               </div>
+               <div class="slds-col slds-size_1-of-6">
+                   <lightning:input type="number" label="Number of Weeks" aura:id="numWeeks" step="1" value="{!v.numWeeks}" min="2"/>
+               </div>
+               <div class="slds-col slds-size_1-of-4">
+                   <lightning:inputField fieldName="EndDate__c" aura:id="endDate" value="{!v.endDate}" disabled="true"/> 
+               </div>
+            </div>
+      <!-- Trainer Selection Row -->
+            <div class="slds-grid slds-grid_align-spread">
+               <div class="slds-col slds-size_1-of-4">
+                  <!-- Aura if to rerender field on AvailabilityList component selection -->
+                  <aura:if isTrue="{!v.trainerUncleared}">
+                     <lightning:inputField fieldName="Trainer__c" aura:id="trainer" value="{!v.trainer}" onchange="{!c.trainerChanged}" />
+                  </aura:if>
+               </div>
+               <div class="slds-col slds-size_1-of-4 slds-col_bump-left">
+                  <lightning:inputField fieldName="CoTrainer__c" aura:id="cotrainer" value="{!v.cotrainer}" onchange="{!c.trainerChanged}" />
+               </div>
+               <div class="slds-col slds-size_1-of-4 slds-col_bump-left">
+                  <lightning:inputField fieldName="External_Trainer__c" value="{!v.ExternalTrainer}"/>
+               </div>
+            </div> 
+         
+      <!-- Location and Room Selection Row -->
+         <div class="slds-text-heading_medium boxLabel">Location:
+            <!-- Aura if to rerender field on AvailabilityList component selection -->
+            <aura:if isTrue="{!v.locUncleared}">
+               <div class="slds-box">
+                  <div class="slds-grid slds-grid_align-spread">
+                     <div class="slds-col slds-size_1-of-3">
+                        <lightning:select name="trainingLoc" label="Training Location" aura:id="trainingLoc" value="{!v.location}" onchange="{!c.locationChanged}">
+                           <aura:iteration items="{!v.allLocations}" var="loc">
+                              <option value="{!loc.id}" selected="{!v.loc}">{!loc.OfficeName__c}</option>
+                           </aura:iteration>
+                        </lightning:select>
+                        <lightning:inputField fieldName="TrainingLocation__c" value="{!v.hiddenLoc}" hidden="true"/>
+                     </div>
+                     <div class="slds-col slds-size_1-of-3">
+                        <lightning:select name="trainingRoom" label="Training Room" aura:id="trainingRoom" value="{!v.room}">
+                           <aura:iteration items="{!v.roomsForLocation}" var="room">
+                              <option value="{!room.Id}" selected="{!v.room}">{!room.Name}</option>
+                           </aura:iteration>
+                        </lightning:select>
+                        <lightning:inputField fieldName="TrainingRoom__c" value="{!v.hiddenRoom}" hidden="true"/>
+                     </div>
+                  </div>
+               </div>
+            </aura:if>
+                 </div>
+             </aura:if>
+         </div>
+      </lightning:recordEditForm>
+   </div>
+</aura:component>

@@ -1,0 +1,12 @@
+<aura:documentation>
+	<aura:description>
+    <p>  <code>c:afTrainingBatchesComponent</code>this component updates a list view based on training records. 
+        These training records shows information on the batches including fields for Id, training class,
+         start date, end date, status, training office, training track, trainer and co-Trainer. A user can then
+        edit fields with inline editing or delete records by selecting the record and pressing delete.</p>
+    
+    </aura:description>
+	<aura:example name="ExampleName" ref="exampleComponentName" label="Label">
+		Example Description
+	</aura:example>
+</aura:documentation>

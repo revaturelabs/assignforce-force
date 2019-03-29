@@ -1,0 +1,91 @@
+<!--External Trainer tab batches used in the external trainer page. Should connect with the list view so when an external trainer is selected, their related batches display-->
+<aura:component implements="flexipage:availableForAllPageTypes" controller="afExternalTrainerBatchesApexController" access="global" description="Displays upcoming and in-progress batches for the selected External Trainer">
+    
+    <!--Loads static resource for lightning component, which doesnt work so I commented it out-->
+    <!--<ltng:require styles="{!$Resource.FuturaStdHeavy + '/assets/styles/lightning-design-system-ltng.css'}"/> -->
+    
+    <!--ATTRIBUTES similar to Trainer, but modified for External Trainer. Should be updated for encapsulation, but eh-->
+    <aura:attribute name="empExtBatchesRecordset"         
+                    type="List"                     
+                    description="List of records for the lightning:dataTable columns" />
+    <aura:attribute name="keyField"                 
+                    type="String"     
+                    default="id"     
+                    description="Primary key for list of records" />
+    <aura:attribute name="empExtCurrentBatchDataset"     
+                    type="Object[]"                 
+                    description="Data for lightning dataTable that involves current batches"/>
+    <aura:attribute name="empExtFutureBatchDataset"     
+                    type="Object[]"                 
+                    description ="Data for lightning dataTable that involves future batches "/>
+    <aura:attribute name="ExternalTrainerId"                     
+                    type="String"                         
+                    description="Used to store a value for the current users name"/>
+    <!--Odd functionality cloned that determines when some windows displays over another window.
+        These values are changed in afExternalTrainerTabBatchesController.-->
+    <aura:attribute name="hasExtBatches"                 
+                    type="Boolean"     
+                    default="false" 
+                    description="A boolean used to represent whether an external trainer has any batches scheduled" />
+    <aura:attribute name="hasExtSelected"              
+                    type="Boolean"        
+                    default="false" 
+                    description="Checks to see if an external trainer was selected."/>
+    
+    <!--HANDLERS that should connect with The list view item's select button & method on its js controller, which then calls the handler class.-->
+    <aura:handler event="c:ExternalTrainerSelected"        
+                  action="{!c.ExternalTrainersBatches}" 
+                  description="Handles the selection of a trainer from the list view"/>
+    
+    <!--COMPONENTS-->
+    <!-- aura:if is used to display the current and upcoming batches windows-->
+    <aura:if isTrue="{!v.hasExtBatches}" >
+        <div class="slds-grid slds-wrapper">
+    <!--Regarding the cards- values populated based on the helper, which checks its Status__c -->
+            <lightning:card title="Current Batches">
+                <lightning:dataTable
+                                     
+                                     data="{!v.empExtCurrentBatchDataset}"
+                                     columns="{!v.empExtBatchesRecordset}"
+                                     keyField="id"
+                                     aura:id="empDataTable"
+                                     hideCheckboxColumn="true"
+                                     description="data table to reflect batches associated with a specific trainer"
+                                     />
+            </lightning:card>
+        </div>
+        
+        <div class="slds-grid slds-wrapper">
+            <lightning:card title="Upcoming Batches">
+                <lightning:dataTable
+                                     
+                                     data="{!v.empExtFutureBatchDataset}"
+                                     columns="{!v.empExtBatchesRecordset}"
+                                     keyField="id"
+                                     aura:id="empDataTables"
+                                     hideCheckboxColumn="true"
+                                     description="data table to reflect batches associated with a specific trainer"
+                                     />
+            </lightning:card>
+        </div>
+        <!--Else keyword is started by default and displays a window with a prompt to either:
+            isTrue-Tell the user that the trainer has not batches or
+            else-Notify the user to select a trainer-->
+        <aura:set attribute="else">
+            <aura:if isTrue="{!v.hasExtSelected}">
+                <div class="emptyBatchBackground" id="top"/>
+                <div class="emptyBatchBackground">
+                    <h1 class="emptyBatchClass" >This External Trainer does not have any scheduled Batches.</h1>
+                </div>
+                <div class="emptyBatchBackground" id="bottom"/>
+            <aura:set attribute="else">
+                <div class="emptyBatchBackground" id="top"/>
+                <div class="emptyBatchBackground">
+                    <h1 class="emptyBatchClass" >Select an External Trainer to view Batches</h1>
+                </div>
+                <div class="emptyBatchBackground" id="bottom"/>
+            </aura:set>
+            </aura:if>
+        </aura:set>           
+    </aura:if>
+</aura:component>

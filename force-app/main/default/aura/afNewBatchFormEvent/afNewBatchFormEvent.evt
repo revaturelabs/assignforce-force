@@ -1,0 +1,6 @@
+<aura:event type="APPLICATION" description="Application event to send user input to afAvailabilityListContainer for filtering.">
+    <aura:attribute name="chosenTrack"          type="Id" />
+    <aura:attribute name="startOfBatch"         type="Date" />
+    <aura:attribute name="endOfBatch"           type="Date" />
+    <aura:attribute name="selectedLocation"     type="Id"/>
+</aura:event>
