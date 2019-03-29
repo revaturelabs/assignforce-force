@@ -1,3 +1,0 @@
-<aura:event type="APPLICATION" description="Event that is fired when a trainer is selected from the afTrainerAvailabilityListItem" >
-    <aura:attribute name="trainerId" type="ID"/> 
-</aura:event>
