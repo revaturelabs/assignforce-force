@@ -4,12 +4,28 @@
 		Attributes to populate with SOQL Queries from the APEX Controller 
 		*These attributes values will be passed to child component attributes
 	-->
-    <aura:attribute name="allLocations"     type="List" access="public"/>
-    <aura:attribute name="allRooms"     type="List" access="public"/>
-    <aura:attribute name="allSkills"     type="List" access="public"/>
-    <aura:attribute name="allTrainers"     type="List" />
-    <aura:attribute name="openTrainings"     type="List" access="public"/>
-    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:attribute name="allLocations"     
+                    type="List" 
+                    access="public" 
+                    description="List of all Training Locations passed from afNewBatchAndAvailabilityApexController"/>
+    <aura:attribute name="allRooms"     
+                    type="List" 
+                    access="public" 
+                    description="List of all Training Rooms passed from afNewBatchAndAvailabilityApexController"/>
+    <aura:attribute name="allSkills"     
+                    type="List" 
+                    access="public" 
+                    description="List of all Training Track skills passed from afNewBatchAndAvailabilityApexController"/>
+    <aura:attribute name="allTrainers"     
+                    type="List" 
+                    description="List of all Trainers passed from afNewBatchAndAvailabilityApexController"/>
+    <aura:attribute name="openTrainings"     
+                    type="List" 
+                    access="public" 
+                    description="List of all current Trainings (Batches) passed from afNewBatchAndAvailabilityApexController"/>
+    <aura:handler name="init" 
+                  value="{!this}" 
+                  action="{!c.doInit}"/>
     
     <ltng:require styles="{!$Resource.RevatureStyles}"/>
     <div class="slds-card__body ">

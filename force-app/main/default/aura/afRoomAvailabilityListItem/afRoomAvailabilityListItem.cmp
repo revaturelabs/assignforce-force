@@ -1,11 +1,23 @@
 <aura:component implements="force:appHostable,flexipage:availableForAllPageTypes" access="global" >
-    <aura:attribute name="room" 		type="Training_Room__c" />
-    <aura:attribute name="isYes" 		type="Boolean" default="false"/>
-    <aura:attribute name="isRequest" 	type="Boolean" default="false"/>
+    <aura:attribute name="room" 		
+                    type="Training_Room__c" 
+                    description="For showing the room name in the Availability List"/>
+    <aura:attribute name="isYes" 		
+                    type="Boolean" 
+                    default="false" 
+                    description="Check Git issues under 'Availability for Rooms': This logic needs to be fixed"/>
+    <aura:attribute name="isRequest" 	
+                    type="Boolean" 
+                    default="false" 
+                    description="Check Git issues under 'Availability for Rooms': This logic needs to be fixed"/>
     
-    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    <aura:handler name="init" 
+                  value="{!this}" 
+                  action="{!c.doInit}" />
     
-    <aura:registerEvent name="roomSelected" type="c:roomSelected"/>
+    <aura:registerEvent name="roomSelected" 
+                        type="c:roomSelected" 
+                        description="Event fires when a room is selected"/>
     
     <lightning:recordViewForm recordId="{!v.room.Id}" objectApiName="Training_Room__c">
         <div class="slds-grid" style="padding-top: 10px;">

@@ -1,25 +1,43 @@
-<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes" access="global" controller="afAvailListContainerApexController">
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes" access="global" controller="afAvailListContainerApexController" description="This component houses the 'Available Trainers' and 'Available Rooms' tabs">
     <ltng:require styles="{!$Resource.RevatureStyles}"/>
     
     <!--Passed by Master Controller Attributes-->
-    <aura:attribute name="allSkills" 				type="Skill__c[]"/>
-    <aura:attribute name="allRooms" 				type="List"/>
-    <aura:attribute name="allTrainers"              type="User[]"/>
+    <aura:attribute name="allSkills" 				
+                    type="Skill__c[]" 
+                    description="Training tracks passed in by afNewBatchAndAvailabilityApexController"/>
+    <aura:attribute name="allRooms" 				
+                    type="List" 
+                    description="Training Rooms passed in by afNewBatchAndAvailabilityApexController"/>
+    <aura:attribute name="allTrainers"              
+                    type="User[]" 
+                    description="Trainers passed in by afNewBatchAndAvailabilityApexController. Does not include External Trainers"/>
     
     <!-- User Selection: Attributes
         All areas of the component that is updated- shows to the right of newBatchForm
     -->
-    <aura:attribute name="trainers" 				type="User[]"/>
-    <aura:attribute name="rooms" 					type="List"/>
-    <aura:attribute name="tab1Shown" 				type="Boolean" 			default='true'/>
-    <aura:attribute name="location" 				type="Id"/>
+    <aura:attribute name="trainers" 				
+                    type="User[]"/>
+    <aura:attribute name="rooms" 					
+                    type="List"/>
+    <aura:attribute name="tab1Shown" 				
+                    type="Boolean" 			
+                    default='true' 
+                    description="Controls switching between 'Available Trainers' and 'Available Rooms' tabs"/>
+    <aura:attribute name="location" 				
+                    type="Id"/>
     
     <!--Handler to pass in user input from afNewBatchForm --> 
-    <aura:handler     event="c:afNewBatchFormEvent" 	action="{!c.userInputRecieved}"/>
+    <aura:handler     event="c:afNewBatchFormEvent" 	
+                  	action="{!c.userInputRecieved}" 
+                  	description="Receives input from the afNewBatchForm component"/>
     
     <!-- Initialize Sort -->
-    <aura:handler name="init" 		value="{!this}" 	    action="{!c.doInit}"/>
-    <aura:handler name="change"     value="{!v.allRooms}"   action="{!c.initRooms}"/>
+    <aura:handler name="init" 		
+                  value="{!this}" 	    
+                  action="{!c.doInit}"/>
+    <aura:handler name="change"     
+                  value="{!v.allRooms}"   
+                  action="{!c.initRooms}"/>
     <!--<aura:handler name="change" value="{!v.allTrainers}" action="{!c.initTrainers}"/>-->
 
     <!--Visual Components-->

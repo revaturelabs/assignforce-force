@@ -1,0 +1,22 @@
+<aura:documentation>
+        <aura:description>
+       The <code>afNewBatchForm</code> component
+       provides a form for an AssignForce user to create a new batch.
+       This component sends and receives data to and from the
+       <code>afAvailabilityListContainer</code> component.
+        </aura:description>
+        <aura:example   name="afNewBatchAndAvailabilityComponents"
+                                        ref="afNewBatchAndAvailabilityComponents"
+                                        label="NOTE:"
+        >
+                <p>
+           In the <code>.auradoc</code> file: <br />
+           The <code>c:</code> namespace is omitted
+           from the <code>ref</code> attribute. <br />
+           This is due to an issue in which the styling does not appear correctly
+           on this page. <br />
+           Add <code>c:</code> before the name of the component
+           to view the example in the auradocs.
+       </p>
+        </aura:example>
+</aura:documentation>

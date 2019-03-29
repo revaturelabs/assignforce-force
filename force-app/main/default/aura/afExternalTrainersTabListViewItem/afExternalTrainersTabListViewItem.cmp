@@ -3,17 +3,25 @@ error for Location, there's some issue with comparing this component and the tra
 <aura:component implements="flexipage:availableForAllPageTypes" controller="afExtTrainersTabListViewApexController">
     
     <!--Attributes for location, skills, availability, and external trainer id-->
-    <aura:attribute name="currLoc"         type="String"/>
-    <aura:attribute name="skills"        type="String" default = "Java"/>
-    <aura:attribute name="availability"    type="String"/>
-    <aura:attribute name="ExternalTrainerId"    type="Id"/>
+    <aura:attribute name="currLoc"         
+                    type="String"/>
+    <aura:attribute name="skills"        
+                    type="String" 
+                    default = "Java"/>
+    <aura:attribute name="availability"    
+                    type="String"/>
+    <aura:attribute name="ExternalTrainerId"    
+                    type="Id"/>
     
     <!--handler that calls the javascript controller doInit-->
-    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    <aura:handler name="init" 
+                  value="{!this}" 
+                  action="{!c.doInit}" />
     
     <!--Event that should work with the batch tab in order to display batch info when clicked.
     THIS NEEDS WORK-->
-    <aura:registerEvent name="ExternalTrainerSelected"    type="c:ExternalTrainerSelected"/>
+    <aura:registerEvent name="ExternalTrainerSelected"    
+                        type="c:ExternalTrainerSelected"/>
     
     <div style="border: black, border-width: 5px">
         <!--Record form for displaying row information-->

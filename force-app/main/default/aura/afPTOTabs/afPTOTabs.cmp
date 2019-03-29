@@ -1,19 +1,46 @@
 <aura:component controller="afPTOTabsApexController" implements="force:appHostable,flexipage:availableForAllPageTypes" access="global" >
     
     <!--Attributes-->
-    <aura:attribute name="tab" 				type="Integer" default="1" 		description=""/>
-    <aura:attribute name="oldApprovedPTOs" 	type="Object[]" 				description=""/>
-    <aura:attribute name="newApprovedPTOs" 	type="Object[]" 				description=""/>
-    <aura:attribute name="prevIsClicked" 	type="Boolean" default="true" 	description=""/>
-    <aura:attribute name="approvedPTOs"		type="Object[]" 				description=""/>
-    <aura:attribute name="pendingPTOs"		type="Object[]" 				description=""/>
-    <aura:attribute name="hasApproved"      type="Boolean" default="false"  description="boolean used to know if there are any approved PTO requests"/>
-    <aura:attribute name="hasPending"       type="Boolean" default="false"  description="boolean used to know if there are any pending PTO requests"/>
-    <aura:attribute name="Batches"			type="Object[]"/>
+    <aura:attribute name="tab" 				
+                    type="Integer" 
+                    default="1" 		
+                    description="Keeps track of which tab is currently selected"/>
+    <aura:attribute name="oldApprovedPTOs" 	
+                    type="Object[]" 				
+                    description="A List of approved PTOs that have already ocurred for the selected Trainer"/>
+    <aura:attribute name="newApprovedPTOs" 	
+                    type="Object[]" 				
+                    description="A List of approved PTOs that have not yet occurred for the selected Trainer"/>
+    <aura:attribute name="prevIsClicked" 	
+                    type="Boolean" 
+                    default="true" 	
+                    description="Set to true if the 'Previous' button is clicked"/>
+    <aura:attribute name="approvedPTOs"		
+                    type="Object[]" 				
+                    description="A List of all approved PTOs for the selected Trainer"/>
+    <aura:attribute name="pendingPTOs"		
+                    type="Object[]" 				
+                    description="A List of pending PTOs for the selected trainer"/>
+    <aura:attribute name="hasApproved"      
+                    type="Boolean" 
+                    default="false"  
+                    description="boolean used to know if there are any approved PTO requests"/>
+    <aura:attribute name="hasPending"       
+                    type="Boolean" 
+                    default="false"  
+                    description="boolean used to know if there are any pending PTO requests"/>
+    <aura:attribute name="Batches"			
+                    type="Object[]" 
+                    description="A List of Batches associated with the selected Trainer"/>
     
     <!--Handlers-->
-    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
-    <aura:handler name="newPendingPTO" event="c:afNewPTOCreatedEvent" action="{!c.addNewPTO}"/>
+    <aura:handler name="init" 
+                  value="{!this}" 
+                  action="{!c.doInit}"/>
+    <aura:handler name="newPendingPTO" 
+                  event="c:afNewPTOCreatedEvent" 
+                  action="{!c.addNewPTO}" 
+                  description="Event fired when a new PTO request is created"/>
     
     <!--Component Markup-->
     <div class="slds-card">

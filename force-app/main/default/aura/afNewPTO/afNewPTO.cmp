@@ -1,19 +1,39 @@
 <aura:component implements="force:appHostable,flexipage:availableForAllPageTypes" access="global">
     
     <!--Attributes-->
-    <aura:attribute name="uncleared"       type="Boolean"    default="true" 			description="boolean used to clear the fields when the clear button is clicked"/>
-    <aura:attribute name="startDate"       type="Date" 									description="used to store the start date of the new PTO"/>
-    <aura:attribute name="endDate"         type="Date" 									description="used to store the end date of the new PTO"/>
-    <aura:attribute name="reason"          type="String" 								description="used to store the reason of the new PTO"/>
-    <aura:attribute name="trainer"		   type="ID" 									description="used to store the user accessing this page and set that to the trainer field of PTO"/>
-    <aura:attribute name="status"		   type="String" 	default="Pending Approval"  description="used in a hidden field to set the status of the new PTO to pending upon creation"/>
-    <aura:attribute name="Batches"		   type="Object[]"/>
+    <aura:attribute name="uncleared"       
+                    type="Boolean"    
+                    default="true" 			
+                    description="boolean used to clear the fields when the clear button is clicked"/>
+    <aura:attribute name="startDate"       
+                    type="Date" 									
+                    description="used to store the start date of the new PTO"/>
+    <aura:attribute name="endDate"         
+                    type="Date" 									
+                    description="used to store the end date of the new PTO"/>
+    <aura:attribute name="reason"          
+                    type="String" 								
+                    description="used to store the reason of the new PTO"/>
+    <aura:attribute name="trainer"		   
+                    type="ID" 									
+                    description="used to store the user accessing this page and set that to the trainer field of PTO"/>
+    <aura:attribute name="status"		   
+                    type="String" 	
+                    default="Pending Approval"  
+                    description="used in a hidden field to set the status of the new PTO to pending upon creation"/>
+    <aura:attribute name="Batches"		   
+                    type="Object[]" 
+                    description="batches associated with the trainer in the PTO request"/>
     <lightning:notificationsLibrary/>
     <!--Handlers-->
-    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:handler name="init" 
+                  value="{!this}" 
+                  action="{!c.doInit}"/>
     
     <!--Registered Events-->
-    <aura:registerEvent name="newPendingPTO" type="c:afNewPTOCreatedEvent"/>
+    <aura:registerEvent name="newPendingPTO" 
+                        type="c:afNewPTOCreatedEvent" 
+                        description="Event fires when a new PTO request is created"/>
     
     <!--Component Markup-->
     <div class="slds-card">

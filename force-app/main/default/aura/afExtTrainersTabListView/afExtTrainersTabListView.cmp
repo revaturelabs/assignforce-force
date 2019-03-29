@@ -1,17 +1,26 @@
 <!-- list view to display all external trainers in a viewable format
      the records within this list view are provided by afExternalTrainersTabListViewItem -->
-<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes" access="global" controller="afExtTrainersTabListViewApexController">
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes" description="Displays a list of External Trainers" access="global" controller="afExtTrainersTabListViewApexController">
     <ltng:require styles="{!$Resource.RevatureStyles}"/>
     <!--Attributes to set availability, location, and the list of external trainers-->
-   <aura:attribute name="availability"    type="String"/>
-   <aura:attribute name="currLoc"         type="String"/>
-   <aura:attribute name="extTrainers"     type="External_Trainer__c[]"/>
+   <aura:attribute name="availability"    
+                   type="String" 
+                   description="Determines whether or not an External Trainer is available or not"
+/>
+   <aura:attribute name="currLoc"         
+                   type="String"/>
+   <aura:attribute name="extTrainers"     
+                   type="External_Trainer__c[]" 
+                   description="List of User sObjects that represent the Trainers"/>
 
    <!--Handler to get list of external trainers-->
-   <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+   <aura:handler name="init" 
+                 value="{!this}" 
+                 action="{!c.doInit}"/>
 
     <!--Register this Event to display batches when an external trainer is selected-->
-    <aura:registerEvent name="ExternalTrainerSelected" type="c:ExternalTrainerSelected"/>
+    <aura:registerEvent name="ExternalTrainerSelected" 
+                        type="c:ExternalTrainerSelected"/>
 
     <div id="trainersListView">
         <lightning:card title="External Trainers" >

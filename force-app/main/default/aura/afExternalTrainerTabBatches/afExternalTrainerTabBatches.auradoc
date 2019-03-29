@@ -1,0 +1,22 @@
+<aura:documentation>
+    <aura:description>The <code>afExtTrainersTabBatches</code> component
+        lives in the External Trainers tab.  This component is responsible for displaying
+        the upcoming and in-progress batches for the selected External Trainer.
+        Data for the selected External Trainer is passed over from the
+        <code>afExtTrainersTabListView</code> component.
+    </aura:description>
+    <aura:example   name="afExtTrainersTabBatches"
+                    ref="c:afExtTrainersTabBathes"
+                    label="NOTE:"
+    >
+        <p>
+            In the <code>.auradoc</code> file: <br />
+            The <code>c:</code> namespace is omitted
+            from the <code>ref</code> attribute. <br />
+            This is due to an issue in which the styling does not appear correctly
+            on this page. <br />
+            Add <code>c:</code> before the name of the component
+            to view the example in the auradocs.
+        </p>
+    </aura:example>
+</aura:documentation>
