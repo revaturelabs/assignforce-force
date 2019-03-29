@@ -1,3 +1,0 @@
-<aura:event type="COMPONENT" access="global">
-<aura:attribute name="listOfLocations" type="String[]"/>
-</aura:event>
