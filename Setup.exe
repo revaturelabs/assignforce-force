@@ -1,0 +1,81 @@
+######################################################################
+##
+##	PREREQUISITES
+##		Clean DE org with My Domain set up
+##		OR a fresh trailhead playground
+##			Dev hub enabled in your org
+##		Git installed and configured
+##		sfdx installed and configured
+##		bash installed and configured
+##
+##	WHAT YOU DON'T NEED TO DO:
+##		create your git repository folder
+##
+##	ARGUMENTS
+##		1. Name of the directory you want your project to go in
+##		2. Desired alias for your org in sfdx
+##		
+######################################################################
+
+## The location of your bash interpreter
+#!/bin/bash
+
+if (($# != 2))
+then
+	echo 'Usage: ./Setup.exe DirectoryName OrgAlias'
+	exit 1
+fi
+
+## Initialize the git repo
+echo '\nCREATING GIT REPO\n'
+mkdir $1
+cd $1
+git init
+git remote add origin https://github.com/j-colson419/assignforce181210.git
+echo '\nPULLING DATA FROM GITHUB\n'
+git pull
+## Alternatively, you could put it in the default subdirectory:
+## git clone https://github.com/j-colson419/assignforce181210.git
+
+## Remove undefined permissions from admin profile:
+## Unnecessary permissions:
+##		ManagePropositions
+##		ManageRecommendationStrategies
+##		Packaging2PromoteVersion
+echo '\nREMOVING BAD PERMISSIONS\n'
+cd force-app/main/default/profiles/
+sed '/{<userPermissions>/{:a;N;/<\/userPermissions>}/!ba};/<name>\(ManagePropositions\|ManageRecommendationStrategies\|Packaging2PromoteVersion\)<\/name>/d' Admin.profile-meta.xml > tmp.xml
+mv tmp.xml Admin.profile-meta.xml
+## There may be more, depending on org types. To remove one, run the following commands:
+## 		sed '/{<userPermissions>/{:a;N;/<\/userPermissions>}/!ba};/<name>PERMISSION_NAME<\/name>/d' Admin.profile-meta.xml > tmp.xml
+##		mv tmp.xml Admin.profile-meta.xml
+
+cd ../../../..
+echo '\nCREATING SFDX PROJECT\n'
+## Create an sfdx project:
+echo '{
+  "packageDirectories": [
+    {
+      "path": "force-app",
+      "default": true
+    }
+  ],
+  "namespace": "",
+  "sfdcLoginUrl": "https://login.salesforce.com",
+  "sourceApiVersion": "45.0"
+}' > sfdx-project.json
+
+## Authorize an org, and set it as default dev hub
+echo '\nCONNECTING TO ORG\n'
+sfdx force:auth:web:login -d --setdefaultusername --setalias $2
+
+## Deploy metadata to the org
+## TODO: This works in my windows environment. Figure out if it will work in a Unix environment
+echo '\nDEPLOYING EMAIL TEMPLATES TO ORG\n'
+sfdx force:source:deploy --sourcepath force-app\\main\\default\\email -u $2
+echo '\nDEPLOYING ALL SOURCE TO ORG\n'
+sfdx force:source:deploy -x manifest/package.xml -u $2
+
+echo '\nNext steps:'
+echo '\tCheckout your branch: git checkout YOUR_BRANCH_HERE'
+echo '\tCreate a default scratch org: sfdx force:org:create edition=Developer -a MyScratchOrg'
