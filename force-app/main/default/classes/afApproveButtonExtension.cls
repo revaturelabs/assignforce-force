@@ -7,6 +7,7 @@
  * Description: Controller extension for afApproveButtonPage
  * Approves the selected PTO Requests, then refreshes the page
  *
+ *
  */
 public class afApproveButtonExtension {
     
