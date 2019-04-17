@@ -105,19 +105,27 @@
 
     },
     
-    roomClick: function(component){
-        //when the rooms tab is clicked this method sets tab1Shown to false to switch tabs
-        var isTab1Shown = component.get('v.tab1Shown');
-        if(isTab1Shown){
-            component.set('v.tab1Shown', false);
-        }
-    },
-    
     trainerClick: function (component) {
-        //when the trainers' tab is clicked this method sets tab1Shown to true to switch tabs
-        var isTab1Shown = component.get('v.tab1Shown');
-        if(!isTab1Shown){
-            component.set('v.tab1Shown', true);
+        //when the trainers' tab is clicked this method sets tabShown to 0 to switch tabs
+        var tabShown = component.get('v.tabShown');
+        if(tabShown != 0){
+            component.set('v.tabShown', 0);
         }
     },
+
+    externalTrainerClick: function(component){
+        //when the external Trainer tab is clicked this method sets tabShown to 1 to switch tabs
+        var tabShown = component.get('v.tabShown');
+        if(tabShown != 1){
+            component.set('v.tabShown', 1);
+        }
+    },
+
+    roomClick: function(component){
+        //when the rooms tab is clicked this method sets tabShown to 2 to switch tabs
+        var tabShown = component.get('v.tabShown');
+        if(tabShown != 2){
+            component.set('v.tabShown', 2);
+        }
+    }
 })
