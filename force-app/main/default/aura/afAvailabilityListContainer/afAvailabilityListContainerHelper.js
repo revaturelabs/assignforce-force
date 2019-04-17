@@ -76,4 +76,26 @@
         return listToSort.sort((a,b) => (a.Name>b.Name) ? 1 :-1);
     },
     
+    //This method will determine which trainers should be displayed based on pagination
+    updateTrainersSubList : function(trainerList, offset, pageSize) {
+		var trainersOnPage = [];       
+        offset *= pageSize;
+        var i;
+        for(i=offset; i<pageSize+offset && i<trainerList.length ; i++){ //
+            trainersOnPage.push(trainerList[i]);
+        }        
+        return trainersOnPage;
+    },
+    
+    //This method will determine which rooms should be displayed based on pagination
+    updateTrainersSubList : function(roomList, offset, pageSize) {
+		var roomsOnPage = [];       
+        offset *= pageSize;
+        var i;
+        for(i=offset; i<pageSize+offset && i<roomList.length ; i++){ //
+            roomsOnPage.push(roomList[i]);
+        }        
+        return roomsOnPage;
+    },
+    
 })

@@ -26,11 +26,23 @@
         });
         $A.enqueueAction(filterController);
     },
+    
+    initTrainers: function(component, event, helper){
+        var trainers = component.get('v.trainers');
+        var trainersPerPage = component.get('v.numberOfTrainersToBeDisplayed');
+        var trainerSubList = helper.updateTrainersSubList(trainers,0,trainersPerPage); 
+        component.set('v.trainersOnPage', trainerSubList);
+    },
 
     initRooms : function(component, event, helper){
         //INITIALIZE ROOMS WITH ALL ROOMS
-        var roomsToSet = component.get("v.allRooms");
-        component.set("v.rooms", roomsToSet);
+        //var roomsToSet = component.get("v.allRooms");
+        //component.set("v.rooms", roomsToSet);
+        
+        var allRooms = component.get("v.allRooms");
+        var roomsPerPage = component.get("v.numberOfRoomsToBeDsiplayed");
+        var roomsSubList = helper.updateTrainersSubList(allRooms,0,roomsPerPage);
+        component.set('v.roomsOnPage', roomsSubList);
     },
 
     userInputRecieved: function(component, event){
@@ -105,27 +117,46 @@
 
     },
     
-    trainerClick: function (component) {
-        //when the trainers' tab is clicked this method sets tabShown to 0 to switch tabs
-        var tabShown = component.get('v.tabShown');
-        if(tabShown != 0){
-            component.set('v.tabShown', 0);
-        }
-    },
-
-    externalTrainerClick: function(component){
-        //when the external Trainer tab is clicked this method sets tabShown to 1 to switch tabs
-        var tabShown = component.get('v.tabShown');
-        if(tabShown != 1){
-            component.set('v.tabShown', 1);
-        }
-    },
-
     roomClick: function(component){
-        //when the rooms tab is clicked this method sets tabShown to 2 to switch tabs
-        var tabShown = component.get('v.tabShown');
-        if(tabShown != 2){
-            component.set('v.tabShown', 2);
+        //when the rooms tab is clicked this method sets tab1Shown to false to switch tabs
+        var isTab1Shown = component.get('v.tab1Shown');
+        if(isTab1Shown){
+            component.set('v.tab1Shown', false);
         }
-    }
+    },
+    
+    trainerClick: function (component) {
+        //when the trainers' tab is clicked this method sets tab1Shown to true to switch tabs
+        var isTab1Shown = component.get('v.tab1Shown');
+        if(!isTab1Shown){
+            component.set('v.tab1Shown', true);
+        }
+    },
+    
+    nextPage: function(component) {
+        var currentPageType = component.get('v.tab1Shown'); //update this after harry pushes his code
+        switch(currentPageType){
+            case 1:
+                var trainerList = component.get('v.trainers');
+                var offset = component.get('v.currentTrainerPageNumber');
+                offset++;
+                var pagesize = component.get('v.numberOfTrainersToBeDisplayed');
+                var newTrainers = updateTrainersSubList(trainerList, offset, pageSize);
+                component.set('v.trainersOnPage', newTrainers);
+                break;
+            case 2:
+            
+            	break;               
+            case 3:
+                
+                break;
+            default:
+                
+                break;
+        }
+    },
+    
+    previousPage: function(component) {
+        
+    },
 })

@@ -10,6 +10,16 @@
                     type="Boolean" 
                     default="false" 
                     description="Check Git issues under 'Availability for Rooms': This logic needs to be fixed"/>
+    <aura:attribute name="FullRoomList"
+                    type="Training_Room__c[]"
+                    description="List of all rooms the user can select." />
+    <aura:attribute name="SubRoomList"
+                    type="Training_Room__c[]"
+                    description="List of the rooms that will displayed on the current page using pagination." />
+    <aura:attribute name="pageSize"
+                    type="Integer"
+                    default="7"
+                    description="The number of records to be displayed on each page." />
     
     <aura:handler name="init" 
                   value="{!this}" 
