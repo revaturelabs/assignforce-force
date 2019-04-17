@@ -85,6 +85,7 @@
     <types>
         <members>Trainer</members>
         <members>Manager</members>
+        <members>CTO</members>
         <name>Role</name>
     </types>
     <types>
