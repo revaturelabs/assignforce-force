@@ -67,8 +67,8 @@
             var seriesName = dataObj[i].series;
             delete dataObj[i].series;
             if(!trainersInData.includes(dataObj[i].trainerName)){
-                 trainersInData.push(dataObj[i].trainerName);
-			}
+                trainersInData.push(dataObj[i].trainerName);
+            }
             delete dataObj[i].trainerName;
             //The creation of the bars for the training tracks
             if(seriesNames.includes(seriesName))
@@ -97,7 +97,13 @@
                         textOutline : false,
                         
                     },
-                    //Displays the number of weeks for how long the training tracks are
+                    /* Displays the number of weeks for how long the training tracks are
+                     * @lastEditedBy    Matthew Wright
+                     * @lastEditDate    04/17/2019
+                     * 
+                     * -Recent Changes-
+                     * Changed 'Wk' and 'Wks' to 'Week' and 'Weeks', respectively
+                    */
                     formatter: function(){
                         if (Math.ceil((this.x2 - this.x) / (7 * 24 * 60 * 60 * 1000)) > 1) {
                             return Math.ceil((this.x2 - this.x) / (7 * 24 * 60 * 60 * 1000)) + " Weeks";
@@ -133,7 +139,7 @@
                         
                         if(currentTrainerBatches[k].x2 < currentTrainerBatches[k+1].x){
                             
-                                freeTimeData.push({'x' : currentTrainerBatches[k].x2, 'x2' : currentTrainerBatches[k+1].x, 'y' : currentTrainer, 'color' : '#FFFFFF'});
+                            freeTimeData.push({'x' : currentTrainerBatches[k].x2, 'x2' : currentTrainerBatches[k+1].x, 'y' : currentTrainer, 'color' : '#FFFFFF'});
                         }
                         if(k == currentTrainerBatches.length - 2){
                             break;
@@ -153,11 +159,31 @@
                 color : 'black',
                 textOutline : false,
             },
+            /* Displays the amount of Free Time between batches
+             * @return			The number of weeks of free time, or null if free time is less than 1 week.
+             * @lastEditedBy 	Matthew Wright
+             * @lastEditDate 	04/17/2019
+             * 
+             * -Recent Changes-
+             * Now properly displays empty space between batches
+             * Also, changed 'Wk' and 'Wks' to 'Week' and 'Weeks', respectively
+            */
             formatter: function(){
+<<<<<<< HEAD
                 if (Math.ceil((this.x2 - this.x) / (7 * 24 * 60 * 60 * 1000)) > 1) {
                     return Math.ceil((this.x2 - this.x) / (7 * 24 * 60 * 60 * 1000)) + " Weeks";
                 }
                 return Math.ceil((this.x2 - this.x) / (7 * 24 * 60 * 60 * 1000))  + " Week";
+=======
+                if (Math.floor((this.x2 - this.x) / (7 * 24 * 60 * 60 * 1000)) > 0) {
+                    if (Math.floor((this.x2 - this.x) / (7 * 24 * 60 * 60 * 1000)) == 1){
+                        return Math.floor((this.x2 - this.x) / (7 * 24 * 60 * 60 * 1000))  + " Week";
+                    }                        
+                    return Math.floor((this.x2 - this.x) / (7 * 24 * 60 * 60 * 1000)) + " Weeks";
+                }
+                else
+                    return "";
+>>>>>>> sfdx force:source:deploy -p force-app\main\default\aura\afBatchTimeline\afBatchTimelineHelper.js -u myScratchOrg
             }
         }
                        });
