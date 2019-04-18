@@ -14,3 +14,7 @@
     padding: 10px;
     font-family: 'Futura-Std-Heavy';
 }
+
+.THIS .slds-tabs_default {
+    text-align: center;
+}
