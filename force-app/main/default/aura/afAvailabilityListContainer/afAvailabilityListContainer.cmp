@@ -98,7 +98,7 @@
                         </span>
                     </li>
                     <!-- tab to show a list of available rooms when clicked-->
-                    <li class="{!v.tabShown == 1 ? 'slds-tabs_default__item ' : 'slds-tabs_default__item slds-is-active'}">
+                    <li class="{!v.tabShown == 1 ? 'slds-tabs_default__item slds-is-active' : 'slds-tabs_default__item '}">
                         <span class="slds-text-heading_medium" tabindex="-1" id="roomsTab" onclick='{!c.roomClick}'>
                             Rooms
                         </span>

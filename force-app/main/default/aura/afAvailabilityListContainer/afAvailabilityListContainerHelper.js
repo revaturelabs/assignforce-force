@@ -104,14 +104,16 @@
      *Determines if the next button for pagination should be disabled i.e. 
      *If it should be clickable or not */
     shouldNextBeDisabled : function(listSize, offSet, pageSize){
-        console.log("should next be disabled\nlistSize is: "+listSize+" offset * pagesize + pagesize is: " + offSet*pageSize + pageSize);
-        return listSize < offSet*pageSize + pageSize;  
+        var value = (offSet*pageSize) + pageSize;
+        console.log("should next be disabled\nlistSize is: "+listSize.length+" offset * pagesize + pagesize is: " + value);
+        return listSize.length < (offSet*pageSize) + pageSize;  
     },
     
     /*Should be called every time a button is clicked related to pagination
      *Determines if the previous button for pagination should be disabled i.e. 
      *If it should be clickable or not */
     shouldPreviousBeDisabled : function(offSet){
+        console.log("should perv be disabled\nPage is: " + offset);
         return 1 > offSet;  
     },
     

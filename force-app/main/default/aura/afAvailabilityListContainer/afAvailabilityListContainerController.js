@@ -34,7 +34,8 @@
     initTrainers: function(component, event, helper){
         var trainers = component.get('v.trainers');
         var trainersPerPage = component.get('v.numberOfTrainersToBeDisplayed');
-        var trainerSubList = helper.updateTrainersSubList(trainers,0,trainersPerPage); 
+        var offset = component.get('v.currentTrainerPageNumber');
+        var trainerSubList = helper.updateTrainersSubList(trainers,offset,trainersPerPage); 
         component.set('v.trainersOnPage', trainerSubList);
         var disableNext = helper.shouldNextBeDisabled(trainers.length, 0, trainersPerPage);
         component.set('v.nextDisabled', disableNext);
@@ -49,7 +50,8 @@
         //console.log('rooms: ' + allRooms);
         var roomsPerPage = component.get("v.numberOfRoomsToBeDisplayed");
         //console.log('rooms per page: ' + roomsPerPage);
-        var roomsSubList = helper.updateRoomsSubList(allRooms,0,roomsPerPage);
+        var offset = component.get('v.currentRoomPageNumber');
+        var roomsSubList = helper.updateRoomsSubList(allRooms,offset,roomsPerPage);
         //console.log('rooms sub lits: ' + roomsSubList);
         component.set('v.roomsOnPage', roomsSubList);
     },
@@ -195,7 +197,7 @@
     },
     
     previousPage: function(component, event, helper) {
-        console.log("prev page starting");
+        //console.log("prev page starting");
         var currentPageType = component.get('v.tabShown');
         switch(currentPageType){
             case 0:
@@ -207,7 +209,8 @@
                 component.set('v.trainersOnPage', trainerSubList);
                 offset--;
                 component.set('v.currentTrainerPageNumber', offset);
-                var disabled = helper.shouldPreviousBeDisabled(trainers, offset, trainersPerPage);
+                console.log("offset is: " + offset);
+                var disabled = 1 > offset; //change this back to the helper method
                 console.log("disabled: " + disabled);
                 component.set('v.nextDisabled', false); //next is always enabled if previous was clicked
                 component.set('v.previousDisabled', disabled);
@@ -221,7 +224,7 @@
                 component.set('v.roomsOnPage', roomSubList);
                 offset--;
                 component.set('v.currentRoomPageNumber', offset);
-                var disabled = helper.shouldNextBeDisabled(rooms, offset, roomsPerPage);
+                var disabled = 1 > offset; //change this back to the helper method
                 console.log("disabled: " + disabled);
                 component.set('v.nextDisabled', false);
                 component.set('v.previousDisabled', disabled);
