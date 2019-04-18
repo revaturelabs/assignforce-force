@@ -1,7 +1,11 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 //@isTest
 =======
 >>>>>>> HarryMitchell
+=======
+//@isTest
+>>>>>>> e7a46605834a34ba3271d0bc74414e5eb72a5461
 public class CreateAssignForceData {
     
     public static void createTrainingLocations(){

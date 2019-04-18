@@ -11,12 +11,18 @@
     </classAccesses>
     <classAccesses>
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> e7a46605834a34ba3271d0bc74414e5eb72a5461
         <apexClass>LimitChecker</apexClass>
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
+<<<<<<< HEAD
 =======
 >>>>>>> HarryMitchell
+=======
+>>>>>>> e7a46605834a34ba3271d0bc74414e5eb72a5461
         <apexClass>UtilityMethods</apexClass>
         <enabled>true</enabled>
     </classAccesses>

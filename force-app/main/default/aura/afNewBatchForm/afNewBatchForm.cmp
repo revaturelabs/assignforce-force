@@ -1,11 +1,16 @@
 <aura:component implements="force:appHostable,flexipage:availableForAllPageTypes" access="global" controller="afNewBatchFormApexController">
 <<<<<<< HEAD
+<<<<<<< HEAD
     <ltng:require styles="{!$Resource.RevatureStyles}"/>
    	<lightning:notificationsLibrary aura:id="notificationsLibrary"/>
 =======
    <ltng:require styles="{!$Resource.RevatureStyles}"/>
    <lightning:notificationsLibrary aura:id="notificationsLibrary"/>
 >>>>>>> HarryMitchell
+=======
+    <ltng:require styles="{!$Resource.RevatureStyles}"/>
+   	<lightning:notificationsLibrary aura:id="notificationsLibrary"/>
+>>>>>>> e7a46605834a34ba3271d0bc74414e5eb72a5461
 
    <!-- 
       User Selection:Attributes 

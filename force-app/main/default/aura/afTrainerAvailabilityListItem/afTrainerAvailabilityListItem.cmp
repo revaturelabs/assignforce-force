@@ -13,10 +13,14 @@
     
     <lightning:recordViewForm recordId="{!v.trainerId}" objectApiName="User">
 <<<<<<< HEAD
+<<<<<<< HEAD
         <div class="slds-grid" style="padding-top: 10px">
 =======
         <div class="slds-grid" style="padding-top: 10px;">
 >>>>>>> HarryMitchell
+=======
+        <div class="slds-grid" style="padding-top: 10px">
+>>>>>>> e7a46605834a34ba3271d0bc74414e5eb72a5461
             <div class="slds-col slds-size_1-of-5">
                 <div class="slds-align_absolute-center">
                     <lightning:button class="btnSelect" label="Select" onclick="{!c.selectIsClicked}"/>
