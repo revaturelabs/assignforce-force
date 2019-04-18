@@ -78,17 +78,29 @@
     
     //This method will determine which trainers should be displayed based on pagination
     updateTrainersSubList : function(trainerList, offset, pageSize) {
+        console.log('updateTrainer is starting');
 		var trainersOnPage = [];       
         offset *= pageSize;
         var i;
+        var names = [];
+        for(i=0;i<trainerList.length;i++){
+            names.push(trainerList[i].Alias);
+        }
+        console.log('names from master list: ' + names);
         for(i=offset; i<pageSize+offset && i<trainerList.length ; i++){ //
             trainersOnPage.push(trainerList[i]);
         }        
+        names = [];
+        for(i=0;i<trainersOnPage.length;i++){
+            names.push(trainersOnPage[i].Alias);
+        }
+        console.log('names from sub-List');
+        console.log('updateTrainer has finished');
         return trainersOnPage;
     },
     
     //This method will determine which rooms should be displayed based on pagination
-    updateTrainersSubList : function(roomList, offset, pageSize) {
+    updateRoomsSubList : function(roomList, offset, pageSize) {
 		var roomsOnPage = [];       
         offset *= pageSize;
         var i;
@@ -96,6 +108,20 @@
             roomsOnPage.push(roomList[i]);
         }        
         return roomsOnPage;
+    },
+    
+    /*Should be called every time a button is clicked related to pagination
+     *Determines if the next button for pagination should be disabled i.e. 
+     *If it should be clickable or not */
+    shouldNextBeDisabled : function(listSize, offSet, pageSize){
+        return listSize < offSet*pageSize + pageSize;  
+    },
+    
+    /*Should be called every time a button is clicked related to pagination
+     *Determines if the previous button for pagination should be disabled i.e. 
+     *If it should be clickable or not */
+    shouldPreviousBeDisabled : function(offSet){
+        return 0 > offSet;  
     },
     
 })

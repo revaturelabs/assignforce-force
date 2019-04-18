@@ -25,6 +25,10 @@
             }
         });
         $A.enqueueAction(filterController);
+        
+        component.set('v.currentTrainerPageNumber', 0);
+        component.set('v.currentExternalTrainerPageNumber', 0);
+        component.set('v.currentRoomPageNumber', 0);
     },
     
     initTrainers: function(component, event, helper){
@@ -32,6 +36,8 @@
         var trainersPerPage = component.get('v.numberOfTrainersToBeDisplayed');
         var trainerSubList = helper.updateTrainersSubList(trainers,0,trainersPerPage); 
         component.set('v.trainersOnPage', trainerSubList);
+        var disableNext = helper.shouldNextBeDisabled(trainers.length, 0, trainersPerPage);
+        component.set('v.nextDisabled', disableNext);
     },
 
     initRooms : function(component, event, helper){
@@ -41,7 +47,7 @@
         
         var allRooms = component.get("v.allRooms");
         var roomsPerPage = component.get("v.numberOfRoomsToBeDsiplayed");
-        var roomsSubList = helper.updateTrainersSubList(allRooms,0,roomsPerPage);
+        //var roomsSubList = helper.updateTrainersSubList(allRooms,0,roomsPerPage);
         component.set('v.roomsOnPage', roomsSubList);
     },
 
@@ -119,38 +125,53 @@
     
     roomClick: function(component){
         //when the rooms tab is clicked this method sets tab1Shown to false to switch tabs
-        var isTab1Shown = component.get('v.tab1Shown');
-        if(isTab1Shown){
-            component.set('v.tab1Shown', false);
+        var isTabShown = component.get('v.tabShown');
+        if(isTabShown != 1){
+        	component.set('v.currentRoomPageNumber', 0);
+            component.set('v.tabShown', 1);
         }
     },
     
     trainerClick: function (component) {
-        //when the trainers' tab is clicked this method sets tab1Shown to true to switch tabs
-        var isTab1Shown = component.get('v.tab1Shown');
-        if(!isTab1Shown){
-            component.set('v.tab1Shown', true);
+        //when the trainers' tab is clicked this method sets tabShown to switch tabs
+        var isTabShown = component.get('v.tabShown');
+        if(isTabShown != 0){
+            component.set('v.currentTrainerPageNumber', 0);
+            component.set('v.tabShown', 0);
         }
     },
     
-    nextPage: function(component) {
-        var currentPageType = component.get('v.tab1Shown'); //update this after harry pushes his code
+    externalTrainerClick : function(component) {
+        var isTabShown = component.get('v.tabShown');
+        if(isTabShown != 2){
+            component.set('v.currentExternalTrainerPageNumber', 0);
+            component.set('v.tabShown', 2);
+        }
+    },
+    
+    nextPage: function(component, event, helper) {
+        console.log("next page starting");
+        var currentPageType = component.get('v.tabShown');
         switch(currentPageType){
-            case 1:
-                var trainerList = component.get('v.trainers');
+            case 0: //This is the internal trainers tab
+                console.log("page is currently internal trainers");
                 var offset = component.get('v.currentTrainerPageNumber');
+                var trainersPerPage = component.get('v.numberOfTrainersToBeDisplayed');
+                var trainers = component.get('v.trainers'); //master list of trainers
+                var trainerSubList = helper.updateTrainersSubList(trainers,offset+1,trainersPerPage); 
+                component.set('v.trainersOnPage', trainerSubList);
                 offset++;
-                var pagesize = component.get('v.numberOfTrainersToBeDisplayed');
-                var newTrainers = updateTrainersSubList(trainerList, offset, pageSize);
-                component.set('v.trainersOnPage', newTrainers);
+                console.log("offset: " + offset);
+                component.set('v.currentTrainerPageNumber', offset);
+                var disabled = helper.shouldNextBeDisabled(trainers, offset, trainersPerPage);
                 break;
-            case 2:
+            case 1://This is the available rooms tab 
             
             	break;               
-            case 3:
+            case 2://This is the external trainers tab
                 
                 break;
-            default:
+            default://This shouldn't ever be reached however, we will throw errors in case it happens
                 
                 break;
         }
