@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All_In_Progress</fullName>
+    <columns>NAME</columns>
+    <columns>TrainingTrack__c</columns>
+    <columns>StartDate__c</columns>
+    <columns>EndDate__c</columns>
+    <columns>Status__c</columns>
+    <columns>Trainer__c</columns>
+    <columns>Training_Location_Name__c</columns>
+    <columns>TrainingRoom__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Status__c</field>
+        <operation>equals</operation>
+        <value>In Progress</value>
+    </filters>
+    <label>All In Progress</label>
+</ListView>

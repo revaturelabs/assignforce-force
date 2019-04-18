@@ -1,0 +1,7 @@
+Hi {!PTO__c.Trainer__c},
+
+Your PTO Request from {!PTO__c.StartDate__c} to {!PTO__c.EndDate__c} has been approved.
+
+Regards,
+
+Revature

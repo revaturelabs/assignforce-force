@@ -1,0 +1,20 @@
+<aura:documentation>
+        <aura:description>
+       The <code>afNewPTO</code> component
+       is used for creating a new PTO request for a Trainer
+        </aura:description>
+        <aura:example   name="afNewPTO"
+                                        ref="afNewPTO"
+                                        label="NOTE:"
+        >
+                <p>
+           In the <code>.auradoc</code> file: <br />
+           The <code>c:</code> namespace is omitted
+           from the <code>ref</code> attribute. <br />
+           This is due to an issue in which the styling does not appear correctly
+           on this page. <br />
+           Add <code>c:</code> before the name of the component
+           to view the example in the auradocs.
+       </p>
+        </aura:example>
+</aura:documentation>

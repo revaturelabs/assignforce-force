@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Training_Skills__c</fullName>
+    <description>Contains Training Tracks that the trainer has experience training. When a trainer completes a batch that has a Training Track they had previously not trained, their Training Skills list should be updated to include the new Training Track value.</description>
+    <externalId>false</externalId>
+    <label>Training Skills</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetName>Training_Tracks</valueSetName>
+    </valueSet>
+    <visibleLines>4</visibleLines>
+</CustomField>

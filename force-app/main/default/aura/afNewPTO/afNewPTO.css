@@ -1,0 +1,23 @@
+.THIS .slds-text-heading_medium {
+    color: #474C55;
+    font-family: 'Futura-Std-Heavy';
+}
+
+.THIS .slds-card__header {
+    padding-bottom: .75rem;
+    padding-left: .75rem;
+}
+
+.THIS .headerBtn {
+    color: #474C55;
+    margin-right: 10px;
+}
+
+.THIS .headerBtn:hover {
+   color: #F26925;
+}
+
+.THIS .boxLabel {
+    color: #F26925;
+    margin-top: 10px;
+}
