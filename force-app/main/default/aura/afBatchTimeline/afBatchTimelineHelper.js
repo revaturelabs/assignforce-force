@@ -78,11 +78,10 @@
             else {
                 seriesNames.push(seriesName);
                 seriesData.push(dataObj[i]);
-                seriesObj.push({
-                    'name': seriesName, 'pointWidth': 30, 'data': [{ 'x': dataObj[i].x, 'x2': dataObj[i].x2, 'y': dataObj[i].y, 'color': dataObj[i].color }], 'dataLabels': {
-                        enabled: true,
-                        style:
-                        {
+                seriesObj.push({'name' : seriesName, 'pointWidth' : 30, 'data' : [{'x' : dataObj[i].x, 'x2' : dataObj[i].x2, 'y' : dataObj[i].y, 'color' : dataObj[i].color}], 'dataLabels': {
+                    enabled: true,
+                    style:
+                    {
                         fontSize : '14px',
                         fontFamily : 'Futura-Std-Bold',
                         textAlign : 'center',
@@ -133,46 +132,22 @@
                     }
                 }
 
-        }//End FOR
-        }//End FOR
-        //Styling for Free Time bar
-        seriesObj.push({
-            'name': 'Free Time', 'pointWidth': 30, 'data': freeTimeData, 'fill': '#FFFFFF', 'opacity': '0', 'dataLabels': {
-                enabled: true,
-                    fontSize: '14px',
-                    fontFamily: 'Futura-Std-Bold',
-                    textAlign: 'center',
-                    color: 'black',
-                    textOutline: false,
-                    fontSize: '14px',
-                /* Returns the amount of Free Time between batches
-                 * @return			The number of weeks of free time, or null if free time is less than 1 week.
-                 * @lastEditedBy 	Matthew Wright
-                 * @lastEditDate 	04/17/2019
-                */
-                formatter: function () {
-                    if (Math.floor((this.x2 - this.x) / (7 * 24 * 60 * 60 * 1000)) > 0) {
-                        if (Math.floor((this.x2 - this.x) / (7 * 24 * 60 * 60 * 1000)) == 1) {
-                            return Math.floor((this.x2 - this.x) / (7 * 24 * 60 * 60 * 1000)) + " Week";
-                        }
-                        return Math.floor((this.x2 - this.x) / (7 * 24 * 60 * 60 * 1000)) + " Weeks";
-                    }
-                    else
-                        return "";
-                    textOutline: false,
-                 * @return			The number of weeks of free time, or null if free time is less than 1 week.
-                 * @lastEditedBy 	Matthew Wright
-                 * @lastEditDate 	04/17/2019
-                */
-                formatter: function () {
-                    if (Math.floor((this.x2 - this.x) / (7 * 24 * 60 * 60 * 1000)) > 0) {
-                        if (Math.floor((this.x2 - this.x) / (7 * 24 * 60 * 60 * 1000)) == 1) {
-                            return Math.floor((this.x2 - this.x) / (7 * 24 * 60 * 60 * 1000)) + " Week";
-                        }
-                        return Math.floor((this.x2 - this.x) / (7 * 24 * 60 * 60 * 1000)) + " Weeks";
-                    }
-                    else
-                        return "";
+            }      
+        }
+        
+        seriesObj.push({'name' : 'Free Time', 'pointWidth' : 30, 'data' : freeTimeData, 'fill' : '#FFFFFF', 'dataLabels' : {
+            enabled : true,
+            style:
+            {
+                fontSize : '14px',
+                fontFamily : 'Futura-Std-Bold',
+                textAlign : 'center',
+                color : 'black',
+                textOutline : false,
+            },
+            formatter: function(){
+                if (Math.ceil((this.x2 - this.x) / (7 * 24 * 60 * 60 * 1000)) > 1) {
+                    return Math.ceil((this.x2 - this.x) / (7 * 24 * 60 * 60 * 1000)) + " Weeks";
                 }
                 return Math.ceil((this.x2 - this.x) / (7 * 24 * 60 * 60 * 1000))  + " Week";
 
