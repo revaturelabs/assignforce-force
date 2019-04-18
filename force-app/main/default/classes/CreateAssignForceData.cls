@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 //@isTest
+=======
+>>>>>>> HarryMitchell
 public class CreateAssignForceData {
     
     public static void createTrainingLocations(){

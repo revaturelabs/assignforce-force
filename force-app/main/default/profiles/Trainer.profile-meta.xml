@@ -10,10 +10,13 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+<<<<<<< HEAD
         <apexClass>LimitChecker</apexClass>
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
+=======
+>>>>>>> HarryMitchell
         <apexClass>UtilityMethods</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -141,6 +144,13 @@
         <apexClass>afTrainingTriggerHelperTest</apexClass>
         <enabled>true</enabled>
     </classAccesses>
+<<<<<<< HEAD
+=======
+    <classAccesses>
+        <apexClass>createTrainers</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+>>>>>>> HarryMitchell
     <custom>true</custom>
     <fieldPermissions>
         <editable>true</editable>

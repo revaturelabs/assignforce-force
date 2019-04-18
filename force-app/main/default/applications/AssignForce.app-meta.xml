@@ -19,7 +19,10 @@
     <tabs>Training_Track__c</tabs>
     <tabs>Training__c</tabs>
     <tabs>PTO__c</tabs>
+<<<<<<< HEAD
     <tabs>Skill__c</tabs>
+=======
+>>>>>>> HarryMitchell
     <uiType>Lightning</uiType>
     <utilityBar>AssignForce_UtilityBar</utilityBar>
 </CustomApplication>

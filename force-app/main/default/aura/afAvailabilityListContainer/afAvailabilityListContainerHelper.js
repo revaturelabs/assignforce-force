@@ -76,4 +76,48 @@
         return listToSort.sort((a,b) => (a.Name>b.Name) ? 1 :-1);
     },
     
+<<<<<<< HEAD
+=======
+    //This method will determine which trainers should be displayed based on pagination
+    updateTrainersSubList : function(trainerList, offset, pageSize) {
+        console.log('updateTrainer is starting');
+		var trainersOnPage = [];       
+        offset *= pageSize;
+        var i;
+        for(i=offset; i<pageSize+offset && i<trainerList.length ; i++){ //
+            trainersOnPage.push(trainerList[i]);
+        }
+        console.log('updateTrainer has finished');
+        return trainersOnPage;
+    },
+    
+    //This method will determine which rooms should be displayed based on pagination
+    updateRoomsSubList : function(roomList, offset, pageSize) {
+		var roomsOnPage = [];       
+        offset *= pageSize;
+        var i;
+        for(i=offset; i<pageSize+offset && i<roomList.length ; i++){ //
+            roomsOnPage.push(roomList[i]);
+        }
+        return roomsOnPage;
+    },
+    
+    /*Should be called every time a button is clicked related to pagination
+     *Determines if the next button for pagination should be disabled i.e. 
+     *If it should be clickable or not */
+    shouldNextBeDisabled : function(list, offSet, pageSize){
+        var value = (offSet*pageSize) + pageSize;
+        //console.log("should next be disabled\nlistSize is: "+list.length+" offset * pagesize + pagesize is: " + value);
+        return list.length < (offSet*pageSize) + pageSize;  
+    },
+    
+    /*Should be called every time a button is clicked related to pagination
+     *Determines if the previous button for pagination should be disabled i.e. 
+     *If it should be clickable or not */
+    shouldPreviousBeDisabled : function(offSet){
+        console.log("should perv be disabled\nPage is: " + offset);
+        return 1 > offSet;  
+    },
+    
+>>>>>>> HarryMitchell
 })
