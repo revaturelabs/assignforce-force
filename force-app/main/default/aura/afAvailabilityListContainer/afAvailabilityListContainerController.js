@@ -46,8 +46,11 @@
         //component.set("v.rooms", roomsToSet);
         
         var allRooms = component.get("v.allRooms");
-        var roomsPerPage = component.get("v.numberOfRoomsToBeDsiplayed");
-        //var roomsSubList = helper.updateTrainersSubList(allRooms,0,roomsPerPage);
+        //console.log('rooms: ' + allRooms);
+        var roomsPerPage = component.get("v.numberOfRoomsToBeDisplayed");
+        //console.log('rooms per page: ' + roomsPerPage);
+        var roomsSubList = helper.updateRoomsSubList(allRooms,0,roomsPerPage);
+        //console.log('rooms sub lits: ' + roomsSubList);
         component.set('v.roomsOnPage', roomsSubList);
     },
 
@@ -161,12 +164,25 @@
                 var trainerSubList = helper.updateTrainersSubList(trainers,offset+1,trainersPerPage); 
                 component.set('v.trainersOnPage', trainerSubList);
                 offset++;
-                console.log("offset: " + offset);
                 component.set('v.currentTrainerPageNumber', offset);
                 var disabled = helper.shouldNextBeDisabled(trainers, offset, trainersPerPage);
+                console.log("disabled: " + disabled);
+                component.set('v.nextDisabled', disabled);
+                component.set('v.previousDisabled', false);
                 break;
             case 1://This is the available rooms tab 
-            
+            	console.log("page is currently rooms");
+                var offset = component.get('v.currentRoomPageNumber');
+                var roomsPerPage = component.get('v.numberOfRoomsToBeDisplayed');
+                var rooms = component.get('v.allRooms'); //master list of rooms
+                var roomSubList = helper.updateRoomsSubList(rooms,offset+1,roomsPerPage); 
+                component.set('v.roomsOnPage', roomSubList);
+                offset++;
+                component.set('v.currentRoomPageNumber', offset);
+                var disabled = helper.shouldNextBeDisabled(rooms, offset, roomsPerPage);
+                console.log("disabled: " + disabled);
+                component.set('v.nextDisabled', disabled);
+                component.set('v.previousDisabled', false);
             	break;               
             case 2://This is the external trainers tab
                 
@@ -175,9 +191,47 @@
                 
                 break;
         }
+        console.log("next page finished");
     },
     
-    previousPage: function(component) {
-        
+    previousPage: function(component, event, helper) {
+        console.log("prev page starting");
+        var currentPageType = component.get('v.tabShown');
+        switch(currentPageType){
+            case 0:
+				//console.log("page is currently internal trainers");
+                var offset = component.get('v.currentTrainerPageNumber');
+                var trainersPerPage = component.get('v.numberOfTrainersToBeDisplayed');
+                var trainers = component.get('v.trainers'); //master list of trainers
+                var trainerSubList = helper.updateTrainersSubList(trainers,offset-1,trainersPerPage); 
+                component.set('v.trainersOnPage', trainerSubList);
+                offset--;
+                component.set('v.currentTrainerPageNumber', offset);
+                var disabled = helper.shouldPreviousBeDisabled(trainers, offset, trainersPerPage);
+                console.log("disabled: " + disabled);
+                component.set('v.nextDisabled', false); //next is always enabled if previous was clicked
+                component.set('v.previousDisabled', disabled);
+                break;
+            case 1:
+				//console.log("page is currently rooms");
+                var offset = component.get('v.currentRoomPageNumber');
+                var roomsPerPage = component.get('v.numberOfRoomsToBeDisplayed');
+                var rooms = component.get('v.allRooms'); //master list of rooms
+                var roomSubList = helper.updateRoomsSubList(rooms,offset-1,roomsPerPage); 
+                component.set('v.roomsOnPage', roomSubList);
+                offset--;
+                component.set('v.currentRoomPageNumber', offset);
+                var disabled = helper.shouldNextBeDisabled(rooms, offset, roomsPerPage);
+                console.log("disabled: " + disabled);
+                component.set('v.nextDisabled', false);
+                component.set('v.previousDisabled', disabled);
+            	break;            
+            case 2:
+
+                break;
+            default:            
+                break;
+        }
+        console.log("previous page finsihed");
     },
 })

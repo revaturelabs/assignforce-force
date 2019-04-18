@@ -82,19 +82,9 @@
 		var trainersOnPage = [];       
         offset *= pageSize;
         var i;
-        var names = [];
-        for(i=0;i<trainerList.length;i++){
-            names.push(trainerList[i].Alias);
-        }
-        console.log('names from master list: ' + names);
         for(i=offset; i<pageSize+offset && i<trainerList.length ; i++){ //
             trainersOnPage.push(trainerList[i]);
-        }        
-        names = [];
-        for(i=0;i<trainersOnPage.length;i++){
-            names.push(trainersOnPage[i].Alias);
         }
-        console.log('names from sub-List');
         console.log('updateTrainer has finished');
         return trainersOnPage;
     },
@@ -106,7 +96,7 @@
         var i;
         for(i=offset; i<pageSize+offset && i<roomList.length ; i++){ //
             roomsOnPage.push(roomList[i]);
-        }        
+        }
         return roomsOnPage;
     },
     
@@ -114,6 +104,7 @@
      *Determines if the next button for pagination should be disabled i.e. 
      *If it should be clickable or not */
     shouldNextBeDisabled : function(listSize, offSet, pageSize){
+        console.log("should next be disabled\nlistSize is: "+listSize+" offset * pagesize + pagesize is: " + offSet*pageSize + pageSize);
         return listSize < offSet*pageSize + pageSize;  
     },
     
@@ -121,7 +112,7 @@
      *Determines if the previous button for pagination should be disabled i.e. 
      *If it should be clickable or not */
     shouldPreviousBeDisabled : function(offSet){
-        return 0 > offSet;  
+        return 1 > offSet;  
     },
     
 })
