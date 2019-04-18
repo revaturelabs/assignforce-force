@@ -1,4 +1,4 @@
-@isTest
+//@isTest
 public class CreateAssignForceData {
     
     public static void createTrainingLocations(){

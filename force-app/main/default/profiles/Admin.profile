@@ -10,10 +10,6 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>LimitChecker</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
         <apexClass>UtilityMethods</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -415,26 +411,6 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Training__c.Training_Location_Name__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>User.CurrentLocation__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>User.Preferred_Location__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>User.Training_Skills__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>User.hasSkill__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <layoutAssignments>
