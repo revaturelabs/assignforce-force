@@ -1,5 +1,5 @@
 ({
-    
+
     doInit: function(component, event, helper){
         //INITIALIZE TRAINERS WITH INITIAL SORT
         var filterController = component.get("c.sortTrainersBySelectedCategories");
