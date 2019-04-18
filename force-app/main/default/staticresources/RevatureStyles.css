@@ -1,9 +1,10 @@
 /************************
 	Revature Fonts
 ************************/
-
+/*Testing Code*/
 * {
     font-family: Futura-Std-Book !important;
+     src: URL('/resource/FuturaStdBook');
  }
  
  .boxLabel, .boxLabel > * {
@@ -50,4 +51,4 @@
                  
  .flexipageHeader.slds-page-header.uiBlock.oneAnchorHeader{
      display:none
- }
+ } 
