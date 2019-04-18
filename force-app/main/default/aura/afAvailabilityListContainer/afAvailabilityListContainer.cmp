@@ -164,8 +164,10 @@
                         </aura:iteration>
                     </div>
                 </div>
-                <lightning:button iconName="utility:chevronleft" title="Previous Page" onclick="{!c.previousPage}" disabled="{!v.previousDisabled}" class="slds-float_left"/>
-                <lightning:button iconName="utility:chevronright" title="Next Page" onclick="{!c.nextPage}" disabled="{!v.nextDisabled}" class="slds-float_right"/>   
+                <lightning:button variant="base" iconName="utility:chevronleft" title="Previous Page" 
+                                  onclick="{!c.previousPage}" disabled="{!v.previousDisabled}"/>
+                <lightning:button variant="base" iconName="utility:chevronright" title="Next Page" 
+                                  onclick="{!c.nextPage}" disabled="{!v.nextDisabled}"/>   
             </div>
         </div>
     </div>

@@ -42,17 +42,11 @@
     },
 
     initRooms : function(component, event, helper){
-        //INITIALIZE ROOMS WITH ALL ROOMS
-        //var roomsToSet = component.get("v.allRooms");
-        //component.set("v.rooms", roomsToSet);
-        
+        //INITIALIZE ROOMS WITH ALL ROOMS    
         var allRooms = component.get("v.allRooms");
-        //console.log('rooms: ' + allRooms);
         var roomsPerPage = component.get("v.numberOfRoomsToBeDisplayed");
-        //console.log('rooms per page: ' + roomsPerPage);
         var offset = component.get('v.currentRoomPageNumber');
         var roomsSubList = helper.updateRoomsSubList(allRooms,offset,roomsPerPage);
-        //console.log('rooms sub lits: ' + roomsSubList);
         component.set('v.roomsOnPage', roomsSubList);
     },
 
@@ -128,7 +122,7 @@
 
     },
     
-    roomClick: function(component){
+    roomClick: function(component, event, helper){
         //when the rooms tab is clicked this method sets tab1Shown to false to switch tabs
         var isTabShown = component.get('v.tabShown');
         if(isTabShown != 1){
@@ -137,19 +131,32 @@
         }
     },
     
-    trainerClick: function (component) {
+    trainerClick: function (component, event, helper) {
         //when the trainers' tab is clicked this method sets tabShown to switch tabs
         var isTabShown = component.get('v.tabShown');
         if(isTabShown != 0){
-            component.set('v.currentTrainerPageNumber', 0);
+            //component.set('v.currentTrainerPageNumber', 0);
+            var offset = component.get("v.currentTrainerPageNumber");
+            var trainers = component.get("v.trainers");
+            //var listSize = trainers.length;
+            var pageSize = component.get("v.numberOfTrainersToBeDisplayed");
+            //var disabled = helper.shouldNextBeDisabled(rooms, offset, roomsPerPage);
+            console.log("got all of the attriubtes");
+            var disable = helper.shouldNextBeDisabled(trainers, offSet, pageSize);
+            console.log("got past the helper");
+            component.set('v.nextDisabled', disable);
+            console.log("set next");
+            disable = (1 > offset);
+            component.set('v.previousDisabled', disable);
+            console.log("set disable"); 
             component.set('v.tabShown', 0);
         }
     },
     
-    externalTrainerClick : function(component) {
+    externalTrainerClick : function(component, event, helper) {
         var isTabShown = component.get('v.tabShown');
         if(isTabShown != 2){
-            component.set('v.currentExternalTrainerPageNumber', 0);
+            //component.set('v.currentExternalTrainerPageNumber', 0);
             component.set('v.tabShown', 2);
         }
     },
