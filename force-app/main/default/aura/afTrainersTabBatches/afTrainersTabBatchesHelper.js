@@ -36,6 +36,7 @@
                         tempCurrent.push(temp[i]);
                     }
                 }
+                
                 //Calls modGetData which is responsible for putting values on data table
                 this.modGetData(component, tempCurrent, tempFuture);
             }
@@ -74,6 +75,18 @@
             var endDate =  this.endDateHandler(endDateString);
             var startDate = this.startDateHandler(startDateString);
             futureTrainings.push(this.addToArray(tempObj , endDateString, startDateString));
+        }
+        
+        // Two sets of if-else statements to determine whether to display the Current Batches and Upcoming batches tables
+        if(trainings.length > 0){
+            component.set('v.hasCurrentBatch', true);
+        }else{
+            component.set('v.hasCurrentBatch', false);
+        }
+        if(futureTrainings.length > 0){
+            component.set('v.hasUpcomingBatch', true);
+        }else{
+            component.set('v.hasUpcomingBatch', false);
         }
         
         //sets the values from trainings to current batch datatable and futureTrainings to upcoming batch table

@@ -4,13 +4,15 @@
     <ltng:require styles="{!$Resource.FuturaStdHeavy + '/assets/styles/lightning-design-system-ltng.css'}"/>
     
     <!--ATTRIBUTES-->
-    <aura:attribute name="empBatchesRecordset"         type="List"                     description="List of records for the lightning:dataTable columns" />
-    <aura:attribute name="keyField"                 type="String"     default="id"     description="Primary key for list of records" />
-    <aura:attribute name="empCurrentBatchDataset"     type="Object[]"                 description="Data for lightning dataTable that involves current batches"/>
-    <aura:attribute name="empFutureBatchDataset"     type="Object[]"                 description ="Data for lightning dataTable that involves future batches "/>
-    <aura:attribute name="userId"                     type="Id"                         description="Used to store a value for the current users id"/>
-    <aura:attribute name="hasBatches"                 type="Boolean"     default="false" description="A boolean used to represent whether a trainer has any batches scheduled" />
-    <aura:attribute name="hasSelected"              type="Boolean"        default="false" description="Checks to see if a trainer was selected."/>
+    <aura:attribute name="empBatchesRecordset"      type="List"                       description="List of records for the lightning:dataTable columns" />
+    <aura:attribute name="keyField"                 type="String"     default="id"    description="Primary key for list of records" />
+    <aura:attribute name="empCurrentBatchDataset"   type="Object[]"                   description="Data for lightning dataTable that involves current batches"/>
+    <aura:attribute name="empFutureBatchDataset"    type="Object[]"                   description ="Data for lightning dataTable that involves future batches "/>
+    <aura:attribute name="userId"                   type="Id"                         description="Used to store a value for the current users id"/>
+    <aura:attribute name="hasBatches"               type="Boolean"    default="false" description="A boolean used to represent whether a trainer has any batches scheduled" />
+    <aura:attribute name="hasSelected"              type="Boolean"    default="false" description="Checks to see if a trainer was selected."/>
+    <aura:attribute name="hasCurrentBatch" 			type="Boolean"	  default="false" description="Checks if there are current batches to be shown"/>
+    <aura:attribute name="hasUpcomingBatch" 		type="Boolean"	  default="false" description="Checks if there are upcoming batches to be shown"/>
     
     <!--HANDLERS-->
     <aura:handler event="c:TrainerSelected"        action="{!c.TrainersBatches}"/>
@@ -19,31 +21,53 @@
     <!-- aura:if is used determine whether both tables should render or a text based message-->
     <aura:if isTrue="{!v.hasBatches}" >
         <div class="slds-grid slds-wrapper">
-            <lightning:card title="Current Batches">
-                <lightning:dataTable
-                                     
-                                     data="{!v.empCurrentBatchDataset}"
-                                     columns="{!v.empBatchesRecordset}"
-                                     keyField="id"
-                                     aura:id="empDataTable"
-                                     hideCheckboxColumn="true"
-                                     description="data table to reflect batches associated with a specific trainer"
-                                     />
-            </lightning:card>
+            <div class="slds-size_1-of-1">
+            	<lightning:card title="Current Batches">
+                    <aura:set attribute="actions">
+            			<lightning:button label="New"/>
+        			</aura:set>
+                    <!-- If there are table entries display the table, else display a sorry message -->
+                    <aura:if isTrue="{!v.hasCurrentBatch}">
+                        <lightning:dataTable
+                                         data="{!v.empCurrentBatchDataset}"
+                                         columns="{!v.empBatchesRecordset}"
+                                         keyField="id"
+                                         aura:id="empDataTable"
+                                         hideCheckboxColumn="true"
+                                         description="data table to reflect batches associated with a specific trainer"
+                                         />
+                        <aura:set attribute="else">
+                            <div class="slds-size_1-of-1">
+                                <h2 class="emptyBatchClass" >This Trainer does not have any Current Batches.</h2>
+                            </div>
+                        </aura:set>
+                    </aura:if>
+            	</lightning:card>
+            </div>
         </div>
         
         <div class="slds-grid slds-wrapper">
-            <lightning:card title="Upcoming Batches">
-                <lightning:dataTable
-                                     
-                                     data="{!v.empFutureBatchDataset}"
-                                     columns="{!v.empBatchesRecordset}"
-                                     keyField="id"
-                                     aura:id="empDataTables"
-                                     hideCheckboxColumn="true"
-                                     description="data table to reflect batches associated with a specific trainer"
-                                     />
-            </lightning:card>
+            <div class="slds-size_1-of-1">
+            	<lightning:card title="Upcoming Batches">
+                    <!-- If there are table entries display the table, else display a sorry message -->
+                    <aura:if isTrue="{!v.hasUpcomingBatch}">
+                    	<lightning:dataTable
+                                         data="{!v.empFutureBatchDataset}"
+                                         columns="{!v.empBatchesRecordset}"
+                                         keyField="id"
+                                         aura:id="empDataTables"
+                                         hideCheckboxColumn="true"
+                                         description="data table to reflect batches associated with a specific trainer"
+                                         />
+                        <aura:set attribute="else">
+                        	<div class="slds-size_1-of-1">
+                                <h2 class="emptyBatchClass" >This Trainer does not have any Upcoming Batches.</h2>
+                            </div>
+                        </aura:set>
+                    </aura:if>
+                    
+            	</lightning:card>
+            </div>
         </div>
         <aura:set attribute="else">
             <aura:if isTrue="{!v.hasSelected}">
