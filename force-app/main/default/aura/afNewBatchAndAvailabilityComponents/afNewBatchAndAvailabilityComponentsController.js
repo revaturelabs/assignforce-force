@@ -80,26 +80,7 @@
             }
         });
         $A.enqueueAction(getTrainers);
-        
-        //Get all External Trainers from APEX SOQL Query and pass back to component attribute
-        var getExternalTrainers = component.get("c.masterExternalTrainers");
-        getTrainers.setCallback(this, function(response) {
-            var state = response.getState();
-            if (component.isValid() && state === "SUCCESS") {
-                component.set('v.allExternalTrainers', response.getReturnValue());
-            } else if (state === "ERROR") {
-                var errors = response.getError();
-                if (errors) {
-                    if (errors[0] && errors[0].message) {
-                        console.log('Error message: ' + errors[0].message)
-                    }
-                }
-            } else {
-                console.log('Function callback error. Function call failed. {0003}');
-            }
-        });
-        $A.enqueueAction(getExternalTrainers);
-        
+          
         //Get all Trainings from APEX SOQL Query and pass back to component attribute
         var getTrainings = component.get("c.masterOpenTrainings");
         getTrainings.setCallback(this, function(response) {

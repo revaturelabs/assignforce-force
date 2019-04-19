@@ -1,5 +1,9 @@
 <aura:component >
     <aura:attribute name="externalTrainerWrapper" type="afTrainerAvailSortingWrapper" />
+    <aura:attribute name="available" type="Boolean" />
+    <aura:attribute name="hasSkill" type="Boolean" />
+    <aura:attribute name="name" type="String" />
+    <aura:attribute name="preferredLocation" type="String" />
     
     <div class="slds-grid" style="padding-top: 10px;">
             <div class="slds-col slds-size_1-of-5">
@@ -8,10 +12,8 @@
                 </div>
             </div>
             <div class="slds-col slds-size_1-of-5 slds-align_absolute-center">
-                <lightning:outputField fieldName="trainer.Name" variant="label-hidden"/>
-            </div>
-            <div class="slds-col slds-size_1-of-5 slds-align_absolute-center">
-                <lightning:outputField fieldName="trainer.Preferred_Location__c" variant="label-hidden"/>
+
+                <lightning:formattedName firstName="{!v.externalTrainerWrapper.trainerFirstName}" lastName="{!v.externalTrainerWrapper.trainerLastName}" />
             </div>
             <div class="slds-col slds-size_1-of-5 slds-align_absolute-center">
                 <!-- Nested if-else statment to display the proper icon for the room's availability -->
