@@ -13,8 +13,6 @@
     <aura:attribute name="selectedPTO"               type="Boolean"    default="false" description="This the boolean to toggle if a trainer has been selected."/>
     <aura:attribute name="hasCurrentPTO" 			type="Boolean"	  default="false" description="Checks if there are current PTO to be shown"/>
     <aura:attribute name="hasUpcomingPTO" 		    type="Boolean"	  default="false" description="Checks if there are upcoming PTO to be shown"/>
-        
-
 
     <!--HANDLERS-->
     <aura:handler event="c:TrainerSelected" action="{!c.TrainersPTO}"/>
