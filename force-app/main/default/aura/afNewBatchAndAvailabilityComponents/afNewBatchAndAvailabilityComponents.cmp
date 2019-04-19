@@ -19,6 +19,10 @@
     <aura:attribute name="allTrainers"     
                     type="List" 
                     description="List of all Trainers passed from afNewBatchAndAvailabilityApexController"/>
+    <aura:attribute name="allExternalTrainers"     
+                    type="External_Trainer__c[]" 
+                    access="public" 
+                    description="List of all External Trainers passed from afNewBatchAndAvailabilityApexController"/>
     <aura:attribute name="openTrainings"     
                     type="List" 
                     access="public" 
@@ -43,7 +47,8 @@
                     <!-- Initiate child component with query of skills, trainings, rooms, and trainers -->
                     <c:afAvailabilityListContainer  allSkills="{!v.allSkills}"
                                                     allRooms="{!v.allRooms}"
-                                                    allTrainers="{!v.allTrainers}"/>
+                                                    allTrainers="{!v.allTrainers}"
+                                                    externalTrainers="{!v.allExternalTrainers}"/>
                 </span>
             </div>
         </div>
