@@ -110,6 +110,7 @@
             }//end of the Else 
 
         }
+        
         //Creating the bars, but for the free time(time inbetween batches)
         var freeTimeData = [];
         var trainersDone = [];
@@ -141,9 +142,12 @@
                     }
                 }
             }      
-        }
+        } //END FOR
         
-        seriesObj.push({'name' : 'Free Time', 'pointWidth' : 30, 'data' : freeTimeData, 'fill' : '#FFFFFF', 'dataLabels' : {
+        /*
+        I know what you're thinking. But it looks better this way. -mw
+
+        seriesObj.push({'name' : 'Free Time', 'pointWidth' : 30, 'data' : freeTimeData, 'fill' : '#ffffff', 'dataLabels' : {
             enabled : true,
             style:
             {
@@ -163,7 +167,9 @@
                 return "";
             }
         }
+        
                        });
+        */
         //The formatting for the chart
         var charts = new Highcharts.chart({
             chart: {
