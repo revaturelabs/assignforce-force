@@ -76,7 +76,7 @@ public class afAvailListContainerApexController {
 	}
 	
     @AuraEnabled
-    public static List<afTrainerAvailSortingWrapper> sortExternalTrainersBySelectedCategories(Date startOfBatch, 
+    public static String sortExternalTrainersBySelectedCategories(Date startOfBatch, 
                                                                                      Date endOfBatch,
                                                                                      Object chosenTrack, 
                                                                                      String selectedLocation)
@@ -95,18 +95,18 @@ public class afAvailListContainerApexController {
                                                 		FROM External_Trainer__c];
         
                                                                                          
-        Set<Id> availableExternalTrainers = new Set<Id>();
+        Set<Id> unavailableExternalTrainers = new Set<Id>();
         for( Training__c training : [SELECT External_Trainer__c
                                      FROM Training__c
                                      WHERE ((StartDate__c < :startOfBatch AND EndDate__c > :startOfBatch)
                                      OR (StartDate__c < :endOfBatch AND EndDate__c > :endOfBatch))
                                      AND Trainer__r.Name = 'External Trainer']){
-                                         availableExternalTrainers.add(training.External_Trainer__c);
+                                         unavailableExternalTrainers.add(training.External_Trainer__c);
                                      }
         for(External_Trainer__c externalTrainer: allExternalTrainers){
             List<String> skills = externalTrainer.Training_Skills__c.split(';');
-            afTrainerAvailSortingWrapper wrapper = new afTrainerAvailSortingWrapper(skills.contains(chosenTrackString),
-                                                                                    availableExternalTrainers.contains(externalTrainer.Id),
+            afTrainerAvailSortingWrapper wrapper = new afTrainerAvailSortingWrapper(skills.contains(chosenTrackString) || chosenTrackString==null,
+                                                                                    !unavailableExternalTrainers.contains(externalTrainer.Id),
                                                                                     externalTrainer.preferred_Location__c == selectedLocation, 
                                                                                     externalTrainer);
             result.add(wrapper);
@@ -114,7 +114,8 @@ public class afAvailListContainerApexController {
         
                                                                                          
         result.sort();
-		return result;
+        system.debug(result);
+		return JSON.serialize(result);
     }
     
 	/*------------------------------------------

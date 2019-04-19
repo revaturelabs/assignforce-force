@@ -37,7 +37,7 @@
             var state = response.getState();
             if (component.isValid() && state === "SUCCESS") {
                 //ACTION to take when return is successful
-                component.set('v.externalTrainers', response.getReturnValue());
+                component.set('v.externalTrainers', JSON.parse(response.getReturnValue()));
             } else if (state === "ERROR") {
                 var errors = response.getError();
                 if (errors) {
