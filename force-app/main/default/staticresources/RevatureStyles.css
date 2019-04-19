@@ -1,7 +1,7 @@
 /************************
 	Revature Fonts
 ************************/
-/* Test Code */
+/*Testing Code*/
 * {
     font-family: Futura-Std-Book !important;
      src: URL('/resource/FuturaStdBook');
@@ -50,5 +50,9 @@
  }
                  
  .flexipageHeader.slds-page-header.uiBlock.oneAnchorHeader{
+<<<<<<< HEAD
      display:none;
+=======
+     display:none
+>>>>>>> 022519Salesforce
  } 
