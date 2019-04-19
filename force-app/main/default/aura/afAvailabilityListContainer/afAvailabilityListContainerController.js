@@ -154,6 +154,7 @@
         $A.enqueueAction(filterControllerRoom);
 
     },
+	
     roomClick: function(component, event, helper){
         //when the rooms tab is clicked this method sets tab1Shown to false to switch tabs
         var isTabShown = component.get('v.tabShown');
