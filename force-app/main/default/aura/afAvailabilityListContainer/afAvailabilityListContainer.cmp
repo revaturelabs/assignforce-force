@@ -12,25 +12,11 @@
                     type="User[]" 
                     description="Trainers passed in by afNewBatchAndAvailabilityApexController. Does not include External Trainers"/>
     
-<<<<<<< HEAD
-=======
-    
->>>>>>> HarryMitchell
     <!-- User Selection: Attributes
         All areas of the component that is updated- shows to the right of newBatchForm
     -->
     <aura:attribute name="trainers" 				
                     type="User[]"/>
-<<<<<<< HEAD
-    <aura:attribute name="rooms" 					
-                    type="List"/>
-    <aura:attribute name="tab1Shown" 				
-                    type="Boolean" 			
-                    default='true' 
-                    description="Controls switching between 'Available Trainers' and 'Available Rooms' tabs"/>
-    <aura:attribute name="location" 				
-                    type="Id"/>
-=======
     <aura:attribute name="externalTrainers" 				
                     type="User[]"/>		                    
     <aura:attribute name="rooms" 					
@@ -43,7 +29,7 @@
                     type="Id"/>
     <aura:attribute name="numberOfTrainersToBeDisplayed"
                     type="Integer"
-                    default="6"
+                    default="5"
                     description="The number of trainers to be displayed on each page" />
     <aura:attribute name="numberOfRoomsToBeDisplayed"
                     type="Integer"
@@ -51,7 +37,7 @@
                     description="The number of rooms to be displayed on each page" />
     <aura:attribute name="numberOfExternalTrainersToBeDisplayed"
                     type="Integer"
-                    default="6"
+                    default="5"
                     description="The number of trainers to be displayed on each page" />
     <aura:attribute name="currentTrainerPageNumber"
                     type="Integer"
@@ -79,7 +65,6 @@
                     type="Boolean"
                     default="true"
                     description="Determines if the previous button for pagination should be disabled." />
->>>>>>> HarryMitchell
     
     <!--Handler to pass in user input from afNewBatchForm --> 
     <aura:handler     event="c:afNewBatchFormEvent" 	
@@ -93,13 +78,9 @@
     <aura:handler name="change"     
                   value="{!v.allRooms}"   
                   action="{!c.initRooms}"/>
-<<<<<<< HEAD
-    <!--<aura:handler name="change" value="{!v.allTrainers}" action="{!c.initTrainers}"/>-->
-=======
     <aura:handler name="change"
                   value="{!v.trainers}"
                   action="{!c.initTrainers}" />
->>>>>>> HarryMitchell
 
     <!--Visual Components-->
     <div class="slds-card">
@@ -110,17 +91,6 @@
                     top bar initialized to this tab
                 -->
                 <ul class="slds-tabs_default__nav">
-<<<<<<< HEAD
-                    <li class="{!v.tab1Shown ? 'slds-tabs_default__item slds-is-active' : 'slds-tabs_default__item'}">
-                        <span class=" slds-text-heading_medium" tabindex="0" id="trainersTab" onclick='{!c.trainerClick}'>
-                            Available Trainers
-                        </span>
-                    </li>
-                    <!-- tab to show a list of available rooms when clicked-->
-                    <li class="{!v.tab1Shown ? 'slds-tabs_default__item ' : 'slds-tabs_default__item slds-is-active'}">
-                        <span class="slds-text-heading_medium" tabindex="-1" id="roomsTab" onclick='{!c.roomClick}'>
-                            Available Rooms
-=======
                     <li class="{!v.tabShown == 0 ? 'slds-tabs_default__item slds-is-active' : 'slds-tabs_default__item'}">
                         <span class=" slds-text-heading_medium" tabindex="0" id="trainersTab" onclick='{!c.trainerClick}'>
                             Internal Trainers
@@ -136,22 +106,14 @@
                      <li class="{!v.tabShown==2 ? 'slds-tabs_default__item slds-is-active' : 'slds-tabs_default__item'}">
                         <span class="slds-text-heading_medium" tabindex="-1" id="externalTrainersTab" onclick='{!c.externalTrainerClick}'>
                             External Trainers
->>>>>>> HarryMitchell
                         </span>
                     </li>
                 </ul>
                 <!--
-<<<<<<< HEAD
-                    In the trainer tab, displays Name, Availability, Assigned Location, and if they are experienced.
-                    This defines columns for every trainer that matches batch criteria.    
-                -->
-                <div id="trainers" class="{!v.tab1Shown ? 'slds-tabs_default__content slds-show' : 'slds-tabs_default__content slds-hide'}">
-=======
                     In the internal trainer tab, displays Name, Availability, Assigned Location, and if they are experienced.
                     This defines columns for every trainer that matches batch criteria.    
                 -->
                 <div id="trainers" class="{!v.tabShown == 0 ? 'slds-tabs_default__content slds-show' : 'slds-tabs_default__content slds-hide'}">
->>>>>>> HarryMitchell
                     <div class="slds-grid">
                         <div class="slds-col slds-size_1-of-5 slds-align_absolute-center"></div>
                         <div class="slds-col slds-size_1-of-5 slds-align_absolute-center"><h1>Name</h1></div>
@@ -161,19 +123,27 @@
                     </div>
                     <!-- iteration to grab said columns stated earlier for each trainer -->
                     <div class="slds-scrollable" style="height: 300px">
-<<<<<<< HEAD
-                        <aura:iteration  items="{!v.trainers}" var="trainerVar">
-=======
                         <aura:iteration items="{!v.trainersOnPage}" var="trainerVar">
->>>>>>> HarryMitchell
                             <c:afTrainerAvailabilityListItem trainerId="{!trainerVar.Id}" hasSkill="{!trainerVar.hasSkill__c}" availability="{!trainerVar.Available__c}"/>
                         </aura:iteration>
                     </div>
                 </div>
-<<<<<<< HEAD
-                <!-- Ink the Available Rooms tab, defines columns to use -->
-                <div id="rooms" class="{!v.tab1Shown ? 'slds-tabs_default__content slds-hide' : 'slds-tabs_default__content slds-show'}">
-=======
+                <!-- In the Available Rooms tab, defines columns to use -->
+                <div id="rooms" class="{!v.tabShown == 1 ? 'slds-tabs_default__content slds-show' : 'slds-tabs_default__content slds-hide' }">
+                    <div class="slds-grid">
+                        <div class="slds-col slds-size_1-of-5 slds-align_absolute-center"></div>
+                        <div class="slds-col slds-size_1-of-5 slds-align_absolute-center"><h1>Name</h1></div>
+                        <div class="slds-col slds-size_1-of-5 slds-align_absolute-center"><h1>Location</h1></div>
+                        <div class="slds-col slds-size_1-of-5 slds-align_absolute-center"><h1>Available</h1></div>
+                        <div class="slds-col slds-size_1-of-5 slds-align_absolute-center"><h1>Capacity</h1></div>
+                    </div>
+                    <!-- Iterate over available rooms in accordance to criteria set-->
+                    <div class="slds-scrollable" style="height: 300px">
+                        <aura:iteration items="{!v.roomsOnPage}" var="room">
+                            <c:afRoomAvailabilityListItem room="{!room}"/>   
+                        </aura:iteration>
+                    </div>
+                </div>
                 <!--
                     In the external trainer tab, displays Name, Availability, Assigned Location, and if they are experienced.
                     This defines columns for every trainer that matches batch criteria.    
@@ -187,7 +157,7 @@
                         <div class="slds-col slds-size_1-of-5 slds-align_absolute-center"><h1>Experienced</h1></div>
                     </div>
                     <!-- iteration to grab said columns stated earlier for each trainer -->
-                    <div class="slds-scrollable" style="height: 300px">
+                    <div style="height: 300px">
                         <aura:iteration  items="{!v.externalTrainers}" var="trainerVar">
                             <c:afTrainerAvailabilityListItem trainerId="{!trainerVar.Id}"  availability="{!trainerVar.Available__c}"/>
                         </aura:iteration>
@@ -195,7 +165,6 @@
                 </div>
                 <!-- In the Available Rooms tab, defines columns to use -->
                 <div id="rooms" class="{!v.tabShown == 1 ? 'slds-tabs_default__content slds-show' : 'slds-tabs_default__content slds-hide' }">
->>>>>>> HarryMitchell
                     <div class="slds-grid">
                         <div class="slds-col slds-size_1-of-5 slds-align_absolute-center"></div>
                         <div class="slds-col slds-size_1-of-5 slds-align_absolute-center"><h1>Name</h1></div>
@@ -205,22 +174,16 @@
                     </div>
                     <!-- Iterate over available rooms in accordance to criteria set-->
                     <div class="slds-scrollable" style="height: 300px">
-<<<<<<< HEAD
-                        <aura:iteration items="{!v.rooms}" var="room">
-=======
                         <aura:iteration items="{!v.roomsOnPage}" var="room">
->>>>>>> HarryMitchell
                             <c:afRoomAvailabilityListItem room="{!room}"/>   
                         </aura:iteration>
                     </div>
                 </div>
-<<<<<<< HEAD
-=======
+
                 <lightning:button variant="base" iconName="utility:chevronleft" title="Previous Page" 
                                   onclick="{!c.previousPage}" disabled="{!v.previousDisabled}"/>
                 <lightning:button variant="base" iconName="utility:chevronright" title="Next Page" 
                                   onclick="{!c.nextPage}" disabled="{!v.nextDisabled}"/>   
->>>>>>> HarryMitchell
             </div>
         </div>
     </div>

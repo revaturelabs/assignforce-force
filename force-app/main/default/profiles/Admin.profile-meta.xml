@@ -111,6 +111,10 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>afTrainerAvailSortingWrapper</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>afTrainerInfoController</apexClass>
         <enabled>true</enabled>
     </classAccesses>

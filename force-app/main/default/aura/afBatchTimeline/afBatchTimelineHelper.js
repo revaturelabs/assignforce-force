@@ -100,16 +100,9 @@
                     //Displays the number of weeks for how long the training tracks are
                     formatter: function(){
                         if (Math.ceil((this.x2 - this.x) / (7 * 24 * 60 * 60 * 1000)) > 1) {
-<<<<<<< HEAD
-                            return Math.ceil((this.x2 - this.x) / (7 * 24 * 60 * 60 * 1000)) + " Wks";
-                        }
-                        return Math.ceil((this.x2 - this.x) / (7 * 24 * 60 * 60 * 1000)) + " Wk";
-=======
                             return Math.ceil((this.x2 - this.x) / (7 * 24 * 60 * 60 * 1000)) + " Weeks";
                         }
                         return Math.ceil((this.x2 - this.x) / (7 * 24 * 60 * 60 * 1000)) + " Week";
->>>>>>> HarryMitchell
-                        
                     }
                 }
                                });
@@ -160,16 +153,16 @@
                 textOutline : false,
             },
             formatter: function(){
-                if (Math.ceil((this.x2 - this.x) / (7 * 24 * 60 * 60 * 1000)) > 1) {
-<<<<<<< HEAD
-                    return Math.ceil((this.x2 - this.x) / (7 * 24 * 60 * 60 * 1000)) + " Wks";
-                }
-                return Math.ceil((this.x2 - this.x) / (7 * 24 * 60 * 60 * 1000))  + " Wk";
-=======
                     return Math.ceil((this.x2 - this.x) / (7 * 24 * 60 * 60 * 1000)) + " Weeks";
                 }
                 return Math.ceil((this.x2 - this.x) / (7 * 24 * 60 * 60 * 1000))  + " Week";
->>>>>>> HarryMitchell
+                if (Math.floor((this.x2 - this.x) / (7 * 24 * 60 * 60 * 1000)) > 0) {
+                    if (Math.floor((this.x2 - this.x) / (7 * 24 * 60 * 60 * 1000)) == 1) {
+                        return Math.floor((this.x2 - this.x) / (7 * 24 * 60 * 60 * 1000)) + " Week";
+                    }
+                    return Math.floor((this.x2 - this.x) / (7 * 24 * 60 * 60 * 1000)) + " Weeks";
+                }
+                return "";
             }
         }
                        });
