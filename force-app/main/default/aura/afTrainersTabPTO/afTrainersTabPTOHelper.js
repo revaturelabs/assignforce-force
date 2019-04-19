@@ -90,6 +90,18 @@
             futurePTOs.push(this.addToArray(tempObj , endDateString, startDateString));
         }
         
+        // Based on the emptiness of lists for each of current and upcoming PTO we set booleans to display or not
+        if (PTOs.length > 0){
+            component.set('v.hasCurrentPTO', true);
+        } else{
+            component.set('v.hasCurrentPTO', false);
+        }
+        if (futurePTOs.length > 0){
+            component.set('v.hasUpcomingPTO', true);
+        } else{
+            component.set('v.hasUpcomingPTO', false);
+        }
+
         //sets the values from trainings to current PTOs datatable and futureTrainings to upcoming PTOs table
         component.set('v.empCurrentPTODataset', PTOs);
         component.set('v.empFuturePTODataset', futurePTOs);
