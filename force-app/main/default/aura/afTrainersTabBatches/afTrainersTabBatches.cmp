@@ -76,9 +76,7 @@
                                             size="x-small" alternativeText="Collapse" variant="inverse"/>
                         </div>   
                     </aura:set>
-                    
-                   
-                        
+
                         <!-- This div is to identify what is going to be displayed and hid -->
                         <div aura:id="hasUpcomingBatches" class="slds-show" >
 

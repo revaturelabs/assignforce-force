@@ -14,10 +14,10 @@
 
     // Works with the component and helper to enable collapsible sections
     sectionOne : function(component, event, helper) {
-        helper.helperFun(component,event,'hasActiveBatches');
+        helper.helperDisplay(component,event,'hasActiveBatches');
      },
             
      sectionTwo : function(component, event, helper) {
-        helper.helperFun(component,event,'hasUpcomingBatches');
+        helper.helperDisplay(component,event,'hasUpcomingBatches');
      }, 
 })

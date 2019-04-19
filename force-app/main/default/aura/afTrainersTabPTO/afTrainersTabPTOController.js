@@ -62,5 +62,14 @@
                 $A.enqueueAction(apexAction);
                 break;
         }
-   }
+   },
+
+    // Works with the component and helper to enable collapsible sections
+    sectionOne : function(component, event, helper) {
+    helper.helperDisplay(component,event,'hasActivePTO');
+    },
+            
+    sectionTwo : function(component, event, helper) {
+    helper.helperDisplay(component,event,'hasUpcomingPTO');
+    }, 
 })

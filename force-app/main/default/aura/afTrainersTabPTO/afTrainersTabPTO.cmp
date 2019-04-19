@@ -23,20 +23,33 @@
         <div class="slds-grid slds-wrapper" >
             <div class="slds-size_1-of-1">
                 <lightning:card title="Current PTO">
-                    <aura:if isTrue="{!v.hasCurrentPTO}">
-                        <lightning:dataTable
-                            data="{!v.empCurrentPTODataset}"
-                            columns="{!v.empPTORecordset}"
-                            keyField="id"
-                            aura:id="empDataTable"
-                            description="data table to reflect PTO associated with a specific trainer"
-                            />
-                        <aura:set attribute="else">
-                            <div class="slds-size_1-of-1">
-                                <h2 class="emptyBatchClass" >This Trainer does not have any Current PTO.</h2>
-                            </div>
-                        </aura:set>
-                    </aura:if>
+
+                    <!-- Collapsible buttons -->
+                    <aura:set attribute="actions" >  
+                        <div style="cursor: pointer;" onclick="{!c.sectionOne}">
+                            <lightning:icon class="slds-hide" aura:id="hasActivePTO" iconName="utility:add" 
+                                            size="x-small" alternativeText="Expand" variant="inverse"/>
+                            <lightning:icon class="slds-show" aura:id="hasActivePTO" iconName="utility:dash" 
+                                            size="x-small" alternativeText="Collapse" variant="inverse"/>
+                        </div>
+                    </aura:set>
+
+                    <div aura:id="hasActivePTO" class="slds-show">
+                        <aura:if isTrue="{!v.hasCurrentPTO}">
+                            <lightning:dataTable
+                                data="{!v.empCurrentPTODataset}"
+                                columns="{!v.empPTORecordset}"
+                                keyField="id"
+                                aura:id="empDataTable"
+                                description="data table to reflect PTO associated with a specific trainer"
+                                />
+                            <aura:set attribute="else">
+                                <div class="slds-size_1-of-1">
+                                    <h2 class="emptyBatchClass" >This Trainer does not have any Current PTO.</h2>
+                                </div>
+                            </aura:set>
+                            </aura:if>
+                    </div>
                 </lightning:card>
             </div>
         </div>
@@ -44,6 +57,18 @@
         <div class="slds-grid slds-wrapper">
             <div class="slds-size_1-of-1">
                 <lightning:card title="Upcoming PTO">
+
+                    <!-- Collapsible buttons -->
+                    <aura:set attribute="actions">
+                        <div onclick="{!c.sectionTwo}" style="cursor: pointer;">
+                            <lightning:icon class="slds-hide" aura:id="hasUpcomingPTO" iconName="utility:add" 
+                                            size="x-small" alternativeText="Expand" variant="inverse"/>
+                            <lightning:icon class="slds-show" aura:id="hasUpcomingPTO" iconName="utility:dash" 
+                                            size="x-small" alternativeText="Collapse" variant="inverse"/>
+                        </div>   
+                    </aura:set>
+
+                    <div aura:id="hasUpcomingPTO" class="slds-show">
                         <aura:if isTrue="{!v.hasUpcomingPTO}">
                             <lightning:dataTable
                                 data="{!v.empFuturePTODataset}"
@@ -59,7 +84,9 @@
                                 </div>
                             </aura:set>
                         </aura:if>
-                    </lightning:card>
+                    </div>
+                   
+                </lightning:card>
             </div>
         </div>
         <aura:set attribute="else">
