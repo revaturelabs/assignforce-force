@@ -159,8 +159,13 @@
                     </div>
                     <!-- iteration to grab said columns stated earlier for each trainer -->
                     <div class="slds-scrollable" style="height: 300px">
+<<<<<<< HEAD
                         <aura:iteration  items="{!v.externalTrainers}" var="trainerVar">
                             <c:afTrainerAvailabilityListItem trainerId="{!trainerVar.Id}"  availability="{!trainerVar.Available__c}"/>
+=======
+                       <aura:iteration items="{!v.externalTrainers}" var="ext">
+                            <c:afExternalTrainerAvailabilityListItem externalTrainerWrapper="{!ext}"/>   
+>>>>>>> HarryCrane
                         </aura:iteration>
                     </div>
                 </div>

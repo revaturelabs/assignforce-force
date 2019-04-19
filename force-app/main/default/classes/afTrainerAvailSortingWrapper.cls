@@ -3,6 +3,7 @@ public class afTrainerAvailSortingWrapper implements Comparable{
     public boolean available {get;set;}
     public boolean atLocation {get;set;}
     public String location {get; set;}
+    public Id trainerId {get; set;}
     public External_Trainer__c trainer {get; set;}
     
     public afTrainerAvailSortingWrapper(boolean hasSkill, boolean available, boolean atLocation, External_Trainer__c trainer){
@@ -10,6 +11,7 @@ public class afTrainerAvailSortingWrapper implements Comparable{
         this.available = available;
         this.atLocation = atLocation;
         this.trainer = trainer;
+        this.trainerId = trainer.Id;
     }
     
     //Will be sorting ascending, so negative output means this comes before other (this < other)
