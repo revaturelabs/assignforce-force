@@ -1,4 +1,3 @@
-/*Last updated by Oscar and Nate 3/25/19 */
 ({
     //gets the trainers for data from apex controller
     getNames : function(component, event)
@@ -94,7 +93,7 @@
                         fontFamily : 'Futura-Std-Bold',
                         textAlign : 'center',
                         color : 'white', 
-                        textOutline : false,
+                        textOutline : true,
                         
                     },
                     //Displays the number of weeks for how long the training tracks are
@@ -102,13 +101,14 @@
                         if (Math.ceil((this.x2 - this.x) / (7 * 24 * 60 * 60 * 1000)) > 1) {
                             return Math.ceil((this.x2 - this.x) / (7 * 24 * 60 * 60 * 1000)) + " Weeks";
                         }
-                        return Math.ceil((this.x2 - this.x) / (7 * 24 * 60 * 60 * 1000)) + " Week";
+                        
+                        return "PTO"; //I could not figure out how to seperate PTO data from
                         
                     }
                 }
                                });
             }//end of the Else 
-            
+
         }
         //Creating the bars, but for the free time(time inbetween batches)
         var freeTimeData = [];
