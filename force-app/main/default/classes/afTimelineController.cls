@@ -170,7 +170,7 @@ public class afTimelineController {
             // Mark the series as distinct from training track
             tdw.series = 'PTO';
             tdw.location = 'PTO';
-            tdw.color = 'Black';
+            tdw.color = 'Gray';
             tdw.trainerName = pto.Trainer__r.Name;
             trainerData.add(tdw);
         }
@@ -195,7 +195,6 @@ public class afTimelineController {
         public String location;
     }
     
-    //Bugs patched
     @AuraEnabled
     public static String filterTrainingsByYearLocationQuarter(String[] location, Integer year, Integer quarter) {
 
@@ -224,9 +223,9 @@ public class afTimelineController {
                         System.debug('training with no year');
                 	}
             	}
-            }
-        }
-        
+          }
+        } 
+
         currentTrainings = NewTrainings;
 
         List<PTO__c> newPTOs = new List<PTO__c>();
@@ -247,7 +246,6 @@ public class afTimelineController {
         return wrapTrainingToJSON();
     }
     
-    //Bugs fixed
     @AuraEnabled
     public static String filterTrainingsByYearLocation(String[] location, Integer year) {
 
@@ -262,14 +260,13 @@ public class afTimelineController {
                
             	Integer trainingYear = eachTraining.StartDate__c.year();
             
-            	for(String eachLocation : Location) {
-                	if(eachTraining.TrainingLocation__r.OfficeName__c == eachLocation && convertedYear == trainingYear) {
-                    	NewTrainings.add(eachTraining);
-                	}
-                	else if(eachTraining.TrainingLocation__r.OfficeName__c == eachLocation && convertedYear == null) {
-                    	NewTrainings.add(eachTraining);
-                	}
-            	}
+            for(String s : Location) {
+                if(t.TrainingLocation__r.OfficeName__c == s && convertedYear == trainingYear ) {
+                    NewTrainings.add(t);
+                }
+                else if(t.TrainingLocation__r.OfficeName__c == s && convertedYear == null) {
+                    NewTrainings.add(t);
+                }
             }
         }
 
@@ -292,7 +289,7 @@ public class afTimelineController {
         return wrapTrainingToJSON();
     }
     
-    //Bugs fixed
+    
     @AuraEnabled
     public static String filterTrainingsByYearQuarter(Integer year, Integer quarter) {
 
@@ -305,15 +302,14 @@ public class afTimelineController {
             
             if (eachTraining.StartDate__c != null && eachTraining.EndDate__c != null && eachTraining.TrainingTrack__c != null) {
 
-            	Integer trainingYear = eachTraining.StartDate__c.year();
-            	Integer trainingMonth = eachTraining.StartDate__c.month();
+            Integer trainingYear = t.StartDate__c.year();
+            Integer trainingMonth = t.StartDate__c.month();
             
-            	if(convertedYear == trainingYear && monthList.contains(trainingMonth)) {
-                	NewTrainings.add(eachTraining);
-            	}
-            	else if(monthList.contains(trainingMonth) && convertedYear == null) {
-                	NewTrainings.add(eachTraining);
-            	}
+            if(convertedYear == trainingYear && monthList.contains(trainingMonth)) {
+                NewTrainings.add(t);
+            }
+            else if(monthList.contains(trainingMonth) && convertedYear == null) {
+                NewTrainings.add(t);
             }
         }
 
@@ -338,7 +334,6 @@ public class afTimelineController {
         return wrapTrainingToJSON();
     }
     
-    //Bugs fixed
     @AuraEnabled
     public static String filterTrainingsByYear(Integer year) {
         
@@ -346,18 +341,16 @@ public class afTimelineController {
 
         List<Training__c> NewTrainings = new List<Training__c>();
         
-        for(Training__c eachTraining : allTrainings) {
-
+        for(Training__c t : allTrainings) {
             if (eachTraining.StartDate__c != null && eachTraining.EndDate__c != null && eachTraining.TrainingTrack__c != null) {
             	
                 Integer trainingYear = eachTraining.StartDate__c.year();
             
-            	if(convertedYear == trainingYear ) {
-                	NewTrainings.add(eachTraining);
-            	}
-            	else if(convertedYear == null) {
-                	NewTrainings.add(eachTraining);
-            	}
+            if(convertedYear == trainingYear ) {
+                NewTrainings.add(t);
+            }
+            else if(convertedYear == null) {
+                NewTrainings.add(t);
             }
         }
         
@@ -448,4 +441,5 @@ public class afTimelineController {
 
         return monthList;
     }
+    
 }
