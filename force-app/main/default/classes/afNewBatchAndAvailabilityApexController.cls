@@ -1,9 +1,12 @@
 public class afNewBatchAndAvailabilityApexController {
+    
+    private List<Training_Location__c> masterTrainingLocations = new List<Training_Location__c>();
+    private List<Training_Room__c> masterTrainingRooms = new List<Training_Room__c>();
+    private List<User> masterTrainersList = new List<User>();
 
     //Query for all Training Locations
     @AuraEnabled
-    public static List<Training_Location__c> masterLocations () {
-        
+    public static List<Training_Location__c> masterLocations () {     
         return [SELECT Id, Name, OfficeName__c 
                 FROM Training_Location__c];
     }
@@ -33,6 +36,14 @@ public class afNewBatchAndAvailabilityApexController {
         return [SELECT Id, Name, Available__c
                 FROM User 
                 WHERE UserRole.Name = 'Trainer'];
+    }
+    
+    //Query for all Trainers
+    @AuraEnabled
+    public static List<External_Trainer__c> masterExternalTrainers(){
+
+        return [SELECT Id, Name, Available__c
+                FROM External_Trainer__c ];
     }
     
     //Query for all Trainings
