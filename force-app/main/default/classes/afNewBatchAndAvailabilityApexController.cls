@@ -38,6 +38,14 @@ public class afNewBatchAndAvailabilityApexController {
                 WHERE UserRole.Name = 'Trainer'];
     }
     
+    //Query for all Trainers
+    @AuraEnabled
+    public static List<External_Trainer__c> masterExternalTrainers(){
+
+        return [SELECT Id, Name, Available__c
+                FROM External_Trainer__c ];
+    }
+    
     //Query for all Trainings
     @AuraEnabled
     public static List<Training__c> masterOpenTrainings(){

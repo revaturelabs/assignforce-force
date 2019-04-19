@@ -25,12 +25,45 @@
             }
         });
         $A.enqueueAction(filterController);
+
+        var externalTrainerSort = component.get("c.sortExternalTrainersBySelectedCategories");
+        externalTrainerSort.setParams({
+            startOfBatch : null,
+            endOfBatch : null,
+            chosenTrack : null,
+            selectedLocation : null
+        });
+        externalTrainerSort.setCallback(this, function(response) {
+            var state = response.getState();
+            if (component.isValid() && state === "SUCCESS") {
+                //ACTION to take when return is successful
+                component.set('v.externalTrainers', response.getReturnValue());
+            } else if (state === "ERROR") {
+                var errors = response.getError();
+                if (errors) {
+                    if (errors[0] && errors[0].message) {
+                        console.log('Error message: ' + errors[0].message)
+                    }
+                }
+            } else {
+                console.log('Function callback error. Function call failed. {0010}');
+            }
+        });
+        $A.enqueueAction(externalTrainerSort);
+        
+        var externalTrainerCols = [
+            {label:'Name', fieldName:'trainer.LastName', type:'text'},
+            {label:'Avaiable', fieldName:'available', type:'boolean'},
+            {label:'Preferred Location', fieldName:'trainer.Preferred_Location__c', type:'text'},
+            {label:'Experienced', fieldName:'hasSkill', type:'boolean'}
+        ];
+        component.set("v.externalTrainerColumns",externalTrainerCols);
         
         component.set('v.currentTrainerPageNumber', 0);
         component.set('v.currentExternalTrainerPageNumber', 0);
         component.set('v.currentRoomPageNumber', 0);
     },
-    
+
     initTrainers: function(component, event, helper){
         var trainers = component.get('v.trainers');
         var trainersPerPage = component.get('v.numberOfTrainersToBeDisplayed');
@@ -121,7 +154,7 @@
         $A.enqueueAction(filterControllerRoom);
 
     },
-    
+
     roomClick: function(component, event, helper){
         //when the rooms tab is clicked this method sets tab1Shown to false to switch tabs
         var isTabShown = component.get('v.tabShown');
@@ -214,6 +247,7 @@
                 break;
         }
         //console.log("next page finished");
+
     },
     
     previousPage: function(component, event, helper) {

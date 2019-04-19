@@ -49,6 +49,7 @@ public class afAvailListContainerApexController {
 		//Combine the sublists into final one sorted list to be returned to the view
         for(List<User> sorted : sortingUserList){
             sortedList.addAll(sorted);
+            system.debug(sorted);
 		}
     	return sortedList;
     }
@@ -74,6 +75,47 @@ public class afAvailListContainerApexController {
 		}
 	}
 	
+    @AuraEnabled
+    public static List<External_Trainer__c> sortExternalTrainersBySelectedCategories(Date startOfBatch, 
+                                                                                     Date endOfBatch,
+                                                                                     Object chosenTrack, 
+                                                                                     String selectedLocation)
+    {
+        
+        List<External_Trainer__c> result = new List<External_Trainer__c>();                                                                                 
+       	String chosenTrackString = null;
+		if(chosenTrack != null){
+	        chosenTrackString = String.valueOf(chosenTrack);
+			chosenTrackString = chosenTrackString.removeStart('(');
+			chosenTrackString = chosenTrackString.removeEnd(')');
+		}
+         
+                                                                                         
+        List<External_Trainer__c> allExternalTrainers = [SELECT First_Name__c, Last_Name__c, Training_Skills__c, Preferred_Location__c
+                                                		FROM External_Trainer__c];
+        
+                                                                                         
+        Set<Id> availableExternalTrainers = new Set<Id>();
+        for( Training__c training : [SELECT External_Trainer__c
+                                     FROM Training__c
+                                     WHERE ((StartDate__c < :startOfBatch AND EndDate__c > :startOfBatch)
+                                     OR (StartDate__c < :endOfBatch AND EndDate__c > :endOfBatch))
+                                     AND Trainer__r.Name = 'External Trainer']){
+                                         availableExternalTrainers.add(training.External_Trainer__c);
+                                     }
+        for(External_Trainer__c externalTrainer: allExternalTrainers){
+            List<String> skills = externalTrainer.Training_Skills__c.split(';');
+            afTrainerAvailSortingWrapper wrapped = new afTrainerAvailSortingWrapper(skills.contains(chosenTrackString),
+                                                                                    availableExternalTrainers.contains(externalTrainer.Id),
+                                                                                    externalTrainer.preferred_Location__c == selectedLocation, 
+                                                                                    externalTrainer);
+        }
+        
+                                                                                         
+        result.sort();
+		return result;
+    }
+    
 	/*------------------------------------------
 				  Subsort methods
     ------------------------------------------*/
