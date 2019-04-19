@@ -23,21 +23,21 @@
         <div class="slds-grid slds-wrapper" >
             <div class="slds-size_1-of-1">
                 <lightning:card title="Current PTO">
-                        <aura:if isTrue="{!v.hasCurrentPTO}">
-                            <lightning:dataTable
-                                data="{!v.empCurrentPTODataset}"
-                                columns="{!v.empPTORecordset}"
-                                keyField="id"
-                                aura:id="empDataTable"
-                                description="data table to reflect PTO associated with a specific trainer"
-                                />
-                            <aura:set attribute="else">
-                                <div class="slds-size_1-of-1">
-                                    <h2 class="emptyBatchClass" >This Trainer does not have any Current PTO.</h2>
-                                </div>
-                            </aura:set>
-                        </aura:if>
-                    </lightning:card>
+                    <aura:if isTrue="{!v.hasCurrentPTO}">
+                        <lightning:dataTable
+                            data="{!v.empCurrentPTODataset}"
+                            columns="{!v.empPTORecordset}"
+                            keyField="id"
+                            aura:id="empDataTable"
+                            description="data table to reflect PTO associated with a specific trainer"
+                            />
+                        <aura:set attribute="else">
+                            <div class="slds-size_1-of-1">
+                                <h2 class="emptyBatchClass" >This Trainer does not have any Current PTO.</h2>
+                            </div>
+                        </aura:set>
+                    </aura:if>
+                </lightning:card>
             </div>
         </div>
 
