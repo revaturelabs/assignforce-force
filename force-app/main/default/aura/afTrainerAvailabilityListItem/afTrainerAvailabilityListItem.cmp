@@ -13,15 +13,15 @@
     
     <lightning:recordViewForm recordId="{!v.trainerId}" objectApiName="User">
         <div class="slds-grid" style="padding-top: 10px;">
-            <div class="slds-col slds-size_1-of-5">
+            <div class="slds-col slds-size_1-of-6">
                 <div class="slds-align_absolute-center">
                     <lightning:button class="btnSelect" label="Select" onclick="{!c.selectIsClicked}"/>
                 </div>
             </div>
-            <div class="slds-col slds-size_1-of-5 slds-align_absolute-center">
+            <div class="slds-col slds-size_1-of-6 slds-align_absolute-center">
                 <lightning:outputField fieldName="Name" variant="label-hidden"/>
             </div>
-            <div class="slds-col slds-size_1-of-5 slds-align_absolute-center">
+            <div class="slds-col slds-size_1-of-6 slds-align_absolute-center">
                 <!--Change this to a checkbox if the -->
                 <aura:if isTrue="{!v.isAvailable}">
                     <lightning:icon iconName="utility:check" alternativeText="Available" size="small"/>
@@ -31,10 +31,10 @@
                 </aura:if>  
                 
             </div>
-            <div class="slds-col slds-size_1-of-5 slds-align_absolute-center">
+            <div class="slds-col slds-size_2-of-6 slds-align_absolute-center">
                 <lightning:outputField fieldName="CurrentLocation__c" variant="label-hidden"/><!--figure out how to set up the locations-->
             </div>
-            <div class="slds-col slds-size_1-of-5 slds-align_absolute-center">
+            <div class="slds-col slds-size_1-of-6 slds-align_absolute-center">
                 <!-- change this to checkbox if the trainer has the skill selected in create batch-->
                 <aura:if isTrue="{!v.isSkill}">
                     <lightning:icon iconName="utility:check" alternativeText="has Skill" size="small"/>

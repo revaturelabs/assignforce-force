@@ -116,11 +116,11 @@
                 -->
                 <div id="trainers" class="{!v.tabShown == 0 ? 'slds-tabs_default__content slds-show' : 'slds-tabs_default__content slds-hide'}">
                     <div class="slds-grid">
-                        <div class="slds-col slds-size_1-of-5 slds-align_absolute-center"></div>
-                        <div class="slds-col slds-size_1-of-5 slds-align_absolute-center"><h1>Name</h1></div>
-                        <div class="slds-col slds-size_1-of-5 slds-align_absolute-center"><h1>Available</h1></div>
-                        <div class="slds-col slds-size_1-of-5 slds-align_absolute-center"><h1>Current Location</h1></div>
-                        <div class="slds-col slds-size_1-of-5 slds-align_absolute-center"><h1>Experienced</h1></div>
+                        <div class="slds-col slds-size_1-of-6 slds-align_absolute-center"></div>
+                        <div class="slds-col slds-size_1-of-6 slds-align_absolute-center"><h1>Name</h1></div>
+                        <div class="slds-col slds-size_1-of-6 slds-align_absolute-center"><h1>Available</h1></div>
+                        <div class="slds-col slds-size_2-of-6 slds-align_absolute-center"><h1>Preferred Location</h1></div>
+                        <div class="slds-col slds-size_1-of-6 slds-align_absolute-center"><h1>Experienced</h1></div>
                     </div>
                     <!-- iteration to grab said columns stated earlier for each trainer -->
                     <div class="slds-scrollable" style="height: 300px">
