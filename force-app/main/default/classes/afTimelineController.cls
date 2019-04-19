@@ -202,7 +202,6 @@ public class afTimelineController {
         List<Integer> monthList = convertQuarter(quarter);
         
         List<Training__c> NewTrainings = new List<Training__c>();
-
         
         for(Training__c eachTraining : allTrainings) {
 			
@@ -225,7 +224,6 @@ public class afTimelineController {
                 	}
             	}
           }
-
         } 
 
         currentTrainings = NewTrainings;
@@ -255,14 +253,12 @@ public class afTimelineController {
         
         List<Training__c> NewTrainings = new List<Training__c>();
 
-
         for(Training__c eachTraining : allTrainings) {
             
             if (eachTraining.StartDate__c != null && eachTraining.EndDate__c != null && eachTraining.TrainingTrack__c != null) {
 
                
             	Integer trainingYear = eachTraining.StartDate__c.year();
-
             
             for(String s : Location) {
                 if(t.TrainingLocation__r.OfficeName__c == s && convertedYear == trainingYear ) {
@@ -302,11 +298,9 @@ public class afTimelineController {
         
         List<Training__c> NewTrainings = new List<Training__c>();
 
-
         for(Training__c eachTraining : allTrainings) {
             
             if (eachTraining.StartDate__c != null && eachTraining.EndDate__c != null && eachTraining.TrainingTrack__c != null) {
-
 
             Integer trainingYear = t.StartDate__c.year();
             Integer trainingMonth = t.StartDate__c.month();
@@ -348,11 +342,9 @@ public class afTimelineController {
         List<Training__c> NewTrainings = new List<Training__c>();
         
         for(Training__c t : allTrainings) {
-
             if (eachTraining.StartDate__c != null && eachTraining.EndDate__c != null && eachTraining.TrainingTrack__c != null) {
             	
                 Integer trainingYear = eachTraining.StartDate__c.year();
-
             
             if(convertedYear == trainingYear ) {
                 NewTrainings.add(t);
