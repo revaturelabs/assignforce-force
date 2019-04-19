@@ -93,7 +93,7 @@
                         fontFamily : 'Futura-Std-Bold',
                         textAlign : 'center',
                         color : 'white', 
-                        textOutline : true,
+                        textOutline : false,
                         
                     },
                     //Displays the number of weeks for how long the training tracks are
