@@ -207,7 +207,7 @@ public class afTimelineController {
         for(Training__c eachTraining : allTrainings) {
 			
             if (eachTraining.StartDate__c != null && eachTraining.EndDate__c != null && eachTraining.TrainingTrack__c != null) {
-                
+
             	Integer trainingYear = eachTraining.StartDate__c.year();
             	Integer trainingMonth = eachTraining.StartDate__c.month();
                 
@@ -258,6 +258,7 @@ public class afTimelineController {
         for(Training__c eachTraining : allTrainings) {
             
             if (eachTraining.StartDate__c != null && eachTraining.EndDate__c != null && eachTraining.TrainingTrack__c != null) {
+
                
             	Integer trainingYear = eachTraining.StartDate__c.year();
             
