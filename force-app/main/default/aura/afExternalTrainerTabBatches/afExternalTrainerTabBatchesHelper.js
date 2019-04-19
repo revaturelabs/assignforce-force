@@ -84,7 +84,19 @@
             var startDate = this.startDateHandler(startDateString);
             futureTrainings.push(this.addToArray(tempObj , endDateString, startDateString));
         }
-        
+
+        // Check if these lists are empty, if they are we want to set a boolean to false to display something else in the lightning.
+        if (trainings.length > 0){
+            component.set('v.hasCurrentBatch', true);
+        } else{
+            component.set('v.hasCurrentBatch', false);
+        }
+        if (futureTrainings.length > 0){
+            component.set('v.hasUpcomingBatch', true);
+        } else{
+            component.set('v.hasUpcomingBatch', false);
+        }
+
         //sets the values from trainings to current batch datatable and futureTrainings to upcoming batch table
         component.set('v.empExtCurrentBatchDataset', trainings);
         component.set('v.empExtFutureBatchDataset', futureTrainings);
