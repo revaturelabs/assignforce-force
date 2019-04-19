@@ -36,7 +36,7 @@
     createChart: function (component, event, names) {
         var jsonData = component.get("v.data");
         var seriesObj = [];
-        var dataObj = JSON.parse(jsonData);
+        var dataObj = JSON.parse(jsonData); //dataObj represents the parsed data from the JSON
         if (names == null) {
             var trainers = event.getParam("yAxisNames");
         }
@@ -66,6 +66,7 @@
                 trainersInData.push(dataObj[i].trainerName);
             }
             delete dataObj[i].trainerName;
+
             //The creation of the bars for the training tracks
             if (seriesNames.includes(seriesName)) {
                 for (var c = 0; c < seriesObj.length; c++) {
@@ -78,24 +79,28 @@
             else {
                 seriesNames.push(seriesName);
                 seriesData.push(dataObj[i]);
-                seriesObj.push({'name' : seriesName, 'pointWidth' : 30, 'data' : [{'x' : dataObj[i].x, 'x2' : dataObj[i].x2, 'y' : dataObj[i].y, 'color' : dataObj[i].color}], 'dataLabels': {
-                    enabled: true,
-                    style:
-                    {
-                        fontSize : '14px',
-                        fontFamily : 'Futura-Std-Bold',
-                        textAlign : 'center',
-                        color : 'white', 
-                        textOutline : false,
-                        
-                    },
-                    //Displays the number of weeks for how long the training tracks are
-                    formatter: function(){
-                        if (Math.ceil((this.x2 - this.x) / (7 * 24 * 60 * 60 * 1000)) > 1) {
-                            return Math.ceil((this.x2 - this.x) / (7 * 24 * 60 * 60 * 1000)) + " Weeks";
+                seriesObj.push({
+                    'name': seriesName, 'pointWidth': 30, 'data': [{ 'x': dataObj[i].x, 'x2': dataObj[i].x2, 'y': dataObj[i].y, 'color': dataObj[i].color }], 'dataLabels': {
+                        enabled: true,
+                        style:
+                        {
+                            fontSize: '14px',
+                            fontFamily: 'Futura-Std-Bold',
+                            textAlign: 'center',
+                            color: 'white',
+                            textOutline: false,
+
+                        },
+                        /* Displays the number of weeks for how long the training tracks are */
+                        formatter: function () {
+                            
+                            if (Math.ceil((this.x2 - this.x) / (7 * 24 * 60 * 60 * 1000)) > 1) {
+                                return Math.ceil((this.x2 - this.x) / (7 * 24 * 60 * 60 * 1000)) + " Weeks";
+                            }
+                            return Math.ceil((this.x2 - this.x) / (7 * 24 * 60 * 60 * 1000)) + " Week";
+                            
+
                         }
-                        return Math.ceil((this.x2 - this.x) / (7 * 24 * 60 * 60 * 1000)) + " Week";
-                       
                     }
                 });
             }//end of the Else 
@@ -131,33 +136,32 @@
                         }
                     }
                 }
+            }
+        }//End FOR
 
-            }      
-        }
-        //Styling for Free Time
-        //Shows null if time is less than a week.
-        
-        seriesObj.push({'name' : 'Free Time', 'pointWidth' : 30, 'data' : freeTimeData, 'fill' : '#FFFFFF', 'dataLabels' : {
-            enabled : true,
-            style:
-            {
-                fontSize : '14px',
-                fontFamily : 'Futura-Std-Bold',
-                textAlign : 'center',
-                color : 'black',
-                textOutline : false,
-            },
-            formatter: function(){
-                if (Math.floor((this.x2 - this.x) / (7 * 24 * 60 * 60 * 1000)) > 0) {
-                    if (Math.floor((this.x2 - this.x) / (7 * 24 * 60 * 60 * 1000)) == 1) {
-                        return "1 Week";
-                    }
-                    else {
+        //Styling for Free Time bar
+        seriesObj.push({
+            'name': 'Free Time', 'pointWidth': 30, 'data': freeTimeData, 'fill': '#FFFFFF', 'opacity': '0', 'dataLabels': {
+                enabled: true,
+                style:
+                {
+                    fontSize: '14px',
+                    fontFamily: 'Futura-Std-Bold',
+                    textAlign: 'center',
+                    color: 'black',
+                    textOutline: false,
+                },
+                /* Returns the amount of Free Time between batches */
+                formatter: function () {
+                    if (Math.floor((this.x2 - this.x) / (7 * 24 * 60 * 60 * 1000)) > 0) {
+                        if (Math.floor((this.x2 - this.x) / (7 * 24 * 60 * 60 * 1000)) == 1) {
+                            return Math.floor((this.x2 - this.x) / (7 * 24 * 60 * 60 * 1000)) + " Week";
+                        }
                         return Math.floor((this.x2 - this.x) / (7 * 24 * 60 * 60 * 1000)) + " Weeks";
                     }
+                    else
+                        return "";
                 }
-                return "";
-
             }
         });
 
