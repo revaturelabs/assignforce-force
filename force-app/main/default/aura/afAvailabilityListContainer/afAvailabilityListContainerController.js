@@ -82,6 +82,19 @@
         var roomsSubList = helper.updateRoomsSubList(allRooms,offset,roomsPerPage);
         component.set('v.roomsOnPage', roomsSubList);
     },
+    
+    //This method has not been implemented yet
+    initExternalTrainers : function(component, event, helper){
+        var trainers = component.get('v.externalTrainers');
+        console.log("list of external trainers: " + trainers);
+        var trainersPerPage = component.get('v.numberOfExternalTrainersToBeDisplayed');
+        var offset = component.get('v.currentExternalTrainerPageNumber');
+        var trainerSubList = helper.updateTrainersSubList(trainers,offset,trainersPerPage); 
+        component.set('v.ExternalTrainersOnPage', trainerSubList);
+        var disableNext = helper.shouldNextBeDisabled(trainers, 0, trainersPerPage);
+        component.set('v.nextDisabled', disableNext); 
+        console.log("got through the whole thing");
+    },
 
     userInputRecieved: function(component, event){
         //location and dates are used for sorting both trainers and rooms

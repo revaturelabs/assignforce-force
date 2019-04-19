@@ -19,7 +19,9 @@
     <aura:attribute name="trainers" 				
                     type="User[]"/>
     <aura:attribute name="externalTrainers" 				
-                    type="User[]"/>		                    
+                    type="afTrainerAvailSortingWrapper[]"/>		
+    <aura:attribute name="externalTrainerColumns" 				
+                    type="List"/>
     <aura:attribute name="rooms" 					
                     type="List"/>
     <aura:attribute name="tabShown" 				
@@ -56,7 +58,7 @@
                     type="List"
                     description="rooms to be displayed on the current page of pagination." />
     <aura:attribute name="ExternalTrainersOnPage"
-                    type="User[]"
+                    type="afTrainerAvailSortingWrapper[]"
                     description="external trainers to be displayed on the current page of pagination." />
     <aura:attribute name="nextDisabled"
                     type="Boolean"
@@ -82,6 +84,9 @@
     <aura:handler name="change"
                   value="{!v.trainers}"
                   action="{!c.initTrainers}" />
+    <aura:handler name="change"
+                  value="{!v.externalTrainers}"
+                  action="{!c.initExternalTrainers}" />
 
     <!--Visual Components-->
     <div class="slds-card">
