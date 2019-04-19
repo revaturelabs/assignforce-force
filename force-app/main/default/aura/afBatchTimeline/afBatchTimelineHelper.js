@@ -168,7 +168,8 @@
         var charts = new Highcharts.chart({
             chart: {
                 renderTo: component.find("container").getElement(),
-                type: 'xrange'
+                type: 'xrange',
+                height: '100%'
             },
             title: {
                 text : component.get('v.chartTitle'),
