@@ -169,12 +169,7 @@
              * Also, changed 'Wk' and 'Wks' to 'Week' and 'Weeks', respectively
             */
             formatter: function(){
-<<<<<<< HEAD
-                if (Math.ceil((this.x2 - this.x) / (7 * 24 * 60 * 60 * 1000)) > 1) {
-                    return Math.ceil((this.x2 - this.x) / (7 * 24 * 60 * 60 * 1000)) + " Weeks";
-                }
-                return Math.ceil((this.x2 - this.x) / (7 * 24 * 60 * 60 * 1000))  + " Week";
-=======
+
                 if (Math.floor((this.x2 - this.x) / (7 * 24 * 60 * 60 * 1000)) > 0) {
                     if (Math.floor((this.x2 - this.x) / (7 * 24 * 60 * 60 * 1000)) == 1){
                         return Math.floor((this.x2 - this.x) / (7 * 24 * 60 * 60 * 1000))  + " Week";
@@ -183,7 +178,6 @@
                 }
                 else
                     return "";
->>>>>>> sfdx force:source:deploy -p force-app\main\default\aura\afBatchTimeline\afBatchTimelineHelper.js -u myScratchOrg
             }
         }
                        });

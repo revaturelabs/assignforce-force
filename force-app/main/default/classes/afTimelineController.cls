@@ -203,19 +203,29 @@ public class afTimelineController {
         
         List<Training__c> NewTrainings = new List<Training__c>();
 
-        for(Training__c t : allTrainings) {
+        
+        for(Training__c eachTraining : allTrainings) {
+			
+            if (eachTraining.StartDate__c != null && eachTraining.EndDate__c != null && eachTraining.TrainingTrack__c != null) {
 
-            Integer trainingYear = t.StartDate__c.year();
-            Integer trainingMonth = t.StartDate__c.month();
-            
-            for(String s : location) {
-                if(t.TrainingLocation__r.OfficeName__c == s && convertedYear == trainingYear && monthList.contains(trainingMonth)) {
-                    NewTrainings.add(t);
-                }
-                else if(t.TrainingLocation__r.OfficeName__c == s && monthList.contains(trainingMonth) && convertedYear == null) {
-                    NewTrainings.add(t);
-                }
-            }
+            	Integer trainingYear = eachTraining.StartDate__c.year();
+            	Integer trainingMonth = eachTraining.StartDate__c.month();
+                
+            	for(String eachLocation : location) {
+                    
+                	if(eachTraining.TrainingLocation__r.OfficeName__c == eachLocation && convertedYear == trainingYear && monthList.contains(trainingMonth)) {
+                        NewTrainings.add(eachTraining);
+                        
+                        System.debug('training with year');
+                	}
+                	else if(eachTraining.TrainingLocation__r.OfficeName__c == eachLocation && monthList.contains(trainingMonth) && convertedYear == null) {
+                        NewTrainings.add(eachTraining);
+                        
+                        System.debug('training with no year');
+                	}
+            	}
+          }
+
         } 
 
         currentTrainings = NewTrainings;
@@ -245,8 +255,14 @@ public class afTimelineController {
         
         List<Training__c> NewTrainings = new List<Training__c>();
 
-        for(Training__c t : allTrainings) {
-            Integer trainingYear = t.StartDate__c.year();
+
+        for(Training__c eachTraining : allTrainings) {
+            
+            if (eachTraining.StartDate__c != null && eachTraining.EndDate__c != null && eachTraining.TrainingTrack__c != null) {
+
+               
+            	Integer trainingYear = eachTraining.StartDate__c.year();
+
             
             for(String s : Location) {
                 if(t.TrainingLocation__r.OfficeName__c == s && convertedYear == trainingYear ) {
@@ -286,7 +302,11 @@ public class afTimelineController {
         
         List<Training__c> NewTrainings = new List<Training__c>();
 
-        for(Training__c t : allTrainings) {
+
+        for(Training__c eachTraining : allTrainings) {
+            
+            if (eachTraining.StartDate__c != null && eachTraining.EndDate__c != null && eachTraining.TrainingTrack__c != null) {
+
 
             Integer trainingYear = t.StartDate__c.year();
             Integer trainingMonth = t.StartDate__c.month();
@@ -329,7 +349,10 @@ public class afTimelineController {
         
         for(Training__c t : allTrainings) {
 
-            Integer trainingYear = t.StartDate__c.year();
+            if (eachTraining.StartDate__c != null && eachTraining.EndDate__c != null && eachTraining.TrainingTrack__c != null) {
+            	
+                Integer trainingYear = eachTraining.StartDate__c.year();
+
             
             if(convertedYear == trainingYear ) {
                 NewTrainings.add(t);
