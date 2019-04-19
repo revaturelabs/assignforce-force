@@ -36,9 +36,12 @@
                     if( temp[i].Status__c == 'Planned' || temp[i].Status__c == 'Confirmed' )
                     {
                         tempFuture.push(temp[i]);
+                        component.set('v.hasAcceptedStatus', true);
+                        component.set('v.hasAcceptedStatus', true);
                     }
                     else if(temp[i].Status__c == 'In Progress'  ){
                         tempCurrent.push(temp[i]);
+                        component.set('v.hasAcceptedStatus', true);
                     }
                 }
                 
@@ -89,12 +92,14 @@
     },
     //Used for decoupling start date information then it is called from modGetData
     startDateHandler : function(startDateString){
-        /*  var startYear = startDateString.getUTCFullYear();
+        /*
+          var startYear = startDateString.getUTCFullYear();
            var startMonth = startDateString.getUTCMonth();
            var startDay =  startDateString.getUTCDate();
            var startDayHours = startDateString.getUTCHours();
            var startDayMins = startDateString.getUTCMinutes();
-        return new Date(startYear,startMonth,startDay +1);*/
+        return new Date(startYear,startMonth,startDay +1);
+        */
     },
     //Used for decoupling  end date information called from modGetData
     //Used for conversion between apex and javaScript break it apart 
@@ -104,7 +109,8 @@
            var endMonth = endDateString.getUTCMonth();
            var endDay =  endDateString.getUTCDate();
            var endDayHours = endDateString.getUTCHours();
-        return new Date(endYear,endMonth,endDay +1);*/
+        return new Date(endYear,endMonth,endDay +1);
+        */
     },
     //Called from modeGetData to reference key value pairs
     addToArray : function(tempObj, endDateString, startDateString){
