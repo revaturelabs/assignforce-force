@@ -107,7 +107,7 @@
         //console.log("got inside the helper method");
         var value = (offSet*pageSize) + pageSize;
         //console.log("should next be disabled\nlistSize is: "+list.length+" offset * pagesize + pagesize is: " + value);
-        return list.length < value;  
+        return list.length <= value;  
     },
     
     /*Should be called every time a button is clicked related to pagination

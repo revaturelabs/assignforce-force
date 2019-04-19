@@ -30,7 +30,7 @@
                     type="Id"/>
     <aura:attribute name="numberOfTrainersToBeDisplayed"
                     type="Integer"
-                    default="6"
+                    default="5"
                     description="The number of trainers to be displayed on each page" />
     <aura:attribute name="numberOfRoomsToBeDisplayed"
                     type="Integer"
@@ -38,7 +38,7 @@
                     description="The number of rooms to be displayed on each page" />
     <aura:attribute name="numberOfExternalTrainersToBeDisplayed"
                     type="Integer"
-                    default="6"
+                    default="5"
                     description="The number of trainers to be displayed on each page" />
     <aura:attribute name="currentTrainerPageNumber"
                     type="Integer"
@@ -116,11 +116,11 @@
                 -->
                 <div id="trainers" class="{!v.tabShown == 0 ? 'slds-tabs_default__content slds-show' : 'slds-tabs_default__content slds-hide'}">
                     <div class="slds-grid">
-                        <div class="slds-col slds-size_1-of-6 slds-align_absolute-center"></div>
-                        <div class="slds-col slds-size_1-of-6 slds-align_absolute-center"><h1>Name</h1></div>
-                        <div class="slds-col slds-size_1-of-6 slds-align_absolute-center"><h1>Available</h1></div>
-                        <div class="slds-col slds-size_2-of-6 slds-align_absolute-center"><h1>Preferred Location</h1></div>
-                        <div class="slds-col slds-size_1-of-6 slds-align_absolute-center"><h1>Experienced</h1></div>
+                        <div class="slds-col slds-size_1-of-5 slds-align_absolute-center"></div>
+                        <div class="slds-col slds-size_1-of-5 slds-align_absolute-center"><h1>Name</h1></div>
+                        <div class="slds-col slds-size_1-of-5 slds-align_absolute-center"><h1>Available</h1></div>
+                        <div class="slds-col slds-size_1-of-5 slds-align_absolute-center"><h1>Current Location</h1></div>
+                        <div class="slds-col slds-size_1-of-5 slds-align_absolute-center"><h1>Experienced</h1></div>
                     </div>
                     <!-- iteration to grab said columns stated earlier for each trainer -->
                     <div class="slds-scrollable" style="height: 300px">
@@ -158,14 +158,9 @@
                         <div class="slds-col slds-size_1-of-5 slds-align_absolute-center"><h1>Experienced</h1></div>
                     </div>
                     <!-- iteration to grab said columns stated earlier for each trainer -->
-                    <div class="slds-scrollable" style="height: 300px">
-<<<<<<< HEAD
+                    <div style="height: 300px">
                         <aura:iteration  items="{!v.externalTrainers}" var="trainerVar">
                             <c:afTrainerAvailabilityListItem trainerId="{!trainerVar.Id}"  availability="{!trainerVar.Available__c}"/>
-=======
-                       <aura:iteration items="{!v.externalTrainers}" var="ext">
-                            <c:afExternalTrainerAvailabilityListItem externalTrainerWrapper="{!ext}"/>   
->>>>>>> HarryCrane
                         </aura:iteration>
                     </div>
                 </div>

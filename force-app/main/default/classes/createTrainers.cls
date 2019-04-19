@@ -47,4 +47,23 @@ public class createTrainers {
         
         update usrs;
     }
+    
+    public static void createExternalTrainers(){
+        List<String> lastNames = new List<String> {'Mowbray', 'Rivers', 'Aufidius', 'Tyrrell', 'Ratcliffe', 'Andronicus', 'Montague', 'Lepidus', 'Brutus', 'Gurney', 'Bates', 'Lovell', 'Blunt'};
+        List<String> firstNames = new List<String> {'Achilles', 'Donalbain', 'George', 'Hugh', 'Adriano', 'Mortimer', 'Caphis', 'Juno', 'Lychorinda', 'Alice', 'Silvia', 'Volumnia', 'Anna'};
+        List<String> skills = new List<String>{'Appian BPM', 'Big Data/Hadoop', 'Business Analyst', 'Dynamics CRM', 'ETL/Informatics', 'Full Stack Java/JEE', 'Full Stack JTA', 'Microservices', 'Oracle Fusion Middleware', 'Other', 'Pega', 'Salesforce', 'System Admin', 'Web Tools'};
+            List<String> locations = new List<String>{'Fairfax', 'SPS', 'Reston', 'UTA-ERB', 'USF-NEC', 'ASU', 'WVU-CBE', 'Queens', 'USF-SOC', 'Online', 'USF-BSN', 'UTA-PRS', 'UTA-K'};
+        
+            
+        List<External_Trainer__c> trainers = new List<External_Trainer__c>();
+        
+        for (Integer i = 0; i < lastNames.size(); i++) {
+            External_Trainer__c newTrainer = new External_Trainer__c();
+            newTrainer.First_Name__c = firstNames[i];
+            newTrainer.Last_Name__c = lastNames[i];
+            trainers.add(newTrainer);
+        }
+        
+        insert trainers;
+    }
 }

@@ -76,22 +76,22 @@ public class afAvailListContainerApexController {
 	}
 	
     @AuraEnabled
-    public static List<afTrainerAvailSortingWrapper> sortExternalTrainersBySelectedCategories(Date startOfBatch, 
+    public static List<External_Trainer__c> sortExternalTrainersBySelectedCategories(Date startOfBatch, 
                                                                                      Date endOfBatch,
                                                                                      Object chosenTrack, 
                                                                                      String selectedLocation)
     {
         
-        List<afTrainerAvailSortingWrapper> result = new List<afTrainerAvailSortingWrapper>();                                                                                 
+        List<External_Trainer__c> result = new List<External_Trainer__c>();                                                                                 
        	String chosenTrackString = null;
 		if(chosenTrack != null){
 	        chosenTrackString = String.valueOf(chosenTrack);
 			chosenTrackString = chosenTrackString.removeStart('(');
 			chosenTrackString = chosenTrackString.removeEnd(')');
 		}
-        
+         
                                                                                          
-        List<External_Trainer__c> allExternalTrainers = [SELECT Name, First_Name__c, Last_Name__c, Training_Skills__c, Preferred_Location__c
+        List<External_Trainer__c> allExternalTrainers = [SELECT First_Name__c, Last_Name__c, Training_Skills__c, Preferred_Location__c
                                                 		FROM External_Trainer__c];
         
                                                                                          
@@ -105,11 +105,10 @@ public class afAvailListContainerApexController {
                                      }
         for(External_Trainer__c externalTrainer: allExternalTrainers){
             List<String> skills = externalTrainer.Training_Skills__c.split(';');
-            afTrainerAvailSortingWrapper wrapper = new afTrainerAvailSortingWrapper(skills.contains(chosenTrackString),
+            afTrainerAvailSortingWrapper wrapped = new afTrainerAvailSortingWrapper(skills.contains(chosenTrackString),
                                                                                     availableExternalTrainers.contains(externalTrainer.Id),
                                                                                     externalTrainer.preferred_Location__c == selectedLocation, 
                                                                                     externalTrainer);
-            result.add(wrapper);
         }
         
                                                                                          
