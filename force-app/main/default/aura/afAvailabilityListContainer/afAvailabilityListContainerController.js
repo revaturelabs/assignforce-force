@@ -25,6 +25,39 @@
             }
         });
         $A.enqueueAction(filterController);
+        
+        var externalTrainerSort = component.get("c.sortExternalTrainersBySelectedCategories");
+        externalTrainerSort.setParams({
+            startOfBatch : null,
+            endOfBatch : null,
+            chosenTrack : null,
+            selectedLocation : null
+        });
+        externalTrainerSort.setCallback(this, function(response) {
+            var state = response.getState();
+            if (component.isValid() && state === "SUCCESS") {
+                //ACTION to take when return is successful
+                component.set('v.externalTrainers', response.getReturnValue());
+            } else if (state === "ERROR") {
+                var errors = response.getError();
+                if (errors) {
+                    if (errors[0] && errors[0].message) {
+                        console.log('Error message: ' + errors[0].message)
+                    }
+                }
+            } else {
+                console.log('Function callback error. Function call failed. {0010}');
+            }
+        });
+        $A.enqueueAction(externalTrainerSort);
+        
+        var externalTrainerCols = [
+            {label:'Name', fieldName:'trainer.LastName', type:'text'},
+            {label:'Avaiable', fieldName:'available', type:'boolean'},
+            {label:'Preferred Location', fieldName:'trainer.Preferred_Location__c', type:'text'},
+            {label:'Experienced', fieldName:'hasSkill', type:'boolean'}
+        ];
+        component.set("v.externalTrainerColumns",externalTrainerCols);
     },
 
     initRooms : function(component, event, helper){
@@ -107,25 +140,19 @@
     
     trainerClick: function (component) {
         //when the trainers' tab is clicked this method sets tabShown to 0 to switch tabs
-        var tabShown = component.get('v.tabShown');
-        if(tabShown != 0){
             component.set('v.tabShown', 0);
-        }
     },
 
     externalTrainerClick: function(component){
-        //when the external Trainer tab is clicked this method sets tabShown to 1 to switch tabs
-        var tabShown = component.get('v.tabShown');
-        if(tabShown != 1){
-            component.set('v.tabShown', 1);
-        }
+        //when the external Trainer tab is clicked this method sets tabShown to 2 to switch tabs
+		component.set('v.tabShown', 2);
     },
 
     roomClick: function(component){
-        //when the rooms tab is clicked this method sets tabShown to 2 to switch tabs
-        var tabShown = component.get('v.tabShown');
-        if(tabShown != 2){
-            component.set('v.tabShown', 2);
-        }
+        //when the rooms tab is clicked this method sets tabShown to 1 to switch tabs
+        
+        component.set('v.tabShown', 1);
+        
     }
+
 })
