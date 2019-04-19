@@ -63,6 +63,7 @@ public class createTrainers {
             newTrainer.Last_Name__c = lastNames[i];
             newTrainer.Name = firstNames[i] + ' ' + lastNames[i];
             newTrainer.Training_Skills__c = skills[Integer.valueof((Math.random() * skills.size()))];
+            newTrainer.Current_Location__c = locations[Integer.valueof((Math.random() * locations.size()))];
             newTrainer.Preferred_Location__c = locations[Integer.valueof((Math.random() * locations.size()))];
             trainers.add(newTrainer);
         }
