@@ -60,7 +60,7 @@
             {label:'Experienced', fieldName:'hasSkill', type:'boolean'}
         ];
         component.set("v.externalTrainerColumns",externalTrainerCols);
-
+        
         component.set('v.currentTrainerPageNumber', 0);
         component.set('v.currentExternalTrainerPageNumber', 0);
         component.set('v.currentRoomPageNumber', 0);
@@ -96,8 +96,6 @@
         var trainerSubList = helper.updateExternalTrainersSubList(trainers,offset,trainersPerPage); 
         //console.log('got through the helper');
         component.set('v.ExternalTrainersOnPage', trainerSubList);
-        var disableNext = helper.shouldNextBeDisabled(trainers, 0, trainersPerPage);
-        component.set('v.nextDisabled', disableNext); 
         //console.log("got through the whole thing");
     },
 
@@ -218,7 +216,7 @@
         var isTabShown = component.get('v.tabShown');
         if(isTabShown != 2){
             var offset = component.get("v.currentExternalTrainerPageNumber");
-            var trainers = component.get("v.ExternalTrainersOnPage");
+            var trainers = component.get("v.externalTrainers");
             var pageSize = component.get("v.numberOfExternalTrainersToBeDisplayed");
             //console.log("got all of the attriubtes");
             var disable = helper.shouldPreviousBeDisabled(offset);
@@ -340,5 +338,4 @@
         }
         //console.log("previous page finsihed");
     },
-
 })

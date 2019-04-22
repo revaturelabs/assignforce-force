@@ -101,15 +101,6 @@
         return roomsOnPage;
     },
     
-    /*createExternalTrainersMasterList : function(list){
-		var i = 0;
-        var masterList = [];
-        var currentItem = '';
-        while(i<list.length){
-            
-        }
-    }, */
-    
     //This method will determine which external trainers should be displayed based on pagination
     updateExternalTrainersSubList : function(trainerList, offset, pageSize) {
         //The current problem is that every trainer is in one string so its an array of size one.
@@ -146,4 +137,5 @@
         //console.log("should perv be disabled\nPage is: " + offSet);
         return (1 > offSet);  
     },
+    
 })

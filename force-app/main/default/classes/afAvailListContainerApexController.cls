@@ -18,6 +18,7 @@ public class afAvailListContainerApexController {
 		/* SORTING PRIORITY LIST:
 			1. Initially sort by trainers that do not have a scheduled training or PTO that is greater than todays date
 				followed by trainers that have scheduled trainings and/or PTOs that are greater than todays date
+
 			2. IF DATES ARE PROVIDED BY NEWBATCHFORM COMPONENT EVENT
 				Sort by trainers that do not have a scheduled training and/or PTO during the dates provided followed by
 				trainers that have a scheduled training and/or PTO during the dates provided
