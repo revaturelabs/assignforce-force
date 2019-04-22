@@ -174,8 +174,9 @@ public class afTimelineController {
             tdw.trainerName = pto.Trainer__r.Name;
             trainerData.add(tdw);
         }
-
-        return System.json.serialize(trainerData);   
+        String result = System.json.serialize(trainerData);
+        System.debug(result);
+        return result;   
     }
     
     public class TrainingDataWrapper {
