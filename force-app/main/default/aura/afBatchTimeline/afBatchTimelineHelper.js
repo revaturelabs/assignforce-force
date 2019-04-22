@@ -105,11 +105,11 @@
                     },
                     //Displays the number of weeks for how long the training tracks are
                     formatter: function(){
-                        if (Math.floor((this.x2 - this.x) / (7 * 24 * 60 * 60 * 1000)) > 0) {
-                            if (Math.floor((this.x2 - this.x) / (7 * 24 * 60 * 60 * 1000)) == 1) {
-                                return Math.floor((this.x2 - this.x) / (7 * 24 * 60 * 60 * 1000)) + " Week";
+                        if (Math.ceil((this.x2 - this.x) / (7 * 24 * 60 * 60 * 1000)) > 0) {
+                            if (Math.ceil((this.x2 - this.x) / (7 * 24 * 60 * 60 * 1000)) == 1) {
+                                return Math.ceil((this.x2 - this.x) / (7 * 24 * 60 * 60 * 1000)) + " Week";
                             }
-                            return Math.floor((this.x2 - this.x) / (7 * 24 * 60 * 60 * 1000)) + " Weeks";
+                            return Math.ceil((this.x2 - this.x) / (7 * 24 * 60 * 60 * 1000)) + " Weeks";
                         }
                         return "";
                     }
@@ -153,9 +153,10 @@
         } //END FOR
         
         
-
-        seriesObj.push({'name' : 'Free Time', 'pointWidth' : 30, 'data' : freeTimeData, 'fill' : '#ffffff', 'dataLabels' : {
+        //add Free Time data to seriesObj list, so they will be drawn.
+        seriesObj.push({'name' : 'Free Time', 'pointWidth' : 30, 'data' : freeTimeData, 'fill' : 'green', 'dataLabels' : {
             enabled : true,
+            
             style:
             {
                 fontSize : '14px',
@@ -179,6 +180,7 @@
         
         //The formatting for the chart
         var charts = new Highcharts.chart({
+
             chart: {
                 renderTo: component.find("container").getElement(),
                 type: 'xrange'
@@ -216,6 +218,7 @@
             },
             plotOptions: {
                 series: {
+                    animation: false, //turned off for optimization reasons.
                     minPointLength: 50
                 },
                 //Pls don't delete this, took us 1.5 weeks to figure this out :)
