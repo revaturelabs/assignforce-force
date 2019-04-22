@@ -5,6 +5,7 @@
 
    <!--ATTRIBUTES-->
    <aura:attribute name="empPTORecordset"             type="List"                     description="List of records for the lightning:dataTable columns" />
+   <aura:attribute name="empPTORecordsetApproval"             type="List"                     description="List of records for the lightning:dataTable columns" />
    <aura:attribute name="keyField"                 type="String"     default="id"     description="Primary key for list of records" />
    <aura:attribute name="empCurrentPTODataset"     type="Object[]"                 description="Data for lightning dataTable that involves current PTO"/>
    <aura:attribute name="empFuturePTODataset"         type="Object[]"                 description ="Data for lightning dataTable that involves upcoming PTO "/>
@@ -22,7 +23,7 @@
            <lightning:card title="Approved PTO">
                <lightning:dataTable
                                     data="{!v.empCurrentPTODataset}"
-                                    columns="{!v.empPTORecordset}"
+                                    columns="{!v.empPTORecordsetApproval}"
                                     keyField="id"
                                     aura:id="empDataTable"
                                     description="data table to reflect batches associated with a specific trainer"

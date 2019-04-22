@@ -11,13 +11,24 @@
             { type: 'button', typeAttributes: {label: 'Reject', name: 'Reject' }}
  
         ]);
-        helper.getData(component, event);
+        
+        component.set('v.empPTORecordsetApproval', [
+ 
+            { label: 'Start Date', fieldName: 'startDate', type: 'date', sortable: 'true', initialWidth: '30px' },
+            { label: 'End Date', fieldName: 'endDate', type: 'date', sortable: 'true' },
+            { label: 'Status', fieldName: 'status', type: 'text', sortable: 'true'  },
+            { label: 'Reason', fieldName: 'reason', type: 'text', sortable: 'true'},
+ 
+        ]);
+            
+            helper.getData(component, event);
     },
  
     handleRowAction : function (component, event, helper) {
          var action = event.getParam('action');
          var row = event.getParam('row');
          var rows = component.get('v.empFuturePTODataset');
+         var rowsApproval = component.get('v.empCurrentPTODataset');
          var rowIndex = rows.indexOf(row);
          var arg = rows[rowIndex].Id;
          console.log(rowIndex);
@@ -38,7 +49,8 @@
                          rows[rowIndex].status = 'Approved';
                          console.log(rows[rowIndex].status);
                          // Updates the Currect PTO tab on the trainers section
-                         component.set('v.empCurrentPTODataset', rows);
+                         rowsApproval.push(rows[rowIndex]);
+                         component.set('v.empCurrentPTODataset', rowsApproval);
                      } else {
                          console.log(response.getError());
                      }
