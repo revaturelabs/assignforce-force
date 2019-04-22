@@ -12,7 +12,7 @@
     <aura:registerEvent name="TrainerIsSelected" type="c:TrainerSelected" description="when the selected button is clicked on this component the trainer's id is sent up in the event"/>
     
     <lightning:recordViewForm recordId="{!v.trainerId}" objectApiName="User">
-        <div class="slds-grid" style="padding-top: 10px">
+        <div class="slds-grid" style="padding-top: 10px;">
             <div class="slds-col slds-size_1-of-5">
                 <div class="slds-align_absolute-center">
                     <lightning:button class="btnSelect" label="Select" onclick="{!c.selectIsClicked}"/>

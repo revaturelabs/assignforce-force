@@ -58,17 +58,10 @@
             {label:'Experienced', fieldName:'hasSkill', type:'boolean'}
         ];
         component.set("v.externalTrainerColumns",externalTrainerCols);
+        
         component.set('v.currentTrainerPageNumber', 0);
         component.set('v.currentExternalTrainerPageNumber', 0);
         component.set('v.currentRoomPageNumber', 0);
-    },
-
-    initRooms : function(component, event, helper){
-        //INITIALIZE ROOMS WITH ALL ROOMS
-        var roomsToSet = component.get("v.allRooms");
-        component.set("v.rooms", roomsToSet);
-        
-        
     },
 
     initTrainers: function(component, event, helper){
@@ -343,6 +336,6 @@
             default:            
                 break;
         }
-        console.log("previous page finsihed");
+        //console.log("previous page finsihed");
     },
 })

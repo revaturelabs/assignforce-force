@@ -1,20 +1,8 @@
 public class afNewBatchAndAvailabilityApexController {
-<<<<<<< HEAD
-
-    //Query for all Training Locations
-    @AuraEnabled
-    public static List<Training_Location__c> masterLocations () {
-        
-=======
-    
-    private List<Training_Location__c> masterTrainingLocations = new List<Training_Location__c>();
-    private List<Training_Room__c> masterTrainingRooms = new List<Training_Room__c>();
-    private List<User> masterTrainersList = new List<User>();
 
     //Query for all Training Locations
     @AuraEnabled
     public static List<Training_Location__c> masterLocations () {     
->>>>>>> HarryMitchell
         return [SELECT Id, Name, OfficeName__c 
                 FROM Training_Location__c];
     }

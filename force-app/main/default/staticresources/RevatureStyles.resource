@@ -1,23 +1,25 @@
 /************************
 	Revature Fonts
 ************************/
-/*Testing Code*/
-* {
-   font-family: Futura-Std-Book !important;
-	src: URL('/resource/FuturaStdBook');
-}
-
-.boxLabel, .boxLabel > * {
-    color: Black !important;
-}
-
 @font-face {
     font-family: 'Futura-Std-Book';
     src: URL('/resource/FuturaStdBook');
 }
+@font-face {
+    font-family: 'Futura-Std-Medium';
+    src: URL('/resource/FuturaStdMedium');
+}
+@font-face {
+    font-family: 'Futura-Std-Heavy';
+    src: URL('/resource/FuturaStdHeavy');
+}
+@font-face {
+    font-family: 'Futura-Std-Bold';
+    src: URL('/resource/FuturaStdBold');
+}
 
 /************************
-	Revature Colors #F26925
+	Revature Colors
 ************************/
 :root {
 	/*** Primary Colors ***/ 
@@ -39,7 +41,7 @@ body {
 }
         
 h1, h2, h3 {
-    font-family: 'Futura-Std-Book';
+    font-family: 'Futura-Std-Heavy';
 }
 
 .slds-card__header {
@@ -50,6 +52,6 @@ h1, h2, h3 {
 }
                 
 .flexipageHeader.slds-page-header.uiBlock.oneAnchorHeader{
-	display:none
+display:none
 }
                 

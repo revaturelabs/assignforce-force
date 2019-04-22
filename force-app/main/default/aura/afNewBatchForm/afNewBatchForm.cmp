@@ -1,5 +1,5 @@
 <aura:component implements="force:appHostable,flexipage:availableForAllPageTypes" access="global" controller="afNewBatchFormApexController">
-    <ltng:require styles="{!$Resource.RevatureStyles}"/>
+   <ltng:require styles="{!$Resource.RevatureStyles}"/>
    <lightning:notificationsLibrary aura:id="notificationsLibrary"/>
 
    <!-- 
