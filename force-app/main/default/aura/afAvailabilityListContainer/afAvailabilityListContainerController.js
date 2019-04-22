@@ -36,7 +36,9 @@
         externalTrainerSort.setCallback(this, function(response) {
             var state = response.getState();
             if (component.isValid() && state === "SUCCESS") {
-                //ACTION to take when return is successful
+                // ACTION to take when return is successful
+                // Because we are trying to transfer a list of custom apex objects, we serailize into a JSON 
+                // in Apex and then parse here.
                 component.set('v.externalTrainers', JSON.parse(response.getReturnValue()));
             } else if (state === "ERROR") {
                 var errors = response.getError();
