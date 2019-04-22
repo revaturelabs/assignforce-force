@@ -104,7 +104,7 @@ public class afTimelineController {
         // trainerNumber represents the position on the Y-Axis (timeline chart) 
         Integer trainerNumber = 0;
         Integer trainerIndex = 0;
-        Integer j = 0;
+        
 
         // Add all trainings to the dataset
         for(Training__c t : currentTrainings) {
@@ -113,7 +113,7 @@ public class afTimelineController {
 
             // Loop will not run the first time through, but the code
             // after the loop exits will add to the List
-            for(j = 0 ; j < trainerNames.size() ; j++) {
+            for(Integer j = 0; j < trainerNames.size() ; j++) {
                 if(trainerNames[j] == t.Trainer__r.Name) {
                     
                     // Configure Y-axis for timeline chart
@@ -144,13 +144,13 @@ public class afTimelineController {
         }
 
         // Add all PTOs to the dataset
-        for(PTO__c pto : currentPTOs) {
+         for(PTO__c pto : currentPTOs) {
 
             TrainingDataWrapper tdw = new TrainingDataWrapper();
 
             // Find the trainer in the list
             Boolean found = false;
-            for(j = 0; j < trainerNames.size(); j++) {
+            for(Integer j = 0; j < trainerNames.size(); j++) {
                 if(trainerNames.get(j) == pto.Trainer__r.Name) {
                     tdw.y = j;
                     found = true;
@@ -173,12 +173,22 @@ public class afTimelineController {
             tdw.color = 'Gray';
             tdw.trainerName = pto.Trainer__r.Name;
             trainerData.add(tdw);
-        }
-        String result = System.json.serialize(trainerData);
-        System.debug(result);
-        return result;   
+        } 
+
+        
+        System.debug('trainerData (serialized): ' + System.json.serialize(trainerData));
+        return System.json.serialize(trainerData);   
+
+        /* result is in the form : 
+            {"y":0,"x2":"2019-05-03","x":"2019-02-25","trainerName":"Damon Greer","series":"SysAdmin","location":null,"color":"#2FA05B"},
+            {"y":1,"x2":"2019-03-15","x":"2019-01-07","trainerName":"Harvey Hill","series":"Java","location":null,"color":"#AE69B0"},
+            {"y":1,"x2":"2019-06-21","x":"2019-04-15","trainerName":"Harvey Hill","series":"Salesforce","location":null,"color":"#31F1B5"},
+            ...
+            {"y":1,"x2":"2019-04-26","x":"2019-04-22","trainerName":"Harvey Hill","series":"PTO","location":"PTO","color":"Gray"}
+         */
     }
     
+        
     public class TrainingDataWrapper {
         @AuraEnabled
         public Integer y;
