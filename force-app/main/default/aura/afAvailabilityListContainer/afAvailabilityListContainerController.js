@@ -25,7 +25,7 @@
             }
         });
         $A.enqueueAction(filterController);
-
+        
         var externalTrainerSort = component.get("c.sortExternalTrainersBySelectedCategories");
         externalTrainerSort.setParams({
             startOfBatch : null,
@@ -60,7 +60,7 @@
             {label:'Experienced', fieldName:'hasSkill', type:'boolean'}
         ];
         component.set("v.externalTrainerColumns",externalTrainerCols);
-        
+
         component.set('v.currentTrainerPageNumber', 0);
         component.set('v.currentExternalTrainerPageNumber', 0);
         component.set('v.currentRoomPageNumber', 0);
@@ -172,7 +172,7 @@
         $A.enqueueAction(filterControllerRoom);
 
     },
-
+    
     roomClick: function(component, event, helper){
         //when the rooms tab is clicked this method sets tab1Shown to false to switch tabs
         var isTabShown = component.get('v.tabShown');
@@ -340,4 +340,5 @@
         }
         //console.log("previous page finsihed");
     },
+
 })
