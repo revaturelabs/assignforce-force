@@ -10,9 +10,12 @@
                     type="Boolean" 
                     default="false" 
                     description="Check Git issues under 'Availability for Rooms': This logic needs to be fixed"/>
+<<<<<<< HEAD
+=======
     <aura:attribute name="FullRoomList"
                     type="Training_Room__c[]"
                     description="List of all rooms the user can select." />
+>>>>>>> HarryMitchell
     
     <aura:handler name="init" 
                   value="{!this}" 
