@@ -62,7 +62,7 @@
                     description="external trainers to be displayed on the current page of pagination." />
     <aura:attribute name="nextDisabled"
                     type="Boolean"
-                    default="true"
+                    default="false"
                     description="Determines if the next button for pagination should be disabled." />
     <aura:attribute name="previousDisabled"
                     type="Boolean"
@@ -164,15 +164,21 @@
                     </div>
                     <!-- iteration to grab said columns stated earlier for each trainer -->
                     <div style="height: 300px">
-                        <aura:iteration  items="{!v.externalTrainers}" var="trainerVar">
+                        <aura:iteration  items="{!v.ExternalTrainersOnPage}" var="trainerVar">
                             <c:afTrainerAvailabilityListItem trainerId="{!trainerVar.Id}"  availability="{!trainerVar.Available__c}"/>
                         </aura:iteration>
                     </div>
                 </div>
-                <lightning:button variant="base" iconName="utility:chevronleft" title="Previous Page" 
-                                  onclick="{!c.previousPage}" disabled="{!v.previousDisabled}"/>
-                <lightning:button variant="base" iconName="utility:chevronright" title="Next Page" 
-                                  onclick="{!c.nextPage}" disabled="{!v.nextDisabled}"/>   
+                <div class="slds-grid">
+                	<div class="slds-col slds-size_11-of-12">
+                        <lightning:button variant="base" iconName="utility:chevronleft" title="Previous Page" 
+                                  	onclick="{!c.previousPage}" disabled="{!v.previousDisabled}"/>
+                    </div>
+                    <div class="slds-col slds-size_1-of-12">
+                    	<lightning:button variant="base" iconName="utility:chevronright" title="Next Page" 
+                                  onclick="{!c.nextPage}" disabled="{!v.nextDisabled}" class="slds-align_right"/>   
+                    </div> 
+                </div>
             </div>
         </div>
     </div>

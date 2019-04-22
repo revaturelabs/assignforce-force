@@ -37,7 +37,7 @@
             var state = response.getState();
             if (component.isValid() && state === "SUCCESS") {
                 //ACTION to take when return is successful
-                component.set('v.externalTrainers', JSON.parse(response.getReturnValue()));
+                component.set('v.externalTrainers', response.getReturnValue());
             } else if (state === "ERROR") {
                 var errors = response.getError();
                 if (errors) {
@@ -71,6 +71,7 @@
         var trainerSubList = helper.updateTrainersSubList(trainers,offset,trainersPerPage); 
         component.set('v.trainersOnPage', trainerSubList);
         var disableNext = helper.shouldNextBeDisabled(trainers, 0, trainersPerPage);
+        //console.log("should next be disabled: " + disableNext);
         component.set('v.nextDisabled', disableNext);
     },
 
@@ -86,14 +87,16 @@
     //This method has not been implemented yet
     initExternalTrainers : function(component, event, helper){
         var trainers = component.get('v.externalTrainers');
-        console.log("list of external trainers: " + trainers);
+        //console.log("list of external trainers: " + trainers);
         var trainersPerPage = component.get('v.numberOfExternalTrainersToBeDisplayed');
         var offset = component.get('v.currentExternalTrainerPageNumber');
-        var trainerSubList = helper.updateTrainersSubList(trainers,offset,trainersPerPage); 
+        //console.log('got to the start of the helper method');
+        var trainerSubList = helper.updateExternalTrainersSubList(trainers,offset,trainersPerPage); 
+        //console.log('got through the helper');
         component.set('v.ExternalTrainersOnPage', trainerSubList);
         var disableNext = helper.shouldNextBeDisabled(trainers, 0, trainersPerPage);
         component.set('v.nextDisabled', disableNext); 
-        console.log("got through the whole thing");
+        //console.log("got through the whole thing");
     },
 
     userInputRecieved: function(component, event){
@@ -171,7 +174,7 @@
     roomClick: function(component, event, helper){
         //when the rooms tab is clicked this method sets tab1Shown to false to switch tabs
         var isTabShown = component.get('v.tabShown');
-        console.log("starting room click");
+        //console.log("starting room click");
         if(isTabShown != 1){
             var offset = component.get("v.currentRoomPageNumber");
             var rooms = component.get("v.allRooms");
@@ -192,7 +195,7 @@
     trainerClick: function (component, event, helper) {
         //when the trainers' tab is clicked this method sets tabShown to switch tabs
         var isTabShown = component.get('v.tabShown');
-        console.log("starting trainer click");
+        //console.log("starting trainer click");
         if(isTabShown != 0){
             var offset = component.get("v.currentTrainerPageNumber");
             var trainers = component.get("v.trainers");

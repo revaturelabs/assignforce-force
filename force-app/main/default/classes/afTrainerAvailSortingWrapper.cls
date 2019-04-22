@@ -3,6 +3,7 @@ public class afTrainerAvailSortingWrapper implements Comparable{
     public boolean available {get;set;}
     public boolean atLocation {get;set;}
     public String location {get; set;}
+    public Id trainerId {get; set;}
     public External_Trainer__c trainer {get; set;}
     public String trainerFirstName {get;set;}
     public String trainerLastName {get;set;}
@@ -12,13 +13,10 @@ public class afTrainerAvailSortingWrapper implements Comparable{
         this.available = available;
         this.atLocation = atLocation;
         this.trainer = trainer;
-<<<<<<< HEAD
-=======
         this.trainerId = trainer.Id;
         this.trainerFirstName = trainer.First_Name__c;
         this.trainerLastName = trainer.Last_Name__c;
         system.debug(trainerFirstName);
->>>>>>> HarryCrane
     }
     
     //Will be sorting ascending, so negative output means this comes before other (this < other)
