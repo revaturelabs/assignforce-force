@@ -19,7 +19,7 @@
    <!-- aura:if is used determine whether both tables should render or a text based message-->
    <aura:if isTrue="{!v.hasPTO}" >
        <div class="slds-grid slds-wrapper" >
-           <lightning:card title="Current PTO">
+           <lightning:card title="Approved PTO">
                <lightning:dataTable
                                     data="{!v.empCurrentPTODataset}"
                                     columns="{!v.empPTORecordset}"
@@ -31,7 +31,8 @@
        </div>
 
        <div class="slds-grid slds-wrapper">
-           <lightning:card title="Upcoming PTO">
+           <lightning:card title="PTO Pending Approval">
+               
                <lightning:dataTable
                                     data="{!v.empFuturePTODataset}"
                                     columns="{!v.empPTORecordset}"
