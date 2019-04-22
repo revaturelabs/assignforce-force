@@ -4,11 +4,14 @@
     <aura:attribute name="hasSkill" type="Boolean" />
     <aura:attribute name="name" type="String" />
     <aura:attribute name="preferredLocation" type="String" />
+    <aura:attribute name="externalTrainerUserId" type="ID" />
     
+    <aura:registerEvent name="externalTrainerSelected" type="c:ExternalTrainerSelected" />
+     
     <div class="slds-grid" style="padding-top: 10px;">
             <div class="slds-col slds-size_1-of-5">
                 <div class="slds-align_absolute-center">
-                    <lightning:button class="btnSelect" label="Select" onclick="{!c.selectedExternalTrainer}"/>
+                    <lightning:button class="btnSelect" label="Select" onclick="{!c.selectIsClicked}"/>
                 </div>
             </div>
             <div class="slds-col slds-size_1-of-5 slds-align_absolute-center">
