@@ -1,4 +1,3 @@
-/*Last updated by Oscar and Nate 3/25/19 */
 ({
     //gets the trainers for data from apex controller
     getNames : function(component, event)
@@ -37,25 +36,28 @@
         var names = component.get('v.trainers');
         this.createChart(component, event, names);
     },
+
     createChart : function(component, event, names) {
-        var jsonData = component.get("v.data");
-        var seriesObj = [];
-        var dataObj = JSON.parse(jsonData);
+        var jsonData = component.get("v.data"); 
+        var dataObj = JSON.parse(jsonData); // parsed JSON from component
+        var seriesObj = []; // The Data what will be used to make the chart
+
         if(names == null){
             var trainers = event.getParam("yAxisNames");
         }
         else{
             var trainers = names;
         }
-        var trainerAssignment = [];
-        
-        var seriesNames = [];
-        var seriesData = [];
+        var trainerAssignment = [];   
+        var seriesNames = []; // Names of the series (Training Tracks) that are being referenced in the graph
+        var seriesData = []; // certain dataObj fields are pushed to this list
         var freeTimeData = [];
-        var trainersInData = [];
+        var trainersInData = []; // Trainers that are to be referenced in the graph
+
+
         //Create the variables for sizing the bars in the graph
-        for(var i = 0; i < dataObj.length; i++)
-        {
+        for(var i = 0; i < dataObj.length; i++) {
+            //Dates made from parsed JSON string, broken into substrings
             var year = dataObj[i].x.substring(0,4);
             var month = dataObj[i].x.substring(5,7) - 1;
             var day = dataObj[i].x.substring(8);
@@ -64,14 +66,18 @@
             var month2 = dataObj[i].x2.substring(5,7) - 1;
             var day2 = dataObj[i].x2.substring(8);
             dataObj[i].x2 = Date.UTC(year2,month2,day2);
+            //Sets series name using JSON "series" field
             var seriesName = dataObj[i].series;
             delete dataObj[i].series;
+
+            //Adds trainer to list
             if(!trainersInData.includes(dataObj[i].trainerName)){
                  trainersInData.push(dataObj[i].trainerName);
 			}
             delete dataObj[i].trainerName;
+
             //The creation of the bars for the training tracks
-            if(seriesNames.includes(seriesName))
+            if(seriesNames.includes(seriesName)) //seriesNames default is null, so this doesn't fire the first time.
             {
                 for(var c = 0; c < seriesObj.length; c++)
                 {
@@ -82,7 +88,7 @@
                     }
                 }
             }
-            else
+            else // adds the current seriesName to the seriesNames list, if it isn't already in the list.
             {
                 seriesNames.push(seriesName);
                 seriesData.push(dataObj[i]);
@@ -99,17 +105,20 @@
                     },
                     //Displays the number of weeks for how long the training tracks are
                     formatter: function(){
-                        if (Math.ceil((this.x2 - this.x) / (7 * 24 * 60 * 60 * 1000)) > 1) {
+                        if (Math.ceil((this.x2 - this.x) / (7 * 24 * 60 * 60 * 1000)) > 0) {
+                            if (Math.ceil((this.x2 - this.x) / (7 * 24 * 60 * 60 * 1000)) == 1) {
+                                return Math.ceil((this.x2 - this.x) / (7 * 24 * 60 * 60 * 1000)) + " Week";
+                            }
                             return Math.ceil((this.x2 - this.x) / (7 * 24 * 60 * 60 * 1000)) + " Weeks";
                         }
-                        return Math.ceil((this.x2 - this.x) / (7 * 24 * 60 * 60 * 1000)) + " Week";
-                        
+                        return "";
                     }
                 }
                                });
             }//end of the Else 
-            
+
         }
+        
         //Creating the bars, but for the free time(time inbetween batches)
         var freeTimeData = [];
         var trainersDone = [];
@@ -141,10 +150,13 @@
                     }
                 }
             }      
-        }
+        } //END FOR
         
-        seriesObj.push({'name' : 'Free Time', 'pointWidth' : 30, 'data' : freeTimeData, 'fill' : '#FFFFFF', 'dataLabels' : {
+        
+        //add Free Time data to seriesObj list, so they will be drawn.
+        seriesObj.push({'name' : 'Free Time', 'pointWidth' : 30, 'data' : freeTimeData, 'fill' : 'green', 'dataLabels' : {
             enabled : true,
+            
             style:
             {
                 fontSize : '14px',
@@ -163,9 +175,12 @@
                 return "";
             }
         }
+        
                        });
+        
         //The formatting for the chart
         var charts = new Highcharts.chart({
+
             chart: {
                 renderTo: component.find("container").getElement(),
                 type: 'xrange'
@@ -203,6 +218,7 @@
             },
             plotOptions: {
                 series: {
+                    animation: false, //turned off for optimization reasons.
                     minPointLength: 50
                 },
                 //Pls don't delete this, took us 1.5 weeks to figure this out :)
