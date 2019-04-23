@@ -65,7 +65,7 @@ public with sharing class afTrainersTabPTOApexControllerTest {
 
     }
 
-    @isTest 
+    /*@isTest 
     public static void approvePTOTest(){
         
         //get the PTO requests
@@ -113,6 +113,6 @@ public with sharing class afTrainersTabPTOApexControllerTest {
         }
 
 
-    }
+    }*/
 
 }
