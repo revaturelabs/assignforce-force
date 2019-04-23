@@ -1,3 +1,24 @@
+/**************************************************************************************************************
+ * 
+ * If you're reading this message, have fun. Sorry for the mess.
+ * We tried.
+ * I commented almost everything as I figured out exactly what it was for from the previous two batches.
+ * 
+ * Good luck on ADM, PD1, panels, and interviews.
+ * 
+ * @author  022519Salesforce
+ * 
+ * This timeline is an X-range chart, from Highcharts.com
+ * The X-range series displays ranges on the X axis, typically time intervals with a start and end date.
+ * @see     https://api.highcharts.com/highcharts/plotOptions.xrange 
+ * You'll need to use JSON to pass values to the chart itself
+ * @see     https://restfulapi.net/introduction-to-json/
+ * @see     https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/apex_class_System_Json.htm
+ * 
+ **************************************************************************************************************/
+
+
+
 ({
     //gets the trainers for data from apex controller
     getNames : function(component, event)
