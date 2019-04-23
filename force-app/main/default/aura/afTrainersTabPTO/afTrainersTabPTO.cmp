@@ -33,7 +33,9 @@
 
        <div class="slds-grid slds-wrapper">
            <lightning:card title="PTO Pending Approval">
-               
+               <!-- new, doesn't work -->
+               <lightning:button label="Approve All" name="Approve All" onclick="{! c.handleApproveAll }" />
+               <lightning:button label="Reject All" name="Reject All" onclick="{! c.handleRejectAll }" />
                <lightning:dataTable
                                     data="{!v.empFuturePTODataset}"
                                     columns="{!v.empPTORecordset}"

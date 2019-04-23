@@ -20,7 +20,7 @@ public class afTrainersTabPTOApexController {
        // Gets PTO__c record based on ptoIdToApprove
        pto = [SELECT Status__c 
               FROM PTO__c
-              WHERE Id = :ptoIdToApprove];
+              WHERE Id IN :ptoIdToApprove];
        
        System.debug('pto before update, from approvePTO: ' + pto);
        
@@ -66,4 +66,5 @@ public class afTrainersTabPTOApexController {
            System.debug('Error: ' + dmle.getMessage());
        }
     }
+    
 }
