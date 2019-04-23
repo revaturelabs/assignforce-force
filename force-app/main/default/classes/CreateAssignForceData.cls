@@ -97,4 +97,24 @@ public class CreateAssignForceData {
         insert tracksToCreate;
     }
     
+    public static void createTrainers() {
+        List<String> lastNames = new List<String> {'Alagna', 'Bonds', 'Colson', 'Donnelly', 'Goshorn', 'Greer', 'Higgens', 'Hill', 'Jurczak',
+            'Knighten', 'Kumar', 'Lessley', 'Orr', 'Rehm', 'Trainer'};
+        List<String> firstNames = new List<String> {'Peter', 'Genesis', 'Jessica', 'Quintin', 'Mitchell', 'Damon', 'Emily', 'Harvey', 'Nickolas',
+            'Jason', 'Arun', 'Ryan', 'Richard', 'Carolyn', 'External'};
+                        
+        ID profID = [SELECT Id FROM Profile WHERE Name = 'Trainer' LIMIT 1].id;
+        ID roleID = [SELECT id,name FROM UserRole WHERE name = 'Trainer' LIMIT 1].id;
+        
+        List<User> trainers = new List<User>();
+        
+        for (Integer i = 0; i < lastNames.size(); i++) {
+            User u1 = new User(ProfileId=profID, LastName=lastNames[i], FirstName=firstNames[i], Email='assignforcerevature@gmail.com', username=lastNames[i] + '@meaf.com', 
+                               CompanyName='Revature', Title='Trainer', Alias=firstNames[i], TimeZoneSidKey='America/New_York', EmailEncodingKey='UTF-8',
+                               LanguageLocaleKey='en_US',LocaleSidKey='en_US', Available__c='Available',UserRoleId=roleID, isActive=false);
+            trainers.add(u1);
+        }
+        
+        insert trainers;
+    }
 }
