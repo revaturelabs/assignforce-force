@@ -33,7 +33,7 @@
         }
     },
     
-    clear : function(component, event) {   
+    fullClear : function(component, event) {   
         
         // refresh the aura:if containing the recordEditForm
         component.set("v.uncleared", false);        
@@ -49,6 +49,11 @@
         component.set("v.startDate", null);
         component.set("v.numWeeks", 10);
         component.set("v.endDate", null);
+        
+		helper.partialClear(component, event);
+    },
+    
+    partialClear : function(component, event) {
         component.set("v.trainer", ''); 
         component.set("v.cotrainer", '');
         component.set("v.ExternalTrainer", '');
@@ -61,7 +66,6 @@
         component.set("v.hiddenRoom", "");
         
         component.set("v.uncleared", true);
-
     },
     
     showTrainerToast : function(helper, event, trainings, trainer, startDate, endDate) {
@@ -94,5 +98,16 @@
                 }
             }
         } 
+    },
+    
+    fireNewBatchFormEvent : function(trackChosen, startBatch, endBatch, locationChosen) {
+        var filterEvent = $A.get("e.c:afNewBatchFormEvent");
+        filterEvent.setParams({
+            chosenTrack : trackChosen,
+            startOfBatch : startBatch,
+            endOfBatch : endBatch,
+            selectedLocation : locationChosen
+        });
+        filterEvent.fire();
     }
 })
