@@ -171,6 +171,63 @@
         });
         $A.enqueueAction(filterControllerRoom);
 
+        //Sort External Trianers
+        
+        var externalTrainerSort = component.get("c.sortExternalTrainersBySelectedCategories");
+        externalTrainerSort.setParams({
+            startOfBatch : startBatch,
+            endOfBatch : endBatch,
+            chosenTrack : track,
+            selectedLocation : location
+        });
+        externalTrainerSort.setCallback(this, function(response) {
+            var state = response.getState();
+            if (component.isValid() && state === "SUCCESS") {
+                // ACTION to take when return is successful
+                // Because we are trying to transfer a list of custom apex objects, we serailize into a JSON 
+                // in Apex and then parse here.
+                component.set('v.externalTrainers', JSON.parse(response.getReturnValue()));
+                var externalTrainersOnPage = helper.updateExternalTrainersSubList(component.get('v.externalTrainers'), 0, component.get('v.numberOfExternalTrainersToBeDisplayed'));
+                console.log("this page should have: " + externalTrainersOnPage);
+                component.set('v.ExternalTrainersOnPage', externalTrainersOnPage);
+            } else if (state === "ERROR") {
+                var errors = response.getError();
+                if (errors) {
+                    if (errors[0] && errors[0].message) {
+                        console.log('Error message: ' + errors[0].message)
+                    }
+                }
+            } else {
+                console.log('Function callback error. Function call failed. {0010}');
+            }
+        });
+        $A.enqueueAction(externalTrainerSort);
+        
+        component.set('v.previousDisabled', true);
+        var list;
+        var pageSize;
+        //We need to check which tab is open to determine if next and previous should be enabled
+        switch(component.get('v.tabShown')){
+            case 0: //internal trainers
+                list = component.get('v.trainers');
+                pageSize = component.get('v.numberOfTrainersToBeDisplayed');
+                break;
+            case 1: //available rooms
+                list = component.get('v.rooms');
+                pageSize = component.get('v.numberOfRoomsToBeDisplayed');
+                break;
+            case 2: //external trainers
+                list = component.get('v.externalTrainers');
+                pageSize = component.get('v.numberOfExternalTrainersToBeDisplayed');
+                break;
+            default:
+                break;
+        }
+        var disableNext = helper.shouldNextBeDisabled(list, 0, pageSize);
+        component.set('v.nextDisabled', disableNext);
+        component.set('v.currentTrainerPageNumber', 0);
+        component.set('v.currentRoomPageNumber', 0);
+        component.set('v.currentExternalTrainerPageNumber', 0);
     },
     
     roomClick: function(component, event, helper){

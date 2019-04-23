@@ -104,19 +104,21 @@
     //This method will determine which external trainers should be displayed based on pagination
     updateExternalTrainersSubList : function(trainerList, offset, pageSize) {
         //The current problem is that every trainer is in one string so its an array of size one.
-        console.log('updateExtTrainer is starting');
-		var trainersOnPage = [];       
+        //console.log('updateExtTrainer is starting');
+		var trainersOnPage = [];     
+        console.log("offset: " + offset);
+        console.log("page size: " + pageSize);
         offset *= pageSize;
         var i;
         for(i=offset; i<pageSize+offset && i<trainerList.length ; i++){ //
             trainersOnPage.push(trainerList[i]);
         }
-        console.log('master list length is: ' + trainerList.length);
-        console.log('sublist is length: ' + trainersOnPage.length);
+        //console.log('master list length is: ' + trainerList.length);
+        //console.log('sublist is length: ' + trainersOnPage.length);
         console.log('master list is: ' + trainerList);
         console.log('sublist is: ' + trainersOnPage);
         
-        console.log('updateTrainer has finished');
+        //console.log('updateTrainer has finished');
         return trainersOnPage;
     },
     
