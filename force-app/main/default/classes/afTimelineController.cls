@@ -1,5 +1,22 @@
 public class afTimelineController {
-    //Attributes
+    
+    public class TrainingDataWrapper {
+        @AuraEnabled
+        public Integer y;
+        @AuraEnabled
+        public Date x;
+        @AuraEnabled
+        public Date x2;
+        @AuraEnabled
+        public String series;
+        @AuraEnabled
+        public String color;
+        @AuraEnabled
+        public String trainerName;
+        @AuraEnabled
+        public String location;
+    }
+    
     public static List<Training__c> AllTrainings {
         get{
             if(AllTrainings == null) {
@@ -62,7 +79,6 @@ public class afTimelineController {
         set;
     }
     
-    //Methods
     @AuraEnabled
     public static String[] getTrainingLocations() {
         
@@ -181,7 +197,7 @@ public class afTimelineController {
         return System.json.serialize(trainerData);   
         
         /* result is in the form : 
-``{"y":0,"x2":"2019-05-03","x":"2019-02-25","trainerName":"Damon Greer","series":"SysAdmin","location":null,"color":"#2FA05B"},
+{"y":0,"x2":"2019-05-03","x":"2019-02-25","trainerName":"Damon Greer","series":"SysAdmin","location":null,"color":"#2FA05B"},
 {"y":1,"x2":"2019-03-15","x":"2019-01-07","trainerName":"Harvey Hill","series":"Java","location":null,"color":"#AE69B0"},
 {"y":1,"x2":"2019-06-21","x":"2019-04-15","trainerName":"Harvey Hill","series":"Salesforce","location":null,"color":"#31F1B5"},
 ...
@@ -277,12 +293,14 @@ public class afTimelineController {
     
     @AuraEnabled
     public static String filterTrainingsByYearQuarter(Integer year, Integer quarter) {
+        
         List<Integer> monthList = convertQuarter(quarter); 
         Integer convertedYear = convertYear(year);
         
         List<Training__c> NewTrainings = new List<Training__c>();
         
         for(Training__c t : allTrainings) {
+            
             Integer trainingYear = t.StartDate__c.year();
             Integer trainingMonth = t.StartDate__c.month();
             
@@ -317,10 +335,13 @@ public class afTimelineController {
     
     @AuraEnabled
     public static String filterTrainingsByYear(Integer year) {
+        
         Integer convertedYear = convertYear(year);
+        
         List<Training__c> NewTrainings = new List<Training__c>();
         
         for(Training__c t : allTrainings) {
+            
             Integer trainingYear = t.StartDate__c.year();
             
             if(convertedYear == trainingYear ) {
@@ -330,10 +351,13 @@ public class afTimelineController {
                 NewTrainings.add(t);
             }
         }
+        
         currentTrainings = NewTrainings;
-
+        
         List<PTO__c> newPTOs = new List<PTO__c>();
-        for (PTO__c pto : approvedPTOs) {       
+        
+        for (PTO__c pto : approvedPTOs) {
+            
             Integer PTOYear = pto.StartDate__c.year();
             
             if(convertedYear == PTOYear) {
@@ -352,6 +376,7 @@ public class afTimelineController {
     // Copy-pasted common logic into a method
     @testVisible
     private static Integer convertYear(Integer yearCode) {
+        
         Integer convertedYear = 0;
         
         switch on(yearCode) {
@@ -415,22 +440,4 @@ public class afTimelineController {
         return monthList;
     }
     
-    //Wrapper Class for JSON outpput
-    public class TrainingDataWrapper {
-        @AuraEnabled
-        public Integer y;
-        @AuraEnabled
-        public Date x;
-        @AuraEnabled
-        public Date x2;
-        @AuraEnabled
-        public String series;
-        @AuraEnabled
-        public String color;
-        @AuraEnabled
-        public String trainerName;
-        @AuraEnabled
-        public String location;
-    }
-
 }
