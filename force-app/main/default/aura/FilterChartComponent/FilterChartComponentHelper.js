@@ -161,6 +161,7 @@
         var findTrainingTrack = [[], [], [], [], [], [], []];
         var writeObject = "";
         
+        //Gather all basic information for trainers
         for (var i = 0; i < data.length; i++) {
 			
 			findTrainingTrack[0][i] = data[i]["y"];
@@ -170,11 +171,15 @@
 			findTrainingTrack[4][i] = data[i]["series"];
 			findTrainingTrack[5][i] = data[i]["location"];
 			findTrainingTrack[6][i] = data[i]["color"];
-			
+            
+            //Check if PTOs or training tracks
 			for (var j = 0; j < findTrainingTrack.length; j++) {
-				
+                
+                //If a PTO is found for trainer
 				if (findTrainingTrack[4][i] == "PTO") {
-					
+                    
+                    //The following code does not execute in the "if" block, unless the trainer has a track.
+                    //This code block writes a JSON array.
 					if (findTrainingTrack[0][i] == findTrainingTrack[0][j] && findTrainingTrack[4][i] != findTrainingTrack[4][j]) {
 						
 						writeObject += "{";
@@ -243,7 +248,8 @@
 						writeObject += "},";
 					}
 				} else {
-					
+                    
+                    //All tracks are matched with each trainer.
 					if (findTrainingTrack[0][i] == findTrainingTrack[0][j]) {
 						
 						writeObject += "{";
@@ -317,6 +323,7 @@
 		
 		writeObject += "{}";
 
+        //The object is finished being written.
 		newObject += "[" + writeObject.replace(/,{}/g, "") + "]";
         
         console.log(newObject);
