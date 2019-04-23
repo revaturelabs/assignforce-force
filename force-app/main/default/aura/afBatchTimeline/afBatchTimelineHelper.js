@@ -167,11 +167,7 @@
             chart: {
                 renderTo: component.find("container").getElement(),
                 type: 'xrange',
-<<<<<<< HEAD
                 height: heightString
-=======
-                height: '100%'
->>>>>>> Chart now expands vertically
             },
             title: {
                 text : component.get('v.chartTitle'),
