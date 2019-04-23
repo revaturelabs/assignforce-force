@@ -40,14 +40,17 @@
                 for(var i = 0; i < temp.length; i++)
                 {
                     
-                    if(temp[i].EndDate__c > currentDate && temp[i].StartDate__c > currentDate )
+                    if(temp[i].Status__c == 'Pending Approval')
                     {
                         var tempFutureCounter = 0;
                         tempFuture.push(temp[i]);
                         
                         
                     }
-                    if(temp[i].StartDate__c  <= currentDate && temp[i].EndDate__c > currentDate){
+                }
+                for(var i = 0; i < temp.length; i++)
+                {
+                    if(temp[i].Status__c  == 'Approved'){
                         tempCurrent.push(temp[i]);
                     }
                 }
