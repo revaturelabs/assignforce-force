@@ -25,11 +25,7 @@
             }
         });
         $A.enqueueAction(filterController);
-<<<<<<< HEAD
         
-=======
-
->>>>>>> JohnTsai
         var externalTrainerSort = component.get("c.sortExternalTrainersBySelectedCategories");
         externalTrainerSort.setParams({
             startOfBatch : null,
@@ -103,7 +99,7 @@
         //console.log("got through the whole thing");
     },
 
-    userInputRecieved: function(component, event){
+    userInputRecieved: function(component, event, helper){
         //location and dates are used for sorting both trainers and rooms
         var location = event.getParam("selectedLocation");
         var startBatch = event.getParam("startOfBatch");
@@ -160,6 +156,8 @@
             if (component.isValid() && state === "SUCCESS") {
                 //ACTION to take when return is successful
                 component.set('v.rooms', response.getReturnValue());
+                var roomsOnPage = helper.updateRoomsSubList(component.get('v.rooms'), 0, component.get('v.numberOfRoomsToBeDisplayed'));
+                component.set('v.roomsOnPage', roomsOnPage);
             } else if (state === "ERROR") {
                 var errors = response.getError();
                 if (errors) {
@@ -256,7 +254,11 @@
             	//console.log("page is currently rooms");
                 var offset = component.get('v.currentRoomPageNumber');
                 var roomsPerPage = component.get('v.numberOfRoomsToBeDisplayed');
-                var rooms = component.get('v.allRooms'); //master list of rooms
+                //This needs to be updated to only have rooms that should be shown. Might need some logic to determine if this should be allRooms or rooms
+                var rooms = component.get('v.rooms'); //master list of rooms
+                if(rooms === undefined  || rooms.length == 0){
+                    rooms = component.get('v.allRooms');
+                }
                 var roomSubList = helper.updateRoomsSubList(rooms,offset+1,roomsPerPage); 
                 component.set('v.roomsOnPage', roomSubList);
                 offset++;
@@ -312,8 +314,11 @@
 				//console.log("page is currently rooms");
                 var offset = component.get('v.currentRoomPageNumber');
                 var roomsPerPage = component.get('v.numberOfRoomsToBeDisplayed');
-                var rooms = component.get('v.allRooms'); //master list of rooms
-                var roomSubList = helper.updateRoomsSubList(rooms,offset-1,roomsPerPage); 
+				//This needs to be updated to only have rooms that should be shown. Might need some logic to determine if this should be allRooms or rooms
+                var rooms = component.get('v.rooms'); //master list of rooms
+                if(rooms === undefined  || rooms.length == 0){
+                    rooms = component.get('v.allRooms');
+                }                var roomSubList = helper.updateRoomsSubList(rooms,offset-1,roomsPerPage); 
                 component.set('v.roomsOnPage', roomSubList);
                 offset--;
                 component.set('v.currentRoomPageNumber', offset);
@@ -332,7 +337,7 @@
                 component.set('v.ExternalTrainersOnPage', roomSubList);
                 offset--;
                 component.set('v.currentExternalTrainerPageNumber', offset);
-                var disabled = helper.shouldPreviousBeDisabled(trainers, offset, externalTrainersPerPage);
+                var disabled = helper.shouldPreviousBeDisabled(offset);
                 //console.log("disabled: " + disabled);
                 component.set('v.nextDisabled', false);
                 component.set('v.previousDisabled', disabled);
