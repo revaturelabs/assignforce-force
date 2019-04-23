@@ -34,7 +34,7 @@
 
        <div class="slds-grid slds-wrapper">
            <lightning:card title="PTO Pending Approval">
-               <!-- new, doesn't work -->
+               <!-- Mass approve/reject buttons -->
                <lightning:button label="Mass Approve" name="Approve All" onclick="{! c.handleApproveAll }" />
                <lightning:button label="Mass Reject" name="Reject All" onclick="{! c.handleRejectAll }" />
                <lightning:dataTable
