@@ -74,15 +74,9 @@ public with sharing class afTrainersTabPTOApexControllerTest {
         Test.startTest();
 
         //Use the method to approve all PTOs
-<<<<<<< HEAD
-        for (PTO__c p : ptos){
-            //afTrainersTabPTOApexController.approvePTO(p.id);
-        }
-=======
          for (PTO__c p : ptos){
             afTrainersTabPTOApexController.approvePTO(p.id);
         } 
->>>>>>> MatthewWright
 
         Test.stopTest();
 
