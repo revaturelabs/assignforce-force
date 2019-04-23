@@ -165,11 +165,12 @@
         }
                        });
         //The formatting for the chart
+        var heightString = 150*trainersInData.length + 'px';
         var charts = new Highcharts.chart({
             chart: {
                 renderTo: component.find("container").getElement(),
                 type: 'xrange',
-                height: '100%'
+                height: heightString
             },
             title: {
                 text : component.get('v.chartTitle'),
