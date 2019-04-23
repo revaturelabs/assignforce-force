@@ -25,11 +25,6 @@
             }
         });
         $A.enqueueAction(filterController);
-<<<<<<< HEAD
-        
-=======
-
->>>>>>> JohnTsai
         var externalTrainerSort = component.get("c.sortExternalTrainersBySelectedCategories");
         externalTrainerSort.setParams({
             startOfBatch : null,
