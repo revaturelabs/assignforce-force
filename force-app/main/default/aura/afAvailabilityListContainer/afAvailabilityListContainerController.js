@@ -25,7 +25,10 @@
             }
         });
         $A.enqueueAction(filterController);
+<<<<<<< HEAD
         
+=======
+>>>>>>> 722936a003a54958df970fc8be2b6e07271e15c8
         var externalTrainerSort = component.get("c.sortExternalTrainersBySelectedCategories");
         externalTrainerSort.setParams({
             startOfBatch : null,
