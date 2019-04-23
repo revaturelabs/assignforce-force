@@ -25,10 +25,7 @@
             }
         });
         $A.enqueueAction(filterController);
-<<<<<<< HEAD
         
-=======
->>>>>>> 722936a003a54958df970fc8be2b6e07271e15c8
         var externalTrainerSort = component.get("c.sortExternalTrainersBySelectedCategories");
         externalTrainerSort.setParams({
             startOfBatch : null,
@@ -107,12 +104,12 @@
         var location = event.getParam("selectedLocation");
         var startBatch = event.getParam("startOfBatch");
         var endBatch = event.getParam("endOfBatch");
-        var track = event.getParam("chosenTrack");
 
         /*-----------------------------------------------------------------------------
                                     User Input Sort Trainers
         -----------------------------------------------------------------------------*/
-        
+
+        var track = event.getParam("chosenTrack");
         
         //FOR DEBUGGING EVENT PASSED PARAMETERS
         //console.log("EVENT INFO: " + typeof track + " ; " + startBatch + " ; " + endBatch + " ; " + location);
@@ -173,35 +170,7 @@
             }
         });
         $A.enqueueAction(filterControllerRoom);
-		
-        //Sort External Trianers
-        
-        var externalTrainerSort = component.get("c.sortExternalTrainersBySelectedCategories");
-        externalTrainerSort.setParams({
-            startOfBatch : startBatch,
-            endOfBatch : endBatch,
-            chosenTrack : track,
-            selectedLocation : location
-        });
-        externalTrainerSort.setCallback(this, function(response) {
-            var state = response.getState();
-            if (component.isValid() && state === "SUCCESS") {
-                // ACTION to take when return is successful
-                // Because we are trying to transfer a list of custom apex objects, we serailize into a JSON 
-                // in Apex and then parse here.
-                component.set('v.externalTrainers', JSON.parse(response.getReturnValue()));
-            } else if (state === "ERROR") {
-                var errors = response.getError();
-                if (errors) {
-                    if (errors[0] && errors[0].message) {
-                        console.log('Error message: ' + errors[0].message)
-                    }
-                }
-            } else {
-                console.log('Function callback error. Function call failed. {0010}');
-            }
-        });
-        $A.enqueueAction(externalTrainerSort);
+
     },
     
     roomClick: function(component, event, helper){
