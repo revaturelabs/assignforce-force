@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EndDateRequired</fullName>
+    <active>true</active>
+    <errorConditionFormula>ISBLANK( EndDate__c )</errorConditionFormula>
+    <errorDisplayField>EndDate__c</errorDisplayField>
+    <errorMessage>End Date required.</errorMessage>
+</ValidationRule>
