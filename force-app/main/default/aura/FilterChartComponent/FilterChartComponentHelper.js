@@ -4,13 +4,13 @@
         var today = new Date();
         var year = today.getFullYear();
         var choices = {
-            selectedYearId: 2,
+            selectedYearId: 5,
             years: [
                 {id: 1, label: year + 1},
-                { id: 2, label: year, selected: true},
+                { id: 2, label: year       },
                 { id: 3, label: year - 1},
                 { id: 4, label: year - 2 },
-                {id: 5, label: 'All'}
+                {id: 5, label: 'All', selected: true}
             ]
         };
         component.set('v.yearOptions', choices.years);
@@ -126,7 +126,7 @@
        // console.log("action: " + JSON.stringify(action));
         action.setCallback(this, function(response){
             var state = response.getState();
-            if(/*component.isValid() &&*/ state === 'SUCCESS')
+            if(component.isValid() && state === 'SUCCESS')
             {
                 var data = response.getReturnValue();
                 this.fireChangeToChart(component, event, data);
