@@ -32,12 +32,6 @@
                                     />
            </lightning:card>
        </div>
-       
-       
-       <header class="slds-media slds-media_center slds-has-flexi-truncate">
-           <lightning:buttonIcon class="headerBtn" onclick="{! c.handleApproveAll }" iconName="utility:check" variant="bare" size="large" alternativeText="Mass Approve"/>
-           <lightning:buttonIcon class="headerBtn" onclick="{! c.handleRejectAll  }" iconName="utility:close" variant="bare" size="large" alternativeText="Mass Reject"/> 
-       </header>
 
        
        <div class="slds-grid slds-wrapper">
