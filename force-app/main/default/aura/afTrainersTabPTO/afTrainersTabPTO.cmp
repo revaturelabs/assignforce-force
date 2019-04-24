@@ -27,16 +27,30 @@
                                     columns="{!v.empPTORecordsetApproval}"
                                     keyField="id"
                                     aura:id="empDataTable"
+                                    hideCheckboxColumn="true"
                                     description="data table to reflect batches associated with a specific trainer"
                                     />
            </lightning:card>
        </div>
+       
+       
+       <header class="slds-media slds-media_center slds-has-flexi-truncate">
+           <lightning:buttonIcon class="headerBtn" onclick="{! c.handleApproveAll }" iconName="utility:check" variant="bare" size="large" alternativeText="Mass Approve"/>
+           <lightning:buttonIcon class="headerBtn" onclick="{! c.handleRejectAll  }" iconName="utility:close" variant="bare" size="large" alternativeText="Mass Reject"/> 
+       </header>
 
+       
        <div class="slds-grid slds-wrapper">
+           
            <lightning:card title="PTO Pending Approval">
-               <!-- new, doesn't work -->
-               <lightning:button label="Mass Approve" name="Approve All" onclick="{! c.handleApproveAll }" />
-               <lightning:button label="Mass Reject" name="Reject All" onclick="{! c.handleRejectAll }" />
+               <!-- Mass approve/reject buttons -->
+               
+               <aura:set attribute="actions">
+                   <lightning:button class="headerBtn" variant="bare" onclick="{! c.handleApproveAll }" iconName="utility:check" />
+                   <lightning:button class="headerBtn" variant="bare" onclick="{! c.handleRejectAll  }" iconName="utility:close" /> 
+               </aura:set>
+               
+               
                <lightning:dataTable
                                     data="{!v.empFuturePTODataset}"
                                     columns="{!v.empPTORecordset}"
@@ -46,7 +60,9 @@
                                     onrowselection="{! c.updateSelectedPTOList }"
                                     description="data table to reflect batches associated with a specific trainer"
                                     />
+               
            </lightning:card>
+           
        </div>
        <aura:set attribute="else">
            <aura:if isTrue="{!v.selectedPTO}">
