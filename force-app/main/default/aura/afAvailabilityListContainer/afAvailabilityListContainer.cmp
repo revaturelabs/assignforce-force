@@ -79,14 +79,16 @@
                   action="{!c.doInit}"/>
     <aura:handler name="change"     
                   value="{!v.allRooms}"   
-                  action="{!c.initRooms}"/>
+                  action="{!c.initRooms}"
+                  description="initalize the rooms sublist for pagination"/>
     <aura:handler name="change"
                   value="{!v.trainers}"
-                  action="{!c.initTrainers}" />
+                  action="{!c.initTrainers}" 
+                  description="initalize the internal trainers sublist for pagination"/>
     <aura:handler name="change"
                   value="{!v.externalTrainers}"
-                  action="{!c.initExternalTrainers}" />
-    <!--<aura:handler name="change" value="{!v.allTrainers}" action="{!c.initTrainers}"/>-->
+                  action="{!c.initExternalTrainers}" 
+                  description="initalize the external trainers sublist for pagination"/>
 
     <!--Visual Components-->
     <div class="slds-card">
@@ -114,9 +116,7 @@
                             External Trainers
                         </span>
                     </li>
-                    
                 </ul>
-                
                 <!--
                     In the internal trainer tab, displays Name, Availability, Assigned Location, and if they are experienced.
                     This defines columns for every trainer that matches batch criteria.    
@@ -171,7 +171,8 @@
                         </aura:iteration>
                     </div>
                 </div>
-                <div class="slds-grid">
+                <div class="slds-grid"> <!-- The previous button should be left aligned and the next should be 
+										right aligned. This is could most likely be done better. -->
                 	<div class="slds-col slds-size_11-of-12">
                         <lightning:button variant="base" iconName="utility:chevronleft" title="Previous Page" 
                                   	onclick="{!c.previousPage}" disabled="{!v.previousDisabled}"/>

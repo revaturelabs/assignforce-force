@@ -79,14 +79,12 @@
     //This method will determine which trainers should be displayed based on pagination
     //You could probally make all fill sublist methods into one method since they take in the same parameters.
     updateTrainersSubList : function(trainerList, offset, pageSize) {
-        //console.log('updateTrainer is starting');
 		var trainersOnPage = [];       
         offset *= pageSize;
         var i;
         for(i=offset; i<pageSize+offset && i<trainerList.length ; i++){ //
             trainersOnPage.push(trainerList[i]);
         }
-        //console.log('updateTrainer has finished');
         return trainersOnPage;
     },
     
@@ -103,8 +101,6 @@
     
     //This method will determine which external trainers should be displayed based on pagination
     updateExternalTrainersSubList : function(trainerList, offset, pageSize) {
-        //The current problem is that every trainer is in one string so its an array of size one.
-        //console.log('updateExtTrainer is starting');
 		var trainersOnPage = [];     
         console.log("offset: " + offset);
         console.log("page size: " + pageSize);
@@ -113,12 +109,6 @@
         for(i=offset; i<pageSize+offset && i<trainerList.length ; i++){ //
             trainersOnPage.push(trainerList[i]);
         }
-        //console.log('master list length is: ' + trainerList.length);
-        //console.log('sublist is length: ' + trainersOnPage.length);
-        console.log('master list is: ' + trainerList);
-        console.log('sublist is: ' + trainersOnPage);
-        
-        //console.log('updateTrainer has finished');
         return trainersOnPage;
     },
     
@@ -126,9 +116,7 @@
      *Determines if the next button for pagination should be disabled i.e. 
      *If it should be clickable or not */
     shouldNextBeDisabled : function(list, offSet, pageSize){
-        //console.log("got inside the helper method");
         var value = (offSet*pageSize) + pageSize;
-        //console.log("should next be disabled\nlistSize is: "+list.length+" offset * pagesize + pagesize is: " + value);
         return list.length <= value;  
     },
     
@@ -136,7 +124,6 @@
      *Determines if the previous button for pagination should be disabled i.e. 
      *If it should be clickable or not */
     shouldPreviousBeDisabled : function(offSet){
-        //console.log("should perv be disabled\nPage is: " + offSet);
         return (1 > offSet);  
     },
     
