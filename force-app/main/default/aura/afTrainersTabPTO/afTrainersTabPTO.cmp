@@ -40,7 +40,9 @@
                <!-- Mass approve/reject buttons -->
                
                <aura:set attribute="actions">
+                   <lightning:helptext content="Mass Approve all selected PTO records" />
                    <lightning:button class="headerBtn" variant="bare" onclick="{! c.handleApproveAll }" iconName="utility:check" />
+                   <lightning:helptext content="Mass Reject all selected PTO records" />
                    <lightning:button class="headerBtn" variant="bare" onclick="{! c.handleRejectAll  }" iconName="utility:close" /> 
                </aura:set>
                
