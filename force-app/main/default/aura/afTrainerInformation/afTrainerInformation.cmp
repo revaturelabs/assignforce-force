@@ -21,7 +21,7 @@
         <div class="slds-card__body slds-card__body_inner">
             <aura:if isTrue="{!v.uncleared}">
                 <div class="slds-card">
-                    <lightning:recordEditForm aura:id="currentUserInfo" recordId="{!v.userId}" objectApiName="User" onsuccess="{!c.onSuccess}">
+                    <lightning:recordEditForm aura:id="currentUserInfo" recordId="{!v.userId}" objectApiName="User" onsuccess="{!c.onSuccess}" onerror="{!c.onError}">
                         <div class="slds-card">
                             <lightning:messages/>
                             <div class="slds-card__header">
