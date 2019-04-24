@@ -84,7 +84,6 @@ $A.enqueueAction(apexAction);
                 }
             }
         }
-      
         // do rejection things
         var arg = [];
             for (var i = 0; i < rows.length; i++){
@@ -179,7 +178,4 @@ $A.enqueueAction(apexAction);
         console.log('selectedPTOList: ' + JSON.stringify(component.get('v.selectedPTOList')));
         
     }
-
-   },
-
 })
