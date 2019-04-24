@@ -14,11 +14,13 @@
             <div class="slds-grid slds-gutters">
                 <div class="slds-col slds-size_10-of-12">
                     <span>
+                    <!--afBatchTimeline: The Timeline X-chart-->
                     <c:afBatchTimeline/>
                         </span>
                 </div>
                 <div class="slds-col slds-size_2-of-12">
                     <span>
+                    <!--FilterChartComponent: The select picklists/checkbox that picks Year, Quarter, and checks for Location-->
                     <c:FilterChartComponent/>
                     </span>
                 </div>
