@@ -58,10 +58,42 @@
     isRefreshed: function(component, event, helper) {
         location.reload();
     },
+    /*
+    onError: function(event, errors) {
+        // display toast informing user of successful submission
+        var toastEvent = $A.get("e.force:showToast");
+        
+        toastEvent.setParams({
+            title : 'Something went wrong!',
+            message: 'We don\'t know what went wrong yet',
+            duration: '2000',
+            type: 'error',
+        });
+        
+        // Pass the error message if any
+        if (errors && Array.isArray(errors) && errors.length > 0) {
+            toastParams.message = errors[0].message;
+        }
+        // Fire error toast
+        toastEvent.setParams(toastParams);
+        toastEvent.fire();
+    },*/
     
-    onError: function(component, event, helper) {
-        console.log('onError');
-        var error = event.getParam("error");
-        console.log("error message: " + error.message);
+    onError : function(errors) {
+        // Configure error toast
+        let toastParams = {
+            title: "Error",
+            message: "Unknown error", // Default error message
+            type: "error"
+        };
+        // Pass the error message if any
+        if (errors && Array.isArray(errors) && errors.length > 0) {
+            toastParams.message = errors[0].message;
+        }
+        
+        // Fire error toast
+        let toastEvent = $A.get("e.force:showToast");
+        toastEvent.setParams(toastParams);
+        toastEvent.fire();
     },
 })

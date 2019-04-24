@@ -9,9 +9,9 @@
     /*----------------------------------------------------------
     				Create New Batch Section
     ----------------------------------------------------------*/
-
+    
     //TODO: MAKE SURE THIS FUNCTION FUNCTIONS
-
+    
     onSubmit : function(component, event, helper) {
         // In-built functionality to handle recordEditForm submission
         event.preventDefault();       // Stop the form from submitting
@@ -57,15 +57,15 @@
         
         //FOR TESTING:
         //console.log('newBatch JSON ' + JSON.stringify(newBatchEvent.getParam("newBatch")));
-
+        
         newBatchEvent.fire();
     },
-
+    
     /*----------------------------------------------------------
     				Handle User Input Change
     ----------------------------------------------------------*/
     updateAvailabilityOnChange : function (component, event, helper) {
-
+        
         /*-------------------------------------------
                DETECT USER INPUT: TRACK CHANGED
         -------------------------------------------*/
@@ -79,7 +79,7 @@
         var startBatch = component.get('v.startDate');
         var endBatch = null;
         component.set("v.endDate", endBatch);
-
+        
         if(startBatch != null){
             helper.changeEndDate(component, event);
             endBatch = component.get('v.endDate');
@@ -91,19 +91,19 @@
             startBatch = null;
             endBatch = null;
         }
-
+        
         //Check if trainer is busy during dates selected
         var trainings   = component.get("v.openTrainings");
         var trainer     = component.get("v.trainer");
         var startDate   = component.get("v.startDate");
         var endDate     = component.get("v.endDate");
         helper.showTrainerToast(helper, event, trainings, trainer, startDate, endDate);
-
+        
         /*-------------------------------------------
              DETECT USER INPUT: LOCATION CHANGED
         -------------------------------------------*/
         var locationChosen = component.get('v.location');
-
+        
         /*-------------------------------------------
           DETECT USER INPUT: SEND TO OTHER COMPONENT
         -------------------------------------------*/
@@ -154,22 +154,22 @@
         /*Updated implementation of previous itreation - basically the same
         implementation as before but works with server side logic
         This logic can most likely be updated. */
-
+        
         var room = event.getParam("room");
         var location = event.getParam("location");
         var rooms   = component.get("v.allRooms");       
         var roomsForLoc = [];
         roomsForLoc.push("");
-
+        
         component.set("v.locUncleared", false);
         component.set("v.locUncleared", true);
-
+        
         for (var i = 0; i < rooms.length; i++) {
             if(rooms[i].TrainingLocation__c == location){
                 roomsForLoc.push(rooms[i]);
             }
         }
-
+        
         component.set('v.roomsForLocation', roomsForLoc);
         component.set("v.location", room.TrainingLocationName__c);
         component.set("v.hiddenRoom", room.Id);
@@ -196,16 +196,16 @@
         
         var loc 	= component.get("v.location");
         var roomsList = component.get("v.allRooms");
-
+        
         console.log(loc);
         
         if(loc == '' || loc == null){
             component.set('v.room', null);
         }
-
-		var filteredRooms = component.get("c.filterRoomByLocation");        
+        
+        var filteredRooms = component.get("c.filterRoomByLocation");        
         filteredRooms.setParams({
-			location : loc,
+            location : loc,
             rooms : roomsList,			            
         });
         filteredRooms.setCallback(this, function(response) {
@@ -225,5 +225,21 @@
             }
         });
         $A.enqueueAction(filteredRooms);
+    },
+    
+    /*----------------------------------------------------------
+    					Client-Side Error Section
+    ----------------------------------------------------------*/
+    
+    onError : function(event, errors) {
+        var toastEvent = $A.get("e.force:showToast");
+        
+        toastEvent.setParams({
+            title : 'Something went wrong!',
+            message: 'Please select a valid training track, with start date between Monday & Wednesday, valid trainer, training location, and training room.',
+            duration: '2000',
+            type: 'error',
+        });
+        toastEvent.fire();
     },
 })

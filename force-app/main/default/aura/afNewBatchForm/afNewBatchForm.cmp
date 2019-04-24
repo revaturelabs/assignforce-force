@@ -125,9 +125,10 @@
    <aura:handler 		name="change"     value="{!v.trainer}"        	         action="{!c.updateAvailabilityOnChange}"/>
    <aura:handler 		name="change"     value="{!v.location}"        	         action="{!c.updateAvailabilityOnChange}"/>
    
+
    <!-- Component Content: Black Create a New Batch Bar with buttons -->
    <div class="slds-card">
-      <lightning:recordEditForm aura:id="newBatchForm" objectApiName="Training__c" onsuccess="{!c.onSuccess}" onerror>
+      <lightning:recordEditForm aura:id="newBatchForm" objectApiName="Training__c" onsuccess="{!c.onSuccess}" onerror="{!c.onError}" >
          <lightning:messages/>
          <div class="slds-card__header">
             <header class="slds-media slds-media_center slds-has-flexi-truncate">
