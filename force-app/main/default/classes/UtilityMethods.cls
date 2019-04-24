@@ -30,32 +30,12 @@ public class UtilityMethods {
     
         return result;
     }
-    
-    public static User createAdminUser(){
-        Id profId = [SELECT Id FROM Profile WHERE Name = 'System Administrator' LIMIT 1].Id;
-        User uData = new User(
-                ProfileId = profID,
-                LastName = 'admin',
-                Email = 'testAdmin@amamama.com',
-                Username = 'testAdmin'+ System.currentTimeMillis() + '@amamama.com',
-                CompanyName = 'TEST',
-                Title = 'title',
-                Alias = 'alias',
-                TimeZoneSidKey = 'America/Los_Angeles',
-                EmailEncodingKey = 'UTF-8',
-                LanguageLocaleKey = 'en_US',
-                LocaleSidKey = 'en_US',
-                Available__c = 'Available',
-                UserRoleId = null); 
-        return uData;
-    }
 
     public static List<External_Trainer__c> createExternalTrainerData(Integer amount){
         
         List<External_Trainer__c> result = new List<External_Trainer__c>();
 
         for (Integer i = 0; i < amount; i++){
-			//If this does not have Salesforce on the end, afAvailListContainerApexControllerTest should be modified.
             External_Trainer__c x = new External_Trainer__c(First_Name__c = 'first',
                                                             Last_Name__c = 'last ' + i,
                                                             Available__c = 'Available',
@@ -146,10 +126,9 @@ public class UtilityMethods {
                                                                  List<Date> tsDateList, List<Training_Track__c> tTrackList) {
     
         List<Training__c> result = new List<Training__c>();
-		User u = [SELECT Id FROM User WHERE Name='External Trainer' LIMIT 1].get(0);
+
         for(integer i = 0; i < amount; i++) {
             Training__c training = new Training__c(TrainingLocation__c = tLocList[Math.mod(i,tLocList.size())].id,
-                                                   Trainer__c = u.Id,
                                                    External_Trainer__c = tTrainerList[Math.mod(i,tTrainerList.size())].id,
                                                    StartDate__c = tsDateList[Math.mod(i,tsDateList.size())],
                                                    EndDate__c = tsDateList[Math.mod(i,tsDateList.size())].toStartOfWeek().addDays(5),

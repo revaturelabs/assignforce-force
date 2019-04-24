@@ -116,7 +116,6 @@
     ----------------------------------------------------------*/
     setTrainerField : function(component, event, helper) {
         
-        //Why do they do this?!?! Why did I not delete this? I don't know.
         component.set("v.trainerUncleared", false);
         component.set("v.trainerUncleared", true);
         
@@ -139,11 +138,6 @@
         
         // pass appropriate values to helper function for display of toast
         helper.showTrainerToast(helper, event, trainings, trainer, startDate, endDate);
-    },
-    
-    setExternalTrainerField: function(component, event, helper){
-        var externalTrainer = event.getParam("externalTrainerId");
-        component.set("v.ExternalTrainer",externalTrainer);
     },
     
     /*----------------------------------------------------------
