@@ -94,8 +94,7 @@
    <aura:attribute   name="hiddenRoom"      
                     type="Id"
                     description="Used for swithching back and forth between
-                    'Available Trainers' and 'Available Rooms' tabs"
-  />
+                    'Available Trainers' and 'Available Rooms' tabs" />
 
   <!-- Events -->
   <aura:registerEvent  name="updateFiltersEvent"       
@@ -117,6 +116,11 @@
   <aura:handler        event="c:roomSelected"                
                        action="{!c.setRoomField}"
                        description="Populate the Room field when a room
+                       is selected from the availability list"
+  />
+    <aura:handler      event="c:ExternalTrainerSelected"             
+                       action="{!c.setExternalTrainerField}"
+                       description="Populate the External Trainer and Trainer fields when a trainer
                        is selected from the availability list"
   />
    <aura:handler 		name="change"     value="{!v.track}"        	            action="{!c.updateAvailabilityOnChange}"/>
