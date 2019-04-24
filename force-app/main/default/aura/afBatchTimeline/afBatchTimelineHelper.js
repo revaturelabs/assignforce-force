@@ -239,10 +239,9 @@
             },
             plotOptions: {
                 series: {
-                    animation: false, //turned off for optimization reasons.
+                    animation: false, //animation turned off for optimization reasons.
                     minPointLength: 50
                 },
-                //Pls don't delete this, took us 1.5 weeks to figure this out :)
                 xrange: {
                     groupPadding: .5
                 }

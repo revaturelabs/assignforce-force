@@ -2,13 +2,13 @@ public class afTimelineController {
     
     public class TrainingDataWrapper {
         @AuraEnabled
-        public Integer y;
+        public Integer y; //y-coordinate for the chart
         @AuraEnabled
-        public Date x;
+        public Date x; //beginning coordinate of x-range
         @AuraEnabled
-        public Date x2;
+        public Date x2; //ending coordinate of x-range
         @AuraEnabled
-        public String series;
+        public String series; 
         @AuraEnabled
         public String color;
         @AuraEnabled
@@ -372,8 +372,13 @@ public class afTimelineController {
         return wrapTrainingToJSON();
     }
     
-    // Converts year code 1-5 into a real year integer
-    // Copy-pasted common logic into a method
+    /*
+        Takes the value from the dropdown picklist and make it into the selected year.
+
+        @param yearCode         Integer 1-5, which relates to the picklist component on the timeline 
+        @return convertedYear   An integer representing the selected 4-digit year.
+    */
+    
     @testVisible
     private static Integer convertYear(Integer yearCode) {
         
@@ -404,8 +409,12 @@ public class afTimelineController {
         return convertedYear;
     }
     
-    // Converts month code 2-5 into a real list of months (integers)
-    // Copy-pasted common logic into a method
+        /*
+        Takes the value from the dropdown picklist and make it into the selected year.
+
+        @param quarterCode  Integer 2-5, which relates to the picklist component on the timeline 
+        @return monthList   A List<Integer> representing the months of the selected quarter.
+    */
     @testVisible
     private static List<Integer> convertQuarter(Integer quarterCode) {
         
