@@ -23,7 +23,7 @@ public class afTimelineController {
                 AllTrainings = [SELECT Id, Name, TrainingLocation__c, Trainer__r.Name, StartDate__c, 
                                 TrainingLocation__r.OfficeName__c, EndDate__c, 
                                 CoTrainer__r.name, TrainingTrack__r.ShortName__c,
-                                TrainingTrack__r.Color__c,
+                                TrainingTrack__r.Color__c, External_Trainer__r.Name,
                                 TrainingClass__c FROM Training__c ORDER BY Trainer__r.Name, StartDate__c];
             }
             
@@ -95,19 +95,34 @@ public class afTimelineController {
     public static String[] getTrainers() {
         
         String[] trainerNames = new String[]{};
+
+        List<String> trainerUsers = new List<String>();         
+		
+        /*
+        for(User u : trainers) { 
+
+            // Boolean trainerInTrainings = false;
+
+            for(Training__c t : currentTrainings) {   
+                if(u.Name == t.Trainer__r.Name){
+                    // trainerInTrainings = true;
+                    trainerNames.add(u.Name);
+                    break;
+                } 
+                if (t.External_Trainer__c != null){
+                    trainerNames.add(t.External_Trainer__r.Name);
+            	}
+        	} 	
+        } */
             
-            for(User u : trainers) { 
-                
-                Boolean trainerInTrainings = false;
-                
-                for(Training__c t : currentTrainings) {   
-                    if(u.Name == t.Trainer__r.Name){
-                        trainerInTrainings = true;
-                        trainerNames.add(u.Name);
-                        break;
-                    } 
-                }
-            }
+        for(Training__c t : currentTrainings) {   
+                if(t.Trainer__c != null){
+                    trainerNames.add(t.Trainer__r.Name);
+                } else if (t.External_Trainer__c != null){
+                    trainerNames.add(t.External_Trainer__r.Name);
+            	}
+        	}
+
         
         return trainerNames;
     }
@@ -130,8 +145,9 @@ public class afTimelineController {
             
             // Loop will not run the first time through, but the code
             // after the loop exits will add to the List
-            for(Integer j = 0; j < trainerNames.size() ; j++) {
-                if(trainerNames[j] == t.Trainer__r.Name) {
+
+            for(j = 0 ; j < trainerNames.size() ; j++) {
+                if(trainerNames[j] == t.Trainer__r.Name || trainerNames[j] == t.External_Trainer__r.Name) {
                     
                     // Configure Y-axis for timeline chart
                     tdw.y = j;
@@ -142,7 +158,12 @@ public class afTimelineController {
             
             // Account for the first time through, when the List is empty
             if(!trainerInMap) {
-                trainerNames.add(t.Trainer__r.Name);
+                if (t.Trainer__c != null){
+                    trainerNames.add(t.Trainer__r.Name);
+                } else if (t.External_Trainer__c != null){
+                    trainerNames.add(t.External_Trainer__r.Name);
+                }
+                
                 tdw.y = trainerNumber;
                 trainerNumber++;
             }
@@ -156,7 +177,12 @@ public class afTimelineController {
             tdw.series = t.TrainingTrack__r.ShortName__c;
             tdw.location = t.TrainingLocation__r.OfficeName__c;
             tdw.color = t.TrainingTrack__r.Color__c;
-            tdw.trainerName = t.Trainer__r.Name;
+            if (t.Trainer__c != null){
+                tdw.trainerName = t.Trainer__r.Name;
+            } else if (t.External_Trainer__c != null){
+                tdw.trainerName = t.External_Trainer__r.Name;
+            }
+            
             trainerData.add(tdw);
         }
         
