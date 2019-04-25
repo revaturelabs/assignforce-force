@@ -50,7 +50,7 @@
         component.set("v.numWeeks", 10);
         component.set("v.endDate", null);
         
-		helper.partialClear(component, event);
+		this.partialClear(component, event);
     },
     
     partialClear : function(component, event) {

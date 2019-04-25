@@ -23,17 +23,39 @@
     onSuccess : function(component, event, helper) {
         // Making sure all fields are filled out before firing the event.
         
-        /*
-        alert("Track " + component.get("v.track") + "\n" +
-              "startDate: " + component.get("v.startDate") + "\n" +
-              "endDate: " + component.get("v.endDate") + "\n" +
-              "trainer: " + component.get("v.trainer") + "\n" +
-              "cotrainer: " + component.get("v.cotrainer") + "\n" +
-              "ExternalTrainer: " + component.get("v.ExternalTrainer") + "\n" +
-              "location: " + component.get("v.location") + "\n" +
-              "hiddenRoom: " + component.get("v.hiddenRoom") + "\n" +
-              "status: " + component.get("v.status") + "\n");
-        */
+
+        var newBatch = [{
+            TrainingTrack__c        : component.get("v.track"),
+            StartDate__c            : component.get("v.startDate"),
+            EndDate__c              : component.get("v.endDate"),
+            Trainer__c              : component.get("v.trainer"),
+            CoTrainer__c            : component.get("v.cotrainer"),
+            External_Trainer__c     : component.get("v.ExternalTrainer"),
+            TrainingLocation__c     : component.get("v.location"),
+            TrainingRoom__c         : component.get("v.hiddenRoom"),
+            Status__c               : component.get("v.status"),
+        }];
+        
+        // records have been submitted, clear form
+        helper.fullClear(component, event);  
+        
+        // display toast informing user of successful submission
+        var toastEvent = $A.get("e.force:showToast");
+        
+        toastEvent.setParams({
+            title : 'Success!',
+            message: 'The new batch has been created.',
+            duration: '2000',
+            type: 'success',
+        });
+        toastEvent.fire();
+        
+        // send new batch to other components
+        var newBatchEvent = $A.get("e.c:afNewBatchCreatedEvent");
+        
+        newBatchEvent.setParams({
+            "newBatch" : newBatch
+        });
         
         // TODO : The hidden room is not returning to fill the hidden room field when manual select
         if (!component.get("v.track") || !component.get("v.startDate") || !component.get("v.trainer") || 
