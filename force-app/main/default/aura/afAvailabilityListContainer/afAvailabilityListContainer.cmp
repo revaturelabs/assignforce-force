@@ -132,11 +132,11 @@
                 <!-- In the Available Rooms tab, defines columns to use -->
                 <div id="rooms" class="{!v.tabShown == 1 ? 'slds-tabs_default__content slds-show' : 'slds-tabs_default__content slds-hide' }">
                     <div class="slds-grid">
-                        <div class="slds-col slds-size_1-of-5 slds-align_absolute-center"></div>
-                        <div class="slds-col slds-size_1-of-5 slds-align_absolute-center"><h1>Name</h1></div>
-                        <div class="slds-col slds-size_1-of-5 slds-align_absolute-center"><h1>Location</h1></div>
-                        <div class="slds-col slds-size_1-of-5 slds-align_absolute-center"><h1>Available</h1></div>
-                        <div class="slds-col slds-size_1-of-5 slds-align_absolute-center"><h1>Capacity</h1></div>
+                        <div class="slds-col slds-size_1-of-6 slds-align_absolute-center"></div>
+                        <div class="slds-col slds-size_1-of-6 slds-align_absolute-center"><h1>Name</h1></div>
+                        <div class="slds-col slds-size_1-of-6 slds-align_absolute-center"><h1>Location</h1></div>
+                        <div class="slds-col slds-size_2-of-6 slds-align_absolute-center"><h1>Available</h1></div>
+                        <div class="slds-col slds-size_1-of-6 slds-align_absolute-center"><h1>Capacity</h1></div>
                     </div>
                     <!-- Iterate over available rooms in accordance to criteria set-->
                     <div class="slds-scrollable" style="height: 300px">

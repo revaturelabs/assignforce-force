@@ -29,7 +29,7 @@
         var toastEvent = $A.get("e.force:showToast");
         	toastEvent.setParams({
             "title": "Warning!",
-            "message": "Selected room is not available. Please choose a different room."
+            "message": "Selected room is not available. Consider chosing a different room."
             });
         if(getRoom.AVAvailability__c == 'Yes'){
             roomSelected.fire();	
