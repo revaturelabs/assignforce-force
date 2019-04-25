@@ -53,7 +53,7 @@ public class afNewBatchAndAvailabilityApexController {
                        TrainingTrack__c, TrainingTrack__r.ShortName__c, TrainingTrack__r.Color__c, 
                        TrainingClass__c, TrainingRoom__c, StartDate__c, EndDate__c
                 FROM Training__c
-                WHERE Status__c != 'Completed' OR Status__c != 'Cancelled'];
+                WHERE Status__c != 'Completed' AND Status__c != 'Cancelled'];
     }
 
 }

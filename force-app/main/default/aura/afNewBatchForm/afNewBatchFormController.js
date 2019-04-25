@@ -16,7 +16,6 @@
         // In-built functionality to handle recordEditForm submission
         event.preventDefault();       // Stop the form from submitting
         var fields = event.getParam('fields');
-        
         component.find('newBatchForm').submit(fields);
     },
     
@@ -35,7 +34,7 @@
         }];
         
         // records have been submitted, clear form
-        helper.clear(component, event);  
+        helper.fullClear(component, event);  
         
         // display toast informing user of successful submission
         var toastEvent = $A.get("e.force:showToast");
@@ -75,7 +74,6 @@
                                      component.get('v.endDate'), 
                                      component.get('v.location')
                                     );
-        console.log("got through changeTrack successfully");
     },
     
     changeDate : function (component, event, helper) {
@@ -100,7 +98,6 @@
                                      endBatch, 
                                      component.get('v.location')
                                     );
-        console.log("got through change date successfully");
     },
     
     changeLocation : function (component, event, helper) {
@@ -110,7 +107,6 @@
                                      component.get('v.endDate'), 
                                      locationChosen
                                     );
-        console.log("got through change location successfully");
     },
     
     
@@ -223,4 +219,22 @@
         });
         $A.enqueueAction(filteredRooms);
     },
+    
+    /*----------------------------------------------------------
+                        Client-Side Error Section
+    ----------------------------------------------------------*/
+    
+    /*onError : function(event, errors) {
+        var toastEvent = $A.get("e.force:showToast");
+        
+        toastEvent.setParams({
+            title : 'Something went wrong!',
+            message: 'Please select a valid training track, with start date between Monday & Wednesday, valid trainer, training location, and training room.',
+            duration: '2000',
+            type: 'error',
+        });
+        toastEvent.fire();
+    },
+    */
+    
 })

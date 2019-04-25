@@ -24,28 +24,27 @@ public class createTrainers {
     public static void AssignLocations(){
         Schema.DescribeFieldResult locFr = User.CurrentLocation__c.getDescribe();
         Schema.DescribeFieldResult skillFr = User.Training_Skills__c.getDescribe();
-        List<Schema.PicklistEntry> locPlEntries = locFr.getPicklistValues();
+		List<Schema.PicklistEntry> locPlEntries = locFr.getPicklistValues();
         List<Schema.PicklistEntry> skillPlEntries = skillFr.getPicklistValues();
-        List<String> locNames = new List<String>();
+		List<String> locNames = new List<String>();
         List<String> skillNames = new List<String>();
 
-        for (Schema.PicklistEntry entry : locPlEntries){
-            locNames.add(entry.getLabel());
-        }
+		for (Schema.PicklistEntry entry : locPlEntries){
+    		locNames.add(entry.getLabel());
+		}
         for (Schema.PicklistEntry entry : skillPlEntries){
-            skillNames.add(entry.getLabel());
-        }
+    		skillNames.add(entry.getLabel());
+		}
         Integer numLocs = locNames.Size();
         Integer numSkills = skillNames.Size();
-        UserRole trainerRole = [select id, name from UserRole where name='Trainer'];
         
-        List<User> usrs = [select id from User where UserRoleId=:trainerRole.Id];
-        for (User usr : usrs){
-            usr.CurrentLocation__c = locNames[Integer.valueof((Math.random() * numLocs))];
+		List<User> usrs = [select id from User where UserRole.Name='Trainer'];
+		for (User usr : usrs){
+    		usr.CurrentLocation__c = locNames[Integer.valueof((Math.random() * numLocs))];
             usr.Training_Skills__c = skillNames[Integer.valueof((Math.random() * numSkills))];
-        }
-        
-        update usrs;
+		}
+		
+		update usrs;
     }
     
     public static void createExternalTrainers(){

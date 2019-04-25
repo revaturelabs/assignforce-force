@@ -58,7 +58,7 @@ public with sharing class afTrainersTabPTOApexControllerTest {
             //Assert that every PTO has the correct fields
             System.assertEquals(results.get(i).StartDate__c, queryResults.get(i).StartDate__c);
             System.assertEquals(results.get(i).EndDate__c,   queryResults.get(i).EndDate__c);
-            System.assertEquals(results.get(i).Status__c,    'Pending Approval');
+            System.assertEquals(results.get(i).Status__c,    'Approved');
         }
 
         Test.stopTest();
@@ -70,15 +70,17 @@ public with sharing class afTrainersTabPTOApexControllerTest {
         
         //get the PTO requests
         ptos = [SELECT id, Status__c FROM PTO__c WHERE Trainer__r.UserRole.Name = 'Trainer'];
-
+		List<Id> ptoIds = new List<Id>();
+        
         Test.startTest();
 
-        //Use the method to approve all PTOs
         for (PTO__c p : ptos){
-            afTrainersTabPTOApexController.approvePTO(p.id);
+            ptoIds.add(p.id);
         }
+        
+        afTrainersTabPTOApexController.approvePTO(ptoIds);
 
-        Test.stopTest();
+		Test.stopTest();
 
         //Requery for the now approved PTOs
         ptos = [SELECT id, Status__c FROM PTO__c WHERE Trainer__r.UserRole.Name = 'Trainer'];
@@ -95,14 +97,17 @@ public with sharing class afTrainersTabPTOApexControllerTest {
         
         //Query for the PTO requests
         ptos = [SELECT id, Status__c FROM PTO__c WHERE Trainer__r.UserRole.Name = 'Trainer'];
-
+        List<Id> ptoIds = new List<Id>();
+        
         Test.startTest();
 
         for (PTO__c p : ptos){
-            afTrainersTabPTOApexController.rejectPTO(p.id);
+            ptoIds.add(p.id);
         }
+        
+        afTrainersTabPTOApexController.rejectPTO(ptoIds);
 
-        Test.stopTest();
+		Test.stopTest();
 
         //Requery for the updated PTO requests
         ptos = [SELECT id, Status__c FROM PTO__c WHERE Trainer__r.UserRole.Name = 'Trainer'];
@@ -111,8 +116,5 @@ public with sharing class afTrainersTabPTOApexControllerTest {
         for (PTO__c p : ptos){
             System.assertEquals(p.Status__c, 'Rejected');
         }
-
-
     }
-
 }
