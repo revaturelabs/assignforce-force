@@ -19,3 +19,9 @@
     color: #F26925;
     margin-top: 10px;
 }
+
+/* fetching lightning form default error message and disabling it to replace with toasting */
+.THIS .cAfNewBatchForm > div > form > lightning-messages {
+    display: none;
+    visibility: hidden;
+}
