@@ -16,7 +16,6 @@
         // In-built functionality to handle recordEditForm submission
         event.preventDefault();       // Stop the form from submitting
         var fields = event.getParam('fields');
-        
         component.find('newBatchForm').submit(fields);
     },
     
