@@ -8,15 +8,23 @@ public class afTimelineController {
         @AuraEnabled
         public Date x2; //ending coordinate of x-range
         @AuraEnabled
-        public String series; 
+        public String series; //'series' represents the name of the Training Track, these can be seen as radio buttons at the bottom of the graph
         @AuraEnabled
         public String color;
         @AuraEnabled
         public String trainerName;
         @AuraEnabled
         public String location;
+
+
     }
-    
+    /*  PROPERTIES
+            List<Training__c> AllTrainings
+            List<Training__c> currentTrainings
+            List<User> trainers
+            List<PTO__c> approvedPTOs
+            List<PTO__c> currentPTOs
+    */
     public static List<Training__c> AllTrainings {
         get{
             if(AllTrainings == null) {
@@ -32,7 +40,7 @@ public class afTimelineController {
         set;
     }
     
-    public static List<Training__c> currentTrainings {
+    public static List<Training__c> currentTrainings { //AllTrainings is assigned here to cut down on DML/SOQL statements
         get{
             if(currentTrainings == null) {  
                 currentTrainings = AllTrainings;
@@ -91,6 +99,8 @@ public class afTimelineController {
         return officeLocations;
     }
     
+    //END PROPERTIES
+
     @AuraEnabled
     public static String[] getTrainers() {
         
@@ -111,103 +121,110 @@ public class afTimelineController {
         
         return trainerNames;
     }
-    
+    /*
+        This is a completely rewritten method to replace createTrainingJSON(), which was Batch 1 legacy code.
+
+        @author     022519Salesforce
+        @author     Matthew Wright
+        @return     a complete JSON of Trainings, PTOs, and Free Time, each assigned to a particular trainer on the Y-axis.
+        @todo       seperate this method's logical components, for brevity.
+    */
+
     @AuraEnabled
-    public static String wrapTrainingToJSON() {
-        List<TrainingDataWrapper> trainerData = new List<TrainingDataWrapper>();
-        Map<Integer,String> trainerNumbersNames = new Map<Integer,String>();
-        List<String> trainerNames = new List<String>();
-        
-        // trainerNumber represents the position on the Y-Axis (timeline chart) 
-        Integer trainerNumber = 0;
-        Integer trainerIndex = 0;
-        
-        
+    public static string createTrainingJSON(){
+
+        List<TrainingDataWrapper> trainingDataList = new List<TrainingDataWrapper>();
+        Map<Integer,String> trainerMap = new Map<Integer,String>(); //map of {Trainer Y-coordinate, Trainer Name}
+
+        /* TRAINING LOGIC STARTS */
         // Add all trainings to the dataset
-        for(Training__c t : currentTrainings) {
-            Boolean trainerInMap = false;
-            TrainingDataWrapper tdw = new TrainingDataWrapper();
-            
-            // Loop will not run the first time through, but the code
-            // after the loop exits will add to the List
-            for(Integer j = 0; j < trainerNames.size() ; j++) {
-                if(trainerNames[j] == t.Trainer__r.Name) {
-                    
-                    // Configure Y-axis for timeline chart
-                    tdw.y = j;
-                    trainerInMap = true;
-                    break;
+        for(Training__c currTraining : currentTrainings) { //iterate over the list of current trainers/batches (Sorted by year/location/etc.)
+            TrainingDataWrapper currTDW = new TrainingDataWrapper(); //Represents the current Training
+
+            // Account for the first time through, when the Trainer Map is empty
+            if(trainerMap.isEmpty()){
+                trainerMap.put(0,currTraining.Trainer__r.Name);
+            }
+            else {
+                //iterate over the Trainer Map
+                for(Integer y = 0; y < trainerMap.size(); y++) {
+                    //Check if current Trainer is already referenced in the Map
+                    if(trainerMap.get(y) == currTraining.Trainer__r.Name) { 
+                        // Set the values of the map to the TDW object
+                        currTDW.y = y;
+                        currTDW.trainerName = trainerMap.get(y);
+                        break;
+                    } 
+                    //check if the for loop is at the end of the Map, meaning the trainer is not referenced yet.
+                    //set the trainer's value in the map, also in the TDW object
+                    else if(trainerMap.containsKey(y + 1) == null){
+                        trainerMap.put(y + 1,currTraining.Trainer__r.Name);
+                        currTDW.y = y + 1;
+                        currTDW.trainerName = trainerMap.get(y + 1);
+                        break;
+                    }
+                } 
+            }
+        
+            //set attributes of TrainingDataWrapper, y is already set
+            currTDW.x = currTraining.StartDate__c;
+            currTDW.x2 = currTraining.EndDate__c;
+            currTDW.series = currTraining.TrainingTrack__r.ShortName__c;
+            currTDW.location = currTraining.TrainingLocation__r.OfficeName__c;
+            currTDW.color = currTraining.TrainingTrack__r.Color__c;
+            trainingDataList.add(currTDW);
+
+    }   // END TRAINING ITERATOR FOR LOOP
+		/* TRAINING LOGIC ENDS */	
+
+        /* PTO LOGIC STARTS */
+
+        // Add all PTO to the dataset
+        for(PTO__c currPTO : currentPTOs) { //iterate over the list of current approved PTO requests
+            TrainingDataWrapper currTDW = new TrainingDataWrapper(); //Represents the current PTO request, in this context
+
+            // Check if trainerMap is empty.
+            // PTO shouldn't draw if the trainer doesnt have at least one branch on the timeline
+            if(!trainerMap.isEmpty()){
+                //iterate over the Trainer Map
+                for(Integer y = 0; y < trainerMap.size(); y++) {
+                    //Check if current Trainer is already referenced in the Map
+                    // PTO shouldn't draw if the trainer doesnt have at least one branch on the timeline
+                    if(trainerMap.get(y) == currPTO.Trainer__r.Name) { 
+                        // Set the values of the map to the TDW object
+                        currTDW.y = y;
+                        currTDW.trainerName = trainerMap.get(y);
+                        break;
+                    } 
+                   
                 } 
             }
             
-            // Account for the first time through, when the List is empty
-            if(!trainerInMap) {
-                trainerNames.add(t.Trainer__r.Name);
-                tdw.y = trainerNumber;
-                trainerNumber++;
-            }
-            
-            // x and x2 mark the start and end of the horizontal bar
-            tdw.x = t.StartDate__c;
-            tdw.x2 = t.EndDate__c;
-            
-            // 'series' represents the name of the Training Track
-            // These can be seen as radio buttons at the bottom of the graph
-            tdw.series = t.TrainingTrack__r.ShortName__c;
-            tdw.location = t.TrainingLocation__r.OfficeName__c;
-            tdw.color = t.TrainingTrack__r.Color__c;
-            tdw.trainerName = t.Trainer__r.Name;
-            trainerData.add(tdw);
-        }
-        
-        // Add all PTOs to the dataset
-        for(PTO__c pto : currentPTOs) {
-            
-            TrainingDataWrapper tdw = new TrainingDataWrapper();
-            
-            // Find the trainer in the list
-            Boolean found = false;
-            for(Integer j = 0; j < trainerNames.size(); j++) {
-                if(trainerNames.get(j) == pto.Trainer__r.Name) {
-                    tdw.y = j;
-                    found = true;
-                    break;
-                }
-            }
-            
-            if (!found) {
-                trainerNames.add(pto.Trainer__r.Name);
-                tdw.y = trainerNames.size();
-            }
-            
-            // Mark the start and end dates
-            tdw.x = pto.StartDate__c;
-            tdw.x2 = pto.EndDate__c;
-            
-            // Mark the series as distinct from training track
-            tdw.series = 'PTO';
-            tdw.location = 'PTO';
-            tdw.color = 'Gray';
-            tdw.trainerName = pto.Trainer__r.Name;
-            trainerData.add(tdw);
-        } 
+            //set attributes of TrainingDataWrapper, y is already set
+            currTDW.x = currPTO.StartDate__c;
+            currTDW.x2 = currPTO.EndDate__c;
+            currTDW.series = 'PTO';
+            currTDW.location = 'PTO';
+            currTDW.color = 'Gray';
+            trainingDataList.add(currTDW);
+
+        } //END PTO ITERATOR FOR LOOP
+
+        /* PTO LOGIC ENDS */
+
+        /* FREE TIME LOGIC BEGINS */
+
+        /* FREE TIME LOGIC ENDS */
+
+
         
         
-        System.debug('trainerData (serialized): ' + System.json.serialize(trainerData));
-        return System.json.serialize(trainerData);   
-        
-        /* result is in the form : 
-{"y":0,"x2":"2019-05-03","x":"2019-02-25","trainerName":"Damon Greer","series":"SysAdmin","location":null,"color":"#2FA05B"},
-{"y":1,"x2":"2019-03-15","x":"2019-01-07","trainerName":"Harvey Hill","series":"Java","location":null,"color":"#AE69B0"},
-{"y":1,"x2":"2019-06-21","x":"2019-04-15","trainerName":"Harvey Hill","series":"Salesforce","location":null,"color":"#31F1B5"},
-...
-{"y":1,"x2":"2019-04-26","x":"2019-04-22","trainerName":"Harvey Hill","series":"PTO","location":"PTO","color":"Gray"}
-*/
-    }
-    
-    
-    
-    
+        System.debug('trainingDataList (serialized): ' + System.json.serialize(trainingDataList));
+        return System.json.serialize(trainingDataList); 
+ 
+    }//END createTrainingJSON()
+
+   
     @AuraEnabled
     public static String filterTrainingsByYearLocationQuarter(String[] location, Integer year, Integer quarter) {
         
@@ -248,7 +265,7 @@ public class afTimelineController {
         
         currentPTOs = newPTOs;
         
-        return wrapTrainingToJSON();
+        return createTrainingJSON();
     }
     
     @AuraEnabled
@@ -287,7 +304,7 @@ public class afTimelineController {
         
         currentPTOs = newPTOs;
         
-        return wrapTrainingToJSON();
+        return createTrainingJSON();
     }
     
     
@@ -330,7 +347,7 @@ public class afTimelineController {
         
         currentPTOs = newPTOs;
         
-        return wrapTrainingToJSON();
+        return createTrainingJSON();
     }
     
     @AuraEnabled
@@ -369,7 +386,7 @@ public class afTimelineController {
         
         currentPTOs = newPTOs;
         
-        return wrapTrainingToJSON();
+        return createTrainingJSON();
     }
     
     /*
