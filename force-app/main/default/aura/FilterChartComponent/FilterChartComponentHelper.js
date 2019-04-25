@@ -157,10 +157,14 @@
     },
     fireChangeToChart : function(component, event, data)
     {
+		//PTO requests are not allowed to be shown without the trainer assigned to a training track.
+		
+		//Declare variables.
         var newObject = "";
         var findTrainingTrack = [[], [], [], [], [], [], []];
         var writeObject = "";
         
+		//This loop is required for gathering all of the objects from the original array.
         for (var i = 0; i < data.length; i++) {
 			
 			findTrainingTrack[0][i] = data[i]["y"];
@@ -171,10 +175,14 @@
 			findTrainingTrack[5][i] = data[i]["location"];
 			findTrainingTrack[6][i] = data[i]["color"];
 			
+			//This loop is used for matching the training track and any PTO's with each trainer. 
 			for (var j = 0; j < findTrainingTrack.length; j++) {
 				
+				//Only PTO objects are being matched by the trainer.
 				if (findTrainingTrack[4][i] == "PTO") {
 					
+					//The if statement checks to make sure each track or PTO is matched to each trainer.
+					//The PTO object will not be stored in the JSON, unless there is also a track for that particular trainer.
 					if (findTrainingTrack[0][i] == findTrainingTrack[0][j] && findTrainingTrack[4][i] != findTrainingTrack[4][j]) {
 						
 						writeObject += "{";
@@ -244,6 +252,7 @@
 					}
 				} else {
 					
+					//This section of code prints any training track related to each trainer.
 					if (findTrainingTrack[0][i] == findTrainingTrack[0][j]) {
 						
 						writeObject += "{";
@@ -316,10 +325,11 @@
 		}
 		
 		writeObject += "{}";
-
+		
+		//The JSON is done being rewritten.
 		newObject += "[" + writeObject.replace(/,{}/g, "") + "]";
         
-        console.log(newObject);
+        //console.log("uncalculated:\n" + JSON.stringify(data) + "\n\n\n\ncalculated:\n" + newObject);
         
         component.set('v.dataTemp', newObject);
         
