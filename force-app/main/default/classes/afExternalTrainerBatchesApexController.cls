@@ -36,7 +36,7 @@ public class afExternalTrainerBatchesApexController {
     //Used by afExternalTrainerTabBatches to get batches by external trainer id to populate data tables
     @AuraEnabled
     public static List<Training__c> getExtTrainingBatchesById(Id externalTrainerId) {
-        //Added List to ensure correct Batch status
+        //Added List to ensure Trainings with only relevant Batch statuses are being queried
         List<String> acceptedStatus = new List<String>{'Planned', 'Confirmed', 'In Progress'};
         
         List<Training__c> ExternalTrainings = 
