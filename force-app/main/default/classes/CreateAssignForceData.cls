@@ -96,10 +96,6 @@ public class CreateAssignForceData {
             }
         insert tracksToCreate;
     }
-<<<<<<< HEAD
-    
-}
-=======
   
     public static void createExternalTrainers(){ //Script to create external trainers
         List<String> lastNames = new List<String> {'Mowbray', 'Rivers', 'Aufidius', 'Tyrrell', 'Ratcliffe', 'Andronicus', 'Montague', 'Lepidus', 'Brutus', 'Gurney', 'Bates', 'Lovell', 'Blunt'};
@@ -154,9 +150,7 @@ public class CreateAssignForceData {
             currentUser.Preferred_Location__c = currentUser.CurrentLocation__c;
         }
         update users;
-    } 
-    
-}
+    }
 
 
     public static void createTrainers() {
@@ -181,5 +175,3 @@ public class CreateAssignForceData {
         insert trainers;
     }
 }
-
->>>>>>> 4ac84c99e485afedbd4af46b8425fc12b32099d6
