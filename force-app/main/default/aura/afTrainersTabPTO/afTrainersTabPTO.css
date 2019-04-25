@@ -32,3 +32,12 @@
 .THIS .slds-grid {
    border-radius: 5px;
 }
+
+.THIS .headerBtn {
+    color: #FFFFFF;
+    margin-right: 10px;
+}
+
+.THIS .headerBtn:hover {
+    color: #F26925;
+}
