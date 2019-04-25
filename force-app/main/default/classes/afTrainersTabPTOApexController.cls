@@ -5,7 +5,7 @@ public class afTrainersTabPTOApexController {
        system.debug(userId);
        List<PTO__c> trainerPTO = [SELECT StartDate__c , EndDate__c, Reason__c, Status__c
                                   FROM PTO__c
-                                  WHERE Trainer__c = :userId AND endDate__c > TODAY
+                                  WHERE Trainer__c = :userId AND endDate__c >= TODAY
                                   ORDER BY StartDate__c];
        system.debug(trainerPTO);
        return trainerPTO;
@@ -20,7 +20,7 @@ public class afTrainersTabPTOApexController {
        // Gets PTO__c record based on ptoIdToApprove
        pto = [SELECT Status__c 
               FROM PTO__c
-              WHERE Id = :ptoIdToApprove];
+              WHERE Id IN :ptoIdToApprove];
        
        System.debug('pto before update, from approvePTO: ' + pto);
        
@@ -66,4 +66,5 @@ public class afTrainersTabPTOApexController {
            System.debug('Error: ' + dmle.getMessage());
        }
     }
+    
 }

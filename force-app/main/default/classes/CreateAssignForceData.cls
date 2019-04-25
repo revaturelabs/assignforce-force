@@ -117,4 +117,3 @@ public class CreateAssignForceData {
         
         insert trainers;
     }
-}
