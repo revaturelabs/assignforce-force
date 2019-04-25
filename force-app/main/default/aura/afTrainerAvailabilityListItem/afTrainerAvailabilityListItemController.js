@@ -19,10 +19,22 @@
         
     },
     selectIsClicked : function(component, event, helper){
-        var selectedEvt = $A.get('e.c:TrainerSelected');
         var trainerId = component.get('v.trainerId');
         console.log(trainerId);
-        selectedEvt.setParams({'trainerId':trainerId});
-        selectedEvt.fire();
+        
+        if (component.get('v.isAvailable')) {
+            var selectedEvt = $A.get('e.c:TrainerSelected');
+        	selectedEvt.setParams({'trainerId':trainerId});
+        	selectedEvt.fire();
+        } else {
+            var toastEvent = $A.get("e.force:showToast");
+            toastEvent.setParams({
+                title : 'Notice',
+                message: 'The trainer you selected is not available for the time range indicated.',
+                duration: 5000,
+                type: 'info',
+            });
+            toastEvent.fire();
+        }
     },
 })
