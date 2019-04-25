@@ -151,8 +151,6 @@ public class CreateAssignForceData {
         }
         update users;
     } 
-    
-}
 
 
     public static void createTrainers() {
