@@ -9,9 +9,9 @@
     /*----------------------------------------------------------
     				Create New Batch Section
     ----------------------------------------------------------*/
-
+    
     //TODO: MAKE SURE THIS FUNCTION FUNCTIONS
-
+    
     onSubmit : function(component, event, helper) {
         // In-built functionality to handle recordEditForm submission
         event.preventDefault();       // Stop the form from submitting
@@ -21,46 +21,84 @@
     },
     
     onSuccess : function(component, event, helper) {
+        // Making sure all fields are filled out before firing the event.
         
-        var newBatch = [{
-            TrainingTrack__c        : component.get("v.track"),
-            StartDate__c            : component.get("v.startDate"),
-            EndDate__c              : component.get("v.endDate"),
-            Trainer__c              : component.get("v.trainer"),
-            CoTrainer__c            : component.get("v.cotrainer"),
-            External_Trainer__c     : component.get("v.ExternalTrainer"),
-            TrainingLocation__c     : component.get("v.location"),
-            TrainingRoom__c         : component.get("v.hiddenRoom"),
-            Status__c               : component.get("v.status"),
-        }];
+        /*
+        alert("Track " + component.get("v.track") + "\n" +
+              "startDate: " + component.get("v.startDate") + "\n" +
+              "endDate: " + component.get("v.endDate") + "\n" +
+              "trainer: " + component.get("v.trainer") + "\n" +
+              "cotrainer: " + component.get("v.cotrainer") + "\n" +
+              "ExternalTrainer: " + component.get("v.ExternalTrainer") + "\n" +
+              "location: " + component.get("v.location") + "\n" +
+              "hiddenRoom: " + component.get("v.hiddenRoom") + "\n" +
+              "status: " + component.get("v.status") + "\n");
+        */
         
-        // records have been submitted, clear form
-        helper.clear(component, event);  
-        
-        // display toast informing user of successful submission
-        var toastEvent = $A.get("e.force:showToast");
-        
-        toastEvent.setParams({
-            title : 'Success!',
-            message: 'The new batch has been created.',
-            duration: '2000',
-            type: 'success',
-        });
-        toastEvent.fire();
-        
-        // send new batch to other components
-        var newBatchEvent = $A.get("e.c:afNewBatchCreatedEvent");
-        
-        newBatchEvent.setParams({
-            "newBatch" : newBatch
-        });
-        
-        //FOR TESTING:
-        //console.log('newBatch JSON ' + JSON.stringify(newBatchEvent.getParam("newBatch")));
-
-        newBatchEvent.fire();
+        // TODO : The hidden room is not returning to fill the hidden room field when manual select
+        if (!component.get("v.track") || !component.get("v.startDate") || !component.get("v.trainer") || 
+           !component.get("v.location") || !component.get("v.room")) {
+            // display toast warning user for not completing the submission
+            var toastEvent = $A.get("e.force:showToast");
+            
+            toastEvent.setParams({
+                duration: '2000',
+                title: "Error",
+                message: "Please complete track, trainer, location, and room fields", 
+                type: "error"
+            });
+            toastEvent.fire();
+            /*
+				alert("location: " + component.get("v.location") + "\n" +
+            	"hiddenRoom: " + component.get("v.hiddenRoom") + "\n");
+            */
+        } else {
+            
+            alert("location: " + component.get("v.location") + "\n" +
+                  "hiddenRoom: " + component.get("v.hiddenRoom") + "\n" +
+                  "location: " + component.get("v.room") + "\n");
+            
+            
+            var newBatch = [{
+                TrainingTrack__c        : component.get("v.track"),
+                StartDate__c            : component.get("v.startDate"),
+                EndDate__c              : component.get("v.endDate"),
+                Trainer__c              : component.get("v.trainer"),
+                CoTrainer__c            : component.get("v.cotrainer"),
+                External_Trainer__c     : component.get("v.ExternalTrainer"),
+                TrainingLocation__c     : component.get("v.location"),
+                TrainingRoom__c         : component.get("v.room"),
+                Status__c               : component.get("v.status"),
+            }];
+            
+            // records have been submitted, clear form
+            helper.partialClear(component, event);  
+            
+            // display toast informing user of successful submission
+            var toastEvent = $A.get("e.force:showToast");
+            
+            toastEvent.setParams({
+                title : 'Success!',
+                message: 'The new batch has been created.',
+                duration: '2000',
+                type: 'success',
+            });
+            toastEvent.fire();
+            
+            // send new batch to other components
+            var newBatchEvent = $A.get("e.c:afNewBatchCreatedEvent");
+            
+            newBatchEvent.setParams({
+                "newBatch" : newBatch
+            });
+            
+            //FOR TESTING:
+            //console.log('newBatch JSON ' + JSON.stringify(newBatchEvent.getParam("newBatch")));
+            
+            newBatchEvent.fire();
+        }
     },
-
+    
     /*----------------------------------------------------------
     				Handle User Input Change
     ----------------------------------------------------------*/
@@ -81,7 +119,7 @@
         var startBatch = component.get('v.startDate');
         var endBatch = null;
         component.set("v.endDate", endBatch);
-
+        
         if(startBatch != null){
             helper.changeEndDate(component, event);
             endBatch = component.get('v.endDate');
@@ -148,22 +186,22 @@
         /*Updated implementation of previous itreation - basically the same
         implementation as before but works with server side logic
         This logic can most likely be updated. */
-
+        
         var room = event.getParam("room");
         var location = event.getParam("location");
         var rooms   = component.get("v.allRooms");       
         var roomsForLoc = [];
         roomsForLoc.push("");
-
+        
         component.set("v.locUncleared", false);
         component.set("v.locUncleared", true);
-
+        
         for (var i = 0; i < rooms.length; i++) {
             if(rooms[i].TrainingLocation__c == location){
                 roomsForLoc.push(rooms[i]);
             }
         }
-
+        
         component.set('v.roomsForLocation', roomsForLoc);
         component.set("v.location", room.TrainingLocationName__c);
         component.set("v.hiddenRoom", room.Id);
@@ -190,16 +228,16 @@
         
         var loc 	= component.get("v.location");
         var roomsList = component.get("v.allRooms");
-
+        
         console.log(loc);
         
         if(loc == '' || loc == null){
             component.set('v.room', null);
         }
-
-		var filteredRooms = component.get("c.filterRoomByLocation");        
+        
+        var filteredRooms = component.get("c.filterRoomByLocation");        
         filteredRooms.setParams({
-			location : loc,
+            location : loc,
             rooms : roomsList,			            
         });
         filteredRooms.setCallback(this, function(response) {
@@ -219,5 +257,30 @@
             }
         });
         $A.enqueueAction(filteredRooms);
+    },
+    
+    /*----------------------------------------------------------
+    					Error Toast Section
+    ----------------------------------------------------------*/
+    
+    onError : function(component, errors) {
+        // Configure error toast
+        let toastParams = {
+            title: "Error",
+            message: "Please select a valid date", // Default error message
+            type: "error"
+        };
+        
+        /*
+        // Pass the error message if any
+        if (errors && Array.isArray(errors) && errors.length > 0) {
+            toastParams.message = errors[0].message;
+        }
+        */
+        
+        // Fire error toast
+        let toastEvent = $A.get("e.force:showToast");
+        toastEvent.setParams(toastParams);
+        toastEvent.fire();
     },
 })
