@@ -65,7 +65,7 @@ public with sharing class afTrainersTabPTOApexControllerTest {
 
     }
 
-    /*@isTest 
+    @isTest 
     public static void approvePTOTest(){
         
         //get the PTO requests
@@ -74,9 +74,9 @@ public with sharing class afTrainersTabPTOApexControllerTest {
         Test.startTest();
 
         //Use the method to approve all PTOs
-         for (PTO__c p : ptos){
+        for (PTO__c p : ptos){
             afTrainersTabPTOApexController.approvePTO(p.id);
-        } 
+        }
 
         Test.stopTest();
 
@@ -99,13 +99,8 @@ public with sharing class afTrainersTabPTOApexControllerTest {
         Test.startTest();
 
         for (PTO__c p : ptos){
-<<<<<<< HEAD
-          //  afTrainersTabPTOApexController.rejectPTO(p.id);
-        }
-=======
             afTrainersTabPTOApexController.rejectPTO(p.id);
-        } 
->>>>>>> MatthewWright
+        }
 
         Test.stopTest();
 
@@ -118,6 +113,6 @@ public with sharing class afTrainersTabPTOApexControllerTest {
         }
 
 
-    }*/
+    }
 
 }

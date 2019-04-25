@@ -69,12 +69,4 @@ public class createTrainers {
         }
         insert trainers;
     }
-    
-    public static void assignPreferedLocations(){
-        List<User> users = [SELECT Id, Name, ProfileId, CurrentLocation__c FROM User WHERE ProfileId='00e2E000001CxQdQAK'];
-        For(User currentUser : users){
-            currentUser.Preferred_Location__c = currentUser.CurrentLocation__c;
-        }
-        update users;
-    }
 }

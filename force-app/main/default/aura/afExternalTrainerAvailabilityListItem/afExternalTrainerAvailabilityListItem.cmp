@@ -1,7 +1,11 @@
 <aura:component >
-    <!-- Compoent for use in afAvailabilityListContainer -->
     <aura:attribute name="externalTrainerWrapper" type="afTrainerAvailSortingWrapper" />
-
+    <aura:attribute name="available" type="Boolean" />
+    <aura:attribute name="hasSkill" type="Boolean" />
+    <aura:attribute name="name" type="String" />
+    <aura:attribute name="preferredLocation" type="String" />
+    <aura:attribute name="externalTrainerUserId" type="ID" />
+    
     <aura:registerEvent name="externalTrainerSelected" type="c:ExternalTrainerSelected" />
      
     <div class="slds-grid" style="padding-top: 10px;">

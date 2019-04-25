@@ -79,16 +79,14 @@
                   action="{!c.doInit}"/>
     <aura:handler name="change"     
                   value="{!v.allRooms}"   
-                  action="{!c.initRooms}"
-                  description="initalize the rooms sublist for pagination"/>
+                  action="{!c.initRooms}"/>
     <aura:handler name="change"
                   value="{!v.trainers}"
-                  action="{!c.initTrainers}" 
-                  description="initalize the internal trainers sublist for pagination"/>
+                  action="{!c.initTrainers}" />
     <aura:handler name="change"
                   value="{!v.externalTrainers}"
-                  action="{!c.initExternalTrainers}" 
-                  description="initalize the external trainers sublist for pagination"/>
+                  action="{!c.initExternalTrainers}" />
+    <!--<aura:handler name="change" value="{!v.allTrainers}" action="{!c.initTrainers}"/>-->
 
     <!--Visual Components-->
     <div class="slds-card">
@@ -116,18 +114,20 @@
                             External Trainers
                         </span>
                     </li>
+                    
                 </ul>
+                
                 <!--
                     In the internal trainer tab, displays Name, Availability, Assigned Location, and if they are experienced.
                     This defines columns for every trainer that matches batch criteria.    
                 -->
                 <div id="trainers" class="{!v.tabShown==0 ? 'slds-tabs_default__content slds-show' : 'slds-tabs_default__content slds-hide'}">
                     <div class="slds-grid">
-                        <div class="slds-col slds-size_1-of-6 slds-align_absolute-center"></div>
-                        <div class="slds-col slds-size_1-of-6 slds-align_absolute-center"><h1>Name</h1></div>
-                        <div class="slds-col slds-size_1-of-6 slds-align_absolute-center"><h1>Available</h1></div>
-                        <div class="slds-col slds-size_2-of-6 slds-align_absolute-center"><h1>Preferred Location</h1></div>
-                        <div class="slds-col slds-size_1-of-6 slds-align_absolute-center"><h1>Experienced</h1></div>
+                        <div class="slds-col slds-size_1-of-5 slds-align_absolute-center"></div>
+                        <div class="slds-col slds-size_1-of-5 slds-align_absolute-center"><h1>Name</h1></div>
+                        <div class="slds-col slds-size_1-of-5 slds-align_absolute-center"><h1>Available</h1></div>
+                        <div class="slds-col slds-size_1-of-5 slds-align_absolute-center"><h1>Current Location</h1></div>
+                        <div class="slds-col slds-size_1-of-5 slds-align_absolute-center"><h1>Experienced</h1></div>
                     </div>
                     <!-- iteration to grab said columns stated earlier for each trainer -->
                     <div class="slds" style="height: 300px">
@@ -158,11 +158,11 @@
                 -->
                 <div id="externalTrainers" class="{!v.tabShown==2 ? 'slds-tabs_default__content slds-show' : 'slds-tabs_default__content slds-hide'}">
                     <div class="slds-grid">
-                        <div class="slds-col slds-size_1-of-6 slds-align_absolute-center"></div>
-                        <div class="slds-col slds-size_1-of-6 slds-align_absolute-center"><h1>Name</h1></div>
-                        <div class="slds-col slds-size_1-of-6 slds-align_absolute-center"><h1>Available</h1></div>
-                        <div class="slds-col slds-size_2-of-6 slds-align_absolute-center"><h1>Preferred Location</h1></div>
-                        <div class="slds-col slds-size_1-of-6 slds-align_absolute-center"><h1>Experienced</h1></div>
+                        <div class="slds-col slds-size_1-of-5 slds-align_absolute-center"></div>
+                        <div class="slds-col slds-size_1-of-5 slds-align_absolute-center"><h1>Name</h1></div>
+                        <div class="slds-col slds-size_1-of-5 slds-align_absolute-center"><h1>Available</h1></div>
+                        <div class="slds-col slds-size_1-of-5 slds-align_absolute-center"><h1>Prefered Location</h1></div>
+                        <div class="slds-col slds-size_1-of-5 slds-align_absolute-center"><h1>Experienced</h1></div>
                     </div>
                     <!-- iteration to grab said columns stated earlier for each trainer -->
                     <div class="slds" style="height: 300px">
@@ -171,8 +171,7 @@
                         </aura:iteration>
                     </div>
                 </div>
-                <div class="slds-grid"> <!-- The previous button should be left aligned and the next should be 
-										right aligned. This is could most likely be done better. -->
+                <div class="slds-grid">
                 	<div class="slds-col slds-size_11-of-12">
                         <lightning:button variant="base" iconName="utility:chevronleft" title="Previous Page" 
                                   	onclick="{!c.previousPage}" disabled="{!v.previousDisabled}"/>

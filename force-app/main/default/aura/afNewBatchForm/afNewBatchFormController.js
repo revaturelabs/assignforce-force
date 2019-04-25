@@ -3,7 +3,7 @@
     				Clear Input Section
     ----------------------------------------------------------*/
     clearBatchFields : function(component, event, helper) {
-        helper.fullClear(component, event);
+        helper.clear(component, event);
     },
     
     /*----------------------------------------------------------
@@ -64,20 +64,18 @@
     /*----------------------------------------------------------
     				Handle User Input Change
     ----------------------------------------------------------*/
-    
-    changeTrack : function (component, event, helper) {
+    updateAvailabilityOnChange : function (component, event, helper) {
+
+        /*-------------------------------------------
+               DETECT USER INPUT: TRACK CHANGED
+        -------------------------------------------*/
         var trackChosen = component.get('v.track');
-        if (trackChosen == "") {
+        if( trackChosen == ""){
             trackChosen = null;
         }
-        helper.fireNewBatchFormEvent(trackChosen, 
-                                     component.get('v.startDate'), 
-                                     component.get('v.endDate'), 
-                                     component.get('v.location')
-                                    );
-    },
-    
-    changeDate : function (component, event, helper) {
+        /*-------------------------------------------
+               DETECT USER INPUT: DATE CHANGED
+        -------------------------------------------*/
         var startBatch = component.get('v.startDate');
         var endBatch = null;
         component.set("v.endDate", endBatch);
@@ -93,23 +91,31 @@
             startBatch = null;
             endBatch = null;
         }
-        helper.partialClear(component, event);
-        helper.fireNewBatchFormEvent(component.get('v.track'), 
-                                     startBatch, 
-                                     endBatch, 
-                                     component.get('v.location')
-                                    );
-    },
-    
-    changeLocation : function (component, event, helper) {
+
+        //Check if trainer is busy during dates selected
+        var trainings   = component.get("v.openTrainings");
+        var trainer     = component.get("v.trainer");
+        var startDate   = component.get("v.startDate");
+        var endDate     = component.get("v.endDate");
+        helper.showTrainerToast(helper, event, trainings, trainer, startDate, endDate);
+
+        /*-------------------------------------------
+             DETECT USER INPUT: LOCATION CHANGED
+        -------------------------------------------*/
         var locationChosen = component.get('v.location');
-        helper.fireNewBatchFormEvent(component.get('v.track'), 
-                                     component.get('v.startDate'), 
-                                     component.get('v.endDate'), 
-                                     locationChosen
-                                    );
+
+        /*-------------------------------------------
+          DETECT USER INPUT: SEND TO OTHER COMPONENT
+        -------------------------------------------*/
+        var filterEvent = $A.get("e.c:afNewBatchFormEvent");
+        filterEvent.setParams({
+            chosenTrack : trackChosen,
+            startOfBatch : startBatch,
+            endOfBatch : endBatch,
+            selectedLocation : locationChosen
+        });
+        filterEvent.fire();
     },
-    
     
     /*----------------------------------------------------------
     					Trainer Section 

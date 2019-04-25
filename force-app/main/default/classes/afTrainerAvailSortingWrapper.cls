@@ -9,7 +9,6 @@ public class afTrainerAvailSortingWrapper implements Comparable{
      * TODO: generalize to work for internal trainers (maybe use inheritance?).
      *
 	 * Author: Harry Crane, iteration 3.
-     * Sorry for the name. 
      * */
     
     public boolean hasSkill{get; set;}
