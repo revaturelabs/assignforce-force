@@ -118,8 +118,6 @@ public class CreateAssignForceData {
         insert trainers;
     }
     
-<<<<<<< HEAD
-=======
     public static void AssignLocations(){
         Schema.DescribeFieldResult locFr = User.CurrentLocation__c.getDescribe();
         Schema.DescribeFieldResult skillFr = User.Training_Skills__c.getDescribe();
@@ -157,7 +155,6 @@ public class CreateAssignForceData {
 }
 
 
->>>>>>> 0220799860b8e2ed055ed0f92a5bcf8e4a25af07
     public static void createTrainers() {
         List<String> lastNames = new List<String> {'Alagna', 'Bonds', 'Colson', 'Donnelly', 'Goshorn', 'Greer', 'Higgens', 'Hill', 'Jurczak',
             'Knighten', 'Kumar', 'Lessley', 'Orr', 'Rehm', 'Trainer'};
