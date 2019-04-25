@@ -116,5 +116,7 @@ public with sharing class afTrainersTabPTOApexControllerTest {
         for (PTO__c p : ptos){
             System.assertEquals(p.Status__c, 'Rejected');
         }
+
+
     }
 }
