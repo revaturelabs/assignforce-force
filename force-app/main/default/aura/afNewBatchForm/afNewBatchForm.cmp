@@ -91,10 +91,10 @@
    <aura:attribute name="hiddenLoc"        
                    type="Id" 
                    description="Used for swithching back and forth between 'Available Trainers' and 'Available Rooms' tabs"/>
-   <aura:attribute   name="hiddenRoom"      
-                    type="Id"
-                    description="Used for swithching back and forth between
-                    'Available Trainers' and 'Available Rooms' tabs"
+   <aura:attribute name="hiddenRoom"      
+                   type="Id"
+                   description="Used for swithching back and forth between
+                   	'Available Trainers' and 'Available Rooms' tabs"
   />
 
   <!-- Events -->
@@ -108,7 +108,7 @@
                        description="Event fires when a new batch is created"
   />
  
-  <!-- Handlers -->
+  <!-- Event Handlers -->
   <aura:handler        event="c:TrainerSelected"             
                        action="{!c.setTrainerField}"
                        description="Populate the Trainer field when a trainer
@@ -119,16 +119,16 @@
                        description="Populate the Room field when a room
                        is selected from the availability list"
   />
-   <aura:handler 		name="change"     value="{!v.track}"        	            action="{!c.updateAvailabilityOnChange}"/>
-   <aura:handler 		name="change"     value="{!v.startDate}"        	      action="{!c.updateAvailabilityOnChange}"/>
-   <aura:handler 		name="change"     value="{!v.numWeeks}"        	         action="{!c.updateAvailabilityOnChange}"/>
-   <aura:handler 		name="change"     value="{!v.trainer}"        	         action="{!c.updateAvailabilityOnChange}"/>
-   <aura:handler 		name="change"     value="{!v.location}"        	         action="{!c.updateAvailabilityOnChange}"/>
+    
+   <aura:handler 		name="change"     value="{!v.track}"        	         action="{!c.changeTrack}"/>
+   <aura:handler 		name="change"     value="{!v.startDate}"        	     action="{!c.changeDate}"/>
+   <aura:handler 		name="change"     value="{!v.numWeeks}"        	         action="{!c.changeDate}"/>
+   <aura:handler 		name="change"     value="{!v.location}"        	         action="{!c.changeLocation}"/>
    
 
    <!-- Component Content: Black Create a New Batch Bar with buttons -->
    <div class="slds-card">
-      <lightning:recordEditForm aura:id="newBatchForm" objectApiName="Training__c" onsuccess="{!c.onSuccess}">
+      <lightning:recordEditForm aura:id="newBatchForm" objectApiName="Training__c" onsuccess="{!c.onSuccess}" onerror="{!c.onError}">
          <lightning:messages/>
          <div class="slds-card__header">
             <header class="slds-media slds-media_center slds-has-flexi-truncate">
@@ -148,65 +148,65 @@
    <!-- Component Content: User Input Section -->
       <!-- Training Track Row -->
          <div class="slds-card__body slds-card__body_inner">
-             <aura:if isTrue="{!v.uncleared}">
-            <div class="slds-grid slds-grid_align-spread">
-               <div class="slds-col slds-size_1-of-2">
-                  <lightning:inputField fieldName="TrainingTrack__c" aura:id="trainingTrack" value="{!v.track}"/>
-               </div>
-            </div>
+         	<aura:if isTrue="{!v.uncleared}">
+                <div class="slds-grid slds-grid_align-spread">
+                   <div class="slds-col slds-size_1-of-2">
+                      <lightning:inputField fieldName="TrainingTrack__c" aura:id="trainingTrack" value="{!v.track}"/>
+                   </div>
+                </div>
       <!-- Date Selection Row -->
-            <div class="slds-grid slds-grid_align-spread">
-               <div class="slds-col slds-size_1-of-4">
-                   <lightning:inputField fieldName="StartDate__c" aura:id="startDate" value="{!v.startDate}" />
-               </div>
-               <div class="slds-col slds-size_1-of-6">
-                   <lightning:input type="number" label="Number of Weeks" aura:id="numWeeks" step="1" value="{!v.numWeeks}" min="2"/>
-               </div>
-               <div class="slds-col slds-size_1-of-4">
-                   <lightning:inputField fieldName="EndDate__c" aura:id="endDate" value="{!v.endDate}" disabled="true"/> 
-               </div>
-            </div>
+                <div class="slds-grid slds-grid_align-spread">
+                   <div class="slds-col slds-size_1-of-4">
+                       <lightning:inputField fieldName="StartDate__c" aura:id="startDate" value="{!v.startDate}" />
+                   </div>
+                   <div class="slds-col slds-size_1-of-6">
+                       <lightning:input type="number" label="Number of Weeks" aura:id="numWeeks" step="1" value="{!v.numWeeks}" min="2"/>
+                   </div>
+                   <div class="slds-col slds-size_1-of-4">
+                       <lightning:inputField fieldName="EndDate__c" aura:id="endDate" value="{!v.endDate}" disabled="true"/> 
+                   </div>
+                </div>
       <!-- Trainer Selection Row -->
-            <div class="slds-grid slds-grid_align-spread">
-               <div class="slds-col slds-size_1-of-4">
-                  <!-- Aura if to rerender field on AvailabilityList component selection -->
-                  <aura:if isTrue="{!v.trainerUncleared}">
-                     <lightning:inputField fieldName="Trainer__c" aura:id="trainer" value="{!v.trainer}" onchange="{!c.trainerChanged}" />
-                  </aura:if>
-               </div>
-               <div class="slds-col slds-size_1-of-4 slds-col_bump-left">
-                  <lightning:inputField fieldName="CoTrainer__c" aura:id="cotrainer" value="{!v.cotrainer}" onchange="{!c.trainerChanged}" />
-               </div>
-               <div class="slds-col slds-size_1-of-4 slds-col_bump-left">
-                  <lightning:inputField fieldName="External_Trainer__c" value="{!v.ExternalTrainer}"/>
-               </div>
-            </div> 
+                <div class="slds-grid slds-grid_align-spread">
+                   <div class="slds-col slds-size_1-of-4">
+                      <!-- Aura if to rerender field on AvailabilityList component selection -->
+                      <aura:if isTrue="{!v.trainerUncleared}">
+                         <lightning:inputField fieldName="Trainer__c" aura:id="trainer" value="{!v.trainer}" onchange="{!c.trainerChanged}" />
+                      </aura:if>
+                   </div>
+                   <div class="slds-col slds-size_1-of-4 slds-col_bump-left">
+                      <lightning:inputField fieldName="CoTrainer__c" aura:id="cotrainer" value="{!v.cotrainer}" onchange="{!c.trainerChanged}" />
+                   </div>
+                   <div class="slds-col slds-size_1-of-4 slds-col_bump-left">
+                      <lightning:inputField fieldName="External_Trainer__c" value="{!v.ExternalTrainer}"/>
+                   </div>
+                </div> 
          
       <!-- Location and Room Selection Row -->
-         <div class="slds-text-heading_medium boxLabel">Location:
-            <!-- Aura if to rerender field on AvailabilityList component selection -->
-            <aura:if isTrue="{!v.locUncleared}">
-               <div class="slds-box">
-                  <div class="slds-grid slds-grid_align-spread">
-                     <div class="slds-col slds-size_1-of-3">
-                        <lightning:select name="trainingLoc" label="Training Location" aura:id="trainingLoc" value="{!v.location}" onchange="{!c.locationChanged}">
-                           <aura:iteration items="{!v.allLocations}" var="loc">
-                              <option value="{!loc.id}" selected="{!v.loc}">{!loc.OfficeName__c}</option>
-                           </aura:iteration>
-                        </lightning:select>
-                        <lightning:inputField fieldName="TrainingLocation__c" value="{!v.hiddenLoc}" hidden="true"/>
-                     </div>
-                     <div class="slds-col slds-size_1-of-3">
-                        <lightning:select name="trainingRoom" label="Training Room" aura:id="trainingRoom" value="{!v.room}">
-                           <aura:iteration items="{!v.roomsForLocation}" var="room">
-                              <option value="{!room.Id}" selected="{!v.room}">{!room.Name}</option>
-                           </aura:iteration>
-                        </lightning:select>
-                        <lightning:inputField fieldName="TrainingRoom__c" value="{!v.hiddenRoom}" hidden="true"/>
-                     </div>
-                  </div>
-               </div>
-            </aura:if>
+                <div class="slds-text-heading_medium boxLabel">Location:
+                    <!-- Aura if to rerender field on AvailabilityList component selection -->
+                    <aura:if isTrue="{!v.locUncleared}">
+                       <div class="slds-box">
+                          <div class="slds-grid slds-grid_align-spread">
+                             <div class="slds-col slds-size_1-of-3">
+                                <lightning:select name="trainingLoc" label="Training Location" aura:id="trainingLoc" value="{!v.location}" onchange="{!c.locationChanged}">
+                                   <aura:iteration items="{!v.allLocations}" var="loc">
+                                      <option value="{!loc.id}" selected="{!v.loc}">{!loc.OfficeName__c}</option>
+                                   </aura:iteration>
+                                </lightning:select>
+                                <lightning:inputField fieldName="TrainingLocation__c" value="{!v.hiddenLoc}" hidden="true"/>
+                             </div>
+                             <div class="slds-col slds-size_1-of-3">
+                                <lightning:select name="trainingRoom" label="Training Room" aura:id="trainingRoom" value="{!v.room}">
+                                   <aura:iteration items="{!v.roomsForLocation}" var="room">
+                                      <option value="{!room.Id}" selected="{!v.room}">{!room.Name}</option>
+                                   </aura:iteration>
+                                </lightning:select>
+                                <lightning:inputField fieldName="TrainingRoom__c" value="{!v.hiddenRoom}" hidden="true"/>
+                             </div>
+                          </div>
+                       </div>
+                     </aura:if>
                  </div>
              </aura:if>
          </div>
