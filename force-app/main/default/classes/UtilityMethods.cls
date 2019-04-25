@@ -91,7 +91,8 @@ public class UtilityMethods {
         List<Date> result = new List<Date>();
 
         for(Integer i = 0; i < amount; i++) {
-            Date sDate = (Date.today().addMonths(2*i).toStartofWeek().addDays(2));
+            //plus one so the start date is in the future
+            Date sDate = (Date.today().addMonths(2*i + 1).toStartofWeek().addDays(2));
             result.add(sDate);
         }
       
