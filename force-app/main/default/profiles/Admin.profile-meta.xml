@@ -98,6 +98,10 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>afTrainerAvailSortingWrapper</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>afTrainerInfoController</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -135,6 +139,10 @@
     </classAccesses>
     <classAccesses>
         <apexClass>afTrainingTriggerHelperTest</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>createTrainers</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <custom>false</custom>
