@@ -35,7 +35,7 @@
         }];
         
         // records have been submitted, clear form
-        helper.clear(component, event);  
+        helper.fullClear(component, event);  
         
         // display toast informing user of successful submission
         var toastEvent = $A.get("e.force:showToast");
