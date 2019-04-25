@@ -50,7 +50,7 @@
         component.set("v.numWeeks", 10);
         component.set("v.endDate", null);
         
-		this.partialClear(component, event);
+		helper.partialClear(component, event);
     },
     
     partialClear : function(component, event) {
@@ -109,5 +109,5 @@
             selectedLocation : locationChosen
         });
         filterEvent.fire();
-    }
+    }, 
 })

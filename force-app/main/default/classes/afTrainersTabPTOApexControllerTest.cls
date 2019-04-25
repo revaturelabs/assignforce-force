@@ -58,29 +58,27 @@ public with sharing class afTrainersTabPTOApexControllerTest {
             //Assert that every PTO has the correct fields
             System.assertEquals(results.get(i).StartDate__c, queryResults.get(i).StartDate__c);
             System.assertEquals(results.get(i).EndDate__c,   queryResults.get(i).EndDate__c);
-            System.assertEquals(results.get(i).Status__c,    'Approved');
+            System.assertEquals(results.get(i).Status__c,    'Pending Approval');
         }
 
         Test.stopTest();
 
     }
 
-    @isTest 
+    /*@isTest 
     public static void approvePTOTest(){
         
         //get the PTO requests
         ptos = [SELECT id, Status__c FROM PTO__c WHERE Trainer__r.UserRole.Name = 'Trainer'];
-		List<Id> ptoIds = new List<Id>();
-        
+
         Test.startTest();
 
+        //Use the method to approve all PTOs
         for (PTO__c p : ptos){
-            ptoIds.add(p.id);
+            afTrainersTabPTOApexController.approvePTO(p.id);
         }
-        
-        afTrainersTabPTOApexController.approvePTO(ptoIds);
 
-		Test.stopTest();
+        Test.stopTest();
 
         //Requery for the now approved PTOs
         ptos = [SELECT id, Status__c FROM PTO__c WHERE Trainer__r.UserRole.Name = 'Trainer'];
@@ -97,17 +95,14 @@ public with sharing class afTrainersTabPTOApexControllerTest {
         
         //Query for the PTO requests
         ptos = [SELECT id, Status__c FROM PTO__c WHERE Trainer__r.UserRole.Name = 'Trainer'];
-        List<Id> ptoIds = new List<Id>();
-        
+
         Test.startTest();
 
         for (PTO__c p : ptos){
-            ptoIds.add(p.id);
+            afTrainersTabPTOApexController.rejectPTO(p.id);
         }
-        
-        afTrainersTabPTOApexController.rejectPTO(ptoIds);
 
-		Test.stopTest();
+        Test.stopTest();
 
         //Requery for the updated PTO requests
         ptos = [SELECT id, Status__c FROM PTO__c WHERE Trainer__r.UserRole.Name = 'Trainer'];
@@ -118,5 +113,6 @@ public with sharing class afTrainersTabPTOApexControllerTest {
         }
 
 
-    }
+    }*/
+
 }

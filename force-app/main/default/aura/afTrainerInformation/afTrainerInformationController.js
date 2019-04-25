@@ -41,6 +41,7 @@
     onSubmit : function(component, event, helper) {
         event.preventDefault();
         var fields = event.getParam('fields');
+        console.log("Fields: " + fields);
         component.find('currentUserInfo').submit(fields);
     },
     
@@ -56,5 +57,24 @@
     
     isRefreshed: function(component, event, helper) {
         location.reload();
+    },
+
+    onError : function(component, errors) {
+        // Configure error toast
+        let toastParams = {
+            title: "Error",
+            message: "Something Went Wrong", // Default error message
+            type: "error"
+        };
+        
+        // Pass the error message if any
+        if (errors && Array.isArray(errors) && errors.length > 0) {
+            toastParams.message = errors[0].message;
+        }
+        
+        // Fire error toast
+        let toastEvent = $A.get("e.force:showToast");
+        toastEvent.setParams(toastParams);
+        toastEvent.fire();
     },
 })

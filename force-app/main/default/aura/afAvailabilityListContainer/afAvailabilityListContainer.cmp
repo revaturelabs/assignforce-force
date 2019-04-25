@@ -100,7 +100,7 @@
                     <!-- tab to show a list of available rooms when clicked-->
                     <li class="{!v.tabShown == 1 ? 'slds-tabs_default__item slds-is-active' : 'slds-tabs_default__item '}">
                         <span class="slds-text-heading_medium" tabindex="-1" id="roomsTab" onclick='{!c.roomClick}'>
-                            Rooms
+                            Available Rooms
                         </span>
                     </li>
                     <!-- tab to show a list of external trainers when clicked-->
@@ -116,11 +116,11 @@
                 -->
                 <div id="trainers" class="{!v.tabShown == 0 ? 'slds-tabs_default__content slds-show' : 'slds-tabs_default__content slds-hide'}">
                     <div class="slds-grid">
-                        <div class="slds-col slds-size_1-of-5 slds-align_absolute-center"></div>
-                        <div class="slds-col slds-size_1-of-5 slds-align_absolute-center"><h1>Name</h1></div>
-                        <div class="slds-col slds-size_1-of-5 slds-align_absolute-center"><h1>Available</h1></div>
-                        <div class="slds-col slds-size_1-of-5 slds-align_absolute-center"><h1>Preferred Location</h1></div>
-                        <div class="slds-col slds-size_1-of-5 slds-align_absolute-center"><h1>Experienced</h1></div>
+                        <div class="slds-col slds-size_1-of-6 slds-align_absolute-center"></div>
+                        <div class="slds-col slds-size_1-of-6 slds-align_absolute-center"><h1>Name</h1></div>
+                        <div class="slds-col slds-size_1-of-6 slds-align_absolute-center"><h1>Available</h1></div>
+                        <div class="slds-col slds-size_2-of-6 slds-align_absolute-center"><h1>Preferred Location</h1></div>
+                        <div class="slds-col slds-size_1-of-6 slds-align_absolute-center"><h1>Experienced</h1></div>
                     </div>
                     <!-- iteration to grab said columns stated earlier for each trainer -->
                     <div class="slds-scrollable" style="height: 300px">
@@ -132,11 +132,11 @@
                 <!-- In the Available Rooms tab, defines columns to use -->
                 <div id="rooms" class="{!v.tabShown == 1 ? 'slds-tabs_default__content slds-show' : 'slds-tabs_default__content slds-hide' }">
                     <div class="slds-grid">
-                        <div class="slds-col slds-size_1-of-5 slds-align_absolute-center"></div>
-                        <div class="slds-col slds-size_1-of-5 slds-align_absolute-center"><h1>Name</h1></div>
-                        <div class="slds-col slds-size_1-of-5 slds-align_absolute-center"><h1>Location</h1></div>
-                        <div class="slds-col slds-size_1-of-5 slds-align_absolute-center"><h1>Available</h1></div>
-                        <div class="slds-col slds-size_1-of-5 slds-align_absolute-center"><h1>Capacity</h1></div>
+                        <div class="slds-col slds-size_1-of-6 slds-align_absolute-center"></div>
+                        <div class="slds-col slds-size_1-of-6 slds-align_absolute-center"><h1>Name</h1></div>
+                        <div class="slds-col slds-size_1-of-6 slds-align_absolute-center"><h1>Location</h1></div>
+                        <div class="slds-col slds-size_2-of-6 slds-align_absolute-center"><h1>Available</h1></div>
+                        <div class="slds-col slds-size_1-of-6 slds-align_absolute-center"><h1>Capacity</h1></div>
                     </div>
                     <!-- Iterate over available rooms in accordance to criteria set-->
                     <div class="slds-scrollable" style="height: 300px">
@@ -151,11 +151,11 @@
                 -->
                 <div id="externalTrainers" class="{!v.tabShown==2 ? 'slds-tabs_default__content slds-show' : 'slds-tabs_default__content slds-hide'}">
                     <div class="slds-grid">
-                        <div class="slds-col slds-size_1-of-5 slds-align_absolute-center"></div>
-                        <div class="slds-col slds-size_1-of-5 slds-align_absolute-center"><h1>Name</h1></div>
-                        <div class="slds-col slds-size_1-of-5 slds-align_absolute-center"><h1>Available</h1></div>
-                        <div class="slds-col slds-size_1-of-5 slds-align_absolute-center"><h1>Prefered Location</h1></div>
-                        <div class="slds-col slds-size_1-of-5 slds-align_absolute-center"><h1>Experienced</h1></div>
+                        <div class="slds-col slds-size_1-of-6 slds-align_absolute-center"></div>
+                        <div class="slds-col slds-size_1-of-6 slds-align_absolute-center"><h1>Name</h1></div>
+                        <div class="slds-col slds-size_1-of-6 slds-align_absolute-center"><h1>Available</h1></div>
+                        <div class="slds-col slds-size_2-of-6 slds-align_absolute-center"><h1>Preferred Location</h1></div>
+                        <div class="slds-col slds-size_1-of-6 slds-align_absolute-center"><h1>Experienced</h1></div>
                     </div>
                     <!-- iteration to grab said columns stated earlier for each trainer -->
                     <div style="height: 300px">

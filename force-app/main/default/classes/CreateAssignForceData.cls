@@ -150,10 +150,12 @@ public class CreateAssignForceData {
             currentUser.Preferred_Location__c = currentUser.CurrentLocation__c;
         }
         update users;
-    }
+    } 
+    
 
 
-    public static void createTrainers() {
+
+    public static void createTrainers() { 
         List<String> lastNames = new List<String> {'Alagna', 'Bonds', 'Colson', 'Donnelly', 'Goshorn', 'Greer', 'Higgens', 'Hill', 'Jurczak',
             'Knighten', 'Kumar', 'Lessley', 'Orr', 'Rehm', 'Trainer'};
         List<String> firstNames = new List<String> {'Peter', 'Genesis', 'Jessica', 'Quintin', 'Mitchell', 'Damon', 'Emily', 'Harvey', 'Nickolas',
@@ -165,8 +167,7 @@ public class CreateAssignForceData {
         List<User> trainers = new List<User>();
         
         for (Integer i = 0; i < lastNames.size(); i++) {
-
-            User u1 = new User(ProfileId=profID, LastName=lastNames[i], FirstName=firstNames[i], Email='assignforcerevature@gmail.com', username=lastNames[i] + '@assignforce.com', 
+            User u1 = new User(ProfileId=profID, LastName=lastNames[i], FirstName=firstNames[i], Email='assignforcerevature@gmail.com', username=lastNames[i] + '@meaf.com', 
                                CompanyName='Revature', Title='Trainer', Alias=firstNames[i], TimeZoneSidKey='America/New_York', EmailEncodingKey='UTF-8',
                                LanguageLocaleKey='en_US',LocaleSidKey='en_US', Available__c='Available',UserRoleId=roleID, isActive=false);
             trainers.add(u1);
@@ -174,4 +175,5 @@ public class CreateAssignForceData {
         
         insert trainers;
     }
+
 }
