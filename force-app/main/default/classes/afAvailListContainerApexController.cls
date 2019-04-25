@@ -79,7 +79,8 @@ public class afAvailListContainerApexController {
     public static String sortExternalTrainersBySelectedCategories( Date startOfBatch, 
                                                                    Date endOfBatch,
                                                                    Object chosenTrack, 
-                                                                   String selectedLocation){
+                                                                   String selectedLocation)
+    {
         
         //Wrapper class for sorting (implement comparable) and other stuff. See class for more detail.
         List<afTrainerAvailSortingWrapper> result = new List<afTrainerAvailSortingWrapper>();
@@ -93,33 +94,35 @@ public class afAvailListContainerApexController {
             chosenTrackId = chosenTrackId.removeEnd(')');
             try{
                 Training_Track__c realChosenTrack = [SELECT Name FROM Training_Track__c WHERE id = : chosenTrackId LIMIT 1];                                                               
-            	chosenTrackName = realChosenTrack.Name;
+                chosenTrackName = realChosenTrack.Name;
             }
             catch(QueryException e){
                 chosenTrackName =null;
                 system.debug('chosenTrack Id invalid. ' +e.getMessage());
             }
-        }
-            
+        }                                                              
         
-                                                                         
-        //Loop through all trainings that interfere with give times and have external trainers,
+        //Loop through all trainings that interfere with given times and have external trainers,
         // put the exteranl trainers in a set. 
-        Set<Id> availableExternalTrainers = new Set<Id>();
-        for( Training__c training : [SELECT External_Trainer__c
-                                     FROM Training__c
-                                     WHERE ( EndDate__c < :startOfBatch
-                                     OR StartDate__c > :endOfBatch)
-                                     AND External_Trainer__c != null]){
-                                         availableExternalTrainers.add(training.External_Trainer__c);
-                                     }
-		system.debug('Ext. Trainer availability set: ' +availableExternalTrainers);
-
+        Set<Id> unavailableExternalTrainers = new Set<Id>();
+        if(startofBatch != null ){
+            for( Training__c training : [SELECT External_Trainer__c
+                                         FROM Training__c
+                                         WHERE EndDate__c >= :startOfBatch
+                                         AND StartDate__c <= :endOfBatch
+                                         AND External_Trainer__c != null])
+            {
+                unavailableExternalTrainers.add(training.External_Trainer__c);
+            }
+        }
+        system.debug('Ext. Trainer availability set: ' +unavailableExternalTrainers);
         //Loop throught all external trainers, make a wrapper for each. Check availability using the above set. 
         for(External_Trainer__c externalTrainer: [SELECT Name, First_Name__c, Last_Name__c, Training_Skills__c, Preferred_Location__c FROM External_Trainer__c]){
             List<String> skills = externalTrainer.Training_Skills__c.split(';');
+            system.debug(skills);
+            system.debug(chosenTrackName + skills.contains(chosenTrackName));
             afTrainerAvailSortingWrapper wrapper = new afTrainerAvailSortingWrapper(skills.contains(chosenTrackName) || chosenTrackName==null,
-                                                                                    availableExternalTrainers.contains(externalTrainer.Id),
+                                                                                    !unavailableExternalTrainers.contains(externalTrainer.Id),
                                                                                     externalTrainer.preferred_Location__c == selectedLocation, 
                                                                                     externalTrainer);
             result.add(wrapper);

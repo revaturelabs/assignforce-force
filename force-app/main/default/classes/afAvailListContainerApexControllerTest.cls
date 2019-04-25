@@ -371,10 +371,9 @@ public class afAvailListContainerApexControllerTest {
     }
     
     @isTest static void externalTrainerSortTest(){
+    
         
-        
-        
-        //Start on a monday, interfere refers to a ten week batch starting in a week.
+        //Start on a monday, interfere refers to a ten week batch starting in two weeks.
         Date interfereStartDate = Date.today().addDays(7).toStartOfWeek().addDays(1);
         Date noInterfereStartDate = Date.today().addMonths(5).toStartOfWeek().addDays(1);
         
@@ -382,16 +381,17 @@ public class afAvailListContainerApexControllerTest {
         Date interfereEndDate = interfereStartDate.addDays(74);
         Date noInterfereEndDate = noInterfereStartDate.addDays(74);
         
-        User u = [SELECT Id FROM User WHERE Name='External Trainer' LIMIT 1].get(0);
+        User externalTrainerUser = [SELECT Id FROM User WHERE Name='External Trainer' LIMIT 1].get(0);
         Training__c[] batches = new Training__c[]{};
             
         //Only need 2 locations, will pass the first to the sort. 
         locations = [SELECT Name,Id,OfficeName__c FROM Training_Location__c WHERE OfficeName__c != null LIMIT 2];
-        system.debug(locations);
+        
         // Create externalTrainers and give them locations, skills, and so on in a structured manner
         // so we can find the correct sorted order easily. (Total created should be multiple of 8)
         External_Trainer__c[] externalTrainers = UtilityMethods.createExternalTrainerData(24);
-        
+        //Insert so we have the Id's
+        insert externalTrainers;
         for(Integer i=0; i < externalTrainers.size(); i += 1){
             External_Trainer__c  ext = externalTrainers[i];
             //Half of them should have the right preferred locations (note that this is a picklist, not a lookup)
@@ -405,40 +405,42 @@ public class afAvailListContainerApexControllerTest {
             // Half of them (but not the same half) should have the right skills (Salesforce)
             // Salesforce is set by UtilityMethods.createExternalTrainerData
             if(Math.mod(i,4) > 1){
-                ext.Training_Skills__c.removeEnd(';Salesforce');
+                ext.Training_Skills__c = ext.Training_Skills__c.removeEnd(';Salesforce');
             }
             
             //Half of them should be available.
             if(Math.mod(i,2) ==0){
-                batches.add(new Training__c(Trainer__c=u.Id,
+                batches.add(new Training__c(Trainer__c = externalTrainerUser.Id,
                                             External_Trainer__c = externalTrainers[i].Id,
                                             StartDate__c = noInterfereStartDate,
                                             EndDate__c = noInterfereEndDate
                                            ));
             }
             else{
-                batches.add(new Training__c(Trainer__c=u.Id,
+                batches.add(new Training__c(Trainer__c = externalTrainerUser.Id,
                                             External_Trainer__c = externalTrainers[i].Id,
                                             StartDate__c = interfereStartDate,
                                             EndDate__c = interfereEndDate
                                            ));
             }
+            //system.debug('External Trainer ' + externalTrainers[i]);
+            //system.debug('Batch: ' + batches[i]);
         }
-        insert externalTrainers;
-        insert batches;
         
+        update externalTrainers;
+        insert batches; 
         
-        Training_Track__c sfTrack = new Training_Track__c(Name='Salesforce', ShortName__c='Salesforce', Active__c= true);
-        
-        
+        Training_Track__c sfTrack = new Training_Track__c(Name='Salesforce', Active__c = true, ShortName__c='Salesforce');
+    	insert sfTrack;
         
         //Create Parameters for the Controller's method
         Date startDate = Date.today().addDays(14).toStartOfWeek().addDays(1);
         Date endDate = startDate.addDays(70).toStartOfWeek().addDays(5);
-        ID track = [SELECT Id FROM Training_Track__c WHERE ShortName__c = 'Track0' LIMIT 1].id;
-        
-        String officeName = locations[0].Name;
-        
+        ID track = sfTrack.id;
+        system.debug(interfereEndDate > startDate
+                                     && interfereStartDate < endDate);
+        String officeName = locations[0].OfficeName__c;
+        system.debug(officeName);
 
         //Initialize List to hold results from the method
         List<External_Trainer__c> results = new List<External_Trainer__c>();
@@ -459,18 +461,20 @@ public class afAvailListContainerApexControllerTest {
             results.add(wrapped.trainer);
             avails.add(wrapped.available);
         }
-        system.debug('Avails: '+ avails);
         
-        system.debug('results' +results);
         //This sort version has all trainers with no trainings in the time frame provided. Then it sorts further by putting trainers
         //          at the provided location and with a skill in the provided track towards the top.
+        //The following order is determined by making a list 0-23 in excel sorting by i mod 2, i mod 4, i mod 4,
+        //			and alphabetically, in that order. The mods are because of the loop above where we create the external trainers.
+        //			Note that the string 'last 16' comes before the string 'last 8' alphabetically.
+        //			ALSO: all things less than 2 (mod 4) are equivalent in the mod 4 sorting, same with 4 and (mod 8).
         //The order they should be sorted as follows: (Numbers are the number in the last name)
-        //          0,8,16,4,12,20,2,10,18,6,14,22,1,9,17,5,13,21,3,11,19,7,15,23
+        //          0,16,8,12,20,4,10,18,2,14,22,6,1,17,9,13,21,5,11,19,3,15,23,7
         System.assertEquals(24,results.size());
-        Integer[] answers = new Integer[]{0,8,16,4,12,20,2,10,18,6,14,22,1,9,17,5,13,21,3,11,19,7,15,23};
+        Integer[] answers = new Integer[]{0,16,8,12,20,4,10,18,2,14,22,6,1,17,9,13,21,5,11,19,3,15,23,7};
         
         for(Integer i = 0; i < 24; i += 1){
-            System.assertEquals('last ' + answers.get(i), results.get(i).Last_Name__c);
+            System.assertEquals('last ' + answers.get(i), results.get(i).Last_Name__c,'Right: ' + externalTrainers.get(answers.get(i)) + ' Actual: ' + results.get(i));
         }
 
         
@@ -489,16 +493,13 @@ public class afAvailListContainerApexControllerTest {
         //          at some time in the future. Then it sorts further by putting trainers at the provided location 
         //          and with a skill in the provided track towards the top.
         //The order they should be sorted as follows: (Numbers are the number in the last name)
-        //          39,15,18,21,24,27,30,33,36,42,45,48,51,26,14,16,17,19,20,22,23,25,28,29,31,
-        //          32,34,35,37,38,40,41,43,44,46,47,49,50,0,13,12,3,6,9,10,11,1,2,4,5,7,8
+        //          0,1,16,17,8,9,12,13,20,21,4,5,10,11,18,19,2,3,14,15,22,23,6,7
         System.assertEquals(results.size(),24);
-       	answers = new Integer[]{39,15,18,21,24,27,30,33,36,42,45,48,51,26,14,16,17,19,20,22,23,25,28,29,31,
-            							  32,34,35,37,38,40,41,43,44,46,47,49,50,0,13,12,3,6,9,10,11,1,2,4,5,7,8};
+       	answers = new Integer[]{0,1,16,17,8,9,12,13,20,21,4,5,10,11,18,19,2,3,14,15,22,23,6,7};
         
-        for(Integer i = 0; i < 52; i += 1){
+        for(Integer i = 0; i < 24; i += 1){
             System.assertEquals('last ' + answers.get(i), results.get(i).Last_Name__c);
         }
-        
 
         /**********************
         * No Track Case
@@ -514,13 +515,11 @@ public class afAvailListContainerApexControllerTest {
         //This sort version has all trainers with no trainings in the timeframe provided. Then it sorts trainers
         //          at the provided location towards the top.
         //The order they should be sorted as follows: (Numbers are the number in the last name)
-        //          26,39,10,11,12,14,15,16,17,18,19,2,20,21,22,23,24,25,27,28,29,3,30,31,32
-        //          33,34,35,36,37,38,4,40,41,42,43,44,45,46,47,48,49,5,50,51,6,7,8,9,0,13,1
-        System.assertEquals(results.size(),52);
-       answers = new Integer[]{26,39,10,11,12,14,15,16,17,18,19,2,20,21,22,23,24,25,27,28,29,3,30,31,32,
-            				   33,34,35,36,37,38,4,40,41,42,43,44,45,46,47,48,49,5,50,51,6,7,8,9,0,13,1};
+        //          0,10,16,18,2,8,12,14,20,22,4,6,1,11,17,19,3,9,13,15,21,23,5,7
+        System.assertEquals(results.size(),24);
+       answers = new Integer[]{0,10,16,18,2,8,12,14,20,22,4,6,1,11,17,19,3,9,13,15,21,23,5,7};
         
-        for(Integer i = 0; i < 52; i += 1){
+        for(Integer i = 0; i < 24; i += 1){
             System.assertEquals('last ' + answers.get(i), results.get(i).Last_Name__c);
         }
 
@@ -540,13 +539,11 @@ public class afAvailListContainerApexControllerTest {
         //This sort version has all trainers with no trainings in the timeframe provided. Then it sorts trainers
         //           with skill in the provided training track towards the top.
         //The order they should be sorted as follows: (Numbers are the number in the last name)
-        //          12,15,18,21,24,27,3,30,33,36,39,42,45,48,51,6,9,10,11,14,16,17,19,2,20
-        //          22,23,25,26,28,29,31,32,34,35,37,38,4,40,41,43,44,46,47,49,5,50,7,8,0,1,13        
-        System.assertEquals(results.size(),52);
-        answers = new Integer[]{12,15,18,21,24,27,3,30,33,36,39,42,45,48,51,6,9,10,11,14,16,17,19,2,20,
-            				   22,23,25,26,28,29,31,32,34,35,37,38,4,40,41,43,44,46,47,49,5,50,7,8,0,1,13 };
+        //          0,12,16,20,4,8,10,14,18,2,22,6,1,13,17,21,5,9,11,15,19,23,3,7    
+        System.assertEquals(results.size(),24);
+        answers = new Integer[]{0,12,16,20,4,8,10,14,18,2,22,6,1,13,17,21,5,9,11,15,19,23,3,7};
         
-        for(Integer i = 0; i < 52; i += 1){
+        for(Integer i = 0; i < 24; i += 1){
             System.assertEquals('last ' + answers.get(i), results.get(i).Last_Name__c);
         }
 
@@ -566,13 +563,11 @@ public class afAvailListContainerApexControllerTest {
         //          at some time in the future. Then it sorts trainers with skill in the provided training track 
         //          towards the top.
         //The order they should be sorted as follows: (Numbers are the number in the last name)
-        //          15,18,21,24,27,30,33,36,39,42,45,48,51,14,16,17,19,20,22,23,25,26,28,29,31,
-        //          32,34,35,37,38,40,41,43,44,46,47,49,50,0,12,3,6,9,1,10,11,13,2,4,5,7,8
-        System.assertEquals(results.size(),52);
-        answers = new Integer[]{15,18,21,24,27,30,33,36,39,42,45,48,51,14,16,17,19,20,22,23,25,26,28,29,31,
-            				   32,34,35,37,38,40,41,43,44,46,47,49,50,0,12,3,6,9,1,10,11,13,2,4,5,7,8};
+        //          0,1,12,13,16,17,20,21,4,5,8,9,10,11,14,15,18,19,2,22,23,3,6,7
+        System.assertEquals(results.size(),24);
+        answers = new Integer[]{0,1,12,13,16,17,20,21,4,5,8,9,10,11,14,15,18,19,2,22,23,3,6,7};
         
-        for(Integer i = 0; i < 52; i += 1){
+        for(Integer i = 0; i < 24; i += 1){
             System.assertEquals('last ' + answers.get(i), results.get(i).Last_Name__c);
         }
 
@@ -591,13 +586,11 @@ public class afAvailListContainerApexControllerTest {
         //This sort version has all trainers with no trainings in the timeframe provided first, then 
         //          trainers with trainings at some time in the future. No other sort criteria are used
         //The order they should be sorted as follows: (Numbers are the number in the last name)
-        //          10,11,12,14,15,16,17,18,19,2,20,21,22,23,24,25,26,27,28,29,3,30,31,32,33
-        //          34,35,36,37,38,39,4,40,41,42,43,44,45,46,47,48,49,5,50,51,6,7,8,9,0,1,13
-        System.assertEquals(results.size(),52);
-        answers = new Integer[]{10,11,12,14,15,16,17,18,19,2,20,21,22,23,24,25,26,27,28,29,3,30,31,32,33,
-                  34,35,36,37,38,39,4,40,41,42,43,44,45,46,47,48,49,5,50,51,6,7,8,9,0,1,13};
+        //          0,10,12,14,16,18,2,20,22,4,6,8,1,11,13,15,17,19,21,23,3,5,7,9
+        System.assertEquals(results.size(),24);
+        answers = new Integer[]{0,10,12,14,16,18,2,20,22,4,6,8,1,11,13,15,17,19,21,23,3,5,7,9};
         
-        for(Integer i = 0; i < 52; i += 1){
+        for(Integer i = 0; i < 24; i += 1){
             System.assertEquals('last ' + answers.get(i), results.get(i).Last_Name__c);
         }
 
@@ -616,13 +609,11 @@ public class afAvailListContainerApexControllerTest {
         //This sort version has all trainers with no upcoming trainings first, then trainers with trainings
         //      at some time in the future. No other sort criteria are used
         //The order they should be sorted as follows: (Numbers are the number in the last name)
-        //          26,39,14,15,16,17,18,19,20,21,22,23,24,25,27,28,29,30,31,32,33,34,35,36,37,
-        //          38,40,41,42,43,44,45,46,47,48,49,50,51,0,13,1,10,11,12,2,3,4,5,6,7,8,9
-        System.assertEquals(results.size(),52);
-        answers = new Integer[]{26,39,14,15,16,17,18,19,20,21,22,23,24,25,27,28,29,30,31,32,33,34,35,36,37,
-                  				38,40,41,42,43,44,45,46,47,48,49,50,51,0,13,1,10,11,12,2,3,4,5,6,7,8,9};
+        //          0,1,10,11,16,17,18,19,2,3,8,9,12,13,14,15,20,21,22,23,4,5,6,7
+        System.assertEquals(results.size(),24);
+        answers = new Integer[]{0,1,10,11,16,17,18,19,2,3,8,9,12,13,14,15,20,21,22,23,4,5,6,7};
         
-        for(Integer i = 0; i < 52; i += 1){
+        for(Integer i = 0; i < 24; i += 1){
             System.assertEquals('last ' + answers.get(i), results.get(i).Last_Name__c);
         }
 
@@ -633,7 +624,7 @@ public class afAvailListContainerApexControllerTest {
 
         //Call Method with null for all parameters
         results.clear();
-        wrappedResults = (afTrainerAvailSortingWrapper[]) JSON.deserializeUntyped(afAvailListContainerApexController.sortExternalTrainersBySelectedCategories(null,null,null,null));
+        wrappedResults = (afTrainerAvailSortingWrapper[]) JSON.deserialize(afAvailListContainerApexController.sortExternalTrainersBySelectedCategories(null,null,null,null),t);
 		for(afTrainerAvailSortingWrapper wrapped :wrappedResults){
             results.add(wrapped.trainer);
         }
@@ -641,13 +632,11 @@ public class afAvailListContainerApexControllerTest {
         //This sort version has all trainers with no upcoming trainings first, then trainers with trainings
         //      at some time in the future. No other sort criteria are used
         //The order they should be sorted as follows: (Numbers are the number in the last name)
-        //          14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38
-        //          39,40,41,42,43,44,45,46,47,48,49,50,51,0,1,10,11,12,13,2,3,4,5,6,7,8,9
-        System.assertEquals(results.size(),52);
-        answers = new Integer[]{14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,
-                  				39,40,41,42,43,44,45,46,47,48,49,50,51,0,1,10,11,12,13,2,3,4,5,6,7,8,9};
+        //          0,1,10,11,12,13,14,15,16,17,18,19,2,20,21,22,23,3,4,5,6,7,8,9
+        System.assertEquals(results.size(),24);
+        answers = new Integer[]{0,1,10,11,12,13,14,15,16,17,18,19,2,20,21,22,23,3,4,5,6,7,8,9};
         
-        for(Integer i = 0; i < 52; i += 1){
+        for(Integer i = 0; i < 24; i += 1){
             System.assertEquals('last ' + answers.get(i), results.get(i).Last_Name__c);
         }
         Test.stopTest();
