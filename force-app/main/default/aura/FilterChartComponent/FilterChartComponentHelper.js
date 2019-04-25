@@ -164,7 +164,11 @@
         var findTrainingTrack = [[], [], [], [], [], [], []];
         var writeObject = "";
         
+<<<<<<< HEAD
 		//This loop is required for gathering all of the objects from the original array.
+=======
+        //Gather all basic information for trainers
+>>>>>>> a6a3989b11b83e5a2be7f0cc7d7b2f2ba08c84e8
         for (var i = 0; i < data.length; i++) {
 			
 			findTrainingTrack[0][i] = data[i]["y"];
@@ -174,6 +178,7 @@
 			findTrainingTrack[4][i] = data[i]["series"];
 			findTrainingTrack[5][i] = data[i]["location"];
 			findTrainingTrack[6][i] = data[i]["color"];
+<<<<<<< HEAD
 			
 			//This loop is used for matching the training track and any PTO's with each trainer. 
 			for (var j = 0; j < findTrainingTrack.length; j++) {
@@ -183,6 +188,17 @@
 					
 					//The if statement checks to make sure each track or PTO is matched to each trainer.
 					//The PTO object will not be stored in the JSON, unless there is also a track for that particular trainer.
+=======
+            
+            //Check if PTOs or training tracks
+			for (var j = 0; j < findTrainingTrack.length; j++) {
+                
+                //If a PTO is found for trainer
+				if (findTrainingTrack[4][i] == "PTO") {
+                    
+                    //The following code does not execute in the "if" block, unless the trainer has a track.
+                    //This code block writes a JSON array.
+>>>>>>> a6a3989b11b83e5a2be7f0cc7d7b2f2ba08c84e8
 					if (findTrainingTrack[0][i] == findTrainingTrack[0][j] && findTrainingTrack[4][i] != findTrainingTrack[4][j]) {
 						
 						writeObject += "{";
@@ -251,8 +267,13 @@
 						writeObject += "},";
 					}
 				} else {
+<<<<<<< HEAD
 					
 					//This section of code prints any training track related to each trainer.
+=======
+                    
+                    //All tracks are matched with each trainer.
+>>>>>>> a6a3989b11b83e5a2be7f0cc7d7b2f2ba08c84e8
 					if (findTrainingTrack[0][i] == findTrainingTrack[0][j]) {
 						
 						writeObject += "{";
@@ -325,8 +346,13 @@
 		}
 		
 		writeObject += "{}";
+<<<<<<< HEAD
 		
 		//The JSON is done being rewritten.
+=======
+
+        //The object is finished being written.
+>>>>>>> a6a3989b11b83e5a2be7f0cc7d7b2f2ba08c84e8
 		newObject += "[" + writeObject.replace(/,{}/g, "") + "]";
         
         //console.log("uncalculated:\n" + JSON.stringify(data) + "\n\n\n\ncalculated:\n" + newObject);
