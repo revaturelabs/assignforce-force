@@ -101,9 +101,7 @@
     
     //This method will determine which external trainers should be displayed based on pagination
     updateExternalTrainersSubList : function(trainerList, offset, pageSize) {
-		var trainersOnPage = [];     
-        console.log("offset: " + offset);
-        console.log("page size: " + pageSize);
+		var trainersOnPage = [];
         offset *= pageSize;
         var i;
         for(i=offset; i<pageSize+offset && i<trainerList.length ; i++){ //
