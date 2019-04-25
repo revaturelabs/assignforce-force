@@ -40,14 +40,17 @@
                 for(var i = 0; i < temp.length; i++)
                 {
                     
-                    if(temp[i].EndDate__c > currentDate && temp[i].StartDate__c > currentDate )
+                    if(temp[i].Status__c == 'Pending Approval')
                     {
                         var tempFutureCounter = 0;
                         tempFuture.push(temp[i]);
                         
                         
                     }
-                    if(temp[i].StartDate__c  <= currentDate && temp[i].EndDate__c > currentDate){
+                }
+                for(var i = 0; i < temp.length; i++)
+                {
+                    if(temp[i].Status__c  == 'Approved'){
                         tempCurrent.push(temp[i]);
                     }
                 }
@@ -90,6 +93,18 @@
             futurePTOs.push(this.addToArray(tempObj , endDateString, startDateString));
         }
         
+        // Based on the emptiness of lists for each of current and upcoming PTO we set booleans to display or not
+        if (PTOs.length > 0){
+            component.set('v.hasCurrentPTO', true);
+        } else{
+            component.set('v.hasCurrentPTO', false);
+        }
+        if (futurePTOs.length > 0){
+            component.set('v.hasUpcomingPTO', true);
+        } else{
+            component.set('v.hasUpcomingPTO', false);
+        }
+
         //sets the values from trainings to current PTOs datatable and futureTrainings to upcoming PTOs table
         component.set('v.empCurrentPTODataset', PTOs);
         component.set('v.empFuturePTODataset', futurePTOs);
@@ -114,4 +129,12 @@
         return tempArray;
     },
 
+    //Helper for collapsible sections
+    helperDisplay : function(component,event,secId) {
+    var acc = component.find(secId);
+            for(var cmp in acc) {
+            $A.util.toggleClass(acc[cmp], 'slds-show');  
+            $A.util.toggleClass(acc[cmp], 'slds-hide');  
+        }
+    }, 
 })

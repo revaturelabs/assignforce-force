@@ -5,12 +5,14 @@
 
    <!--ATTRIBUTES-->
    <aura:attribute name="empPTORecordset"             type="List"                     description="List of records for the lightning:dataTable columns" />
+   <aura:attribute name="empPTORecordsetApproval"             type="List"                     description="List of records for the lightning:dataTable columns" />
    <aura:attribute name="keyField"                 type="String"     default="id"     description="Primary key for list of records" />
    <aura:attribute name="empCurrentPTODataset"     type="Object[]"                 description="Data for lightning dataTable that involves current PTO"/>
    <aura:attribute name="empFuturePTODataset"         type="Object[]"                 description ="Data for lightning dataTable that involves upcoming PTO "/>
    <aura:attribute name="userId"                     type="Id"                         description="Used to store a value for the current users id"/>
    <aura:attribute name="hasPTO"                     type="Boolean"     default="false" description="A boolean used to represent whether a trainer has any batches scheduled" />
     <aura:attribute name="selectedPTO"                 type="Boolean"     default="false" description="This the boolean to toggle if a trainer has been selected."/>
+    <aura:attribute name="selectedPTOList" type="List" description="This is a list of ids from the selected rows in the PTO Pending Approval tab" />
 
    <!--HANDLERS-->
    <aura:handler event="c:TrainerSelected" action="{!c.TrainersPTO}"/>
@@ -19,10 +21,10 @@
    <!-- aura:if is used determine whether both tables should render or a text based message-->
    <aura:if isTrue="{!v.hasPTO}" >
        <div class="slds-grid slds-wrapper" >
-           <lightning:card title="Current PTO">
+           <lightning:card title="Approved PTO">
                <lightning:dataTable
                                     data="{!v.empCurrentPTODataset}"
-                                    columns="{!v.empPTORecordset}"
+                                    columns="{!v.empPTORecordsetApproval}"
                                     keyField="id"
                                     aura:id="empDataTable"
                                     description="data table to reflect batches associated with a specific trainer"
@@ -31,13 +33,17 @@
        </div>
 
        <div class="slds-grid slds-wrapper">
-           <lightning:card title="Upcoming PTO">
+           <lightning:card title="PTO Pending Approval">
+               <!-- Mass approve/reject buttons -->
+               <lightning:button label="Mass Approve" name="Approve All" onclick="{! c.handleApproveAll }" />
+               <lightning:button label="Mass Reject" name="Reject All" onclick="{! c.handleRejectAll }" />
                <lightning:dataTable
                                     data="{!v.empFuturePTODataset}"
                                     columns="{!v.empPTORecordset}"
                                     keyField="id"
                                     aura:id="empDataTables"
                                     onrowaction="{! c.handleRowAction }"
+                                    onrowselection="{! c.updateSelectedPTOList }"
                                     description="data table to reflect batches associated with a specific trainer"
                                     />
            </lightning:card>

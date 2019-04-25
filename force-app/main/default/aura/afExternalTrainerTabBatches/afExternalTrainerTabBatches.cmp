@@ -31,6 +31,9 @@
                     type="Boolean"        
                     default="false" 
                     description="Checks to see if an external trainer was selected."/>
+    <aura:attribute name="hasCurrentBatch" 	 type="Boolean"	  default="false" description="Checks if there are current batches to be shown"/>
+    <aura:attribute name="hasUpcomingBatch"  type="Boolean"	  default="false" description="Checks if there are upcoming batches to be shown"/>
+        
     
     <!--HANDLERS that should connect with The list view item's select button & method on its js controller, which then calls the handler class.-->
     <aura:handler event="c:ExternalTrainerSelected"        
@@ -42,31 +45,49 @@
     <aura:if isTrue="{!v.hasExtBatches}" >
         <div class="slds-grid slds-wrapper">
     <!--Regarding the cards- values populated based on the helper, which checks its Status__c -->
-            <lightning:card title="Current Batches">
-                <lightning:dataTable
-                                     
-                                     data="{!v.empExtCurrentBatchDataset}"
-                                     columns="{!v.empExtBatchesRecordset}"
-                                     keyField="id"
-                                     aura:id="empDataTable"
-                                     hideCheckboxColumn="true"
-                                     description="data table to reflect batches associated with a specific trainer"
-                                     />
-            </lightning:card>
+            <div class="slds-size_1-of-1">
+                <lightning:card title="Current Batches">
+                    <aura:if isTrue="hasCurrentBatch">
+                        <lightning:dataTable     
+                            data="{!v.empExtCurrentBatchDataset}"
+                            columns="{!v.empExtBatchesRecordset}"
+                            keyField="id"
+                            aura:id="empDataTable"
+                            hideCheckboxColumn="true"
+                            description="data table to reflect batches associated with a specific trainer"
+                            />
+                        <aura:set attribute="else">
+                            <div class="slds-size_1-of-1">
+                                <h2 class="emptyBatchClass" >This External Trainer does not have any Current Batches.</h2>
+                            </div>
+                        </aura:set>
+                    </aura:if> 
+                </lightning:card>
+            </div>
         </div>
         
         <div class="slds-grid slds-wrapper">
-            <lightning:card title="Upcoming Batches">
-                <lightning:dataTable
-                                     
-                                     data="{!v.empExtFutureBatchDataset}"
-                                     columns="{!v.empExtBatchesRecordset}"
-                                     keyField="id"
-                                     aura:id="empDataTables"
-                                     hideCheckboxColumn="true"
-                                     description="data table to reflect batches associated with a specific trainer"
-                                     />
-            </lightning:card>
+            <div class="slds-size_1-of-1">
+                <lightning:card title="Upcoming Batches">
+                    <aura:if isTrue="hasUpcomingBatch">
+                        <lightning:dataTable
+                            data="{!v.empExtFutureBatchDataset}"
+                            columns="{!v.empExtBatchesRecordset}"
+                            keyField="id"
+                            aura:id="empDataTables"
+                            hideCheckboxColumn="true"
+                            description="data table to reflect batches associated with a specific trainer"
+                            />
+                        <aura:set attribute="else">
+                            <div class="slds-size_1-of-1">
+                                <h2 class="emptyBatchClass" >This External Trainer does not have any Upcoming Batches.</h2>
+                            </div>
+                        </aura:set>
+                    </aura:if>
+                    
+                    </lightning:card>
+            </div>
+
         </div>
         <!--Else keyword is started by default and displays a window with a prompt to either:
             isTrue-Tell the user that the trainer has not batches or
