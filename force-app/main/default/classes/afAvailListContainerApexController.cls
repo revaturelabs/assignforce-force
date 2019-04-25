@@ -119,13 +119,10 @@ public class afAvailListContainerApexController {
         //Loop throught all external trainers, make a wrapper for each. Check availability using the above set. 
         for(External_Trainer__c externalTrainer: [SELECT Name, First_Name__c, Last_Name__c, Training_Skills__c, Preferred_Location__c FROM External_Trainer__c]){
             List<String> skills = externalTrainer.Training_Skills__c.split(';');
-            system.debug(skills);
-            system.debug(chosenTrackName + skills.contains(chosenTrackName));
             afTrainerAvailSortingWrapper wrapper = new afTrainerAvailSortingWrapper(skills.contains(chosenTrackName) || chosenTrackName==null,
                                                                                     !unavailableExternalTrainers.contains(externalTrainer.Id),
                                                                                     externalTrainer.preferred_Location__c == selectedLocation, 
                                                                                     externalTrainer);
-            result.add(wrapper);
         }
                                                                                          
         result.sort();
@@ -161,14 +158,14 @@ public class afAvailListContainerApexController {
             upcomingPTOsUsers.add(t.Trainer__c);
         }
 
-        List<User> notAvail = [SELECT Id, name, CurrentLocation__c, Available__c, hasSkill__c
+        List<User> notAvail = [SELECT Id, name, Preferred_Location__c, Available__c, hasSkill__c
                                 FROM User 
                                 WHERE (Id IN :upcomingTrainingsUsers
                                 OR Id IN :upcomingPTOsUsers)
                                 AND Profile.Name = 'Trainer'
                                 ORDER BY LastName];
 
-        List<User> Avail = [ SELECT Id, name, CurrentLocation__c, Available__c, hasSkill__c
+        List<User> Avail = [ SELECT Id, name, Preferred_Location__c, Available__c, hasSkill__c
                                 FROM User 
                                 WHERE Id NOT IN :upcomingTrainingsUsers
                                 AND Id NOT IN :upcomingPTOsUsers
@@ -217,7 +214,7 @@ public class afAvailListContainerApexController {
                             AND Profile.Name = 'Trainer'
                             ORDER BY LastName];
 
-        List<User> Avail = [ SELECT Id, name, CurrentLocation__c, Available__c, hasSkill__c
+        List<User> Avail = [ SELECT Id, name, Preferred_Location__c, Available__c, hasSkill__c
                                 FROM User 
                                 WHERE Id NOT IN :upcomingTrainingsUsers
                                 AND Id NOT IN :upcomingPTOsUsers
