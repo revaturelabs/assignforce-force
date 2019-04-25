@@ -119,10 +119,13 @@ public class afAvailListContainerApexController {
         //Loop throught all external trainers, make a wrapper for each. Check availability using the above set. 
         for(External_Trainer__c externalTrainer: [SELECT Name, First_Name__c, Last_Name__c, Training_Skills__c, Preferred_Location__c FROM External_Trainer__c]){
             List<String> skills = externalTrainer.Training_Skills__c.split(';');
+            system.debug(skills);
+            system.debug(chosenTrackName + skills.contains(chosenTrackName));
             afTrainerAvailSortingWrapper wrapper = new afTrainerAvailSortingWrapper(skills.contains(chosenTrackName) || chosenTrackName==null,
                                                                                     !unavailableExternalTrainers.contains(externalTrainer.Id),
                                                                                     externalTrainer.preferred_Location__c == selectedLocation, 
                                                                                     externalTrainer);
+            result.add(wrapper);
         }
                                                                                          
         result.sort();
@@ -207,7 +210,7 @@ public class afAvailListContainerApexController {
             upcomingPTOsUsers.add(t.Trainer__c);
         }
         
-        List<User> notAvail = [SELECT Id, name, CurrentLocation__c, Available__c, hasSkill__c
+        List<User> notAvail = [SELECT Id, name, Preferred_Location__c, Available__c, hasSkill__c
                             FROM User 
                             WHERE (Id IN :upcomingTrainingsUsers
                             OR Id IN :upcomingPTOsUsers)
@@ -255,7 +258,7 @@ public class afAvailListContainerApexController {
         //Two Queries:
         //      1. Query for all trainers that match the selected skill
         //      2. Query for all trainers that do not match the selected skill
-        List<User> matchSkill = [SELECT Id, name, CurrentLocation__c
+        List<User> matchSkill = [SELECT Id, name, Preferred_Location__c
                                     FROM User 
                                     WHERE Id IN (SELECT Trainer__c
                                                     FROM Skill__c 
@@ -263,7 +266,7 @@ public class afAvailListContainerApexController {
                                     AND Profile.Name = 'Trainer'
                                     ORDER BY LastName];
 
-        List<User> noMatchingSkill = [SELECT Id, name, CurrentLocation__c
+        List<User> noMatchingSkill = [SELECT Id, name, Preferred_Location__c
                                         FROM User 
                                         WHERE Id NOT IN (SELECT Trainer__c
                                                             FROM Skill__c 
@@ -349,15 +352,15 @@ public class afAvailListContainerApexController {
         //Two Queries:
         //      1. Query for all trainers that match the selected location
         //      2. Query for all trainers that do not match the selected location
-        List<User> atLocation = [SELECT Id, name, CurrentLocation__c
+        List<User> atLocation = [SELECT Id, name, Preferred_Location__c
                                     FROM User 
-                                    WHERE CurrentLocation__c = :selectedLocation
+                                    WHERE Preferred_Location__c = :selectedLocation
                                     AND Profile.Name = 'Trainer'
                                     ORDER BY LastName];
 
-        List<User> notAtLocation = [SELECT Id, name, CurrentLocation__c
+        List<User> notAtLocation = [SELECT Id, name, Preferred_Location__c
                                         FROM User 
-                                        WHERE CurrentLocation__c != :selectedLocation
+                                        WHERE Preferred_Location__c != :selectedLocation
                                         AND Profile.Name = 'Trainer'
                                         ORDER BY LastName];                     
         
