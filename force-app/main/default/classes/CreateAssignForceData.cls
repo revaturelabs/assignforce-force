@@ -96,6 +96,8 @@ public class CreateAssignForceData {
             }
         insert tracksToCreate;
     }
+    
+}
   
     public static void createExternalTrainers(){ //Script to create external trainers
         List<String> lastNames = new List<String> {'Mowbray', 'Rivers', 'Aufidius', 'Tyrrell', 'Ratcliffe', 'Andronicus', 'Montague', 'Lepidus', 'Brutus', 'Gurney', 'Bates', 'Lovell', 'Blunt'};
