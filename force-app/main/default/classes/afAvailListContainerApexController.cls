@@ -161,14 +161,14 @@ public class afAvailListContainerApexController {
             upcomingPTOsUsers.add(t.Trainer__c);
         }
 
-        List<User> notAvail = [SELECT Id, name, Preferred_Location__c, Available__c, hasSkill__c
+        List<User> notAvail = [SELECT Id, name, CurrentLocation__c, Available__c, hasSkill__c
                                 FROM User 
                                 WHERE (Id IN :upcomingTrainingsUsers
                                 OR Id IN :upcomingPTOsUsers)
                                 AND Profile.Name = 'Trainer'
                                 ORDER BY LastName];
 
-        List<User> Avail = [ SELECT Id, name, Preferred_Location__c, Available__c, hasSkill__c
+        List<User> Avail = [ SELECT Id, name, CurrentLocation__c, Available__c, hasSkill__c
                                 FROM User 
                                 WHERE Id NOT IN :upcomingTrainingsUsers
                                 AND Id NOT IN :upcomingPTOsUsers
@@ -217,7 +217,7 @@ public class afAvailListContainerApexController {
                             AND Profile.Name = 'Trainer'
                             ORDER BY LastName];
 
-        List<User> Avail = [ SELECT Id, name, Preferred_Location__c, Available__c, hasSkill__c
+        List<User> Avail = [ SELECT Id, name, CurrentLocation__c, Available__c, hasSkill__c
                                 FROM User 
                                 WHERE Id NOT IN :upcomingTrainingsUsers
                                 AND Id NOT IN :upcomingPTOsUsers
@@ -339,6 +339,7 @@ public class afAvailListContainerApexController {
         combinedList.add(notAvailNoSkill);
 
         return combinedList;
+
     }
         
     //METHOD 4: TRAINERS MATCHING WITH LOCATION
@@ -534,5 +535,4 @@ public class afAvailListContainerApexController {
         
         return combinedList;
     }
-    
 }

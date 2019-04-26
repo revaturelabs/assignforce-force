@@ -29,6 +29,44 @@
                     description="Controls switching between tabs"/>
     <aura:attribute name="location" 				
                     type="Id"/>
+    <aura:attribute name="numberOfTrainersToBeDisplayed"
+                    type="Integer"
+                    default="6"
+                    description="The number of trainers to be displayed on each page" />
+    <aura:attribute name="numberOfRoomsToBeDisplayed"
+                    type="Integer"
+                    default="6"
+                    description="The number of rooms to be displayed on each page" />
+    <aura:attribute name="numberOfExternalTrainersToBeDisplayed"
+                    type="Integer"
+                    default="6"
+                    description="The number of trainers to be displayed on each page" />
+    <aura:attribute name="currentTrainerPageNumber"
+                    type="Integer"
+                    description="The page number of the currently viewed trainer page" />
+    <aura:attribute name="currentRoomPageNumber"
+                    type="Integer"
+                    description="The page number of the currently viewed room page" />
+    <aura:attribute name="currentExternalTrainerPageNumber"
+                    type="Integer"
+                    description="The page number of the currently viewed external trainer page" />
+    <aura:attribute name="trainersOnPage"
+                    type="User[]"
+                    description="trainers to be displayed on the current page of pagination." />
+    <aura:attribute name="roomsOnPage"
+                    type="List"
+                    description="rooms to be displayed on the current page of pagination." />
+    <aura:attribute name="ExternalTrainersOnPage"
+                    type="afTrainerAvailSortingWrapper[]"
+                    description="external trainers to be displayed on the current page of pagination." />
+    <aura:attribute name="nextDisabled"
+                    type="Boolean"
+                    default="false"
+                    description="Determines if the next button for pagination should be disabled." />
+    <aura:attribute name="previousDisabled"
+                    type="Boolean"
+                    default="true"
+                    description="Determines if the previous button for pagination should be disabled." />
     
     <!--Handler to pass in user input from afNewBatchForm --> 
     <aura:handler     event="c:afNewBatchFormEvent" 	
@@ -42,6 +80,12 @@
     <aura:handler name="change"     
                   value="{!v.allRooms}"   
                   action="{!c.initRooms}"/>
+    <aura:handler name="change"
+                  value="{!v.trainers}"
+                  action="{!c.initTrainers}" />
+    <aura:handler name="change"
+                  value="{!v.externalTrainers}"
+                  action="{!c.initExternalTrainers}" />
     <!--<aura:handler name="change" value="{!v.allTrainers}" action="{!c.initTrainers}"/>-->
 
     <!--Visual Components-->
@@ -86,8 +130,9 @@
                         <div class="slds-col slds-size_1-of-5 slds-align_absolute-center"><h1>Experienced</h1></div>
                     </div>
                     <!-- iteration to grab said columns stated earlier for each trainer -->
-                    <div class="slds-scrollable" style="height: 300px">
-                        <aura:iteration  items="{!v.trainers}" var="trainerVar">
+
+                    <div class="slds" style="height: 300px">
+                        <aura:iteration  items="{!v.trainersOnPage}" var="trainerVar">
                             <c:afTrainerAvailabilityListItem trainerId="{!trainerVar.Id}" hasSkill="{!trainerVar.hasSkill__c}" availability="{!trainerVar.Available__c}"/>
                         </aura:iteration>
                     </div>
@@ -102,14 +147,15 @@
                         <div class="slds-col slds-size_1-of-5 slds-align_absolute-center"><h1>Capacity</h1></div>
                     </div>
                     <!-- Iterate over available rooms in accordance to criteria set-->
-                    <div class="slds-scrollable" style="height: 300px">
-                        <aura:iteration items="{!v.rooms}" var="room">
+                    <!--height is 319, not 300 intentionally, to make them the same lenght -->
+                    <div class="slds" style="height: 319px">
+                        <aura:iteration items="{!v.roomsOnPage}" var="room">
                             <c:afRoomAvailabilityListItem room="{!room}"/>   
                         </aura:iteration>
                     </div>
                 </div>
                 <!--
-                    In the external trainer tab, displays Name, Availability, Prefered Location, and if they are experienced.
+                    In the external trainer tab, displays Name, Availability, Preferred Location, and if they are experienced.
                     This defines columns for every trainer that matches batch criteria.    
                 -->
                 <div id="externalTrainers" class="{!v.tabShown==2 ? 'slds-tabs_default__content slds-show' : 'slds-tabs_default__content slds-hide'}">
@@ -117,15 +163,25 @@
                         <div class="slds-col slds-size_1-of-5 slds-align_absolute-center"></div>
                         <div class="slds-col slds-size_1-of-5 slds-align_absolute-center"><h1>Name</h1></div>
                         <div class="slds-col slds-size_1-of-5 slds-align_absolute-center"><h1>Available</h1></div>
-                        <div class="slds-col slds-size_1-of-5 slds-align_absolute-center"><h1>Prefered Location</h1></div>
+                        <div class="slds-col slds-size_1-of-5 slds-align_absolute-center"><h1>Preferred Location</h1></div>
                         <div class="slds-col slds-size_1-of-5 slds-align_absolute-center"><h1>Experienced</h1></div>
                     </div>
                     <!-- iteration to grab said columns stated earlier for each trainer -->
-                    <div class="slds-scrollable" style="height: 300px">
-                       <aura:iteration items="{!v.externalTrainers}" var="ext">
+                    <div class="slds" style="height: 300px">
+                       <aura:iteration items="{!v.ExternalTrainersOnPage}" var="ext">
                             <c:afExternalTrainerAvailabilityListItem externalTrainerWrapper="{!ext}"/>   
                         </aura:iteration>
                     </div>
+                </div>
+                <div class="slds-grid">
+                	<div class="slds-col slds-size_11-of-12">
+                        <lightning:button variant="base" iconName="utility:chevronleft" title="Previous Page" 
+                                  	onclick="{!c.previousPage}" disabled="{!v.previousDisabled}"/>
+                    </div>
+                    <div class="slds-col slds-size_1-of-12">
+                    	<lightning:button variant="base" iconName="utility:chevronright" title="Next Page" 
+                                  onclick="{!c.nextPage}" disabled="{!v.nextDisabled}" class="slds-align_right"/>   
+                    </div> 
                 </div>
             </div>
         </div>

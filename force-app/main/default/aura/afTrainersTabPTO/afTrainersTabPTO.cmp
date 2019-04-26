@@ -5,7 +5,6 @@
 
    <!--ATTRIBUTES-->
    <aura:attribute name="empPTORecordset"             type="List"                     description="List of records for the lightning:dataTable columns" />
-   <aura:attribute name="empPTORecordsetApproval"             type="List"                     description="List of records for the lightning:dataTable columns" />
    <aura:attribute name="keyField"                 type="String"     default="id"     description="Primary key for list of records" />
    <aura:attribute name="empCurrentPTODataset"     type="Object[]"                 description="Data for lightning dataTable that involves current PTO"/>
    <aura:attribute name="empFuturePTODataset"         type="Object[]"                 description ="Data for lightning dataTable that involves upcoming PTO "/>
@@ -21,10 +20,10 @@
    <!-- aura:if is used determine whether both tables should render or a text based message-->
    <aura:if isTrue="{!v.hasPTO}" >
        <div class="slds-grid slds-wrapper" >
-           <lightning:card title="Approved PTO">
+           <lightning:card title="Current PTO">
                <lightning:dataTable
                                     data="{!v.empCurrentPTODataset}"
-                                    columns="{!v.empPTORecordsetApproval}"
+                                    columns="{!v.empPTORecordset}"
                                     keyField="id"
                                     aura:id="empDataTable"
                                     hideCheckboxColumn="true"
@@ -35,6 +34,7 @@
 
        
        <div class="slds-grid slds-wrapper">
+
            
            <lightning:card title="PTO Pending Approval">
                <!-- Mass approve/reject buttons -->
@@ -45,8 +45,6 @@
                    <lightning:helptext content="Mass Reject all selected PTO records" />
                    <lightning:button class="headerBtn" variant="bare" onclick="{! c.handleRejectAll  }" iconName="utility:close" /> 
                </aura:set>
-               
-               
                <lightning:dataTable
                                     data="{!v.empFuturePTODataset}"
                                     columns="{!v.empPTORecordset}"
