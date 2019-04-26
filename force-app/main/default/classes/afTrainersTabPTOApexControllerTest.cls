@@ -66,10 +66,12 @@ public with sharing class afTrainersTabPTOApexControllerTest {
 
     }
 
-    /*@isTest 
+
+    // Test Approval for PTO
+    @isTest 
     public static void approvePTOTest(){
         
-        //get the PTO requests
+        //get the test PTO requests
         ptos = [SELECT id, Status__c FROM PTO__c WHERE Trainer__r.UserRole.Name = 'Trainer'];
 
         Test.startTest();
@@ -91,6 +93,7 @@ public with sharing class afTrainersTabPTOApexControllerTest {
 
     }
 
+    // Test the reject functionality
     @isTest 
     public static void rejectPTOTest(){
         
@@ -114,6 +117,6 @@ public with sharing class afTrainersTabPTOApexControllerTest {
         }
 
 
-    }*/
+    }
 
 }
