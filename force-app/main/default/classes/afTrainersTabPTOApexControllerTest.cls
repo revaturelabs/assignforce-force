@@ -17,6 +17,7 @@ public with sharing class afTrainersTabPTOApexControllerTest {
     @TestSetup
     static void doSetup(){
 
+        // Start test
         Test.startTest();
 
         //Create the Trainer user that will be used in the test.
