@@ -92,6 +92,27 @@
             //var startDate = this.startDateHandler(startDateString);
             futurePTOs.push(this.addToArray(tempObj , endDateString, startDateString));
         }
+
+        // Two sets of if-else statements to determine whether to display the Approved PTO and Upcoming PTO tables
+
+        console.log("PTO List: " + PTOs);
+
+        console.log("UpcomingPTO List: " + futurePTOs);
+
+        if(PTOs === undefined || PTOs.length == 0){
+            component.set('v.hasApprovedPTO', false);
+        } else {
+            component.set('v.hasApprovedPTO', true);
+        }
+        if(futurePTOs === undefined || futurePTOs.length == 0){
+            component.set('v.hasUpcomingPTO', false);
+        } else {
+            component.set('v.hasUpcomingPTO', true);
+        }
+        var i = component.get('v.hasApprovedPTO');
+        var j = component.get('v.hasUpcomingPTO');
+        console.log("has Approved: " + i);
+        console.log("has Upcoming: " + j);
         
         //sets the values from trainings to current PTOs datatable and futureTrainings to upcoming PTOs table
         component.set('v.empCurrentPTODataset', PTOs);
@@ -117,4 +138,12 @@
         return tempArray;
     },
 
+    //Helper for collapsible sections
+    helperDisplay : function(component,event,secId) {
+        var acc = component.find(secId);
+            for(var cmp in acc) {
+            $A.util.toggleClass(acc[cmp], 'slds-show');  
+            $A.util.toggleClass(acc[cmp], 'slds-hide');  
+        }
+    }, 
 })
