@@ -1,27 +1,122 @@
 ({
     TrainersPTO : function (component, event, helper){
+        var actions = [
+            { label: 'Approve', name: 'Approve'},
+            { label: 'Reject', name: 'Reject'}
+        ]
         component.set('v.empPTORecordset', [
- 
+            
             { label: 'Start Date', fieldName: 'startDate', type: 'date', sortable: 'true', initialWidth: '30px' },
             { label: 'End Date', fieldName: 'endDate', type: 'date', sortable: 'true' },
             { label: 'Status', fieldName: 'status', type: 'text', sortable: 'true'  },
             { label: 'Reason', fieldName: 'reason', type: 'text', sortable: 'true'},
-            // Changed: (type: 'action') to (type: 'button')
-            { type: 'button', typeAttributes: {label: 'Approve', name: 'Approve' }},
-            { type: 'button', typeAttributes: {label: 'Reject', name: 'Reject' }}
- 
+            { type: 'action', typeAttributes: { rowActions: actions}}
+            
         ]);
         
         component.set('v.empPTORecordsetApproval', [
- 
+            
             { label: 'Start Date', fieldName: 'startDate', type: 'date', sortable: 'true', initialWidth: '30px' },
             { label: 'End Date', fieldName: 'endDate', type: 'date', sortable: 'true' },
             { label: 'Status', fieldName: 'status', type: 'text', sortable: 'true'  },
             { label: 'Reason', fieldName: 'reason', type: 'text', sortable: 'true'},
- 
+            
         ]);
             
-            helper.getData(component, event);
+        helper.getData(component, event);
+    },
+            
+        // Handles mass Approve
+        handleApproveAll : function (component, event, helper) {
+            component.set("v.hasApprovedPTO", true);
+            var rows = component.get('v.selectedPTOList');
+            var rowsApproval = component.get('v.empCurrentPTODataset');
+            var rowsPending = component.get('v.empFuturePTODataset');
+            // loops through rowsPending, then loops through rows,
+            // compares rowsPending Id to rows Id
+            // If they are the same, splice that row out of rowsPending
+            for (var i = 0; i < rowsPending.length; i++){
+                for(var o = 0; o < rows.length; o++){
+                    if (rowsPending[i].Id == rows[o].Id){
+                        rowsPending.splice(i, 1);
+                    }
+                }
+            }
+            
+            var arg = [];
+            for (var i = 0; i < rows.length; i++){
+            	arg.push(rows[i].Id);
+        	}
+            
+            // do approval things
+            var apexAction = component.get("c.approvePTO");
+            apexAction.setParams({"ptoIdToApprove":arg});
+            apexAction.setCallback(this, function(response){
+            if(response.getState() === "SUCCESS") {
+                console.log('approved successfully');
+                for (var i = 0; i < rows.length; i++){
+                    console.log(rows[i].status);
+                    rows[i].status = 'Approved';
+                    console.log(rows[i].status);
+                    // Updates the Currect PTO tab on the trainers section
+                    rowsApproval.push(rows[i]);
+    			}
+                component.set('v.empCurrentPTODataset', rowsApproval);
+
+                if (rowsPending === undefined || rowsPending.length == 0){
+                    component.set("v.hasUpcomingPTO", false); 
+                }
+                // Removes row from the Upcoming PTO tab on the trainers section
+                component.set('v.empFuturePTODataset', rowsPending);
+            } else {
+                console.log(response.getError());
+            }
+        });
+        $A.enqueueAction(apexAction);
+    },
+    
+    // Handles mass reject
+    handleRejectAll : function (component, event, helper) {
+        var rows = component.get('v.selectedPTOList');
+        var rowsPending = component.get('v.empFuturePTODataset');
+        // loops through rowsPending, then loops through rows,
+        // compares rowsPending Id to rows Id
+        // If they are the same, splice that row out of rowsPending
+        for (var i = 0; i < rowsPending.length; i++){
+            for(var o = 0; o < rows.length; o++){
+                if (rowsPending[i].Id == rows[o].Id){
+                    rowsPending.splice(i, 1);
+                }
+            }
+        }
+        // do rejection things
+        var arg = [];
+            for (var i = 0; i < rows.length; i++){
+            	arg.push(rows[i].Id);
+        	}
+        
+        var apexAction = component.get("c.rejectPTO");
+        apexAction.setParams({"ptoIdToReject":arg});
+        apexAction.setCallback(this, function(response){
+            if(response.getState() === "SUCCESS") {
+                console.log('rejected successfully');
+                for (var i = 0; i < rows.length; i++){
+                    console.log(rows[i].status);
+                    rows[i].status = 'Rejected';
+                    console.log(rows[i].status);
+                }
+                // Updates the PTO Pending Approval Tab
+                if (rowsPending === undefined || rowsPending.length == 0){
+                    component.set("v.hasUpcomingPTO", false); 
+                }
+                component.set('v.empFuturePTODataset', rowsPending);
+            } else {
+                console.log(response.getError());
+            }
+        });
+        
+        $A.enqueueAction(apexAction);
+        
     },
         
         handleRowAction : function (component, event, helper) {
@@ -39,6 +134,7 @@
             
             switch(action.name) {
                 case 'Approve':
+                    component.set("v.hasApprovedPTO", true);    
                     // do approval things
                     var apexAction = component.get("c.approvePTO");
                     apexAction.setParams({"ptoIdToApprove":arg});
@@ -56,8 +152,12 @@
                             console.log(response.getError());
                         }
                         // Removes row from the Upcoming PTO tab on the trainers section
-                        if(response.getState() === "SUCCESS"){rows.splice(rowIndex, 1);
-                                                              component.set('v.empFuturePTODataset', rows);}
+                        if(response.getState() === "SUCCESS"){
+                            rows.splice(rowIndex, 1);
+                            if (rows === undefined || rows.length == 0){
+                                component.set("v.hasUpcomingPTO", false);   
+                            }
+                            component.set('v.empFuturePTODataset', rows);}
                     });
                     $A.enqueueAction(apexAction);
                     break;
@@ -72,6 +172,11 @@
                             rows[rowIndex].status = 'Rejected';
                             console.log(rows[rowIndex].status);
                             rows.splice(rowIndex, 1);
+                            if (rows === undefined || rows.length == 0){
+                                component.set("v.hasUpcomingPTO", false);   
+                            }
+                            var i = component.get("v.hasUpcomingPTO");
+                            console.log('has Upcoming: ' + i);
                             component.set('v.empFuturePTODataset', rows);
                         } else {
                             console.log(response.getError());
@@ -89,5 +194,15 @@
         // Sets 'selectedPTOList' component attribute to the list of selected rows
         component.set('v.selectedPTOList', selectedRows);
         console.log('selectedPTOList: ' + JSON.stringify(component.get('v.selectedPTOList')));
-    }
- })
+        
+    },
+
+    // Works with the component and helper to enable collapsible sections
+    sectionOne : function(component, event, helper) {
+        helper.helperDisplay(component,event,'hasActiveBatches');
+     },
+            
+     sectionTwo : function(component, event, helper) {
+        helper.helperDisplay(component,event,'hasUpcomingBatches');
+     }, 
+})
