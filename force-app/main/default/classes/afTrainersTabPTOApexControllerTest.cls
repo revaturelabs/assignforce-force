@@ -17,7 +17,6 @@ public with sharing class afTrainersTabPTOApexControllerTest {
     @TestSetup
     static void doSetup(){
 
-        // Start test
         Test.startTest();
 
         //Create the Trainer user that will be used in the test.
@@ -59,29 +58,29 @@ public with sharing class afTrainersTabPTOApexControllerTest {
             //Assert that every PTO has the correct fields
             System.assertEquals(results.get(i).StartDate__c, queryResults.get(i).StartDate__c);
             System.assertEquals(results.get(i).EndDate__c,   queryResults.get(i).EndDate__c);
-            System.assertEquals(results.get(i).Status__c,    'Pending Approval');
+            System.assertEquals(results.get(i).Status__c,    'Approved');
         }
 
         Test.stopTest();
 
     }
 
-
-    // Test Approval for PTO
     @isTest 
     public static void approvePTOTest(){
         
-        //get the test PTO requests
+        //get the PTO requests
         ptos = [SELECT id, Status__c FROM PTO__c WHERE Trainer__r.UserRole.Name = 'Trainer'];
-
+		List<Id> ptoIds = new List<Id>();
+        
         Test.startTest();
 
-        //Use the method to approve all PTOs
         for (PTO__c p : ptos){
-            afTrainersTabPTOApexController.approvePTO(p.id);
+            ptoIds.add(p.id);
         }
+        
+        afTrainersTabPTOApexController.approvePTO(ptoIds);
 
-        Test.stopTest();
+		Test.stopTest();
 
         //Requery for the now approved PTOs
         ptos = [SELECT id, Status__c FROM PTO__c WHERE Trainer__r.UserRole.Name = 'Trainer'];
@@ -93,20 +92,22 @@ public with sharing class afTrainersTabPTOApexControllerTest {
 
     }
 
-    // Test the reject functionality
     @isTest 
     public static void rejectPTOTest(){
         
         //Query for the PTO requests
         ptos = [SELECT id, Status__c FROM PTO__c WHERE Trainer__r.UserRole.Name = 'Trainer'];
-
+        List<Id> ptoIds = new List<Id>();
+        
         Test.startTest();
 
         for (PTO__c p : ptos){
-            afTrainersTabPTOApexController.rejectPTO(p.id);
+            ptoIds.add(p.id);
         }
+        
+        afTrainersTabPTOApexController.rejectPTO(ptoIds);
 
-        Test.stopTest();
+		Test.stopTest();
 
         //Requery for the updated PTO requests
         ptos = [SELECT id, Status__c FROM PTO__c WHERE Trainer__r.UserRole.Name = 'Trainer'];
@@ -118,5 +119,4 @@ public with sharing class afTrainersTabPTOApexControllerTest {
 
 
     }
-
 }
