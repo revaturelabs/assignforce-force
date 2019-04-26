@@ -118,9 +118,9 @@ public class afTimelineControllerTest {
     }
 
 
-    //Test the wrapTrainingToJSON Method in the afTimelineController
+    //Test the createTrainingJSON Method in the afTimelineController
     @isTest
-    public static void wrapTrainingToJSONTest(){
+    public static void createTrainingJSONTest(){
 
         Test.startTest();
 
@@ -136,7 +136,7 @@ public class afTimelineControllerTest {
 
 
         //Call the Controller method, which returns a JSON as a String
-        String jsonResults = afTimelineController.wrapTrainingToJSON();
+        String jsonResults = afTimelineController.createTrainingJSON();
 
         //Deserialize the JSON into a List of TrainingDataWrappers
         List<afTimelineController.TrainingDataWrapper> tdw = (List<afTimelineController.TrainingDataWrapper>) 
@@ -164,7 +164,7 @@ public class afTimelineControllerTest {
     }
 
     //Test the filterTrainingsByYearLocationQuarter Method in the afTimelineController
-    //The method runs the wrapTrainingToJSON method after filtering trainings by Year, Location, and Quarter
+    //The method runs the createTrainingJSON method after filtering trainings by Year, Location, and Quarter
     @isTest
     public static void filterTrainingsByYearLocationQuarterTest(){
 
@@ -244,7 +244,7 @@ public class afTimelineControllerTest {
     }
 
     //Test the filterTrainingsByYearLocation Method in the afTimelineController
-    //The method runs the wrapTrainingToJSON method after filtering trainings by Year and Location
+    //The method runs the createTrainingJSON method after filtering trainings by Year and Location
     @isTest
     public static void filterTrainingsByYearLocationTest(){
 
@@ -319,7 +319,7 @@ public class afTimelineControllerTest {
     }
 
     //Test the filterTrainingsByYear Method in the afTimelineController
-    //The method runs the wrapTrainingToJSON method after filtering trainings by Year
+    //The method runs the createTrainingJSON method after filtering trainings by Year
     @isTest
     public static void filterTrainingsByYearTest(){
 
@@ -385,7 +385,7 @@ public class afTimelineControllerTest {
     }
 
     //Test the filterTrainingsByYearQuarter Method in the afTimelineController
-    //The method runs the wrapTrainingToJSON method after filtering trainings by Year and Quarter
+    //The method runs the createTrainingJSON method after filtering trainings by Year and Quarter
     @isTest
     public static void filterTrainingsByYearQuarterTest(){
 
