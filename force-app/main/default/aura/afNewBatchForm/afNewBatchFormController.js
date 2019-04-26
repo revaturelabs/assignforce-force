@@ -22,8 +22,10 @@
     
     onSuccess : function(component, event, helper) {
         
+        // Retrieving status when it hasn't been set through the form 
         var newBatch = [{
             TrainingTrack__c        : component.get("v.track"),
+            TargetCapacity__c        : component.get("v.capacity"),
             StartDate__c            : component.get("v.startDate"),
             EndDate__c              : component.get("v.endDate"),
             Trainer__c              : component.get("v.trainer"),
@@ -56,7 +58,7 @@
         });
         
         //FOR TESTING:
-        //console.log('newBatch JSON ' + JSON.stringify(newBatchEvent.getParam("newBatch")));
+        console.log('newBatch JSON ' + JSON.stringify(newBatchEvent.getParam("newBatch")));
 
         newBatchEvent.fire();
     },
@@ -97,6 +99,7 @@
         var trainer     = component.get("v.trainer");
         var startDate   = component.get("v.startDate");
         var endDate     = component.get("v.endDate");
+        var targetCapacity = component.get("v.capacity"); 
         helper.showTrainerToast(helper, event, trainings, trainer, startDate, endDate);
 
         /*-------------------------------------------
@@ -112,7 +115,9 @@
             chosenTrack : trackChosen,
             startOfBatch : startBatch,
             endOfBatch : endBatch,
-            selectedLocation : locationChosen
+            selectedLocation : locationChosen, 
+            capacity : targetCapacity
+            
         });
         filterEvent.fire();
     },
@@ -155,7 +160,7 @@
         implementation as before but works with server side logic
         This logic can most likely be updated. */
 
-        var room = event.getParam("room");
+        var room    = event.getParam("room");
         var location = event.getParam("location");
         var rooms   = component.get("v.allRooms");       
         var roomsForLoc = [];
@@ -168,7 +173,9 @@
             if(rooms[i].TrainingLocation__c == location){
                 roomsForLoc.push(rooms[i]);
             }
+            
         }
+        
 
         component.set('v.roomsForLocation', roomsForLoc);
         component.set("v.location", room.TrainingLocationName__c);
@@ -177,7 +184,7 @@
     },
     
     selectRoom : function(component) {
-        var room    = component.get("v.room");
+        var room    = event.getParam("room");
         var rooms   = component.get("v.roomsForLocation");
         
         for (var i = 0; i < rooms.length; i++) {
@@ -187,6 +194,7 @@
         }
         // set to hidden inputField for form submission
         component.set("v.hiddenRoom", room.Id);
+        component.set("v.availHidden", room.Availibility__c); 
     },
     
     locationChanged : function(component, event, helper) {
@@ -194,25 +202,33 @@
         component.set("v.locUncleared", false);
         component.set("v.locUncleared", true);
         
+        
         var loc 	= component.get("v.location");
         var roomsList = component.get("v.allRooms");
-
+        var targetCapacity = component.get("v.capacity"); 
+        console.log(roomsList); 
+        console.log(targetCapacity); 
         console.log(loc);
         
         if(loc == '' || loc == null){
             component.set('v.room', null);
         }
-
-		var filteredRooms = component.get("c.filterRoomByLocation");        
-        filteredRooms.setParams({
-			location : loc,
-            rooms : roomsList,			            
+		console.log("setting parameters for filtered rooms"); 
+		var filterControllerRoom = component.get("c.filterRoomByLocation");
+        filterControllerRoom.setParams({
+            allRooms : roomsList,
+            location : loc,
+            capacity : targetCapacity
+            
         });
-        filteredRooms.setCallback(this, function(response) {
+         
+        console.log('Parameter have been set '); 
+        filterControllerRoom.setCallback(this, function(response) {
             var state = response.getState();
             if (component.isValid() && state === "SUCCESS") {
                 //ACTION to take when return is successful
                 component.set('v.roomsForLocation', response.getReturnValue());
+                console.log('afNewBatchForm rooms'+response.getReturnValue()); 
             } else if (state === "ERROR") {
                 var errors = response.getError();
                 if (errors) {
@@ -224,6 +240,6 @@
                 console.log('Function callback error. Function call failed. {0002}');
             }
         });
-        $A.enqueueAction(filteredRooms);
+        $A.enqueueAction(filterControllerRoom);
     },
 })

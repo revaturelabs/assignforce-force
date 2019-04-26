@@ -34,16 +34,12 @@
             </div>
             <div class="slds-col slds-size_1-of-5 slds-align_absolute-center">
                 <!-- Nested if-else statment to display the proper icon for the room's availability -->
-                <aura:if isTrue="{!v.isYes}">
+                <!-- Availibility to true -->
+                <aura:if isTrue="{!!v.room.Availibility__c}">
                     <lightning:icon iconName="utility:check" alternativeText="Available" size="small"/>
-                    <aura:set attribute="else">
-                        <aura:if isTrue="{!v.isRequest}">
-                            <lightning:icon iconName="utility:dash" alternativeText="Available" size="small"/>
-                            <aura:set attribute="else">
+                    <aura:set attribute="else">                     
                                 <lightning:icon iconName="utility:clear" alternativeText="Not Available" size="small" variant="error"/>
                             </aura:set>
-                        </aura:if>                    
-                    </aura:set>
                 </aura:if>  
                 
             </div>
