@@ -3,7 +3,7 @@
     				Clear Input Section
     ----------------------------------------------------------*/
     clearBatchFields : function(component, event, helper) {
-        helper.fullClear(component, event);
+        helper.clear(component, event);
     },
     
     /*----------------------------------------------------------
@@ -16,6 +16,7 @@
         // In-built functionality to handle recordEditForm submission
         event.preventDefault();       // Stop the form from submitting
         var fields = event.getParam('fields');
+        
         component.find('newBatchForm').submit(fields);
     },
     
@@ -34,7 +35,7 @@
         }];
         
         // records have been submitted, clear form
-        helper.fullClear(component, event);  
+        helper.clear(component, event);  
         
         // display toast informing user of successful submission
         var toastEvent = $A.get("e.force:showToast");
@@ -63,20 +64,18 @@
     /*----------------------------------------------------------
     				Handle User Input Change
     ----------------------------------------------------------*/
-    
-    changeTrack : function (component, event, helper) {
+    updateAvailabilityOnChange : function (component, event, helper) {
+
+        /*-------------------------------------------
+               DETECT USER INPUT: TRACK CHANGED
+        -------------------------------------------*/
         var trackChosen = component.get('v.track');
-        if (trackChosen == "") {
+        if( trackChosen == ""){
             trackChosen = null;
         }
-        helper.fireNewBatchFormEvent(trackChosen, 
-                                     component.get('v.startDate'), 
-                                     component.get('v.endDate'), 
-                                     component.get('v.location')
-                                    );
-    },
-    
-    changeDate : function (component, event, helper) {
+        /*-------------------------------------------
+               DETECT USER INPUT: DATE CHANGED
+        -------------------------------------------*/
         var startBatch = component.get('v.startDate');
         var endBatch = null;
         component.set("v.endDate", endBatch);
@@ -92,23 +91,31 @@
             startBatch = null;
             endBatch = null;
         }
-        helper.partialClear(component, event);
-        helper.fireNewBatchFormEvent(component.get('v.track'), 
-                                     startBatch, 
-                                     endBatch, 
-                                     component.get('v.location')
-                                    );
-    },
-    
-    changeLocation : function (component, event, helper) {
+
+        //Check if trainer is busy during dates selected
+        var trainings   = component.get("v.openTrainings");
+        var trainer     = component.get("v.trainer");
+        var startDate   = component.get("v.startDate");
+        var endDate     = component.get("v.endDate");
+        helper.showTrainerToast(helper, event, trainings, trainer, startDate, endDate);
+
+        /*-------------------------------------------
+             DETECT USER INPUT: LOCATION CHANGED
+        -------------------------------------------*/
         var locationChosen = component.get('v.location');
-        helper.fireNewBatchFormEvent(component.get('v.track'), 
-                                     component.get('v.startDate'), 
-                                     component.get('v.endDate'), 
-                                     locationChosen
-                                    );
+
+        /*-------------------------------------------
+          DETECT USER INPUT: SEND TO OTHER COMPONENT
+        -------------------------------------------*/
+        var filterEvent = $A.get("e.c:afNewBatchFormEvent");
+        filterEvent.setParams({
+            chosenTrack : trackChosen,
+            startOfBatch : startBatch,
+            endOfBatch : endBatch,
+            selectedLocation : locationChosen
+        });
+        filterEvent.fire();
     },
-    
     
     /*----------------------------------------------------------
     					Trainer Section 
@@ -219,22 +226,4 @@
         });
         $A.enqueueAction(filteredRooms);
     },
-    
-    /*----------------------------------------------------------
-                        Client-Side Error Section
-    ----------------------------------------------------------*/
-    
-    /*onError : function(event, errors) {
-        var toastEvent = $A.get("e.force:showToast");
-        
-        toastEvent.setParams({
-            title : 'Something went wrong!',
-            message: 'Please select a valid training track, with start date between Monday & Wednesday, valid trainer, training location, and training room.',
-            duration: '2000',
-            type: 'error',
-        });
-        toastEvent.fire();
-    },
-    */
-    
 })
