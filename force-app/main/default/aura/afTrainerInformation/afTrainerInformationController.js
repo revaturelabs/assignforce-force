@@ -41,7 +41,6 @@
     onSubmit : function(component, event, helper) {
         event.preventDefault();
         var fields = event.getParam('fields');
-        console.log("Fields: " + fields);
         component.find('currentUserInfo').submit(fields);
     },
     

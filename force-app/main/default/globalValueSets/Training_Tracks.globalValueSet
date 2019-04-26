@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>Appian BPM</fullName>
+        <default>false</default>
+        <label>Appian BPM</label>
+    </customValue>
+    <customValue>
+        <fullName>Big Data/Hadoop</fullName>
+        <default>false</default>
+        <label>Big Data/Hadoop</label>
+    </customValue>
+    <customValue>
+        <fullName>Business Analyst</fullName>
+        <default>false</default>
+        <label>Business Analyst</label>
+    </customValue>
+    <customValue>
+        <fullName>Dynamics CRM</fullName>
+        <default>false</default>
+        <label>Dynamics CRM</label>
+    </customValue>
+    <customValue>
+        <fullName>ETL/Informatics</fullName>
+        <default>false</default>
+        <label>ETL/Informatics</label>
+    </customValue>
+    <customValue>
+        <fullName>Full Stack .NET</fullName>
+        <default>false</default>
+        <label>Full Stack .NET</label>
+    </customValue>
+    <customValue>
+        <fullName>Full Stack Java/JEE</fullName>
+        <default>false</default>
+        <label>Full Stack Java/JEE</label>
+    </customValue>
+    <customValue>
+        <fullName>Full Stack JTA</fullName>
+        <default>false</default>
+        <label>Full Stack JTA</label>
+    </customValue>
+    <customValue>
+        <fullName>Microservices</fullName>
+        <default>false</default>
+        <label>Microservices</label>
+    </customValue>
+    <customValue>
+        <fullName>Oracle Fusion Middleware</fullName>
+        <default>false</default>
+        <label>Oracle Fusion Middleware</label>
+    </customValue>
+    <customValue>
+        <fullName>Other</fullName>
+        <default>false</default>
+        <label>Other</label>
+    </customValue>
+    <customValue>
+        <fullName>Pega</fullName>
+        <default>false</default>
+        <label>Pega</label>
+    </customValue>
+    <customValue>
+        <fullName>Salesforce</fullName>
+        <default>false</default>
+        <label>Salesforce</label>
+    </customValue>
+    <customValue>
+        <fullName>System Admin</fullName>
+        <default>false</default>
+        <label>System Admin</label>
+    </customValue>
+    <customValue>
+        <fullName>Web Tools</fullName>
+        <default>false</default>
+        <label>Web Tools</label>
+    </customValue>
+    <description>Batch types available, can be used to keep track of the types of batches that trainers have performed.</description>
+    <masterLabel>Training Tracks</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>
