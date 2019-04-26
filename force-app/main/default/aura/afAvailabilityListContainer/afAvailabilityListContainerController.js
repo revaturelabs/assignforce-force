@@ -100,9 +100,11 @@
     userInputRecieved: function(component, event, helper){
         //location and dates are used for sorting both trainers and rooms
         var location = event.getParam("selectedLocation");
+        console.log('location: ' + location);
         var startBatch = event.getParam("startOfBatch");
         var endBatch = event.getParam("endOfBatch");
         var track = event.getParam("chosenTrack");
+        var targetCapacity = event.getParam("capacity");
 
         /*-----------------------------------------------------------------------------
                                     User Input Sort Trainers
@@ -147,13 +149,15 @@
             allRooms : roomsToPass,
             startOfBatch : startBatch,
             endOfBatch : endBatch,
-            selectedLocation : location
+            selectedLocation : location, 
+            capacity : targetCapacity
         });
         filterControllerRoom.setCallback(this, function(response) {
             var state = response.getState();
             if (component.isValid() && state === "SUCCESS") {
                 //ACTION to take when return is successful
                 component.set('v.rooms', response.getReturnValue());
+                console.log('v.rooms: ' + component.get("v.rooms"));
                 //The sub-list used for pagination needs to be updated with the new list of rooms that are available at that location
                 var roomsOnPage = helper.updateRoomsSubList(component.get('v.rooms'), 0, component.get('v.numberOfRoomsToBeDisplayed'));
                 component.set('v.roomsOnPage', roomsOnPage);

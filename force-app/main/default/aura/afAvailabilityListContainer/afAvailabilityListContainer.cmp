@@ -22,7 +22,7 @@
     <aura:attribute name="externalTrainerColumns" 				
                     type="List"/>
     <aura:attribute name="rooms" 					
-                    type="List"/>
+                    type="Training_Room__c[]"/>
     <aura:attribute name="tabShown" 				
                     type="Integer" 			
                     default='0' 
@@ -67,6 +67,7 @@
                     type="Boolean"
                     default="true"
                     description="Determines if the previous button for pagination should be disabled." />
+    
     
     <!--Handler to pass in user input from afNewBatchForm --> 
     <aura:handler     event="c:afNewBatchFormEvent" 	

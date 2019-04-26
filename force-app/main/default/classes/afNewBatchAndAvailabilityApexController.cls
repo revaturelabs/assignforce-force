@@ -12,9 +12,9 @@ public class afNewBatchAndAvailabilityApexController {
     @AuraEnabled
     public static List<Training_Room__c> masterRooms (){
 
-        return [SELECT Id, name, TrainingLocation__c, TrainingLocationName__c, AVAvailability__c, RoomCapacity__c
+        return [SELECT Id, name, TrainingLocation__c, TrainingLocationName__c, AVAvailability__c, RoomCapacity__c, Availibility__c
                 FROM Training_Room__c
-                ORDER BY name];
+                ORDER BY Availibility__c, RoomCapacity__c desc, name  ];
 
     }
     

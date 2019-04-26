@@ -34,6 +34,10 @@
                 <behavior>Readonly</behavior>
                 <field>TrainingLocationName__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Availibility__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns/>
         <style>TwoColumnsTopToBottom</style>

@@ -56,25 +56,67 @@ public class afAvailListContainerApexController {
 
     @AuraEnabled
     public static List<Training_Room__c> sortRoomsBySelectedCategories(List<Training_Room__c> allRooms, 
-                                                                Date startOfBatch, Date endOfBatch, String selectedLocation){
-        //TO-DO Add Filtering for availability
-        //TO-DO Add Filtering for room size based on training target size - new parameter passed in
-        List<Training_Room__c> sortedRooms = new List<Training_Room__c>();
-        List<Training_Room__c> roomsAtLocation = new List<Training_Room__c>();
+																Date startOfBatch, Date endOfBatch, String selectedLocation,Integer capacity){
+	// Trying to set availibility through Controller, giving errors	
+	/*/List to set Availibilty 
+		List<Training__c> batchesList = [SELECT TrainingRoom__c 
+            							   FROM Training__c 
+                                           WHERE (StartDate__c <= :startOfBatch AND EndDate__c >= :endOfBatch)]; 
+		// Set of unavailable Rooms Id's 
+		Set<Id> setUnavailRooms = new Set<Id> (); 
+		// Loop through List or trining and set unvailble rooms 
+ 		for(Training__c batches : batchesList){
+        	if(batches.TrainingRoom__c != null && batches.TrainingRoom__c != ' ' )	
+                setUnavailRooms.add(batches.Id); 
+        }       
+   		for(Training_Room__c settingAvail: allRooms){
+       		settingAvail.Availibility__c = !setUnavailRooms.contains(settingAvail.Id);                                                                 
+       } */                                                                   
+                                                                    
+        // List for rooms, availibility, not availible and combined 
+		List<Training_Room__c> roomsAtLocation = new List<Training_Room__c>();
+		List<Training_Room__c> roomsAvail = new List<Training_Room__c>();
+        List<Training_Room__c> roomsNotAvail = new List<Training_Room__c>();
+        List<Training_Room__c> roomsCombined = new List<Training_Room__c>();
+		List<Training_Room__c> roomsByLoc = new List<Training_Room__c>();
+        // Loops for availiable rooms adds them to roomsAvail if they're not availible add them to roomsNotAvail                                                           
+		for(Training_Room__c availRooms : allRooms){
+            if(availRooms.Availibility__c == false){
+                roomsAvail.add(availRooms); 
+            } else{
+                roomsNotAvail.add(availRooms); 
+            }                                                              
+        } 
+		//merge avail and not available to combined list 
+        for(Training_Room__c roomAv : roomsAvail){
+        	roomsCombined.add(roomAv);
+        }                                                                   
+        for(Training_Room__c roomNotAv : roomsNotAvail){
+            roomsCombined.add(roomNotAv);
+        } 
+		                                                                     
+		                                                                    
+        system.debug('RoomsCombined '+ roomsCombined);                                                           
+		// new condition checks room capacity 
+		if(selectedLocation != null && selectedLocation != ''){
+			for(Training_Room__c roomAtLoc : allRooms){
+				if(selectedLocation == roomAtLoc.TrainingLocationName__c  && capacity <= roomAtLoc.RoomCapacity__c ){
+					roomsAtLocation.add(roomAtLoc);
+				}
+			}
+            for(Training_Room__c roomLoc : roomsAtLocation){
+               roomsByLoc.add(roomLoc); 
+            } 
+            system.debug('Loc Rooms' + roomsByLoc);
+			return roomsByLoc;
+		} else {     
+            system.debug('RoomsCombined '+ roomsCombined);
+			return roomsCombined;
+		}
+                                                                    
+                                                                    
+	}
 
-        if(selectedLocation != null && selectedLocation != ''){
-            for(Training_Room__c roomAtLoc : allRooms){
-                if(selectedLocation == roomAtLoc.TrainingLocationName__c){
-                    roomsAtLocation.add(roomAtLoc);
-                }
-            }
-
-            return roomsAtLocation;
-        } else {
-            return allRooms;
-        }
-    }
-    
     @AuraEnabled
     public static String sortExternalTrainersBySelectedCategories( Date startOfBatch, 
                                                                    Date endOfBatch,

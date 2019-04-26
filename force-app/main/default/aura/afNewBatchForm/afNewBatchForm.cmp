@@ -9,31 +9,47 @@
    <aura:attribute name="track"                
                    type="Id" 
                    description="ID for the Lookup field to Training Track"/>
+    
+    <aura:attribute name="capacity"              
+                   type="Double" 
+                   description="Selected training capacity for the batch"
+                    default="0"/>
+    
    <aura:attribute name="startDate"            
                    type="Date" 
-                   description="Start date of the batch"/>
+                   description="Start date of the batch"
+                   default="null"/>
+    
    <aura:attribute name="numWeeks"             
                    type="Integer"                 
                    default="10" 
                    description="Duration of the batch (in weeks)"/>
+    
    <aura:attribute name="endDate"              
                    type="Date" 
-                   description="End date of the batch"/>
+                   description="End date of the batch"
+                   default="null"/>
+    
    <aura:attribute name="trainer"              
                    type="User" 
                    description="Selected Trainer for the batch"/>
+    
    <aura:attribute name="cotrainer"            
                    type="User" 
                    description="(Optional) co-trainer for the batch"/>
+    
    <aura:attribute name="ExternalTrainer"      
                    type="External_Trainer__c" 
                    description="External Trainer (if applicable) for the batch"/>
+    
    <aura:attribute name="location"             
                    type="Id" 
-                   description="ID for the Lookup field to Training Location"/>  
+                   description="ID for the Lookup field to Training Location"/>
+    
    <aura:attribute name="room"                 
                    type="Training_Room__c" 
                    description="Training Room the batch will take place in"/>
+    
    <aura:attribute name="status"			   
                    type="String"				
                    default="Planned"/>
@@ -77,6 +93,7 @@
                    type="Map"                     
                    default="{  
                             TrainingTrack__c : '',
+                            TrainingCapacity__c : ' ',
                             StartDate__c : '',
                             EndDate__c : '',
                             Trainer__c : '',
@@ -84,39 +101,43 @@
                             External_Trainer__c : '',
                             TrainingLocation__c : '',
                             TrainingRoom__c : '',
-                            Status__c : ''  }"
+                            Status__c : 'Planned' }"
                    description="Provides a blank default value to
                     the form once a batch has been created at the component refreshes"/>
 
    <aura:attribute name="hiddenLoc"        
                    type="Id" 
                    description="Used for swithching back and forth between 'Available Trainers' and 'Available Rooms' tabs"/>
-   <aura:attribute name="hiddenRoom"      
-                   type="Id"
-                   description="Used for swithching back and forth between
-                   	'Available Trainers' and 'Available Rooms' tabs"
-  />
+   <aura:attribute   name="hiddenRoom"      
+                    type="Id"
+                    description="Used for swithching back and forth between
+                    'Available Trainers' and 'Available Rooms' tabs"/>
+  <aura:attribute   name="availHidden"      
+                    type="boolean"
+                    description="Used for setting room availibility hidden val"/>
 
   <!-- Events -->
   <aura:registerEvent  name="updateFiltersEvent"       
                        type="c:afNewBatchFormEvent"
                        description="Update filters for Trainers and Rooms
-                       based on the user's selection"
-  />
+                       based on the user's selection"/>
+  
   <aura:registerEvent  name="afNewBatchCreated"         
                        type="c:afNewBatchCreatedEvent"
-                       description="Event fires when a new batch is created"
-  />
+                       description="Event fires when a new batch is created"/>
+  
  
   <!-- Event Handlers -->
   <aura:handler        event="c:TrainerSelected"             
                        action="{!c.setTrainerField}"
                        description="Populate the Trainer field when a trainer
-                       is selected from the availability list"
-  />
+                       is selected from the availability list"/>
+  
   <aura:handler        event="c:roomSelected"                
                        action="{!c.setRoomField}"
                        description="Populate the Room field when a room
+
+    
                        is selected from the availability list"
   />
 
@@ -127,9 +148,10 @@
   />
     
    <aura:handler 		name="change"     value="{!v.track}"        	         action="{!c.changeTrack}"/>
-   <aura:handler 		name="change"     value="{!v.startDate}"        	     action="{!c.changeDate}"/>
-   <aura:handler 		name="change"     value="{!v.numWeeks}"        	         action="{!c.changeDate}"/>
-   <aura:handler 		name="change"     value="{!v.location}"        	         action="{!c.changeLocation}"/>
+   <aura:handler 		name="change"     value="{!v.startDate}"        	   action="{!c.changeDate}"/>
+   <aura:handler 		name="change"     value="{!v.numWeeks}"        	      action="{!c.changeDate}"/>
+   <aura:handler 		name="change"     value="{!v.location}"        	      action="{!c.changeLocation}"/>
+   <aura:handler 		name="change"     value="{!v.capacity}"        	      action="{!c.changeCapacity}"/>
    
 
    <!-- Component Content: Black Create a New Batch Bar with buttons -->
@@ -156,8 +178,11 @@
          <div class="slds-card__body slds-card__body_inner">
              <aura:if isTrue="{!v.uncleared}">
             <div class="slds-grid slds-grid_align-spread">
-               <div class="slds-col slds-size_1-of-2">
+               <div class="slds-col slds-size_2-of-3  ">
                   <lightning:inputField fieldName="TrainingTrack__c" aura:id="trainingTrack" value="{!v.track}"/>
+               </div>
+               <div class="slds-col slds-size_1-of-3 ">
+                  <lightning:inputField fieldName="TargetCapacity__c" aura:id="capacity" value="{!v.capacity}"/>
                </div>
             </div>
       <!-- Date Selection Row -->
@@ -165,7 +190,7 @@
                <div class="slds-col slds-size_1-of-4">
                    <lightning:inputField fieldName="StartDate__c" aura:id="startDate" value="{!v.startDate}" />
                </div>
-               <div class="slds-col slds-size_1-of-6">
+               <div class="slds-col slds-size_1-of-4">
                    <lightning:input type="number" label="Number of Weeks" aura:id="numWeeks" step="1" value="{!v.numWeeks}" min="2"/>
                </div>
                <div class="slds-col slds-size_1-of-4">

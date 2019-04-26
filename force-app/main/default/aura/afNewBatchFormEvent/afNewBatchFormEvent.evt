@@ -3,4 +3,6 @@
     <aura:attribute name="startOfBatch"         type="Date" />
     <aura:attribute name="endOfBatch"           type="Date" />
     <aura:attribute name="selectedLocation"     type="Id"/>
+    <aura:attribute name="capacity"     		type="Double"/>
+    <aura:attribute name="room"     			type="Training_Room__c"/>
 </aura:event>

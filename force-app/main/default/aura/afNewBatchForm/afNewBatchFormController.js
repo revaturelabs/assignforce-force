@@ -183,6 +183,7 @@
         alert("This is the start of the form Messages");
         var newBatch = [{
             TrainingTrack__c        : component.get("v.track"),
+            TargetCapacity__c        : component.get("v.capacity"),
             StartDate__c            : component.get("v.startDate"),
             EndDate__c              : component.get("v.endDate"),
             Trainer__c              : component.get("v.trainer"),
@@ -232,7 +233,8 @@
         helper.fireNewBatchFormEvent(trackChosen, 
                                      component.get('v.startDate'), 
                                      component.get('v.endDate'), 
-                                     component.get('v.location')
+                                     component.get('v.location'),
+                                     component.get('v.capacity')
                                     );
     },
     
@@ -256,7 +258,8 @@
         helper.fireNewBatchFormEvent(component.get('v.track'), 
                                      startBatch, 
                                      endBatch, 
-                                     component.get('v.location')
+                                     component.get('v.location'),
+                                     component.get('v.capacity')
                                     );
     },
     
@@ -265,10 +268,31 @@
         helper.fireNewBatchFormEvent(component.get('v.track'), 
                                      component.get('v.startDate'), 
                                      component.get('v.endDate'), 
-                                     locationChosen
+                                     locationChosen,
+                                     component.get('v.capacity')
                                     );
     },
-    
+
+    changeCapacity  : function (component, event, helper){
+        if(component.get('v.capacity') < 0){
+            var toastEvent = $A.get("e.force:showToast");
+                    
+                    toastEvent.setParams({
+                        title : 'Error',
+                        message: 'Please enter a positive target capacity.',
+                        duration: 5000,
+                        type: 'error',
+                    });
+                    toastEvent.fire();
+        }else{
+            helper.fireNewBatchFormEvent(component.get('v.track'), 
+                                     component.get('v.startDate'), 
+                                     component.get('v.endDate'), 
+                                     component.get('v.location'),
+                                     component.get('v.capacity')
+                                    );
+        }
+    },
     
     /*----------------------------------------------------------
     					Trainer Section 
@@ -301,7 +325,7 @@
     },
     
     setExternalTrainerField: function(component, event, helper){
-        var externalTrainer = event.getParam("externalTrainerId");
+        var externalTrainer = event.getParam("ExternalTrainerId");
         component.set("v.ExternalTrainer",externalTrainer);
     },
     
@@ -327,6 +351,7 @@
             if(rooms[i].TrainingLocation__c == location){
                 roomsForLoc.push(rooms[i]);
             }
+            
         }
         
         component.set('v.roomsForLocation', roomsForLoc);
@@ -336,7 +361,7 @@
     },
     
     selectRoom : function(component) {
-        var room    = component.get("v.room");
+        var room    = event.getParam("room");
         var rooms   = component.get("v.roomsForLocation");
         
         for (var i = 0; i < rooms.length; i++) {
@@ -346,6 +371,7 @@
         }
         // set to hidden inputField for form submission
         component.set("v.hiddenRoom", room.Id);
+        component.set("v.availHidden", room.Availibility__c); 
     },
     
     locationChanged : function(component, event, helper) {
@@ -353,25 +379,34 @@
         component.set("v.locUncleared", false);
         component.set("v.locUncleared", true);
         
+        
         var loc 	= component.get("v.location");
         var roomsList = component.get("v.allRooms");
-        
+        var targetCapacity = component.get("v.capacity"); 
+        console.log(roomsList); 
+        console.log(targetCapacity); 
         console.log(loc);
         
         if(loc == '' || loc == null){
             component.set('v.room', null);
         }
-        
-        var filteredRooms = component.get("c.filterRoomByLocation");        
-        filteredRooms.setParams({
+		console.log("setting parameters for filtered rooms"); 
+		var filterControllerRoom = component.get("c.filterRoomByLocation");
+        filterControllerRoom.setParams({
+            allRooms : roomsList,
             location : loc,
-            rooms : roomsList,			            
+            capacity : targetCapacity
+            
         });
-        filteredRooms.setCallback(this, function(response) {
+         
+        console.log('Parameter have been set '); 
+        filterControllerRoom.setCallback(this, function(response) {
             var state = response.getState();
             if (component.isValid() && state === "SUCCESS") {
                 //ACTION to take when return is successful
                 component.set('v.roomsForLocation', response.getReturnValue());
+                console.log('afNewBatchForm rooms'+JSON.stringify(response.getReturnValue()));
+                console.log('v.roomsForLocation: ' + component.get("v.roomsForLocation"));
             } else if (state === "ERROR") {
                 var errors = response.getError();
                 if (errors) {
@@ -383,7 +418,14 @@
                 console.log('Function callback error. Function call failed. {0002}');
             }
         });
-        $A.enqueueAction(filteredRooms);
+        $A.enqueueAction(filterControllerRoom);
+        
+        helper.fireNewBatchFormEvent(component.get('v.track'), 
+                                     component.get('v.startDate'), 
+                                     component.get('v.endDate'), 
+                                     loc,
+                                     component.get('v.capacity')
+                                    );
     },
     
     /*----------------------------------------------------------

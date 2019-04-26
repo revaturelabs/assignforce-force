@@ -13,7 +13,7 @@
             <sorted>false</sorted>
             <value>
                 <fullName>Planned</fullName>
-                <default>false</default>
+                <default>true</default>
                 <label>Planned</label>
             </value>
             <value>

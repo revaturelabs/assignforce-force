@@ -100,13 +100,14 @@
         } 
     },
     
-    fireNewBatchFormEvent : function(trackChosen, startBatch, endBatch, locationChosen) {
+    fireNewBatchFormEvent : function(trackChosen, startBatch, endBatch, locationChosen, targetCapacity) {
         var filterEvent = $A.get("e.c:afNewBatchFormEvent");
         filterEvent.setParams({
             chosenTrack : trackChosen,
             startOfBatch : startBatch,
             endOfBatch : endBatch,
-            selectedLocation : locationChosen
+            selectedLocation : locationChosen,
+            capacity : targetCapacity
         });
         filterEvent.fire();
     }, 
