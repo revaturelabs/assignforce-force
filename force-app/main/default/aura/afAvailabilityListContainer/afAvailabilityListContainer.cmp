@@ -31,15 +31,15 @@
                     type="Id"/>
     <aura:attribute name="numberOfTrainersToBeDisplayed"
                     type="Integer"
-                    default="5"
+                    default="6"
                     description="The number of trainers to be displayed on each page" />
     <aura:attribute name="numberOfRoomsToBeDisplayed"
                     type="Integer"
-                    default="7"
+                    default="6"
                     description="The number of rooms to be displayed on each page" />
     <aura:attribute name="numberOfExternalTrainersToBeDisplayed"
                     type="Integer"
-                    default="5"
+                    default="6"
                     description="The number of trainers to be displayed on each page" />
     <aura:attribute name="currentTrainerPageNumber"
                     type="Integer"
@@ -146,14 +146,15 @@
                         <div class="slds-col slds-size_1-of-5 slds-align_absolute-center"><h1>Capacity</h1></div>
                     </div>
                     <!-- Iterate over available rooms in accordance to criteria set-->
-                    <div class="slds" style="height: 300px">
+                    <!--height is 319, not 300 intentionally, to make them the same lenght -->
+                    <div class="slds" style="height: 319px">
                         <aura:iteration items="{!v.roomsOnPage}" var="room">
                             <c:afRoomAvailabilityListItem room="{!room}"/>   
                         </aura:iteration>
                     </div>
                 </div>
                 <!--
-                    In the external trainer tab, displays Name, Availability, Prefered Location, and if they are experienced.
+                    In the external trainer tab, displays Name, Availability, Preferred Location, and if they are experienced.
                     This defines columns for every trainer that matches batch criteria.    
                 -->
                 <div id="externalTrainers" class="{!v.tabShown==2 ? 'slds-tabs_default__content slds-show' : 'slds-tabs_default__content slds-hide'}">
@@ -161,7 +162,7 @@
                         <div class="slds-col slds-size_1-of-5 slds-align_absolute-center"></div>
                         <div class="slds-col slds-size_1-of-5 slds-align_absolute-center"><h1>Name</h1></div>
                         <div class="slds-col slds-size_1-of-5 slds-align_absolute-center"><h1>Available</h1></div>
-                        <div class="slds-col slds-size_1-of-5 slds-align_absolute-center"><h1>Prefered Location</h1></div>
+                        <div class="slds-col slds-size_1-of-5 slds-align_absolute-center"><h1>Preferred Location</h1></div>
                         <div class="slds-col slds-size_1-of-5 slds-align_absolute-center"><h1>Experienced</h1></div>
                     </div>
                     <!-- iteration to grab said columns stated earlier for each trainer -->
