@@ -28,8 +28,12 @@
             
         // Handles mass Approve
         handleApproveAll : function (component, event, helper) {
-            component.set("v.hasApprovedPTO", true);
             var rows = component.get('v.selectedPTOList');
+            if (rows === undefined || rows.length == 0){
+                component.set("v.hasApprovedPTO", false);
+            } else {
+                component.set("v.hasApprovedPTO", true);
+            }
             var rowsApproval = component.get('v.empCurrentPTODataset');
             var rowsPending = component.get('v.empFuturePTODataset');
             // loops through rowsPending, then loops through rows,
