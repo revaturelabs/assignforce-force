@@ -325,7 +325,7 @@
     },
     
     setExternalTrainerField: function(component, event, helper){
-        var externalTrainer = event.getParam("externalTrainerId");
+        var externalTrainer = event.getParam("ExternalTrainerId");
         component.set("v.ExternalTrainer",externalTrainer);
     },
     
