@@ -1,4 +1,24 @@
 ({
+    doInit :  function(component, event, helper){
+        var action = component.get("c.getExternalTrainerUser");
+        action.setCallback(this, function(response){
+           var state = response.getState();
+            if (component.isValid() && state === "SUCCESS") {
+               component.set("v.externalTrainerUser",response.getReturnValue());
+            } else if (state === "ERROR") {
+                component.set("v.externalTrainerUser",null);
+                var errors = response.getError();
+                if (errors) {
+                    if (errors[0] && errors[0].message) {
+                        console.log('Error message: ' + errors[0].message)
+                    }
+                }
+            } else {
+                console.log('Function callback error. Function call failed. {0002}');
+            }
+        });
+        $A.enqueueAction(action);
+    },
     /*----------------------------------------------------------
     				Clear Input Section
     ----------------------------------------------------------*/
@@ -326,7 +346,11 @@
     
     setExternalTrainerField: function(component, event, helper){
         var externalTrainer = event.getParam("ExternalTrainerId");
+        var externalTrainerUser = component.get("v.externalTrainerUser");
+        console.log('externalTrainerUser is  ' + JSON.stringify(externalTrainerUser));
         component.set("v.ExternalTrainer",externalTrainer);
+        component.set("v.trainer",externalTrainerUser['Id']);
+        console.log(component.get("v.trainer"));
     },
     
     /*----------------------------------------------------------

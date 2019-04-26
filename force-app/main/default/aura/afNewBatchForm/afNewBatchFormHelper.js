@@ -48,6 +48,7 @@
         component.set("v.startDate", null);
         component.set("v.numWeeks", 10);
         component.set("v.endDate", null);
+        component.set("v.capacity", 0);
         
 
 		this.partialClear(component, event);
