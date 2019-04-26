@@ -13,4 +13,13 @@
        
            helper.getData(component, event);
            },
+           
+     // Works with the component and helper to enable collapsible sections
+           sectionOne : function(component, event, helper) {
+           helper.helperFun(component,event,'externalHasCurrentBatches'); 
+           },
+           
+           sectionTwo : function(component, event, helper) {
+           helper.helperFun(component,event,'externalHasUpcomingBatches');
+    },
 })
