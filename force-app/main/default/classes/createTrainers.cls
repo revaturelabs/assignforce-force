@@ -1,3 +1,4 @@
+@isTest
 public class createTrainers {
 
     public static void createTrainers() {
