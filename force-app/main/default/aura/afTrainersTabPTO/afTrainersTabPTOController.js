@@ -1,114 +1,27 @@
 ({
     TrainersPTO : function (component, event, helper){
-        var actions = [
-            { label: 'Approve', name: 'Approve'},
-            { label: 'Reject', name: 'Reject'}
-        ]
         component.set('v.empPTORecordset', [
-            
+ 
             { label: 'Start Date', fieldName: 'startDate', type: 'date', sortable: 'true', initialWidth: '30px' },
             { label: 'End Date', fieldName: 'endDate', type: 'date', sortable: 'true' },
             { label: 'Status', fieldName: 'status', type: 'text', sortable: 'true'  },
             { label: 'Reason', fieldName: 'reason', type: 'text', sortable: 'true'},
-            { type: 'action', typeAttributes: { rowActions: actions}}
-            
+            // Changed: (type: 'action') to (type: 'button')
+            { type: 'button', typeAttributes: {label: 'Approve', name: 'Approve' }},
+            { type: 'button', typeAttributes: {label: 'Reject', name: 'Reject' }}
+ 
         ]);
         
         component.set('v.empPTORecordsetApproval', [
-            
+ 
             { label: 'Start Date', fieldName: 'startDate', type: 'date', sortable: 'true', initialWidth: '30px' },
             { label: 'End Date', fieldName: 'endDate', type: 'date', sortable: 'true' },
             { label: 'Status', fieldName: 'status', type: 'text', sortable: 'true'  },
             { label: 'Reason', fieldName: 'reason', type: 'text', sortable: 'true'},
-            
+ 
         ]);
             
             helper.getData(component, event);
-            },
-            
-            // Handles mass Approve
-            handleApproveAll : function (component, event, helper) {
-            var rows = component.get('v.selectedPTOList');
-            var rowsApproval = component.get('v.empCurrentPTODataset');
-            var rowsPending = component.get('v.empFuturePTODataset');
-            // loops through rowsPending, then loops through rows,
-            // compares rowsPending Id to rows Id
-            // If they are the same, splice that row out of rowsPending
-            for (var i = 0; i < rowsPending.length; i++){
-                for(var o = 0; o < rows.length; o++){
-                    if (rowsPending[i].Id == rows[o].Id){
-                        rowsPending.splice(i, 1);
-                    }
-                }
-            }
-            
-            var arg = [];
-            for (var i = 0; i < rows.length; i++){
-            	arg.push(rows[i].Id);
-        	}
-            
-            // do approval things
-            var apexAction = component.get("c.approvePTO");
-            apexAction.setParams({"ptoIdToApprove":arg});
-            apexAction.setCallback(this, function(response){
-            if(response.getState() === "SUCCESS") {
-                console.log('approved successfully');
-                for (var i = 0; i < rows.length; i++){
-                    console.log(rows[i].status);
-                    rows[i].status = 'Approved';
-                    console.log(rows[i].status);
-                    // Updates the Currect PTO tab on the trainers section
-                    rowsApproval.push(rows[i]);
-    			}
-    component.set('v.empCurrentPTODataset', rowsApproval);
-    // Removes row from the Upcoming PTO tab on the trainers section
-    component.set('v.empFuturePTODataset', rowsPending);
-} else {
- console.log(response.getError());
-}
-});
-$A.enqueueAction(apexAction);
-},
-    
-    // Handles mass reject
-    handleRejectAll : function (component, event, helper) {
-        var rows = component.get('v.selectedPTOList');
-        var rowsPending = component.get('v.empFuturePTODataset');
-        // loops through rowsPending, then loops through rows,
-        // compares rowsPending Id to rows Id
-        // If they are the same, splice that row out of rowsPending
-        for (var i = 0; i < rowsPending.length; i++){
-            for(var o = 0; o < rows.length; o++){
-                if (rowsPending[i].Id == rows[o].Id){
-                    rowsPending.splice(i, 1);
-                }
-            }
-        }
-        // do rejection things
-        var arg = [];
-            for (var i = 0; i < rows.length; i++){
-            	arg.push(rows[i].Id);
-        	}
-        
-        var apexAction = component.get("c.rejectPTO");
-        apexAction.setParams({"ptoIdToReject":arg});
-        apexAction.setCallback(this, function(response){
-            if(response.getState() === "SUCCESS") {
-                console.log('rejected successfully');
-                for (var i = 0; i < rows.length; i++){
-                    console.log(rows[i].status);
-                    rows[i].status = 'Rejected';
-                    console.log(rows[i].status);
-                }
-                // Updates the PTO Pending Approval Tab
-                component.set('v.empFuturePTODataset', rowsPending);
-            } else {
-                console.log(response.getError());
-            }
-        });
-        
-        $A.enqueueAction(apexAction);
-        
     },
         
         handleRowAction : function (component, event, helper) {
@@ -177,4 +90,4 @@ $A.enqueueAction(apexAction);
         component.set('v.selectedPTOList', selectedRows);
         console.log('selectedPTOList: ' + JSON.stringify(component.get('v.selectedPTOList')));
     }
-})
+ })

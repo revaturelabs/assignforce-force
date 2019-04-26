@@ -109,5 +109,5 @@
             selectedLocation : locationChosen
         });
         filterEvent.fire();
-    }
+    }, 
 })
