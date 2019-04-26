@@ -20,21 +20,24 @@
     },
     
     onSuccess : function(component, event, helper) {
+        // the batch can be created with empty training track and trainer, evaluate what to fill in using conditions.
         if (!component.get("v.track") || !component.get("v.trainer")) {
             if (!component.get("v.track") && !(!component.get("v.trainer"))) {
-                // display toast warning user for not completing the submission
+                // display toast warning user for not completing the Training Track field
                 var toastEvent = $A.get("e.force:showToast");
                 
                 toastEvent.setParams({
                     duration: '2000',
                     title: "Info",
-                    message: "Train track left empty, they've been set to default Java.", 
+                    messageTemplate: 'Training track was left empty, it has been set to default - {0}.',
+                    messageTemplateData: ['Full Stack Java/JEE'],
+                    message: "Training track was left empty, it has been set to default - Full Stack Java/JEE.", 
                     type: "info"
                 });
                 toastEvent.fire();
                 
                 var newBatch = [{
-                    TrainingTrack__c        : "Java",
+                    TrainingTrack__c        : "a072E00000W4gsMQAR",
                     StartDate__c            : component.get("v.startDate"),
                     EndDate__c              : component.get("v.endDate"),
                     Trainer__c              : component.get("v.trainer"),
@@ -71,13 +74,15 @@
                 
                 newBatchEvent.fire();
             } else if (!component.get("v.trainer") && !(!component.get("v.track"))) {
-                // display toast warning user for not completing the submission
+                // display toast warning user for not completing the Trainer field
                 var toastEvent = $A.get("e.force:showToast");
                 
                 toastEvent.setParams({
                     duration: '2000',
                     title: "Info",
-                    message: "Trainer left empty, they've been set to default External Trainer", 
+                    messageTemplate: 'Trainer was left empty, it has been set to default - {0}.',
+                    messageTemplateData: ['External Trainer'],
+                    message: "Trainer was left empty, it has been set to default - External Trainer", 
                     type: "info"
                 });
                 toastEvent.fire();
@@ -88,7 +93,7 @@
                     EndDate__c              : component.get("v.endDate"),
                     Trainer__c              : component.get("v.trainer"),
                     CoTrainer__c            : component.get("v.cotrainer"),
-                    External_Trainer__c     : "a002E00000ZYOazQAH",
+                    External_Trainer__c     : "a002E00000ZYObBQAX",
                     TrainingLocation__c     : component.get("v.location"),
                     TrainingRoom__c         : component.get("v.room"),
                     Status__c               : component.get("v.status"),
@@ -120,24 +125,26 @@
                 
                 newBatchEvent.fire();
             } else if (!component.get("v.trainer") && !component.get("v.track")) {
-                // display toast warning user for not completing the submission
+                // display toast warning user for not completing the training track and trainer field
                 var toastEvent = $A.get("e.force:showToast");
                 
                 toastEvent.setParams({
                     duration: '2000',
                     title: "Info",
-                    message: "Both Train Track and Trainer left empty, Trainer is set to external and Track is set to Java", 
+                    messageTemplate: 'Both Training track and trainer was left empty, it has been set to default - {0} and {1}.',
+                    messageTemplateData: ['Full Stack Java/JEE','External Trainer'],
+                    message: "Both Training track and trainer was left empty, it has been set to default - Full Stack Java/JEE and External Trainer.", 
                     type: "info"
                 });
                 toastEvent.fire();
                 
                 var newBatch = [{
-                    TrainingTrack__c        : component.get("v.track"),
+                    TrainingTrack__c        : "a072E00000W4gsMQAR",
                     StartDate__c            : component.get("v.startDate"),
                     EndDate__c              : component.get("v.endDate"),
                     Trainer__c              : component.get("v.trainer"),
                     CoTrainer__c            : component.get("v.cotrainer"),
-                    External_Trainer__c     : component.get("v.ExternalTrainer"),
+                    External_Trainer__c     : "a002E00000ZYObBQAX",
                     TrainingLocation__c     : component.get("v.location"),
                     TrainingRoom__c         : component.get("v.room"),
                     Status__c               : component.get("v.status"),
