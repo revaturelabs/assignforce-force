@@ -1,4 +1,5 @@
 <aura:component >
+    <!-- Compoent for use in afAvailabilityListContainer -->
     <aura:attribute name="externalTrainerWrapper" type="afTrainerAvailSortingWrapper" />
     <aura:attribute name="available" type="Boolean" />
     <aura:attribute name="hasSkill" type="Boolean" />
@@ -32,9 +33,9 @@
             </div>
             <div class="slds-col slds-size_1-of-5 slds-align_absolute-center">
                 <aura:if isTrue="{!v.externalTrainerWrapper.hasSkill}">
-                    <lightning:icon iconName="utility:check" alternativeText="Available" size="small"/>
+                    <lightning:icon iconName="utility:check" alternativeText="Experienced" size="small"/>
                     <aura:set attribute="else">
-						<lightning:icon iconName="utility:clear" alternativeText="Not Available" size="small" variant="error"/>
+						<lightning:icon iconName="utility:clear" alternativeText="Not Experienced" size="small" variant="error"/>
                         </aura:set>
                 </aura:if>
             </div>

@@ -55,10 +55,14 @@ public class afTrainingTriggerHelperTest {
         //Create a training with the trainer and cotrainer
         //Trainer has skill for this track
         //Cotrainer does NOT have skill for this track
+        Date startDate = UtilityMethods.createStartDateData(1).get(0);
+        Date endDate = startDate.addDays(70).toStartOfWeek().addDays(5);
         Training__c trainingA = new Training__c(Trainer__c = trainer.id,
                                                CoTrainer__c = cotrainer.id,
                                                TrainingTrack__c = track.id,
                                                TrainingLocation__c = loc.id,
+                                               StartDate__c = startDate,
+                                               EndDate__c = endDate,
                                                Status__c = 'Completed');
         insert trainingA;
 
@@ -70,6 +74,8 @@ public class afTrainingTriggerHelperTest {
                                                CoTrainer__c = cotrainer.id,
                                                TrainingTrack__c = track2.id,
                                                TrainingLocation__c = loc.id,
+                                               StartDate__c = startDate,
+                                               EndDate__c = endDate,
                                                Status__c = 'Completed');
         insert trainingB;
 
@@ -109,12 +115,16 @@ public class afTrainingTriggerHelperTest {
                                                     CoTrainer__c = trainers.get(i + 1).id,
                                                     TrainingTrack__c = tracks.get(i).id,
                                                     TrainingLocation__c = loc.id,
+                                                    StartDate__c = startDate,
+                                               		EndDate__c = endDate,
                                                     Status__c = 'Completed');
             trainings.add(training1);
             Training__c training2 = new Training__c(Trainer__c = trainers.get(i + 1).id,
                                                     CoTrainer__c = trainers.get(i).id,
                                                     TrainingTrack__c = tracks.get(i).id,
                                                     TrainingLocation__c = loc.id,
+                                                    StartDate__c = startDate,
+                                               		EndDate__c = endDate,
                                                     Status__c = 'Completed');
             trainings.add(training2);
         }

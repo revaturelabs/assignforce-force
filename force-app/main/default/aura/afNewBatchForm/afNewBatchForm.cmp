@@ -119,11 +119,17 @@
                        description="Populate the Room field when a room
                        is selected from the availability list"
   />
-   <aura:handler 		name="change"     value="{!v.track}"        	            action="{!c.updateAvailabilityOnChange}"/>
-   <aura:handler 		name="change"     value="{!v.startDate}"        	      action="{!c.updateAvailabilityOnChange}"/>
-   <aura:handler 		name="change"     value="{!v.numWeeks}"        	         action="{!c.updateAvailabilityOnChange}"/>
-   <aura:handler 		name="change"     value="{!v.trainer}"        	         action="{!c.updateAvailabilityOnChange}"/>
-   <aura:handler 		name="change"     value="{!v.location}"        	         action="{!c.updateAvailabilityOnChange}"/>
+
+   <aura:handler      event="c:ExternalTrainerSelected"             
+                       action="{!c.setExternalTrainerField}"
+                       description="Populate the External Trainer and Trainer fields when a trainer
+                       is selected from the availability list"
+  />
+    
+   <aura:handler 		name="change"     value="{!v.track}"        	         action="{!c.changeTrack}"/>
+   <aura:handler 		name="change"     value="{!v.startDate}"        	     action="{!c.changeDate}"/>
+   <aura:handler 		name="change"     value="{!v.numWeeks}"        	         action="{!c.changeDate}"/>
+   <aura:handler 		name="change"     value="{!v.location}"        	         action="{!c.changeLocation}"/>
    
 
    <!-- Component Content: Black Create a New Batch Bar with buttons -->

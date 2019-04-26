@@ -19,3 +19,8 @@
     color: #F26925;
     margin-top: 10px;
 }
+
+.cAfTrainerInformation > div > div > form > div > lightning-messages {
+    display: none;
+	visibility: hidden; 
+}

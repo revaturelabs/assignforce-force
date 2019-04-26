@@ -102,12 +102,12 @@
         var location = event.getParam("selectedLocation");
         var startBatch = event.getParam("startOfBatch");
         var endBatch = event.getParam("endOfBatch");
+        var track = event.getParam("chosenTrack");
 
         /*-----------------------------------------------------------------------------
                                     User Input Sort Trainers
         -----------------------------------------------------------------------------*/
-
-        var track = event.getParam("chosenTrack");
+        
         
         //FOR DEBUGGING EVENT PASSED PARAMETERS
         //console.log("EVENT INFO: " + typeof track + " ; " + startBatch + " ; " + endBatch + " ; " + location);
@@ -169,8 +169,11 @@
             }
         });
         $A.enqueueAction(filterControllerRoom);
+		
+        /*-------------------
+            Sort External Trainers
+        --------------------*/
 
-        //Sort External Trianers
         
         var externalTrainerSort = component.get("c.sortExternalTrainersBySelectedCategories");
         externalTrainerSort.setParams({

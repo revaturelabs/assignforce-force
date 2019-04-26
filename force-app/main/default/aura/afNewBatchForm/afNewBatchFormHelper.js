@@ -99,5 +99,16 @@
                 }
             }
         } 
-    }
+    },
+    
+    fireNewBatchFormEvent : function(trackChosen, startBatch, endBatch, locationChosen) {
+        var filterEvent = $A.get("e.c:afNewBatchFormEvent");
+        filterEvent.setParams({
+            chosenTrack : trackChosen,
+            startOfBatch : startBatch,
+            endOfBatch : endBatch,
+            selectedLocation : locationChosen
+        });
+        filterEvent.fire();
+    }, 
 })
