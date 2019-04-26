@@ -16,7 +16,6 @@
     <aura:attribute name="hasApprovedPTO"                     type="Boolean"     default="true" description="A boolean used to represent whether a trainer has any batches scheduled" />
     <aura:attribute name="hasUpcomingPTO"                     type="Boolean"     default="true" description="A boolean used to represent whether a trainer has any batches scheduled" />
 
-
    <!--HANDLERS-->
    <aura:handler event="c:TrainerSelected" action="{!c.TrainersPTO}"/>
 
@@ -35,11 +34,11 @@
                         <aura:if isTrue="{!v.hasApprovedPTO}">
                             <span>
                                 <lightning:dataTable
-
                                     data="{!v.empCurrentPTODataset}"
-                                    columns="{!v.empPTORecordset}"
+                                    columns="{!v.empPTORecordsetApproval}"
                                     keyField="id"
                                     aura:id="empDataTable"
+                                    hideCheckboxColumn="true"
                                     description="data table to reflect batches associated with a specific trainer"
                                     />
                             </span>
@@ -54,6 +53,7 @@
            </div>
        </div>
 
+       
        <div class="slds-grid slds-wrapper">
            <div class="slds-size_1-of-1">
                 <lightning:card>
@@ -72,12 +72,12 @@
                         <aura:if isTrue="{!v.hasUpcomingPTO}">
                             <span>
                                 <lightning:dataTable
-
                                     data="{!v.empFuturePTODataset}"
                                     columns="{!v.empPTORecordset}"
                                     keyField="id"
                                     aura:id="empDataTables"
                                     onrowaction="{! c.handleRowAction }"
+                                    onrowselection="{! c.updateSelectedPTOList }"
                                     description="data table to reflect batches associated with a specific trainer"
                                     />
                             </span>
