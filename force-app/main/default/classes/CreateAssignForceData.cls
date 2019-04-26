@@ -153,9 +153,6 @@ public class CreateAssignForceData {
         update users;
     }
 
-insert roomsToCreate;
-}
-
     public static void createTrainers() {
         List<String> lastNames = new List<String> {'Alagna', 'Bonds', 'Colson', 'Donnelly', 'Goshorn', 'Greer', 'Higgens', 'Hill', 'Jurczak',
             'Knighten', 'Kumar', 'Lessley', 'Orr', 'Rehm', 'Trainer'};
