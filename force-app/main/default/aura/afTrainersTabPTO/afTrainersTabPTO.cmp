@@ -38,6 +38,7 @@
                                     columns="{!v.empPTORecordsetApproval}"
                                     keyField="id"
                                     aura:id="empDataTable"
+                                    hideCheckboxColumn="true"
                                     description="data table to reflect batches associated with a specific trainer"
                                     />
                             </span>
@@ -52,6 +53,7 @@
            </div>
        </div>
 
+       
        <div class="slds-grid slds-wrapper">
            <div class="slds-size_1-of-1">
                 <lightning:card>
@@ -75,6 +77,7 @@
                                     keyField="id"
                                     aura:id="empDataTables"
                                     onrowaction="{! c.handleRowAction }"
+                                    onrowselection="{! c.updateSelectedPTOList }"
                                     description="data table to reflect batches associated with a specific trainer"
                                     />
                             </span>
