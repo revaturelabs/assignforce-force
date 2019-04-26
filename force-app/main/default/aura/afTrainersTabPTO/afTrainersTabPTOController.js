@@ -1,24 +1,26 @@
 ({
     TrainersPTO : function (component, event, helper){
+        var actions = [
+            { label: 'Approve', name: 'Approve'},
+            { label: 'Reject', name: 'Reject'}
+        ]
         component.set('v.empPTORecordset', [
- 
+            
             { label: 'Start Date', fieldName: 'startDate', type: 'date', sortable: 'true', initialWidth: '30px' },
             { label: 'End Date', fieldName: 'endDate', type: 'date', sortable: 'true' },
             { label: 'Status', fieldName: 'status', type: 'text', sortable: 'true'  },
             { label: 'Reason', fieldName: 'reason', type: 'text', sortable: 'true'},
-            // Changed: (type: 'action') to (type: 'button')
-            { type: 'button', typeAttributes: {label: 'Approve', name: 'Approve' }},
-            { type: 'button', typeAttributes: {label: 'Reject', name: 'Reject' }}
- 
+            { type: 'action', typeAttributes: { rowActions: actions}}
+            
         ]);
         
         component.set('v.empPTORecordsetApproval', [
- 
+            
             { label: 'Start Date', fieldName: 'startDate', type: 'date', sortable: 'true', initialWidth: '30px' },
             { label: 'End Date', fieldName: 'endDate', type: 'date', sortable: 'true' },
             { label: 'Status', fieldName: 'status', type: 'text', sortable: 'true'  },
             { label: 'Reason', fieldName: 'reason', type: 'text', sortable: 'true'},
- 
+            
         ]);
             
         helper.getData(component, event);
@@ -26,8 +28,12 @@
             
         // Handles mass Approve
         handleApproveAll : function (component, event, helper) {
-            component.set("v.hasApprovedPTO", true);
             var rows = component.get('v.selectedPTOList');
+            if (rows === undefined || rows.length == 0){
+                component.set("v.hasApprovedPTO", false);
+            } else {
+                component.set("v.hasApprovedPTO", true);
+            }
             var rowsApproval = component.get('v.empCurrentPTODataset');
             var rowsPending = component.get('v.empFuturePTODataset');
             // loops through rowsPending, then loops through rows,
