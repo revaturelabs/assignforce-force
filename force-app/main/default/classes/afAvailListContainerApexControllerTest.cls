@@ -56,10 +56,10 @@ public class afAvailListContainerApexControllerTest {
 
         //Update trainers so four trainers are at each of the 13 locations
         for (Integer i = 0; i < 13; i++){
-            trainers.get(i).Preferred_Location__c = locations.get(i).OfficeName__c;
-            trainers.get(i + 13).Preferred_Location__c = locations.get(i).OfficeName__c;
-            trainers.get(i + 26).Preferred_Location__c = locations.get(i).OfficeName__c;
-            trainers.get(i + 39).Preferred_Location__c = locations.get(i).OfficeName__c;
+            trainers.get(i).CurrentLocation__c = locations.get(i).OfficeName__c;
+            trainers.get(i + 13).CurrentLocation__c = locations.get(i).OfficeName__c;
+            trainers.get(i + 26).CurrentLocation__c = locations.get(i).OfficeName__c;
+            trainers.get(i + 39).CurrentLocation__c = locations.get(i).OfficeName__c;
         }
         update trainers;
 

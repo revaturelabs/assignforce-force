@@ -41,7 +41,6 @@
     onSubmit : function(component, event, helper) {
         event.preventDefault();
         var fields = event.getParam('fields');
-        console.log("Fields: " + fields);
         component.find('currentUserInfo').submit(fields);
     },
     
@@ -57,11 +56,5 @@
     
     isRefreshed: function(component, event, helper) {
         location.reload();
-    },
-    
-    onError: function(component, event, helper) {
-        console.log('onError');
-        var error = event.getParam("error");
-        console.log("error message: " + error.message);
     },
 })

@@ -176,6 +176,5 @@ $A.enqueueAction(apexAction);
         // Sets 'selectedPTOList' component attribute to the list of selected rows
         component.set('v.selectedPTOList', selectedRows);
         console.log('selectedPTOList: ' + JSON.stringify(component.get('v.selectedPTOList')));
-        
     }
 })

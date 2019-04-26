@@ -1,3 +1,4 @@
+@isTest
 public class CreateAssignForceData {
     
     public static void createTrainingLocations(){
@@ -151,8 +152,6 @@ public class CreateAssignForceData {
         }
         update users;
     } 
-    
-}
 
 
     public static void createTrainers() {
@@ -177,4 +176,3 @@ public class CreateAssignForceData {
         insert trainers;
     }
 }
-
