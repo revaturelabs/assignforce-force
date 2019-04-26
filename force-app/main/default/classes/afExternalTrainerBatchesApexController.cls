@@ -86,5 +86,5 @@ public class afExternalTrainerBatchesApexController {
         update updatedBatches;
         
     }
-
+    
 }
