@@ -193,7 +193,7 @@ public class afTimelineController {
             // Mark the series as distinct from training track
             tdw.series = 'PTO';
             tdw.location = 'PTO';
-            tdw.color = 'Gray';
+            tdw.color = 'Black';
             tdw.trainerName = pto.Trainer__r.Name;
             trainerData.add(tdw);
         }

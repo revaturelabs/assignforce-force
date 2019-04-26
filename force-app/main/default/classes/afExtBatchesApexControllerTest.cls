@@ -62,7 +62,8 @@ public class afExtBatchesApexControllerTest {
                                               FROM Training__c
                                               ORDER BY StartDate__c];
 
-        newTrainingsList[0].StartDate__c = null;
+        //Case removed, StartDate__c is now required
+        //newTrainingsList[0].StartDate__c = null;
 
         //record EndDate to later assert
         Date nullTest = newTrainingsList[0].EndDate__c;
@@ -73,8 +74,9 @@ public class afExtBatchesApexControllerTest {
 
         system.assertEquals(newTrainingsList.size(), afExternalTrainerBatchesApexController.AllExternalTrainings.size());
 
+        //Case removed, StartDate__c is now required
         //negative case, start date = null, assert that the end date is a day before when it began
-        system.assertEquals(nullTest.addDays(-1),newTrainingsList[0].EndDate__c);
+        //system.assertEquals(nullTest.addDays(-1),newTrainingsList[0].EndDate__c);
 
         //test get trainers by id
         External_Trainer__c testUser = [SELECT id FROM External_Trainer__c LIMIT 1];

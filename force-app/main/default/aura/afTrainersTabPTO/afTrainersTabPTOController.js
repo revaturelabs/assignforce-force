@@ -23,61 +23,71 @@
             
             helper.getData(component, event);
     },
- 
-    handleRowAction : function (component, event, helper) {
-         var action = event.getParam('action');
-         var row = event.getParam('row');
-         var rows = component.get('v.empFuturePTODataset');
-         var rowsApproval = component.get('v.empCurrentPTODataset');
-         var rowIndex = rows.indexOf(row);
-         var arg = rows[rowIndex].Id;
-         console.log(rowIndex);
-         console.log(rows[rowIndex]);
-         console.log(arg);
- 
-         var id = component.get('v.userId');
- 
-         switch(action.name) {
-             case 'Approve':
-                 // do approval things
-                 var apexAction = component.get("c.approvePTO");
-                 apexAction.setParams({"ptoIdToApprove":arg});
-                 apexAction.setCallback(this, function(response){
-                     if(response.getState() === "SUCCESS") {
-                         console.log('approved successfully');
-                         console.log(rows[rowIndex].status);
-                         rows[rowIndex].status = 'Approved';
-                         console.log(rows[rowIndex].status);
-                         // Updates the Currect PTO tab on the trainers section
-                         rowsApproval.push(rows[rowIndex]);
-                         component.set('v.empCurrentPTODataset', rowsApproval);
-                     } else {
-                         console.log(response.getError());
-                     }
-                     // Removes row from the Upcoming PTO tab on the trainers section
-                     if(response.getState() === "SUCCESS"){rows.splice(rowIndex, 1);
-                                                           component.set('v.empFuturePTODataset', rows);}
-                 });
-                 $A.enqueueAction(apexAction);
-                 break;
-             case 'Reject':
-                 // do rejection things
-                 var apexAction = component.get("c.rejectPTO");
-                 apexAction.setParams({"ptoIdToReject":arg});
-                 apexAction.setCallback(this, function(response){
-                     if(response.getState() === "SUCCESS") {
-                         console.log('rejected successfully');
-                         console.log(rows[rowIndex].status);
-                         rows[rowIndex].status = 'Rejected';
-                         console.log(rows[rowIndex].status);
-                         rows.splice(rowIndex, 1);
-                         component.set('v.empFuturePTODataset', rows);
-                     } else {
-                         console.log(response.getError());
-                     }
-                 });
-                 $A.enqueueAction(apexAction);
-                 break;
-         }
+        
+        handleRowAction : function (component, event, helper) {
+            var action = event.getParam('action');
+            var row = event.getParam('row');
+            var rows = component.get('v.empFuturePTODataset');
+            var rowsApproval = component.get('v.empCurrentPTODataset');
+            var rowIndex = rows.indexOf(row);
+            var arg = rows[rowIndex].Id;
+            console.log(rowIndex);
+            console.log(rows[rowIndex]);
+            console.log(arg);
+            
+            var id = component.get('v.userId');
+            
+            switch(action.name) {
+                case 'Approve':
+                    // do approval things
+                    var apexAction = component.get("c.approvePTO");
+                    apexAction.setParams({"ptoIdToApprove":arg});
+                    apexAction.setCallback(this, function(response){
+                        if(response.getState() === "SUCCESS") {
+                            console.log('approved successfully');
+                            console.log(rows[rowIndex].status);
+                            rows[rowIndex].status = 'Approved';
+                            console.log(rows[rowIndex].status);
+                            // Updates the Currect PTO tab on the trainers section
+                            rowsApproval.push(rows[rowIndex]);
+                            // Updates the PTO Pending Approval Tab
+                            component.set('v.empCurrentPTODataset', rowsApproval);
+                        } else {
+                            console.log(response.getError());
+                        }
+                        // Removes row from the Upcoming PTO tab on the trainers section
+                        if(response.getState() === "SUCCESS"){rows.splice(rowIndex, 1);
+                                                              component.set('v.empFuturePTODataset', rows);}
+                    });
+                    $A.enqueueAction(apexAction);
+                    break;
+                case 'Reject':
+                    // do rejection things
+                    var apexAction = component.get("c.rejectPTO");
+                    apexAction.setParams({"ptoIdToReject":arg});
+                    apexAction.setCallback(this, function(response){
+                        if(response.getState() === "SUCCESS") {
+                            console.log('rejected successfully');
+                            console.log(rows[rowIndex].status);
+                            rows[rowIndex].status = 'Rejected';
+                            console.log(rows[rowIndex].status);
+                            rows.splice(rowIndex, 1);
+                            component.set('v.empFuturePTODataset', rows);
+                        } else {
+                            console.log(response.getError());
+                        }
+                    });
+                    $A.enqueueAction(apexAction);
+                    break;
+            }
+        },
+    
+    // Gets selected rows and stores them in a list
+    updateSelectedPTOList : function (component, event, helper) {
+        var selectedRows = event.getParam('selectedRows');
+        console.log('selectedRows: ' + JSON.stringify(selectedRows));
+        // Sets 'selectedPTOList' component attribute to the list of selected rows
+        component.set('v.selectedPTOList', selectedRows);
+        console.log('selectedPTOList: ' + JSON.stringify(component.get('v.selectedPTOList')));
     }
  })

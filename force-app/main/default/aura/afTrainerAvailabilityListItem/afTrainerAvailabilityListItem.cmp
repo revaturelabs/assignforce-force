@@ -31,8 +31,16 @@
                 </aura:if>  
                 
             </div>
+<<<<<<< HEAD
             <div class="slds-col slds-size_2-of-6 slds-align_absolute-center">
+=======
+            <div class="slds-col slds-size_1-of-5 slds-align_absolute-center">
+<<<<<<< HEAD
+>>>>>>> 022519Salesforce
                 <lightning:outputField fieldName="Preferred_Location__c" variant="label-hidden"/><!--figure out how to set up the locations-->
+=======
+                <lightning:outputField fieldName="CurrentLocation__c" variant="label-hidden"/><!--figure out how to set up the locations-->
+>>>>>>> 8b10caca2125ba88703715bdc9bcadffb019e981
             </div>
             <div class="slds-col slds-size_1-of-6 slds-align_absolute-center">
                 <!-- change this to checkbox if the trainer has the skill selected in create batch-->

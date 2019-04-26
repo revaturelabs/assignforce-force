@@ -51,7 +51,7 @@ public class createTrainers {
         List<String> lastNames = new List<String> {'Mowbray', 'Rivers', 'Aufidius', 'Tyrrell', 'Ratcliffe', 'Andronicus', 'Montague', 'Lepidus', 'Brutus', 'Gurney', 'Bates', 'Lovell', 'Blunt'};
         List<String> firstNames = new List<String> {'Achilles', 'Donalbain', 'George', 'Hugh', 'Adriano', 'Mortimer', 'Caphis', 'Juno', 'Lychorinda', 'Alice', 'Silvia', 'Volumnia', 'Anna'};
         List<String> skills = new List<String>{'Appian BPM', 'Big Data/Hadoop', 'Business Analyst', 'Dynamics CRM', 'ETL/Informatics', 'Full Stack Java/JEE', 'Full Stack JTA', 'Microservices', 'Oracle Fusion Middleware', 'Other', 'Pega', 'Salesforce', 'System Admin', 'Web Tools'};
-            List<String> locations = new List<String>{'Fairfax', 'SPS', 'Reston', 'UTA-ERB', 'USF-NEC', 'ASU', 'WVU-CBE', 'Queens', 'USF-SOC', 'Online', 'USF-BSN', 'UTA-PRS', 'UTA-K'};
+        List<String> locations = new List<String>{'Fairfax', 'SPS', 'Reston', 'UTA-ERB', 'USF-NEC', 'ASU', 'WVU-CBE', 'Queens', 'USF-SOC', 'Online', 'USF-BSN', 'UTA-PRS', 'UTA-K'};
         
             
         List<External_Trainer__c> trainers = new List<External_Trainer__c>();
@@ -60,9 +60,12 @@ public class createTrainers {
             External_Trainer__c newTrainer = new External_Trainer__c();
             newTrainer.First_Name__c = firstNames[i];
             newTrainer.Last_Name__c = lastNames[i];
+            newTrainer.Name = firstNames[i] + ' ' + lastNames[i];
+            newTrainer.Training_Skills__c = skills[Integer.valueof((Math.random() * skills.size()))];
+            newTrainer.Current_Location__c = locations[Integer.valueof((Math.random() * locations.size()))];
+            newTrainer.Preferred_Location__c = locations[Integer.valueof((Math.random() * locations.size()))];
             trainers.add(newTrainer);
         }
-        
         insert trainers;
     }
 }
