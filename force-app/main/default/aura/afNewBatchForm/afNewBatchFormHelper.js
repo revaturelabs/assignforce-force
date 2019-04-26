@@ -34,7 +34,6 @@
     },
     
     fullClear : function(component, event) {   
-        
         // refresh the aura:if containing the recordEditForm
         component.set("v.uncleared", false);        
         // reset Location ltng:select to start with an empty value
@@ -50,6 +49,7 @@
         component.set("v.numWeeks", 10);
         component.set("v.endDate", null);
         
+
 		this.partialClear(component, event);
     },
     
@@ -109,5 +109,5 @@
             selectedLocation : locationChosen
         });
         filterEvent.fire();
-    }
+    }, 
 })

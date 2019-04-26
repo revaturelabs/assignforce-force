@@ -1,3 +1,4 @@
+@isTest
 public class CreateAssignForceData {
     
     public static void createTrainingLocations(){
@@ -152,6 +153,7 @@ public class CreateAssignForceData {
         update users;
     } 
 
+
     public static void createTrainers() {
         List<String> lastNames = new List<String> {'Alagna', 'Bonds', 'Colson', 'Donnelly', 'Goshorn', 'Greer', 'Higgens', 'Hill', 'Jurczak',
             'Knighten', 'Kumar', 'Lessley', 'Orr', 'Rehm', 'Trainer'};
@@ -174,4 +176,3 @@ public class CreateAssignForceData {
         insert trainers;
     }
 }
-

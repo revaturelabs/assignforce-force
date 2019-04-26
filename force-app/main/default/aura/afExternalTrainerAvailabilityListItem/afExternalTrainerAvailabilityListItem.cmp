@@ -1,35 +1,43 @@
 <aura:component >
+    <!-- Compoent for use in afAvailabilityListContainer -->
     <aura:attribute name="externalTrainerWrapper" type="afTrainerAvailSortingWrapper" />
+    <aura:attribute name="available" type="Boolean" />
+    <aura:attribute name="hasSkill" type="Boolean" />
+    <aura:attribute name="name" type="String" />
+    <aura:attribute name="preferredLocation" type="String" />
+    <aura:attribute name="externalTrainerUserId" type="ID" />
     
+    <aura:registerEvent name="externalTrainerSelected" type="c:ExternalTrainerSelected" />
+     
     <div class="slds-grid" style="padding-top: 10px;">
             <div class="slds-col slds-size_1-of-5">
                 <div class="slds-align_absolute-center">
-                    <lightning:button class="btnSelect" label="Select" onclick="{!c.selectedExternalTrainer}"/>
+                    <lightning:button class="btnSelect" label="Select" onclick="{!c.selectIsClicked}"/>
                 </div>
             </div>
             <div class="slds-col slds-size_1-of-5 slds-align_absolute-center">
-                <lightning:outputField fieldName="trainer.Name" variant="label-hidden"/>
-            </div>
-            <div class="slds-col slds-size_1-of-5 slds-align_absolute-center">
-                <lightning:outputField fieldName="trainer.Preferred_Location__c" variant="label-hidden"/>
+                <lightning:formattedName firstName="{!v.externalTrainerWrapper.trainerFirstName}" lastName="{!v.externalTrainerWrapper.trainerLastName}" />
             </div>
             <div class="slds-col slds-size_1-of-5 slds-align_absolute-center">
                 <!-- Nested if-else statment to display the proper icon for the room's availability -->
-                <aura:if isTrue="{!v.isYes}">
+                <aura:if isTrue="{!v.externalTrainerWrapper.available}">
                     <lightning:icon iconName="utility:check" alternativeText="Available" size="small"/>
                     <aura:set attribute="else">
-                        <aura:if isTrue="{!v.isRequest}">
-                            <lightning:icon iconName="utility:dash" alternativeText="Available" size="small"/>
-                            <aura:set attribute="else">
-                                <lightning:icon iconName="utility:clear" alternativeText="Not Available" size="small" variant="error"/>
-                            </aura:set>
-                        </aura:if>                    
-                    </aura:set>
+						<lightning:icon iconName="utility:clear" alternativeText="Not Available" size="small" variant="error"/>
+                        </aura:set>
                 </aura:if>  
                 
             </div>
+        	<div class="slds-col slds-size_1-of-5 slds-align_absolute-center">
+                {!v.externalTrainerWrapper.trainer.Preferred_Location__c}
+            </div>
             <div class="slds-col slds-size_1-of-5 slds-align_absolute-center">
-                <lightning:outputField fieldName="RoomCapacity__c" variant="label-hidden"/>
+                <aura:if isTrue="{!v.externalTrainerWrapper.hasSkill}">
+                    <lightning:icon iconName="utility:check" alternativeText="Experienced" size="small"/>
+                    <aura:set attribute="else">
+						<lightning:icon iconName="utility:clear" alternativeText="Not Experienced" size="small" variant="error"/>
+                        </aura:set>
+                </aura:if>
             </div>
         </div>
 </aura:component>

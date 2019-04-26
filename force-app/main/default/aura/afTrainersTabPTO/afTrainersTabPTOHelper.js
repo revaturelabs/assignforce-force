@@ -39,13 +39,10 @@
                 */
                 for(var i = 0; i < temp.length; i++)
                 {
-                    
                     if(temp[i].Status__c == 'Pending Approval' && temp[i].StartDate__c > currentDate)
                             {
                                 var tempFutureCounter = 0;
                                 tempFuture.push(temp[i]);
-                                
-                                
                             }
                 }
                 for(var i = 0; i < temp.length; i++)
