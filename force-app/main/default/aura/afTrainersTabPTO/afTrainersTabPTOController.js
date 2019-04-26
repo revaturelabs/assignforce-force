@@ -23,11 +23,12 @@
             
         ]);
             
-            helper.getData(component, event);
-            },
+        helper.getData(component, event);
+    },
             
-            // Handles mass Approve
-            handleApproveAll : function (component, event, helper) {
+        // Handles mass Approve
+        handleApproveAll : function (component, event, helper) {
+            component.set("v.hasApprovedPTO", true);
             var rows = component.get('v.selectedPTOList');
             var rowsApproval = component.get('v.empCurrentPTODataset');
             var rowsPending = component.get('v.empFuturePTODataset');
@@ -60,15 +61,19 @@
                     // Updates the Currect PTO tab on the trainers section
                     rowsApproval.push(rows[i]);
     			}
-    component.set('v.empCurrentPTODataset', rowsApproval);
-    // Removes row from the Upcoming PTO tab on the trainers section
-    component.set('v.empFuturePTODataset', rowsPending);
-} else {
- console.log(response.getError());
-}
-});
-$A.enqueueAction(apexAction);
-},
+                component.set('v.empCurrentPTODataset', rowsApproval);
+
+                if (rowsPending === undefined || rowsPending.length == 0){
+                    component.set("v.hasUpcomingPTO", false); 
+                }
+                // Removes row from the Upcoming PTO tab on the trainers section
+                component.set('v.empFuturePTODataset', rowsPending);
+            } else {
+                console.log(response.getError());
+            }
+        });
+        $A.enqueueAction(apexAction);
+    },
     
     // Handles mass reject
     handleRejectAll : function (component, event, helper) {
@@ -101,6 +106,9 @@ $A.enqueueAction(apexAction);
                     console.log(rows[i].status);
                 }
                 // Updates the PTO Pending Approval Tab
+                if (rowsPending === undefined || rowsPending.length == 0){
+                    component.set("v.hasUpcomingPTO", false); 
+                }
                 component.set('v.empFuturePTODataset', rowsPending);
             } else {
                 console.log(response.getError());
@@ -126,6 +134,7 @@ $A.enqueueAction(apexAction);
             
             switch(action.name) {
                 case 'Approve':
+                    component.set("v.hasApprovedPTO", true);    
                     // do approval things
                     var apexAction = component.get("c.approvePTO");
                     apexAction.setParams({"ptoIdToApprove":arg});
@@ -143,8 +152,12 @@ $A.enqueueAction(apexAction);
                             console.log(response.getError());
                         }
                         // Removes row from the Upcoming PTO tab on the trainers section
-                        if(response.getState() === "SUCCESS"){rows.splice(rowIndex, 1);
-                                                              component.set('v.empFuturePTODataset', rows);}
+                        if(response.getState() === "SUCCESS"){
+                            rows.splice(rowIndex, 1);
+                            if (rows === undefined || rows.length == 0){
+                                component.set("v.hasUpcomingPTO", false);   
+                            }
+                            component.set('v.empFuturePTODataset', rows);}
                     });
                     $A.enqueueAction(apexAction);
                     break;
@@ -159,6 +172,11 @@ $A.enqueueAction(apexAction);
                             rows[rowIndex].status = 'Rejected';
                             console.log(rows[rowIndex].status);
                             rows.splice(rowIndex, 1);
+                            if (rows === undefined || rows.length == 0){
+                                component.set("v.hasUpcomingPTO", false);   
+                            }
+                            var i = component.get("v.hasUpcomingPTO");
+                            console.log('has Upcoming: ' + i);
                             component.set('v.empFuturePTODataset', rows);
                         } else {
                             console.log(response.getError());
@@ -179,4 +197,12 @@ $A.enqueueAction(apexAction);
         
     },
 
+    // Works with the component and helper to enable collapsible sections
+    sectionOne : function(component, event, helper) {
+        helper.helperDisplay(component,event,'hasActiveBatches');
+     },
+            
+     sectionTwo : function(component, event, helper) {
+        helper.helperDisplay(component,event,'hasUpcomingBatches');
+     }, 
 })
