@@ -37,6 +37,9 @@
    <aura:attribute name="cotrainer"            
                    type="User" 
                    description="(Optional) co-trainer for the batch"/>
+    <aura:attribute name="externalTrainerUser"            
+                   	type="User" 
+                   	description="The external trainer user."/>
     
    <aura:attribute name="ExternalTrainer"      
                    type="External_Trainer__c" 
@@ -128,6 +131,7 @@
   
  
   <!-- Event Handlers -->
+    <aura:handler name="init" action="{!c.doInit}" value="{!this}"/>
   <aura:handler        event="c:TrainerSelected"             
                        action="{!c.setTrainerField}"
                        description="Populate the Trainer field when a trainer

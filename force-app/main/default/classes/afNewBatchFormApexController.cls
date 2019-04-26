@@ -1,4 +1,10 @@
 public class afNewBatchFormApexController {
+    
+    @AuraEnabled 
+    public static User getExternalTrainerUser(){
+        return [SELECT Id FROM User WHERE Name='External Trainer' LIMIT 1];
+    }
+    
     @AuraEnabled
 	public static List<Training_Room__c> filterRoomByLocation(String location, Double capacity, List<Training_Room__c> allRooms ){
 		// New list that will store filtered rooms 

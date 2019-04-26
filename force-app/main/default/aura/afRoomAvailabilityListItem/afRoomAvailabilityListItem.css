@@ -16,3 +16,7 @@
     color:black;
     font-family: 'Futura-Std-Bold';
 }
+
+.THIS .slds-grid {
+    text-align:center;
+}
