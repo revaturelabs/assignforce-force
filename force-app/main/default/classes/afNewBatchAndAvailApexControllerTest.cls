@@ -30,10 +30,11 @@ public class afNewBatchAndAvailApexControllerTest {
         System.runAs(trainers.get(0)) {
             insert tracks;
         }
-
+		
         //Create and Insert 200 Skills and Trainings using the above Trainers, Tracks and Locations
         List<Skill__c> skills = UtilityMethods.createSkillData(200,trainers,tracks);
-        List<Training__c> trainings = UtilityMethods.createTrainingsData(200,locations,trainers,new List<Date>{Date.newInstance(2019,3,18)},tracks);
+        List<Date> startDates = UtilityMethods.createStartDateData(1);
+        List<Training__c> trainings = UtilityMethods.createTrainingsData(200,locations,trainers,startDates,tracks);
         System.runAs(trainers.get(0)){
             insert rooms;
             insert skills;

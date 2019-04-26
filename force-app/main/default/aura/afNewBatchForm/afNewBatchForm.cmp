@@ -124,7 +124,7 @@
                        description="Event fires when a new batch is created"/>
   
  
-  <!-- Handlers -->
+  <!-- Event Handlers -->
   <aura:handler        event="c:TrainerSelected"             
                        action="{!c.setTrainerField}"
                        description="Populate the Trainer field when a trainer
@@ -133,31 +133,27 @@
   <aura:handler        event="c:roomSelected"                
                        action="{!c.setRoomField}"
                        description="Populate the Room field when a room
-                       is selected from the availability list"/>
-  
-   <aura:handler 		name="change"     
-                 		value="{!v.track}"        	            
-                 		action="{!c.updateAvailabilityOnChange}"/>
-   <aura:handler 		name="change"     
-                 		value="{!v.startDate}"        	      
-                 		action="{!c.updateAvailabilityOnChange}"/>
-   <aura:handler 		name="change"     
-                 		value="{!v.numWeeks}"        	         
-                 		action="{!c.updateAvailabilityOnChange}"/>
-   <aura:handler 		name="change"     
-                 		value="{!v.trainer}"        	         
-                 		action="{!c.updateAvailabilityOnChange}"/>
-   <aura:handler 		name="change"     
-                 		value="{!v.location}"        	         
-                 		action="{!c.updateAvailabilityOnChange}"/>
-    <aura:handler 		name="change"     
-                 		value="{!v.capacity}"        	         
-                 		action="{!c.updateAvailabilityOnChange}"/>
+
+    
+                       is selected from the availability list"
+  />
+
+   <aura:handler      event="c:ExternalTrainerSelected"             
+                       action="{!c.setExternalTrainerField}"
+                       description="Populate the External Trainer and Trainer fields when a trainer
+                       is selected from the availability list"
+  />
+    
+   <aura:handler 		name="change"     value="{!v.track}"        	         action="{!c.changeTrack}"/>
+   <aura:handler 		name="change"     value="{!v.startDate}"        	   action="{!c.changeDate}"/>
+   <aura:handler 		name="change"     value="{!v.numWeeks}"        	      action="{!c.changeDate}"/>
+   <aura:handler 		name="change"     value="{!v.location}"        	      action="{!c.changeLocation}"/>
+   <aura:handler 		name="change"     value="{!v.capacity}"        	      action="{!c.changeCapacity}"/>
    
 
    <!-- Component Content: Black Create a New Batch Bar with buttons -->
    <div class="slds-card">
-      <lightning:recordEditForm aura:id="newBatchForm" objectApiName="Training__c" onsuccess="{!c.onSuccess}">
+      <lightning:recordEditForm aura:id="newBatchForm" objectApiName="Training__c" onsuccess="{!c.onSuccess}" onerror="{!c.onError}">
          <lightning:messages/>
          <div class="slds-card__header">
             <header class="slds-media slds-media_center slds-has-flexi-truncate">

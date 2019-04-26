@@ -19,31 +19,72 @@
     <!-- aura:if is used determine whether both tables should render or a text based message-->
     <aura:if isTrue="{!v.hasBatches}" >
         <div class="slds-grid slds-wrapper">
-            <lightning:card title="Current Batches">
-                <lightning:dataTable
-                                     
-                                     data="{!v.empCurrentBatchDataset}"
-                                     columns="{!v.empBatchesRecordset}"
-                                     keyField="id"
-                                     aura:id="empDataTable"
-                                     hideCheckboxColumn="true"
-                                     description="data table to reflect batches associated with a specific trainer"
-                                     />
-            </lightning:card>
+            <div class="slds-size_1-of-1">
+                
+                <!-- First collapsible section - sectionOne  -->
+                <lightning:card title="Current Batches">
+                    <aura:set attribute="title">
+                        <a onclick="{!c.sectionOne}" class="slds-hide slds-text-link_reset" style="cursor:pointer" aura:id="hasActiveBatches">Current Batches</a>
+                        <a onclick="{!c.sectionOne}" class="slds-show slds-text-link_reset" style="cursor:pointer " aura:id="hasActiveBatches">Current Batches</a>
+                    </aura:set>
+                        
+                    <!-- This div is to identify what is going to be displayed and hid -->
+                    <div aura:id="hasActiveBatches" class="slds-show" >
+
+                        <!-- If there are table entries display the table, else display a sorry message -->
+                        <aura:if isTrue="{!v.hasCurrentBatch}" >
+                            <lightning:dataTable
+                                                data="{!v.empCurrentBatchDataset}"
+                                                columns="{!v.empBatchesRecordset}"
+                                                keyField="id"
+                                                aura:id="empDataTable"
+                                                hideCheckboxColumn="true"
+                                                description="data table to reflect batches associated with a specific trainer"
+                                                />
+                            <aura:set attribute="else">
+                                <div class="slds-size_1-of-1">
+                                    <h2 class="emptyBatchClass" >This Trainer does not have any Current Batches.</h2>
+                                </div>
+                            </aura:set>
+                        </aura:if>
+                    </div>
+
+                </lightning:card>
+            </div>
         </div>
         
         <div class="slds-grid slds-wrapper">
-            <lightning:card title="Upcoming Batches">
-                <lightning:dataTable
-                                     
-                                     data="{!v.empFutureBatchDataset}"
-                                     columns="{!v.empBatchesRecordset}"
-                                     keyField="id"
-                                     aura:id="empDataTables"
-                                     hideCheckboxColumn="true"
-                                     description="data table to reflect batches associated with a specific trainer"
-                                     />
-            </lightning:card>
+            <div class="slds-size_1-of-1">
+                
+                <!-- Second Collapsible section - sectionTwo -->
+                <lightning:card title="Upcoming Batches">
+                    <aura:set attribute="title">
+                        <a onclick="{!c.sectionTwo}" class="slds-hide slds-text-link_reset" style="cursor:pointer" aura:id="hasUpcomingBatches">Upcoming Batches</a>
+                        <a onclick="{!c.sectionTwo}" class="slds-show slds-text-link_reset" style="cursor:pointer " aura:id="hasUpcomingBatches">Upcoming Batches</a>
+                    </aura:set>
+
+                    <!-- This div is to identify what is going to be displayed and hid -->
+                    <div aura:id="hasUpcomingBatches" class="slds-show" >
+
+                        <!-- If there are table entries display the table, else display a sorry message -->
+                        <aura:if isTrue="{!v.hasUpcomingBatch}" >
+                            <lightning:dataTable
+                                                    data="{!v.empFutureBatchDataset}"
+                                                    columns="{!v.empBatchesRecordset}"
+                                                    keyField="id"
+                                                    aura:id="empDataTables"
+                                                    hideCheckboxColumn="true"
+                                                    description="data table to reflect batches associated with a specific trainer"
+                                                    />
+                            <aura:set attribute="else">
+                                <div class="slds-size_1-of-1">
+                                    <h2 class="emptyBatchClass" >This Trainer does not have any Upcoming Batches.</h2>
+                                </div>
+                            </aura:set>
+                        </aura:if>
+                    </div>
+                </lightning:card>
+            </div>
         </div>
         <aura:set attribute="else">
             <aura:if isTrue="{!v.hasSelected}">

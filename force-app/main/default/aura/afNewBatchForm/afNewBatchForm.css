@@ -19,3 +19,8 @@
     color: #F26925;
     margin-top: 10px;
 }
+
+.cAfNewBatchForm > div > form > lightning-messages {
+    display: none;
+	visibility: hidden; 
+}
