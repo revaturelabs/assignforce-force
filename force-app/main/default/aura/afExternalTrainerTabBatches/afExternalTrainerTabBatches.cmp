@@ -85,8 +85,7 @@
                                         <div class="slds-size_1-of-1 slds-show" aura:id="externalHasCurrentBatches">
                                             <h2 class="emptyBatchClass" >This External Trainer does not have any Current Batches.</h2>
                                         </div>
-                                    </aura:set>
-                                    
+                                    </aura:set>  
                                 </aura:if> 
                             </lightning:card>
                         </div>
@@ -157,6 +156,6 @@
                     <div class="emptyBatchBackground" id="bottom"/>
                 </aura:set>
             </aura:if>
-        </aura:set>           
+        </aura:set>  
     </aura:if>
 </aura:component>

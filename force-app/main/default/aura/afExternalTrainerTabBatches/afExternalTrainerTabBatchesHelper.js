@@ -168,6 +168,5 @@
             $A.util.toggleClass(acc[cmp], 'slds-show');  
             $A.util.toggleClass(acc[cmp], 'slds-hide');  
        }
-    }, 
-    
+    },   
 })

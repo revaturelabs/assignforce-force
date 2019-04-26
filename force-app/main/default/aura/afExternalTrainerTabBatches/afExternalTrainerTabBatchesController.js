@@ -8,7 +8,6 @@
            { label: 'End Date', fieldName: 'endDate', type: 'date'  },
            { label: 'Status', fieldName: 'status', type: 'text', typeAttribute: {type: 'helpers.randomize', values: ['Planned', 'Confirmed', 'In Progress', 'Completed', 'Cancelled']}},
            { label: 'Track', fieldName: 'track', type: 'text', },
-
        ]);
        
            helper.getData(component, event);
