@@ -1,26 +1,24 @@
 ({
     TrainersPTO : function (component, event, helper){
-        var actions = [
-            { label: 'Approve', name: 'Approve'},
-            { label: 'Reject', name: 'Reject'}
-        ]
         component.set('v.empPTORecordset', [
-            
+ 
             { label: 'Start Date', fieldName: 'startDate', type: 'date', sortable: 'true', initialWidth: '30px' },
             { label: 'End Date', fieldName: 'endDate', type: 'date', sortable: 'true' },
             { label: 'Status', fieldName: 'status', type: 'text', sortable: 'true'  },
             { label: 'Reason', fieldName: 'reason', type: 'text', sortable: 'true'},
-            { type: 'action', typeAttributes: { rowActions: actions}}
-            
+            // Changed: (type: 'action') to (type: 'button')
+            { type: 'button', typeAttributes: {label: 'Approve', name: 'Approve' }},
+            { type: 'button', typeAttributes: {label: 'Reject', name: 'Reject' }}
+ 
         ]);
         
         component.set('v.empPTORecordsetApproval', [
-            
+ 
             { label: 'Start Date', fieldName: 'startDate', type: 'date', sortable: 'true', initialWidth: '30px' },
             { label: 'End Date', fieldName: 'endDate', type: 'date', sortable: 'true' },
             { label: 'Status', fieldName: 'status', type: 'text', sortable: 'true'  },
             { label: 'Reason', fieldName: 'reason', type: 'text', sortable: 'true'},
-            
+ 
         ]);
             
         helper.getData(component, event);
