@@ -25,15 +25,9 @@
                 
                 <!-- First collapsible section - sectionOne  -->
                 <lightning:card title="Current Batches">
-                    
-                    <!-- Collapsible buttons -->
-                    <aura:set attribute="actions" >  
-                        <div style="cursor: pointer;" onclick="{!c.sectionOne}">
-                            <lightning:icon class="slds-hide" aura:id="hasActiveBatches" iconName="utility:add" 
-                                            size="x-small" alternativeText="Expand" variant="inverse"/>
-                            <lightning:icon class="slds-show" aura:id="hasActiveBatches" iconName="utility:dash" 
-                                            size="x-small" alternativeText="Collapse" variant="inverse"/>
-                        </div>
+                    <aura:set attribute="title">
+                        <a onclick="{!c.sectionOne}" class="slds-hide slds-text-link_reset" style="cursor:pointer" aura:id="hasActiveBatches">Current Batches</a>
+                        <a onclick="{!c.sectionOne}" class="slds-show slds-text-link_reset" style="cursor:pointer " aura:id="hasActiveBatches">Current Batches</a>
                     </aura:set>
                         
                     <!-- This div is to identify what is going to be displayed and hid -->
@@ -66,37 +60,31 @@
                 
                 <!-- Second Collapsible section - sectionTwo -->
                 <lightning:card title="Upcoming Batches">
-                    
-                    <!-- Collapsible buttons -->
-                    <aura:set attribute="actions">
-                        <div onclick="{!c.sectionTwo}" style="cursor: pointer;">
-                            <lightning:icon class="slds-hide" aura:id="hasUpcomingBatches" iconName="utility:add" 
-                                            size="x-small" alternativeText="Expand" variant="inverse"/>
-                            <lightning:icon class="slds-show" aura:id="hasUpcomingBatches" iconName="utility:dash" 
-                                            size="x-small" alternativeText="Collapse" variant="inverse"/>
-                        </div>   
+                    <aura:set attribute="title">
+                        <a onclick="{!c.sectionTwo}" class="slds-hide slds-text-link_reset" style="cursor:pointer" aura:id="hasUpcomingBatches">Upcoming Batches</a>
+                        <a onclick="{!c.sectionTwo}" class="slds-show slds-text-link_reset" style="cursor:pointer " aura:id="hasUpcomingBatches">Upcoming Batches</a>
                     </aura:set>
 
-                        <!-- This div is to identify what is going to be displayed and hid -->
-                        <div aura:id="hasUpcomingBatches" class="slds-show" >
+                    <!-- This div is to identify what is going to be displayed and hid -->
+                    <div aura:id="hasUpcomingBatches" class="slds-show" >
 
-                            <!-- If there are table entries display the table, else display a sorry message -->
-                            <aura:if isTrue="{!v.hasUpcomingBatch}" >
-                                <lightning:dataTable
-                                                        data="{!v.empFutureBatchDataset}"
-                                                        columns="{!v.empBatchesRecordset}"
-                                                        keyField="id"
-                                                        aura:id="empDataTables"
-                                                        hideCheckboxColumn="true"
-                                                        description="data table to reflect batches associated with a specific trainer"
-                                                        />
-                                <aura:set attribute="else">
-                                    <div class="slds-size_1-of-1">
-                                        <h2 class="emptyBatchClass" >This Trainer does not have any Upcoming Batches.</h2>
-                                    </div>
-                                </aura:set>
-                            </aura:if>
-                        </div>
+                        <!-- If there are table entries display the table, else display a sorry message -->
+                        <aura:if isTrue="{!v.hasUpcomingBatch}" >
+                            <lightning:dataTable
+                                                    data="{!v.empFutureBatchDataset}"
+                                                    columns="{!v.empBatchesRecordset}"
+                                                    keyField="id"
+                                                    aura:id="empDataTables"
+                                                    hideCheckboxColumn="true"
+                                                    description="data table to reflect batches associated with a specific trainer"
+                                                    />
+                            <aura:set attribute="else">
+                                <div class="slds-size_1-of-1">
+                                    <h2 class="emptyBatchClass" >This Trainer does not have any Upcoming Batches.</h2>
+                                </div>
+                            </aura:set>
+                        </aura:if>
+                    </div>
                 </lightning:card>
             </div>
         </div>
