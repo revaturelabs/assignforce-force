@@ -20,19 +20,6 @@
     selectedRoom : function(component, event, helper){
         var getRoom = component.get("v.room");
         var roomSelected = $A.get("e.c:roomSelected");
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-        var room = component.get("v.room");
-        var loc = room.TrainingLocation__c;
-        roomSelected.setParams({
-            'location' : loc,
-            'room': room
-        });
-        roomSelected.fire();
-=======
-
->>>>>>> 022519Salesforce
         	var room = component.get("v.room");
         	var loc = room.TrainingLocation__c;
         	roomSelected.setParams({
@@ -50,9 +37,5 @@
             toastEvent.fire();
         	roomSelected.fire();	
         }         
-<<<<<<< HEAD
-=======
->>>>>>> 8b10caca2125ba88703715bdc9bcadffb019e981
->>>>>>> 022519Salesforce
     }
 })
