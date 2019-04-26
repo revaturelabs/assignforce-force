@@ -20,40 +20,167 @@
     },
     
     onSuccess : function(component, event, helper) {
+        // the batch can be created with empty training track and trainer, evaluate what to fill in using conditions.
         if (!component.get("v.track") || !component.get("v.trainer")) {
-            if (!component.get("v.track") || !Boolean(!component.get("v.trainer"))) {
-                // display toast warning user for not completing the submission
+            if (!component.get("v.track") && !(!component.get("v.trainer"))) {
+                // display toast warning user for not completing the Training Track field
                 var toastEvent = $A.get("e.force:showToast");
                 
                 toastEvent.setParams({
                     duration: '2000',
                     title: "Info",
-                    message: "Train track left empty, they've been set to default Java", 
+                    messageTemplate: 'Training track was left empty, it has been set to default - {0}.',
+                    messageTemplateData: ['Full Stack Java/JEE'],
+                    message: "Training track was left empty, it has been set to default - Full Stack Java/JEE.", 
                     type: "info"
                 });
                 toastEvent.fire();
                 
-                formSubmit();
-            } else if (!component.get("v.trainer") || !Boolean(!component.get("v.track"))) {
-                // display toast warning user for not completing the submission
+                var newBatch = [{
+                    TrainingTrack__c        : "a072E00000W4gsMQAR",
+                    StartDate__c            : component.get("v.startDate"),
+                    EndDate__c              : component.get("v.endDate"),
+                    Trainer__c              : component.get("v.trainer"),
+                    CoTrainer__c            : component.get("v.cotrainer"),
+                    External_Trainer__c     : component.get("v.ExternalTrainer"),
+                    TrainingLocation__c     : component.get("v.location"),
+                    TrainingRoom__c         : component.get("v.room"),
+                    Status__c               : component.get("v.status"),
+                }];
+                
+                // records have been submitted, clear form
+                helper.partialClear(component, event);  
+                
+                // display toast informing user of successful submission
+                var toastEvent = $A.get("e.force:showToast");
+                
+                toastEvent.setParams({
+                    title : 'Success!',
+                    message: 'The new batch has been created.',
+                    duration: '2000',
+                    type: 'success',
+                });
+                toastEvent.fire();
+                
+                // send new batch to other components
+                var newBatchEvent = $A.get("e.c:afNewBatchCreatedEvent");
+                
+                newBatchEvent.setParams({
+                    "newBatch" : newBatch
+                });
+                
+                //FOR TESTING:
+                //console.log('newBatch JSON ' + JSON.stringify(newBatchEvent.getParam("newBatch")));
+                
+                newBatchEvent.fire();
+            } else if (!component.get("v.trainer") && !(!component.get("v.track"))) {
+                // display toast warning user for not completing the Trainer field
                 var toastEvent = $A.get("e.force:showToast");
                 
                 toastEvent.setParams({
                     duration: '2000',
                     title: "Info",
-                    message: "Trainer left empty, they've been set to default Trainer", 
+                    messageTemplate: 'Trainer was left empty, it has been set to default - {0}.',
+                    messageTemplateData: ['External Trainer'],
+                    message: "Trainer was left empty, it has been set to default - External Trainer", 
                     type: "info"
                 });
                 toastEvent.fire();
                 
-                formSubmit();
-            } else if (!component.get("v.trainer") && !component.get("v.trainer")) {
+                var newBatch = [{
+                    TrainingTrack__c        : component.get("v.track"),
+                    StartDate__c            : component.get("v.startDate"),
+                    EndDate__c              : component.get("v.endDate"),
+                    Trainer__c              : component.get("v.trainer"),
+                    CoTrainer__c            : component.get("v.cotrainer"),
+                    External_Trainer__c     : "a002E00000ZYObBQAX",
+                    TrainingLocation__c     : component.get("v.location"),
+                    TrainingRoom__c         : component.get("v.room"),
+                    Status__c               : component.get("v.status"),
+                }];
                 
+                // records have been submitted, clear form
+                helper.partialClear(component, event);  
+                
+                // display toast informing user of successful submission
+                var toastEvent = $A.get("e.force:showToast");
+                
+                toastEvent.setParams({
+                    title : 'Success!',
+                    message: 'The new batch has been created.',
+                    duration: '2000',
+                    type: 'success',
+                });
+                toastEvent.fire();
+                
+                // send new batch to other components
+                var newBatchEvent = $A.get("e.c:afNewBatchCreatedEvent");
+                
+                newBatchEvent.setParams({
+                    "newBatch" : newBatch
+                });
+                
+                //FOR TESTING:
+                //console.log('newBatch JSON ' + JSON.stringify(newBatchEvent.getParam("newBatch")));
+                
+                newBatchEvent.fire();
+            } else if (!component.get("v.trainer") && !component.get("v.track")) {
+                // display toast warning user for not completing the training track and trainer field
+                var toastEvent = $A.get("e.force:showToast");
+                
+                toastEvent.setParams({
+                    duration: '2000',
+                    title: "Info",
+                    messageTemplate: 'Both Training track and trainer was left empty, it has been set to default - {0} and {1}.',
+                    messageTemplateData: ['Full Stack Java/JEE','External Trainer'],
+                    message: "Both Training track and trainer was left empty, it has been set to default - Full Stack Java/JEE and External Trainer.", 
+                    type: "info"
+                });
+                toastEvent.fire();
+                
+                var newBatch = [{
+                    TrainingTrack__c        : "a072E00000W4gsMQAR",
+                    StartDate__c            : component.get("v.startDate"),
+                    EndDate__c              : component.get("v.endDate"),
+                    Trainer__c              : component.get("v.trainer"),
+                    CoTrainer__c            : component.get("v.cotrainer"),
+                    External_Trainer__c     : "a002E00000ZYObBQAX",
+                    TrainingLocation__c     : component.get("v.location"),
+                    TrainingRoom__c         : component.get("v.room"),
+                    Status__c               : component.get("v.status"),
+                }];
+                
+                // records have been submitted, clear form
+                helper.partialClear(component, event);  
+                
+                // display toast informing user of successful submission
+                var toastEvent = $A.get("e.force:showToast");
+                
+                toastEvent.setParams({
+                    title : 'Success!',
+                    message: 'The new batch has been created.',
+                    duration: '2000',
+                    type: 'success',
+                });
+                toastEvent.fire();
+                
+                // send new batch to other components
+                var newBatchEvent = $A.get("e.c:afNewBatchCreatedEvent");
+                
+                newBatchEvent.setParams({
+                    "newBatch" : newBatch
+                });
+                
+                //FOR TESTING:
+                //console.log('newBatch JSON ' + JSON.stringify(newBatchEvent.getParam("newBatch")));
+                
+                newBatchEvent.fire();
             }
         }
     },
     
     formSubmit : function (component, event, helper) {
+        alert("This is the start of the form Messages");
         var newBatch = [{
             TrainingTrack__c        : component.get("v.track"),
             StartDate__c            : component.get("v.startDate"),

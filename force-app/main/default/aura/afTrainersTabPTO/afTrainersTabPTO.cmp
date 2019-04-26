@@ -3,14 +3,18 @@
    <!--Loads static resource for lightning component-->
    <ltng:require styles="{!$Resource.FuturaStdHeavy + '/assets/styles/lightning-design-system-ltng.css'}"/>
 
-   <!--ATTRIBUTES-->
-   <aura:attribute name="empPTORecordset"             type="List"                     description="List of records for the lightning:dataTable columns" />
-   <aura:attribute name="keyField"                 type="String"     default="id"     description="Primary key for list of records" />
-   <aura:attribute name="empCurrentPTODataset"     type="Object[]"                 description="Data for lightning dataTable that involves current PTO"/>
-   <aura:attribute name="empFuturePTODataset"         type="Object[]"                 description ="Data for lightning dataTable that involves upcoming PTO "/>
-   <aura:attribute name="userId"                     type="Id"                         description="Used to store a value for the current users id"/>
-   <aura:attribute name="hasPTO"                     type="Boolean"     default="false" description="A boolean used to represent whether a trainer has any batches scheduled" />
+    <!--ATTRIBUTES-->
+    <aura:attribute name="empPTORecordset"             type="List"                     description="List of records for the lightning:dataTable columns" />
+    <aura:attribute name="empPTORecordsetApproval"             type="List"                     description="List of records for the lightning:dataTable columns" />
+    <aura:attribute name="keyField"                 type="String"     default="id"     description="Primary key for list of records" />
+    <aura:attribute name="empCurrentPTODataset"     type="Object[]"                 description="Data for lightning dataTable that involves current PTO"/>
+    <aura:attribute name="empFuturePTODataset"         type="Object[]"                 description ="Data for lightning dataTable that involves upcoming PTO "/>
+    <aura:attribute name="userId"                     type="Id"                         description="Used to store a value for the current users id"/>
+    <aura:attribute name="hasPTO"                     type="Boolean"     default="false" description="A boolean used to represent whether a trainer has any batches scheduled" />
     <aura:attribute name="selectedPTO"                 type="Boolean"     default="false" description="This the boolean to toggle if a trainer has been selected."/>
+    <aura:attribute name="selectedPTOList" type="List" description="This is a list of ids from the selected rows in the PTO Pending Approval tab" />
+    <aura:attribute name="hasApprovedPTO"                     type="Boolean"     default="true" description="A boolean used to represent whether a trainer has any batches scheduled" />
+    <aura:attribute name="hasUpcomingPTO"                     type="Boolean"     default="true" description="A boolean used to represent whether a trainer has any batches scheduled" />
 
    <!--HANDLERS-->
    <aura:handler event="c:TrainerSelected" action="{!c.TrainersPTO}"/>
@@ -19,30 +23,53 @@
    <!-- aura:if is used determine whether both tables should render or a text based message-->
    <aura:if isTrue="{!v.hasPTO}" >
        <div class="slds-grid slds-wrapper" >
-           <lightning:card title="Current PTO">
-               <lightning:dataTable
+           <div class="slds-size_1-of-1">
+                <lightning:card>
+                    <aura:set attribute="title">
+                        <a onclick="{!c.sectionOne}" class="slds-hide slds-text-link_reset" style="cursor:pointer" aura:id="hasActiveBatches">Approved PTO</a>
+                        <a onclick="{!c.sectionOne}" class="slds-show slds-text-link_reset" style="cursor:pointer " aura:id="hasActiveBatches">Approved PTO</a>
+                    </aura:set>
+
+                    <div aura:id="hasActiveBatches" class="slds-show" >
+                        <aura:if isTrue="{!v.hasApprovedPTO}">
+                            <span>
+                                <lightning:dataTable
                                     data="{!v.empCurrentPTODataset}"
-                                    columns="{!v.empPTORecordset}"
+                                    columns="{!v.empPTORecordsetApproval}"
                                     keyField="id"
                                     aura:id="empDataTable"
                                     description="data table to reflect batches associated with a specific trainer"
                                     />
-           </lightning:card>
+                            </span>
+                            <aura:set attribute="else">
+                                <div class="slds-size_1-of-1">
+                                    <h2 class="emptyBatchClass" >This Trainer does not have any Approved PTO.</h2>
+                                </div>
+                            </aura:set>
+                        </aura:if>
+                    </div>
+                </lightning:card>
+           </div>
        </div>
 
        <div class="slds-grid slds-wrapper">
+           <div class="slds-size_1-of-1">
+                <lightning:card>
+                    <aura:set attribute="title">
+                        <a onclick="{!c.sectionTwo}" class="slds-hide slds-text-link_reset" style="cursor:pointer" aura:id="hasUpcomingBatches">PTO Pending Approval</a>
+                        <a onclick="{!c.sectionTwo}" class="slds-show slds-text-link_reset" style="cursor:pointer " aura:id="hasUpcomingBatches">PTO Pending Approval</a>
+                    </aura:set>
 
-           
-           <lightning:card title="PTO Pending Approval">
-               <!-- Mass approve/reject buttons -->
-               
-               <aura:set attribute="actions">
-                   <lightning:helptext content="Mass Approve all selected PTO records" />
-                   <lightning:button class="headerBtn" variant="bare" onclick="{! c.handleApproveAll }" iconName="utility:check" />
-                   <lightning:helptext content="Mass Reject all selected PTO records" />
-                   <lightning:button class="headerBtn" variant="bare" onclick="{! c.handleRejectAll  }" iconName="utility:close" /> 
-               </aura:set>
-               <lightning:dataTable
+                    <!-- Mass approve/reject buttons -->
+                    <aura:set attribute="actions">
+                        <lightning:button class="headerBtn" variant="bare" onclick="{! c.handleApproveAll }" iconName="utility:check" title="Mass Approve all selected PTO records"/>
+                        <lightning:button class="headerBtn" variant="bare" onclick="{! c.handleRejectAll  }" iconName="utility:close" title="Mass Reject all selected PTO records"/> 
+                    </aura:set>
+
+                    <div aura:id="hasUpcomingBatches" class="slds-show" >
+                        <aura:if isTrue="{!v.hasUpcomingPTO}">
+                            <span>
+                                <lightning:dataTable
                                     data="{!v.empFuturePTODataset}"
                                     columns="{!v.empPTORecordset}"
                                     keyField="id"
@@ -50,7 +77,16 @@
                                     onrowaction="{! c.handleRowAction }"
                                     description="data table to reflect batches associated with a specific trainer"
                                     />
-           </lightning:card>
+                            </span>
+                            <aura:set attribute="else">
+                                <div class="slds-size_1-of-1">
+                                    <h2 class="emptyBatchClass" >This Trainer does not have any Upcoming PTO.</h2>
+                                </div>
+                            </aura:set>
+                        </aura:if>
+                    </div>
+                </lightning:card>
+           </div>
        </div>
        <aura:set attribute="else">
            <aura:if isTrue="{!v.selectedPTO}">
