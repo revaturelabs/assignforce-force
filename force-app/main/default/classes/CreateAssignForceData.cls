@@ -151,9 +151,6 @@ public class CreateAssignForceData {
         }
         update users;
     } 
-    
-}
-
 
     public static void createTrainers() {
         List<String> lastNames = new List<String> {'Alagna', 'Bonds', 'Colson', 'Donnelly', 'Goshorn', 'Greer', 'Higgens', 'Hill', 'Jurczak',
