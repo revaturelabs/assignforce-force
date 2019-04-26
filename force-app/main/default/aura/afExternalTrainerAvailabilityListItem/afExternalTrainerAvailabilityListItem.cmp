@@ -10,15 +10,15 @@
     <aura:registerEvent name="externalTrainerSelected" type="c:ExternalTrainerSelected" />
      
     <div class="slds-grid" style="padding-top: 10px;">
-            <div class="slds-col slds-size_1-of-5">
+            <div class="slds-col slds-size_1-of-6">
                 <div class="slds-align_absolute-center">
                     <lightning:button class="btnSelect" label="Select" onclick="{!c.selectIsClicked}"/>
                 </div>
             </div>
-            <div class="slds-col slds-size_1-of-5 slds-align_absolute-center">
+            <div class="slds-col slds-size_1-of-6 slds-align_absolute-center">
                 <lightning:formattedName firstName="{!v.externalTrainerWrapper.trainerFirstName}" lastName="{!v.externalTrainerWrapper.trainerLastName}" />
             </div>
-            <div class="slds-col slds-size_1-of-5 slds-align_absolute-center">
+            <div class="slds-col slds-size_1-of-6 slds-align_absolute-center">
                 <!-- Nested if-else statment to display the proper icon for the room's availability -->
                 <aura:if isTrue="{!v.externalTrainerWrapper.available}">
                     <lightning:icon iconName="utility:check" alternativeText="Available" size="small"/>
@@ -28,10 +28,10 @@
                 </aura:if>  
                 
             </div>
-        	<div class="slds-col slds-size_1-of-5 slds-align_absolute-center">
+        	<div class="slds-col slds-size_2-of-6 slds-align_absolute-center">
                 {!v.externalTrainerWrapper.trainer.Preferred_Location__c}
             </div>
-            <div class="slds-col slds-size_1-of-5 slds-align_absolute-center">
+            <div class="slds-col slds-size_1-of-6 slds-align_absolute-center">
                 <aura:if isTrue="{!v.externalTrainerWrapper.hasSkill}">
                     <lightning:icon iconName="utility:check" alternativeText="Experienced" size="small"/>
                     <aura:set attribute="else">
