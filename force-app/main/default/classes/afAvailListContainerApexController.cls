@@ -56,7 +56,6 @@ public class afAvailListContainerApexController {
 
     @AuraEnabled
     public static List<Training_Room__c> sortRoomsBySelectedCategories(List<Training_Room__c> allRooms, 
-<<<<<<< HEAD
 																Date startOfBatch, Date endOfBatch, String selectedLocation,Integer capacity){
 	// Trying to set availibility through Controller, giving errors	
 	/*/List to set Availibilty 
@@ -117,29 +116,7 @@ public class afAvailListContainerApexController {
                                                                     
                                                                     
 	}
-	
-	/*------------------------------------------
-				  Subsort methods
-=======
-                                                                Date startOfBatch, Date endOfBatch, String selectedLocation){
-        //TO-DO Add Filtering for availability
-        //TO-DO Add Filtering for room size based on training target size - new parameter passed in
-        List<Training_Room__c> sortedRooms = new List<Training_Room__c>();
-        List<Training_Room__c> roomsAtLocation = new List<Training_Room__c>();
 
-        if(selectedLocation != null && selectedLocation != ''){
-            for(Training_Room__c roomAtLoc : allRooms){
-                if(selectedLocation == roomAtLoc.TrainingLocationName__c){
-                    roomsAtLocation.add(roomAtLoc);
-                }
-            }
-
-            return roomsAtLocation;
-        } else {
-            return allRooms;
-        }
-    }
-    
     @AuraEnabled
     public static String sortExternalTrainersBySelectedCategories( Date startOfBatch, 
                                                                    Date endOfBatch,
@@ -202,7 +179,6 @@ public class afAvailListContainerApexController {
     
     /*------------------------------------------
                   Subsort methods
->>>>>>> 022519Salesforce
     ------------------------------------------*/
     
     

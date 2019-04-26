@@ -12,11 +12,13 @@
     
     <aura:attribute name="capacity"              
                    type="Double" 
-                   description="Selected training capacity for the batch"/>
+                   description="Selected training capacity for the batch"
+                    default="0"/>
     
    <aura:attribute name="startDate"            
                    type="Date" 
-                   description="Start date of the batch"/>
+                   description="Start date of the batch"
+                   default="null"/>
     
    <aura:attribute name="numWeeks"             
                    type="Integer"                 
@@ -25,7 +27,8 @@
     
    <aura:attribute name="endDate"              
                    type="Date" 
-                   description="End date of the batch"/>
+                   description="End date of the batch"
+                   default="null"/>
     
    <aura:attribute name="trainer"              
                    type="User" 

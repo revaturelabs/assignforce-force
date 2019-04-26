@@ -34,7 +34,7 @@ public class afNewBatchFormApexControllerTest {
         List<Training_Room__c> allRooms = [SELECT id, TrainingLocationName__c FROM Training_Room__c];
 
         //Use the controllers method to filter for only rooms at the test location
-        List<Training_Room__c> results = afNewBatchFormApexController.filterRoomByLocation(testLocation.OfficeName__c, allRooms);
+        List<Training_Room__c> results = afNewBatchFormApexController.filterRoomByLocation(testLocation.OfficeName__c, 100, allRooms);
 
         //Check the number of rooms returned by the controller method. There are 200 rooms that should meet the criteria
         //      but we must assert that the size is 201 because the controller adds an additional empty Room sObject to the
@@ -42,7 +42,7 @@ public class afNewBatchFormApexControllerTest {
         System.assertEquals(results.size(), 201);
 
         //Use the controllers method again to filter for only rooms at the other location
-        results = afNewBatchFormApexController.filterRoomByLocation(otherLocation.OfficeName__c, allRooms);
+        results = afNewBatchFormApexController.filterRoomByLocation(otherLocation.OfficeName__c, 5,allRooms);
 
         //There are 200 rooms at the other location, and the method adds an empty Room sObject to the list. So again, the
         //      size of the results list should be 201.
@@ -50,7 +50,7 @@ public class afNewBatchFormApexControllerTest {
 
         //Use the controller one more time for the negative test case. This time we are filtering by a location
         //      that does not exist.
-        results = afNewBatchFormApexController.filterRoomByLocation('Invalid Location', allRooms);
+        results = afNewBatchFormApexController.filterRoomByLocation('Invalid Location', 100, allRooms);
 
         //Even though the location does not exist, the empty room sObject still gets added to the filter results.
         System.assertEquals(results.size(), 1);

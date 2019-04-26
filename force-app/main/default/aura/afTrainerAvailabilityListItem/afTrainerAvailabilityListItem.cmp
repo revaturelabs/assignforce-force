@@ -33,15 +33,10 @@
                     <lightning:button class="btnSelect" label="Select" onclick="{!c.selectIsClicked}"/>
                 </div>
             </div>
-<<<<<<< HEAD
-            <div class="slds-col slds-size_1-of-5 ">
-                <div class="slds-align_absolute-center"> 
-=======
             <div class="slds-col slds-size_1-of-6 slds-align_absolute-center">
->>>>>>> 022519Salesforce
                 <lightning:outputField fieldName="Name" variant="label-hidden"/>
                 </div>
-            </div>
+            
             <div class="slds-col slds-size_1-of-6 slds-align_absolute-center">
                 <!--Change this to a checkbox if the -->
                 <aura:if isTrue="{!v.isAvailable}">

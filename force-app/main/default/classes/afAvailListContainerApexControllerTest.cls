@@ -354,7 +354,7 @@ public class afAvailListContainerApexControllerTest {
         Test.startTest();
 
         //Run method with a selected location
-        results = afAvailListContainerApexController.sortRoomsBySelectedCategories(rooms,startDate,endDate,loc);
+        results = afAvailListContainerApexController.sortRoomsBySelectedCategories(rooms,startDate,endDate,loc,5);
 
         //Check that the location of all rooms returned are at the selected location
         for (Training_Room__c r : results){
@@ -362,7 +362,7 @@ public class afAvailListContainerApexControllerTest {
         }
 
         //Run method with no selected location
-        results = afAvailListContainerApexController.sortRoomsBySelectedCategories(rooms,startDate,endDate,null);
+        results = afAvailListContainerApexController.sortRoomsBySelectedCategories(rooms,startDate,endDate,null,5);
 
         //check that all rooms were returned
         System.assertEquals(results.size(),rooms.size());

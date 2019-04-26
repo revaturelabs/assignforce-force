@@ -405,7 +405,8 @@
             if (component.isValid() && state === "SUCCESS") {
                 //ACTION to take when return is successful
                 component.set('v.roomsForLocation', response.getReturnValue());
-                console.log('afNewBatchForm rooms'+response.getReturnValue()); 
+                console.log('afNewBatchForm rooms'+JSON.stringify(response.getReturnValue()));
+                console.log('v.roomsForLocation: ' + component.get("v.roomsForLocation"));
             } else if (state === "ERROR") {
                 var errors = response.getError();
                 if (errors) {
@@ -418,6 +419,13 @@
             }
         });
         $A.enqueueAction(filterControllerRoom);
+        
+        helper.fireNewBatchFormEvent(component.get('v.track'), 
+                                     component.get('v.startDate'), 
+                                     component.get('v.endDate'), 
+                                     loc,
+                                     component.get('v.capacity')
+                                    );
     },
     
     /*----------------------------------------------------------

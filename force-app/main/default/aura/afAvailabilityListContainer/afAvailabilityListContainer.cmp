@@ -22,19 +22,11 @@
     <aura:attribute name="externalTrainerColumns" 				
                     type="List"/>
     <aura:attribute name="rooms" 					
-<<<<<<< HEAD
                     type="Training_Room__c[]"/>
-    <aura:attribute name="tab1Shown" 				
-                    type="Boolean" 			
-                    default='true' 
-                    description="Controls switching between 'Available Trainers' and 'Available Rooms' tabs"/>
-=======
-                    type="List"/>
     <aura:attribute name="tabShown" 				
                     type="Integer" 			
                     default='0' 
                     description="Controls switching between tabs"/>
->>>>>>> 022519Salesforce
     <aura:attribute name="location" 				
                     type="Id"/>
     <aura:attribute name="numberOfTrainersToBeDisplayed"
