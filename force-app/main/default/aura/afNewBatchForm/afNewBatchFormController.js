@@ -197,6 +197,8 @@
                 newBatchEvent.fire();
             }
         }
+        
+        helper.fullClear(component, event);
     },
     
     formSubmit : function (component, event, helper) {
