@@ -15,7 +15,7 @@
                     <apex:facet name="header">Name</apex:facet>
                     <apex:outputLink value="/{!batch.Id}">{!batch.Name}</apex:outputLink>
                 </apex:column>
-                <apex:column value="{!batch.Status__c}"/>
+                <apex:column value="{!batch.Status__c}" />
                 <apex:column value="{!batch.StartDate__c}"/>
                 <apex:column value="{!batch.EndDate__c}"/>
                 <apex:column value="{!batch.TrainingLocation__r.OfficeName__c}"/>

@@ -80,7 +80,7 @@
             }
         });
         $A.enqueueAction(getTrainers);
-        
+          
         //Get all Trainings from APEX SOQL Query and pass back to component attribute
         var getTrainings = component.get("c.masterOpenTrainings");
         getTrainings.setCallback(this, function(response) {

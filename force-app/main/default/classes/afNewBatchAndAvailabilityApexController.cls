@@ -12,9 +12,9 @@ public class afNewBatchAndAvailabilityApexController {
     @AuraEnabled
     public static List<Training_Room__c> masterRooms (){
 
-        return [SELECT Id, name, TrainingLocation__c, TrainingLocationName__c, AVAvailability__c, RoomCapacity__c
+        return [SELECT Id, name, TrainingLocation__c, TrainingLocationName__c, AVAvailability__c, RoomCapacity__c, Availibility__c
                 FROM Training_Room__c
-                ORDER BY name];
+                ORDER BY Availibility__c, RoomCapacity__c desc, name  ];
 
     }
     
@@ -35,6 +35,14 @@ public class afNewBatchAndAvailabilityApexController {
                 WHERE UserRole.Name = 'Trainer'];
     }
     
+    //Query for all Trainers
+    @AuraEnabled
+    public static List<External_Trainer__c> masterExternalTrainers(){
+
+        return [SELECT Id, Name, Available__c
+                FROM External_Trainer__c ];
+    }
+    
     //Query for all Trainings
     @AuraEnabled
     public static List<Training__c> masterOpenTrainings(){
@@ -45,7 +53,7 @@ public class afNewBatchAndAvailabilityApexController {
                        TrainingTrack__c, TrainingTrack__r.ShortName__c, TrainingTrack__r.Color__c, 
                        TrainingClass__c, TrainingRoom__c, StartDate__c, EndDate__c
                 FROM Training__c
-                WHERE Status__c != 'Completed' OR Status__c != 'Cancelled'];
+                WHERE Status__c != 'Completed' AND Status__c != 'Cancelled'];
     }
 
 }

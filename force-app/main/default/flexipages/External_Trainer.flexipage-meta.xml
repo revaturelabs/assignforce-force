@@ -4,23 +4,19 @@
         <componentInstances>
             <componentName>afExtTrainersTabListView</componentName>
         </componentInstances>
-        <name>region1</name>
+        <name>column1</name>
         <type>Region</type>
     </flexiPageRegions>
     <flexiPageRegions>
         <componentInstances>
             <componentName>afExternalTrainerTabBatches</componentName>
         </componentInstances>
-        <name>region2</name>
-        <type>Region</type>
-    </flexiPageRegions>
-    <flexiPageRegions>
-        <name>region3</name>
+        <name>column2</name>
         <type>Region</type>
     </flexiPageRegions>
     <masterLabel>External Trainer</masterLabel>
     <template>
-        <name>flexipage:appHomeTemplateTwoColumnsStacked</name>
+        <name>flexipage:appHomeTemplateTwoColumns</name>
     </template>
     <type>AppPage</type>
 </FlexiPage>
